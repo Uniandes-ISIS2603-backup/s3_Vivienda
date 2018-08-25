@@ -5,10 +5,23 @@
  */
 package co.edu.uniandes.csw.vivienda.dtos;
 
-/**
- *
- * @author estudiante
- */
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+
+@Path("viviendas")
+@Produces("application/json")
+@Consumes("application/json")
+@RequestScoped
 public class ViviendaDTO {
+ 
+    private String nombre;
+    private String descripcion;
+    private String tipo;
+    private String[] serviciosIncluidos;
+    private float latitud;
+    private float longitud;
     
 }
