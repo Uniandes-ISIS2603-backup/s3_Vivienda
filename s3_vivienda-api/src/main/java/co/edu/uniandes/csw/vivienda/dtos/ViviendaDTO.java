@@ -15,8 +15,8 @@ public class ViviendaDTO implements Serializable{
     private String descripcion;
     private String tipo;
     private String[] serviciosIncluidos;
-    private float latitud;
-    private float longitud;
+    private Float latitud;
+    private Float longitud;
     
     public ViviendaDTO(){
         
@@ -87,19 +87,19 @@ public class ViviendaDTO implements Serializable{
         this.serviciosIncluidos = serviciosIncluidos;
     }
 
-    public float getLatitud() {
+    public Float getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(float latitud) {
+    public void setLatitud(Float latitud) {
         this.latitud = latitud;
     }
 
-    public float getLongitud() {
+    public Float getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(float longitud) {
+    public void setLongitud(Float longitud) {
         this.longitud = longitud;
     }
 
