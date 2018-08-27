@@ -6,6 +6,8 @@
 package co.edu.uniandes.csw.vivienda.dtos;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 /**
  *
  * @author estudiante
@@ -15,11 +17,13 @@ public class EstudianteDTO implements Serializable {
     private String nombre;
     private String login;
     private String password;
+    private UniversidadDTO universidad;
     
     public EstudianteDTO (){}
     
     public EstudianteDTO(EstudianteEntity estudianteEntity){
         if(estudianteEntity!=null){
+            this.id = estudianteEntity.getId();
             this.nombre = estudianteEntity.getNombre();
             this.login = estudianteEntity.getLogin();
             this.password = estudianteEntity.getPassword();
@@ -27,10 +31,12 @@ public class EstudianteDTO implements Serializable {
     }
     public EstudianteEntity toEntity(){
         EstudianteEntity entity = new EstudianteEntity();
-        
+        entity.setId(id);
         entity.setNombre(nombre);
         entity.setLogin(login);
         entity.setPassword(password);
+        if (universidad != null)
+            entity.setUniversidad(universidad.toEntity());
         return entity;
     }
     
@@ -43,6 +49,9 @@ public class EstudianteDTO implements Serializable {
     public String getPassword(){
         return password;
     }
+    public UniversidadDTO getUniversidad(){
+        return universidad;
+    }
     
     public void setNombre(String n){
         this.nombre=n;
@@ -52,5 +61,13 @@ public class EstudianteDTO implements Serializable {
     }
     public void setPassword(String p){
         this.password = p;
+    }
+    public void setUniversidad(UniversidadDTO uni){
+        this.universidad=uni;
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
