@@ -8,10 +8,15 @@ package co.edu.uniandes.csw.vivienda.resources;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.POST;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
-import co.edu.uniandes.csw.vivienda.dtos.EstudianteEntity;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
+import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 
 /**
  *
@@ -23,18 +28,36 @@ import co.edu.uniandes.csw.vivienda.dtos.EstudianteEntity;
 @RequestScoped
 public class EstudianteResource {
     private static final Logger LOGGER = Logger.getLogger(EstudianteResource.class.getName());
-    @Inject
-    EstudinateLogic estudianteLogic;
+    //@Inject
+    //EstudianteLogic estudianteLogic;
     
     @POST
-    public EstudinateDTO createEstudinate(EstudianteDTO estudiante){
+    public EstudianteDTO createEstudinate(EstudianteDTO estudiante){
+        LOGGER.info("");
+        EstudianteEntity newEntity = estudiante.toEntity();
         
-        EstudianteEntity entity = estudiante.toEntity();
+        //EstudianteEntity newEntity = estudianteLogic.createEditorial(entity);
         
-        EstudianteEntity newEntity = estudianteLogic.createEditorial(entity);
-        EstudinateDTO dto = new EstudianteDTO(newEntity)
+        EstudianteDTO dto = new EstudianteDTO(newEntity);
+        LOGGER.info("");
         return dto;
     }
     
+    @GET
+    @Path("{estId:\\d+}")
+    public EstudianteDTO getEstudiante(@PathParam("estId") Long estId) {
+        return null;
+    }
     
+    @GET
+    public EstudianteDTO getEstudiantes() {
+        return null;
+    }
+    
+    @DELETE
+    @Path("{estId:\\d+}")
+    public void deleteEstudiantes(@PathParam("estId") Long estId) {
+        
+    }
+
 }
