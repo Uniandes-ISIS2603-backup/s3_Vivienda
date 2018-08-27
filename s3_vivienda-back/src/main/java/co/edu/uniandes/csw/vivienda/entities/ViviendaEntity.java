@@ -18,8 +18,8 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     private String descripcion;
     private String tipo;
     private String[] serviciosIncluidos;
-    private float latitud;
-    private float longitud;
+    private Float latitud;
+    private Float longitud;
 
     public String getNombre() {
         return nombre;
@@ -61,11 +61,11 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
         this.serviciosIncluidos = serviciosIncluidos;
     }
 
-    public void setLatitud(float latitud) {
+    public void setLatitud(Float latitud) {
         this.latitud = latitud;
     }
 
-    public void setLongitud(float longitud) {
+    public void setLongitud(Float longitud) {
         this.longitud = longitud;
     }
     
