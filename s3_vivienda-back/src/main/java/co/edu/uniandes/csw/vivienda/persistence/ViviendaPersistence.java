@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dtos;
+package co.edu.uniandes.csw.vivienda.persistence;
 
 /**
- *
- * @author estudiante
+ * Clase que maneja la persistencia de la entidad vivienda
+ * @author DANIEL
  */
-public class ViviendaDTO {
+public class ViviendaPersistence {
     
 }
