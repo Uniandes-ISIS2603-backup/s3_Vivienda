@@ -24,6 +24,7 @@ public class ViviendaDTO implements Serializable{
     
     public ViviendaDTO(ViviendaEntity viviendaEntity){
         if(viviendaEntity!=null){
+            this.id = viviendaEntity.getId();
             this.nombre = viviendaEntity.getNombre();
             this.descripcion = viviendaEntity.getDescripcion();
             this.tipo = viviendaEntity.getTipo();
