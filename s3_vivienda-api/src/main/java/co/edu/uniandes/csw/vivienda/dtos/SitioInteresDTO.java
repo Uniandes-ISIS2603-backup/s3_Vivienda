@@ -5,19 +5,34 @@
  */
 package co.edu.uniandes.csw.vivienda.dtos;
 
+import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
+import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  *
  * @author estudiante
  */
-public class SitioInteresDTO {
+public class SitioInteresDTO implements Serializable{
     private long id;
     private String nombre;
     private String descripcion;
-    private float latitud;
-    private float longitud;
+    private Float latitud;
+    private Float longitud;
     
     public SitioInteresDTO()
     {   
+    }
+    
+        public SitioInteresDTO(SitioInteresEntity sitioInteresEntity) {
+        if (sitioInteresEntity != null) {
+            this.id = sitioInteresEntity.getId();
+            this.nombre = sitioInteresEntity.getNombre();
+            this.descripcion = sitioInteresEntity.getDescripcion();
+            this.latitud = sitioInteresEntity.getLatitud();
+            this.longitud = sitioInteresEntity.getLongitud();
+        }
     }
     
         /**
@@ -66,12 +81,12 @@ public class SitioInteresDTO {
         this.descripcion=pDescripcion;
     }
     
-    public float getLatitud()
+    public Float getLatitud()
     {
         return latitud;
     }
     
-    public float getLongitud()
+    public Float getLongitud()
     {
         return longitud;
     }
@@ -85,5 +100,25 @@ public class SitioInteresDTO {
     public void setLongitud(float pLongitud)
     {
         this.longitud=pLongitud;
+    }
+    
+       /**
+     * Convertir DTO a Entity
+     *
+     * @return Un Entity con los valores del DTO
+     */
+    public SitioInteresEntity toEntity() {
+        SitioInteresEntity sitioInteresEntity = new SitioInteresEntity();
+        sitioInteresEntity.setId(this.id);
+        sitioInteresEntity.setNombre(this.nombre);
+        sitioInteresEntity.setDescripcion(this.descripcion);
+        sitioInteresEntity.setLatitud(this.latitud);
+        sitioInteresEntity.setLongitud(this.longitud);
+        return sitioInteresEntity;
+    }
+    
+        @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

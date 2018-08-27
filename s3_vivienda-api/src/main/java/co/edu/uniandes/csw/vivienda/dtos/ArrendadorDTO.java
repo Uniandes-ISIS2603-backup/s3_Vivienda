@@ -5,11 +5,16 @@
  */
 package co.edu.uniandes.csw.vivienda.dtos;
 
+import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
+import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  *
  * @author estudiante
  */
-public class ArrendadorDTO {
+public class ArrendadorDTO implements Serializable{
     private long id;
     private String nombre;
     private String login;
@@ -19,6 +24,14 @@ public class ArrendadorDTO {
     { 
     }
     
+    public ArrendadorDTO(ArrendadorEntity arrendadorEntity) {
+        if (arrendadorEntity != null) {
+            this.id = arrendadorEntity.getId();
+            this.nombre = arrendadorEntity.getNombre();
+            this.login = arrendadorEntity.getLogin();
+            this.password = arrendadorEntity.getPassword();
+        }
+    }
         /**
      * Devuelve el ID del arrendador.
      *
@@ -89,5 +102,19 @@ public class ArrendadorDTO {
      */
     public void setPassword(String pPassword) {
         this.password = pPassword;
+    }
+    
+        public ArrendadorEntity toEntity() {
+        ArrendadorEntity arrendadorEntity = new ArrendadorEntity();
+        arrendadorEntity.setId(this.id);
+        arrendadorEntity.setNombre(this.nombre);
+        arrendadorEntity.setLogin(this.login);
+        arrendadorEntity.setPassword(this.password);
+        return arrendadorEntity;
+    }
+    
+        @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
