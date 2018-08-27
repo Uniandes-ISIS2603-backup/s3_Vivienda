@@ -17,8 +17,7 @@ public class SitioInteresDTO {
     private float longitud;
     
     public SitioInteresDTO()
-    {
-        
+    {   
     }
     
         /**

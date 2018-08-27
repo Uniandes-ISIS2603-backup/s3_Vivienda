@@ -16,8 +16,7 @@ public class ArrendadorDTO {
     private String password;
     
     public ArrendadorDTO()
-    {
-        
+    { 
     }
     
         /**
