@@ -23,7 +23,7 @@ import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
  *
  * @author estudiante
  */
-@Path("estudinates")
+@Path("estudiantes")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
