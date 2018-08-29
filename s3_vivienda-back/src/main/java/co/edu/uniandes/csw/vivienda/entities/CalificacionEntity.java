@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
  * @author estudiante
@@ -15,6 +17,9 @@ import javax.persistence.Entity;
 public class CalificacionEntity extends BaseEntity implements Serializable{
     private Float puntaje;
     private String descripcion;
+    @PodamExclude
+    @ManyToOne
+    private EstudianteEntity estudiante;
     
     public Float getPuntaje(){
         return puntaje;
@@ -22,11 +27,17 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     public String getDescripcion(){
         return descripcion;
     }
+    public EstudianteEntity getEstudinate(){
+        return estudiante;
+    }
     
     public void setPuntaje(Float p){
          this.puntaje = p;
     }
     public void setDescripcion(String d){
         this.descripcion = d;
+    }
+    public void setEstudinate(EstudianteEntity est){
+        this.estudiante = est;
     }
 }

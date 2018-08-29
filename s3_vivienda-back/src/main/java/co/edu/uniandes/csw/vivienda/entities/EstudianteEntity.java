@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
@@ -31,6 +32,10 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     @OneToMany(mappedBy = "estudiante", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Collection<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
     
+    @PodamExclude
+    @OneToOne
+    private ContratoEntity contrato;
+    
     public String getNombre(){
         return nombre;
     }
@@ -40,14 +45,14 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public String getPassword(){
         return password;
     }
-    public UniversidadEntity getuniversidad(){
-        return universidad;
-    }
-    public Collection<CalificacionEntity> getCalificaciones(){
+    public Collection <CalificacionEntity> getCalificaciones(){
         return calificaciones;
     }
     public UniversidadEntity getUniversidad(){
         return universidad;
+    }
+    public ContratoEntity getContrato(){
+        return contrato;
     }
     
     public void setNombre(String n){
@@ -64,5 +69,8 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     }
     public void setUniversidad(UniversidadEntity uni){
         this.universidad=uni;
+    }
+    public void setContrato(ContratoEntity cont){
+        this.contrato=cont;
     }
 }

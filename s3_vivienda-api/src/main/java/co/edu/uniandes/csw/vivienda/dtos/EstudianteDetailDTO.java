@@ -16,6 +16,7 @@ import java.util.Collection;
  * @author estudiante
  */
 public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
+    
     Collection <CalificacionDTO> calificaciones;
     
     public EstudianteDetailDTO(EstudianteEntity entity){
@@ -24,7 +25,7 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
             calificaciones = new ArrayList<>();
             for (CalificacionEntity e: entity.getCalificaciones())
                 calificaciones.add(new CalificacionDTO(e));
-        }   
+        }
     }
     
     @Override

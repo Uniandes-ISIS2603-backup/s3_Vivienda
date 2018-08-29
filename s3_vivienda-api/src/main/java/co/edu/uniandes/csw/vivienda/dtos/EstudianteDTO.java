@@ -18,6 +18,7 @@ public class EstudianteDTO implements Serializable {
     private String login;
     private String password;
     private UniversidadDTO universidad;
+    private ContratoDTO contrato;
     
     public EstudianteDTO (){}
     
@@ -27,6 +28,10 @@ public class EstudianteDTO implements Serializable {
             this.nombre = estudianteEntity.getNombre();
             this.login = estudianteEntity.getLogin();
             this.password = estudianteEntity.getPassword();
+            if (estudianteEntity.getUniversidad() != null)
+                this.universidad = new UniversidadDTO(estudianteEntity.getUniversidad());
+            if (estudianteEntity.getContrato() != null)
+                this.contrato = new ContratoDTO(estudianteEntity.getContrato());
         }
     }
     public EstudianteEntity toEntity(){
@@ -37,6 +42,8 @@ public class EstudianteDTO implements Serializable {
         entity.setPassword(password);
         if (universidad != null)
             entity.setUniversidad(universidad.toEntity());
+        if (contrato != null)
+            entity.setContrato(contrato.toEntity());
         return entity;
     }
     
@@ -52,6 +59,9 @@ public class EstudianteDTO implements Serializable {
     public UniversidadDTO getUniversidad(){
         return universidad;
     }
+    public ContratoDTO getContrato(){
+        return contrato;
+    }
     
     public void setNombre(String n){
         this.nombre=n;
@@ -64,6 +74,9 @@ public class EstudianteDTO implements Serializable {
     }
     public void setUniversidad(UniversidadDTO uni){
         this.universidad=uni;
+    }
+    public void setContrato(ContratoDTO cont){
+        this.contrato=cont;
     }
     
     @Override
