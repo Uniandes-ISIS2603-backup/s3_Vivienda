@@ -40,7 +40,6 @@ public class ViviendaResource {
     @DELETE
     public void deleteVivienda(@PathParam("viviendaId") Long viviendaId){
         LOGGER.log(Level.INFO, "ViviendaResource.deleteVivienda: input:{0}", viviendaId);
-        
     }
     
     @GET
@@ -49,6 +48,31 @@ public class ViviendaResource {
         return null;
     }
   
+    @Path("{viviendaId: \\d+}/cuartos")
+    public Class<ViviendaCuartoResource> getViviendaCuartoResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaCuartoResource.class;
+    }
+    
+     @Path("{viviendaId: \\d+}/arrendador")
+    public Class<ViviendaArrendadorResource> getViviendaArrendadorResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaArrendadorResource.class;
+    }
+    
+     @Path("{viviendaId: \\d+}/calificaciones")
+    public Class<ViviendaCalificacionResource> getViviendaCalificacionResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaCalificacionResource.class;
+    }
+    
+     @Path("{viviendaId: \\d+}/contrato")
+    public Class<ViviendaContratoResource> getViviendaContratoResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaContratoResource.class;
+    }
+    
+     @Path("{viviendaId: \\d+}/sitiosdeinteres")
+    public Class<ViviendaSitioInteresResource> getViviendaSitioInteresResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaSitioInteresResource.class;
+    }
+    
     
             
 }

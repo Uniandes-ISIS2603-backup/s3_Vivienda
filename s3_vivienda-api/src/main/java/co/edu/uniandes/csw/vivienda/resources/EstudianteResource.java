@@ -26,7 +26,7 @@ import java.util.Collection;
  *
  * @author estudiante
  */
-@Path("estudinates")
+@Path("estudiantes")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
