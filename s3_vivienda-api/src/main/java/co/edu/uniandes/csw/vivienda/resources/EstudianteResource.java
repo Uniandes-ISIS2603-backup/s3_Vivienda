@@ -15,14 +15,18 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
+import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
+import co.edu.uniandes.csw.vivienda.dtos.UniversidadDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
+import java.util.Collection;
 
 /**
  *
  * @author estudiante
  */
-@Path("estudinates")
+@Path("estudiantes")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -33,24 +37,27 @@ public class EstudianteResource {
     
     @POST
     public EstudianteDTO createEstudinate(EstudianteDTO estudiante){
+        return estudiante;
+        /**
         LOGGER.info("");
         EstudianteEntity newEntity = estudiante.toEntity();
         
-        //EstudianteEntity newEntity = estudianteLogic.createEditorial(entity);
+        EstudianteEntity newEntity = estudianteLogic.createEditorial(entity);
         
         EstudianteDTO dto = new EstudianteDTO(newEntity);
         LOGGER.info("");
         return dto;
+        */
     }
     
     @GET
     @Path("{estId:\\d+}")
-    public EstudianteDTO getEstudiante(@PathParam("estId") Long estId) {
+    public EstudianteDetailDTO getEstudiante(@PathParam("estId") Long estId) {
         return null;
     }
     
     @GET
-    public EstudianteDTO getEstudiantes() {
+    public Collection <EstudianteDetailDTO> getEstudiantes() {
         return null;
     }
     
@@ -59,5 +66,4 @@ public class EstudianteResource {
     public void deleteEstudiantes(@PathParam("estId") Long estId) {
         
     }
-
 }
