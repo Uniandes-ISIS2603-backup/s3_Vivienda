@@ -5,20 +5,19 @@
  */
 package co.edu.uniandes.csw.vivienda.entities;
 
-<<<<<<< HEAD
+
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
-=======
+
 import javax.persistence.Entity;
->>>>>>> 19d70cd8c42e7ce0d880c6d2f08e782807f92fe9
+
 
 /**
  *
  * @author estudiante
  */
 @Entity
-<<<<<<< HEAD
 @XmlRootElement
 public class UniversidadEntity extends BaseEntity implements Serializable
 {
@@ -49,8 +48,6 @@ public class UniversidadEntity extends BaseEntity implements Serializable
     public void setLongitud(Float longitud) {
         this.longitud = longitud;
     }
-=======
-public class UniversidadEntity {
->>>>>>> 19d70cd8c42e7ce0d880c6d2f08e782807f92fe9
+
     
 }
