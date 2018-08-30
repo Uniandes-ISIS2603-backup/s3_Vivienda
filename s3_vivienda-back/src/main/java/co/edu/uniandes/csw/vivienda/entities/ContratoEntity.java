@@ -14,25 +14,9 @@ import java.util.logging.Logger;
  */
 public class ContratoEntity extends BaseEntity implements Serializable {
 
-    private static final Logger LOGGER = Logger.getLogger(ContratoEntity.class.getName());
-    private Long id;
     private String fechaInicio;
     private String fechaFin;
     private String metodoPago;
-
-    /**
-     * @return the id
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
-     * @param id the id to set
-     */
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     /**
      * @return the fechaInicio

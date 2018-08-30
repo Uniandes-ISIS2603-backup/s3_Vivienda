@@ -6,11 +6,12 @@
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
-
+import javax.persistence.Entity;
 /**
  *
  * @author estudiante
  */
+@Entity
 public class SitioInteresEntity extends BaseEntity implements Serializable{
 
     private String nombre;
