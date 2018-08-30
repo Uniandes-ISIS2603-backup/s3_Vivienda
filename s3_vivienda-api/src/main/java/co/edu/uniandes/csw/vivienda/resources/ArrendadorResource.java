@@ -6,17 +6,21 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDTO;
-import co.edu.uniandes.csw.vivienda.dtos.SitioInteresDTO;
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
-import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -28,10 +32,11 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class ArrendadorResource {
     
-    private static final Logger LOGGER = Logger.getLogger(SitioInteresResource.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ArrendadorResource.class.getName());
     
      @POST
     public ArrendadorDTO createSitioInteres(ArrendadorDTO arrendador) throws BusinessLogicException {
+         System.out.println("holi");
         LOGGER.log(Level.INFO, "EditorialResource createEditorial: input: {0}", arrendador.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ArrendadorEntity arrendadorEntity = arrendador.toEntity();
@@ -40,4 +45,24 @@ public class ArrendadorResource {
         return nuevoArrendador;
     }
     
+    @GET
+    @Path("arrendadores/{arrendadorId:\\d+}")
+    public List<ArrendadorDTO> getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
+    {
+        return null;
+    }
+    
+    @PUT
+    @Path("arrendadores/{arrendadorId:\\d+}")
+    public ArrendadorDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws WebApplicationException
+    {
+        return null;
+    }
+    
+    @DELETE
+    @PathParam("\"arrendadores/{arrendadorId:\\d+}")
+    public void deleteArrendador(@PathParam("arrendadorId")Long arrendadorId)throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO, "ArrendadorResource.deleteArrendador: input:{0}", arrendadorId);
+    }
 }
