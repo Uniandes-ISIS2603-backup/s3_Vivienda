@@ -24,7 +24,7 @@ public class ContratoPersistence {
     
     private static final Logger LOGGER = Logger.getLogger(ContratoPersistence.class.getName());
 
-    @PersistenceContext(unitName = "UniVivienda")
+    @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
 
     /**
