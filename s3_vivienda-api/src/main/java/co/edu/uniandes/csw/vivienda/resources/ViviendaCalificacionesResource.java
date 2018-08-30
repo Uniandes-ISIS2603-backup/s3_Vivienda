@@ -16,32 +16,38 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import java.util.Collection;
+import javax.ws.rs.PUT;
 
-@Path("{viviendaId:\\d+}/calificaciones")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
-public class CalificacionResource{
-    private static final Logger LOGGER = Logger.getLogger(EstudianteResource.class.getName());
+public class ViviendaCalificacionesResource{
+    private static final Logger LOGGER = Logger.getLogger(ViviendaCalificacionesResource.class.getName());
     
     @POST
-    public CalificacionDTO createCalificacion(CalificacionDTO calificacion){
+    public CalificacionDTO createCalificacion(@PathParam("viviendaId") Long viviendaId, CalificacionDTO calificacion){
         return calificacion;
     }
     
     @GET
-    public Collection <CalificacionDTO> getCalificaciones(){
+    public Collection <CalificacionDTO> getCalificaciones(@PathParam("viviendaId") Long viviendaId){
         return null;
     }
     
     @GET
     @Path("{calificacionId:\\d+}")
-    public CalificacionDTO getCalificacion(@PathParam("calificacionId") Long calificacionId){
+    public CalificacionDTO getCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId){
+        return null;
+    }
+    @PUT
+    @Path("{calificacionId:\\d+}")
+    public CalificacionDTO updateCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacionDTO){
         return null;
     }
     
+    @Path("{calificacionId:\\d+}")
     @DELETE
-    public void deleteCalificacion(){
+    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId){
         
     }
 }
