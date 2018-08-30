@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -37,10 +39,10 @@ public class ContratoDTO implements Serializable {
         public ContratoEntity toEntity(){
         ContratoEntity contratoEntity = new ContratoEntity();
         
-        contratoEntity.setId(id);
-        contratoEntity.setFechaInicio(fechaInicio);
-        contratoEntity.setFechaFin(fechaFin);
-        contratoEntity.setMetodoPago(metodoPago);
+        contratoEntity.setId(this.id);
+        contratoEntity.setFechaInicio(this.fechaInicio);
+        contratoEntity.setFechaFin(this.fechaFin);
+        contratoEntity.setMetodoPago(this.metodoPago);
 
         return contratoEntity;
     }
@@ -99,5 +101,10 @@ public class ContratoDTO implements Serializable {
      */
     public void setMetodoPago(String MetodoPago) {
         this.metodoPago = MetodoPago;
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
