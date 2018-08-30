@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.vivienda.entities;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import static javax.persistence.FetchType.LAZY;
 import javax.persistence.Id;
@@ -33,9 +34,7 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     private Float longitud;
 
     
-    @OneToMany(
-        mappedBy="vivienda",
-        fetch=javax.persistence.FetchType.LAZY)
+    @ElementCollection
     private List<String> serviciosIncluidos;
     
     @OneToMany(

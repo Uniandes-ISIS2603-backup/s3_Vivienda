@@ -7,16 +7,27 @@ package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
 import java.util.logging.Logger;
+import javax.persistence.Entity;
+import static javax.persistence.FetchType.LAZY;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
  * @author estudiante
  */
+@javax.persistence.Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
-
+    @Id
+    private Long id;
     private String fechaInicio;
     private String fechaFin;
     private String metodoPago;
+      private ViviendaEntity vivienda;
+
+   
+    private EstudianteEntity estudiante;
 
     /**
      * @return the fechaInicio

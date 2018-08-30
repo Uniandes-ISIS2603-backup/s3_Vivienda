@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,7 +20,11 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
     private String nombre;
     private String login;
     private String password;
-
+    @OneToMany(
+        mappedBy="arrendador",
+        fetch=javax.persistence.FetchType.LAZY)
+    private List<ViviendaEntity> viviendas;
+    
     /**
      * @return the nombre
      */

@@ -21,6 +21,8 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     @ManyToOne
     private EstudianteEntity estudiante;
     
+    private ViviendaEntity vivienda;
+
     public Float getPuntaje(){
         return puntaje;
     }

@@ -14,5 +14,6 @@ import javax.persistence.Entity;
  */
 @Entity
 public class CuartoEntity extends BaseEntity implements Serializable{
-    
+      private ViviendaEntity vivienda;
+
 }

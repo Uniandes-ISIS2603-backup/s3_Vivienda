@@ -30,8 +30,8 @@ public class EstudianteDTO implements Serializable {
             this.password = estudianteEntity.getPassword();
             if (estudianteEntity.getUniversidad() != null)
                 this.universidad = new UniversidadDTO(estudianteEntity.getUniversidad());
-            if (estudianteEntity.getContrato() != null)
-                this.contrato = new ContratoDTO(estudianteEntity.getContrato());
+           // if (estudianteEntity.getContrato() != null)
+            //    this.contrato = new ContratoDTO(estudianteEntity.getContrato());
         }
     }
     public EstudianteEntity toEntity(){
@@ -42,8 +42,8 @@ public class EstudianteDTO implements Serializable {
         entity.setPassword(password);
         if (universidad != null)
             entity.setUniversidad(universidad.toEntity());
-        if (contrato != null)
-            entity.setContrato(contrato.toEntity());
+        //if (contrato != null)
+           // entity.setContrato(contrato.toEntity());
         return entity;
     }
     

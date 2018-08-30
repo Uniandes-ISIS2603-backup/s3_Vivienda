@@ -21,6 +21,8 @@ public class ServicioAdicionalEntity extends BaseEntity implements Serializable{
   private String descripcion;
   private Float costo; 
   
+  private ViviendaEntity vivienda;
+  
   public String getNombre() {
         return nombre;
   }
