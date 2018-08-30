@@ -30,10 +30,12 @@ public class ContratoResource {
     @Inject
     ContratoLogic contratoLogic;
         
+    
     private static final Logger LOGGER = Logger.getLogger(ContratoResource.class.getName());
         
     @POST
-    public ContratoDTO createContrato(ContratoDTO contrato) throws BusinessLogicException{
+    public ContratoDTO createContrato(ContratoDTO contrato) throws BusinessLogicException
+    {
         LOGGER.log(Level.INFO, "ContratoResource.createContrato: input:{0}", contrato.toString());
         
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
