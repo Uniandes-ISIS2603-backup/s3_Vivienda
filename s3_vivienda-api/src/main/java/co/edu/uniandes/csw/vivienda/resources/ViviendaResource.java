@@ -15,6 +15,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -46,6 +47,12 @@ public class ViviendaResource {
     @Path("{viviendaId: \\d+}")
     public ViviendaDTO getVivienda(@PathParam("viviendaId") Long viviendaId)throws WebApplicationException{
         return null;
+    }
+    
+    @PUT
+    @Path("{viviendaId: \\d+}")
+    public ViviendaDTO updateVivienda(@PathParam("viviendaId") Long viviendaId, ViviendaDTO vivienda){
+        return vivienda;
     }
   
     @Path("{viviendaId: \\d+}/cuartos")

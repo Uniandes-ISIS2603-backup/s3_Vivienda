@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import java.io.Serializable;
+import java.util.List;
 
 
 public class ViviendaDTO implements Serializable{
@@ -14,7 +15,7 @@ public class ViviendaDTO implements Serializable{
     private String nombre;
     private String descripcion;
     private String tipo;
-    private String[] serviciosIncluidos;
+    private List<String> serviciosIncluidos;
     private Float latitud;
     private Float longitud;
     
@@ -79,11 +80,11 @@ public class ViviendaDTO implements Serializable{
         this.tipo = tipo;
     }
 
-    public String[] getServiciosIncluidos() {
+    public List<String> getServiciosIncluidos() {
         return serviciosIncluidos;
     }
 
-    public void setServiciosIncluidos(String[] serviciosIncluidos) {
+    public void setServiciosIncluidos(List<String> serviciosIncluidos) {
         this.serviciosIncluidos = serviciosIncluidos;
     }
 
