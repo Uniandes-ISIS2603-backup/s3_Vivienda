@@ -6,13 +6,13 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
-import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
+//import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+//import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
@@ -27,8 +27,8 @@ import javax.ws.rs.Produces;
 @RequestScoped
 public class ContratoResource {
     
-    @Inject
-    ContratoLogic contratoLogic;
+//    @Inject
+//    ContratoLogic contratoLogic;
         
     
     private static final Logger LOGGER = Logger.getLogger(ContratoResource.class.getName());
@@ -41,10 +41,10 @@ public class ContratoResource {
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ContratoEntity contratoEntity = contrato.toEntity();
         // Invoca la lógica para crear la editorial nueva
-        ContratoEntity nuevoContratoEntity = contratoLogic.createContrato(contratoEntity);
+//        ContratoEntity nuevoContratoEntity = contratoLogic.createContrato(contratoEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
-        ContratoDTO nuevoContratoDTO = new ContratoDTO(nuevoContratoEntity);
-        LOGGER.log(Level.INFO, "ContratoResource createContrato: output: {0}", nuevoContratoDTO.toString());
+        ContratoDTO nuevoContratoDTO = new ContratoDTO(null);
+//        LOGGER.log(Level.INFO, "ContratoResource createContrato: output: {0}", nuevoContratoDTO.toString());
         return nuevoContratoDTO;
     }
     

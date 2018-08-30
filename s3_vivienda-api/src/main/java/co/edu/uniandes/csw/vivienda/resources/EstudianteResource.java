@@ -17,10 +17,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
-import co.edu.uniandes.csw.vivienda.dtos.UniversidadDTO;
-import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
-import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
-import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import java.util.Collection;
 
 /**

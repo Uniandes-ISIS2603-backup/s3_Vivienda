@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.SitioInteresDTO;
-import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
+//import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
 import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.List;
@@ -36,8 +36,8 @@ import javax.ws.rs.WebApplicationException;
 public class SitioInteresResource {
     private static final Logger LOGGER = Logger.getLogger(SitioInteresResource.class.getName());
     
-    @Inject 
-    SitioInteresLogic sitioInteresLogic;
+//    @Inject 
+//    SitioInteresLogic sitioInteresLogic;
     
     @POST
     public SitioInteresDTO createSitioInteres(SitioInteresDTO sitioInteres) throws BusinessLogicException {
