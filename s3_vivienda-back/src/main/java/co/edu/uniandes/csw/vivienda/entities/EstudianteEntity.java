@@ -30,7 +30,7 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToMany(mappedBy = "estudiante", cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany
     private Collection<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
     
       

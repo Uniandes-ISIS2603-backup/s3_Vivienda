@@ -20,7 +20,8 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     @PodamExclude
     @ManyToOne
     private EstudianteEntity estudiante;
-    
+    @PodamExclude
+    @ManyToOne
     private ViviendaEntity vivienda;
 
     public Float getPuntaje(){
@@ -32,6 +33,9 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     public EstudianteEntity getEstudinate(){
         return estudiante;
     }
+    public ViviendaEntity getVivienda(){
+        return vivienda;
+    }
     
     public void setPuntaje(Float p){
          this.puntaje = p;
@@ -41,5 +45,8 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     }
     public void setEstudinate(EstudianteEntity est){
         this.estudiante = est;
+    }
+    public void setVivienda(ViviendaEntity viv){
+        this.vivienda = viv;
     }
 }
