@@ -60,7 +60,7 @@ public class ArrendadorResource {
     }
     
     @DELETE
-    @PathParam("\"arrendadores/{arrendadorId:\\d+}")
+    @Path("arrendadores/{arrendadorId:\\d+}")
     public void deleteArrendador(@PathParam("arrendadorId")Long arrendadorId)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "ArrendadorResource.deleteArrendador: input:{0}", arrendadorId);
