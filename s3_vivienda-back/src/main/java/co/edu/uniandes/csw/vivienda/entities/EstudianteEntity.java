@@ -9,8 +9,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.persistence.CascadeType;
+import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
-import static javax.persistence.FetchType.LAZY;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -30,7 +30,11 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToMany
+    @OneToOne(mappedBy="estudiante", orphanRemoval=true)
+    private ContratoEntity contrato;
+    
+    @PodamExclude
+    @OneToMany(mappedBy="estudiante", cascade=ALL, orphanRemoval=true)
     private Collection<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
     
       
@@ -49,6 +53,9 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public UniversidadEntity getUniversidad(){
         return universidad;
     }
+    public ContratoEntity getContrato(){
+        return contrato;
+    }
 
     
     public void setNombre(String n){
@@ -66,7 +73,7 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public void setUniversidad(UniversidadEntity uni){
         this.universidad=uni;
     }
-   // public void setContrato(ContratoEntity cont){
-    //    this.contrato=cont;
-    //}
+    public void setContrato(ContratoEntity cont){
+        this.contrato=cont;
+    }
 }

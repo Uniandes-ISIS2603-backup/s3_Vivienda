@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 public class EstudianteUniversidadResource {
     private static final Logger LOGGER = Logger.getLogger(EstudianteUniversidadResource.class.getName());
     
+    
     @POST
     @Path("{universidadId:\\d+}")
     public UniversidadDTO addUniversidad(@PathParam("estudianteId") Long estudianteId, @PathParam("universidadId") Long universidadId){

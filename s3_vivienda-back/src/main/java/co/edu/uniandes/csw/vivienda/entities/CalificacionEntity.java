@@ -17,9 +17,11 @@ import uk.co.jemos.podam.common.PodamExclude;
 public class CalificacionEntity extends BaseEntity implements Serializable{
     private Float puntaje;
     private String descripcion;
+    
     @PodamExclude
     @ManyToOne
     private EstudianteEntity estudiante;
+    
     @PodamExclude
     @ManyToOne
     private ViviendaEntity vivienda;

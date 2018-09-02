@@ -79,4 +79,9 @@ public class EstudianteResource {
     public Class<EstudianteUniversidadResource> getEstudianteUniversidadResourse(@PathParam("estudianteId") Long estudianteId){
         return EstudianteUniversidadResource.class;
     }
+    
+    @Path("{estudianteId:\\d+}/calificaciones")
+    public Class<EstudianteCalificacionesResource> getEstudianteCalificacionesResourse(@PathParam("estudianteId") Long estudianteId){
+        return EstudianteCalificacionesResource.class;
+    }
 }
