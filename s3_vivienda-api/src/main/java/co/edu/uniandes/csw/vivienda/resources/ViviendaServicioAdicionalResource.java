@@ -13,6 +13,6 @@ import javax.ws.rs.*;
  */
 @Consumes("application/json")
 @Produces("application/json")
-public class ViviendaSerivicioAdicionalResource {
+public class ViviendaServicioAdicionalResource {
     
 }
