@@ -5,9 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.persistence;
 
-import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-import java.util.logging.Level;
+
 import javax.ejb.Stateless;
 
 /**
