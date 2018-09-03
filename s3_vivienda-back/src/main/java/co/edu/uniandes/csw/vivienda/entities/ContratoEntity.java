@@ -19,8 +19,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @javax.persistence.Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
-    @Id
-    private Long id;
+    
     private String fechaInicio;
     private String fechaFin;
     private String metodoPago;
