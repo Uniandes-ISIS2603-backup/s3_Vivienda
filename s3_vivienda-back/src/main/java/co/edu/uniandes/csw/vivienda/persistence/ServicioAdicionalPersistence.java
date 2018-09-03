@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.vivienda.resources;
+package co.edu.uniandes.csw.vivienda.persistence;
 
-import javax.ws.rs.*;
+import javax.ejb.Stateless;
 
-@Consumes("application/json")
-@Produces("application/json")
-public class ViviendaSerivicioAdicionalResource {
-     
+/**
+ *
+ * @author Paula Molina
+ */
+@Stateless
+public class ServicioAdicionalPersistence {
+    
 }

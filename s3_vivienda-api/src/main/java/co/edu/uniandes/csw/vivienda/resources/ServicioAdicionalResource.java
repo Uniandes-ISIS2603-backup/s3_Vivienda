@@ -8,11 +8,13 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDTO;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import java.util.Collection;
+import java.util.List;
 import java.util.logging.*;
 import javax.ws.rs.*;
 
 
-@Path("serviciosAdicionales")
+@Path("\"viviendas/{viviendaId:\\d+}/serviciosAdicionales")
 @Produces("application/json")
 @Consumes("application/json")
 
@@ -27,5 +29,31 @@ public class ServicioAdicionalResource {
         
         ServicioAdicionalDTO nuevoservicioAdicionalDTO = new ServicioAdicionalDTO(servicioAdicionalEntity);
         return nuevoservicioAdicionalDTO;
+    }
+    
+    @GET
+    public Collection <ServicioAdicionalDTO> getServiciosAdicionales(){
+        return null;
+    }
+    
+    @GET
+    @Path("{calificacionId:\\d+}")
+    public ServicioAdicionalDTO getServicioAdicional(@PathParam("servicioAdicionalId")Long servicioAdicionalId) throws WebApplicationException
+    {
+        return null;
+    }
+    
+    @PUT
+    @Path("{sitioInteresId: \\d+}")
+    public ServicioAdicionalDTO updateServicioAdicional(@PathParam("servicioAdicionalId")Long servicioAdicionalId, ServicioAdicionalDTO servicioAdicional)throws WebApplicationException
+    {
+        return null;
+    }
+    
+    @DELETE
+    @Path("{sitioInteresId: \\d+}")
+    public void deleteSitioInteres(@PathParam("sitioInteresId")Long sitioInteresId)throws BusinessLogicException
+    {
+        LOGGER.log(Level.INFO, "SitioInteresResource.deleteSitioInteres: input:{0}", sitioInteresId);
     }
 }
