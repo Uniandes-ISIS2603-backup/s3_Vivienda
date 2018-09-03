@@ -9,12 +9,11 @@ import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDTO;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.Collection;
-import java.util.List;
 import java.util.logging.*;
 import javax.ws.rs.*;
 
 
-@Path("\"viviendas/{viviendaId:\\d+}/serviciosAdicionales")
+@Path("viviendas/{viviendaId:\\d+}/serviciosAdicionales")
 @Produces("application/json")
 @Consumes("application/json")
 

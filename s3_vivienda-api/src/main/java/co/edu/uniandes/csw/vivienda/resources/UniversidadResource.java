@@ -12,7 +12,7 @@ import java.util.logging.*;
 import javax.ws.rs.*;
 
 
-@Path("estudiantes/(estudianteId:")
+@Path("estudiantes/{estudianteId:\\d+}/universidad")
 @Produces("application/json")
 @Consumes("application/json")
 
@@ -49,7 +49,7 @@ public class UniversidadResource {
     
     @GET
     @Path("estudiantes/{estudianteId:\\d+}/{universiadadId: \\d+}")
-    public UniversidadDTO getUniversidad(@PathParam("universidadId")Long sitioInteresId) throws WebApplicationException
+    public UniversidadDTO getUniversidad(@PathParam("universidadId")Long universidadId) throws WebApplicationException
     {
         return null;
     }
