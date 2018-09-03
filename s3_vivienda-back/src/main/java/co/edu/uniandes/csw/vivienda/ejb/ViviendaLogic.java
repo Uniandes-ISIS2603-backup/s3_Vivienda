@@ -9,19 +9,21 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author DANIEL
  */
+@Stateless
 public class ViviendaLogic {
     
     @Inject
     private ViviendaPersistence persistence;
     
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException{
-        persistence.create(viviendaEntity);
+        viviendaEntity = persistence.create(viviendaEntity);
         return(viviendaEntity);
     }
     

@@ -7,14 +7,17 @@ package co.edu.uniandes.csw.vivienda.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import java.util.List;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 /**
  * Clase que maneja la persistencia de la entidad vivienda
  * @author DANIEL
  */
+@Stateless
 public class ViviendaPersistence {
     
     @PersistenceContext(unitName = "UniviviendaPU")
