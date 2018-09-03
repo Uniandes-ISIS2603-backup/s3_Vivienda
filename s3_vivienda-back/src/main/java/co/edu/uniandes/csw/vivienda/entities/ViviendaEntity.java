@@ -12,6 +12,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 /**
@@ -33,31 +34,37 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     @ElementCollection
     private List<String> serviciosIncluidos;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<CuartoEntity> cuartos;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<ContratoEntity> contratos;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<ServicioAdicionalEntity> serviciosAdicionales;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<SitioInteresEntity> sitiosDeInteres;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<CalificacionEntity> calificaciones;
     
+    @PodamExclude
     @ManyToOne()
     private ArrendadorEntity arrendador;
 
