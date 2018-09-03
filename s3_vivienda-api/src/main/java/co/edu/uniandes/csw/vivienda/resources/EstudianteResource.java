@@ -61,12 +61,27 @@ public class EstudianteResource {
     @PUT
     @Path("{estudianteId:\\d+}")
     public EstudianteDetailDTO updateEstudiante(@PathParam("estudianteId") Long estudianteId, EstudianteDTO estudianteDTO) {
-        return null;
+        return new EstudianteDetailDTO(estudianteDTO.toEntity());
     }
     
     @DELETE
     @Path("{estudianteId:\\d+}")
     public void deleteEstudiantes(@PathParam("estudianteId") Long estudianteId) {
         
+    }
+    
+    @Path("{estudianteId:\\d+}/contrato")
+    public Class<EstudianteContratoResourse> getEstudianteContratoResourse(@PathParam("estudianteId") Long estudianteId){
+        return EstudianteContratoResourse.class;
+    }
+    
+    @Path("{estudianteId:\\d+}/universidad")
+    public Class<EstudianteUniversidadResource> getEstudianteUniversidadResourse(@PathParam("estudianteId") Long estudianteId){
+        return EstudianteUniversidadResource.class;
+    }
+    
+    @Path("{estudianteId:\\d+}/calificaciones")
+    public Class<EstudianteCalificacionesResource> getEstudianteCalificacionesResourse(@PathParam("estudianteId") Long estudianteId){
+        return EstudianteCalificacionesResource.class;
     }
 }

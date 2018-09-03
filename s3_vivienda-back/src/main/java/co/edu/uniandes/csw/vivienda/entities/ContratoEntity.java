@@ -24,9 +24,10 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     private String fechaInicio;
     private String fechaFin;
     private String metodoPago;
-      private ViviendaEntity vivienda;
+    private ViviendaEntity vivienda;
 
-   
+    @PodamExclude
+    @OneToOne(optional=false)
     private EstudianteEntity estudiante;
 
     /**

@@ -6,11 +6,15 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -27,6 +31,9 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class ViviendaResource {
     
+    @Inject 
+    private ViviendaLogic logic;
+    
     private static final Logger LOGGER = Logger.getLogger(ViviendaResource.class.getName());
         
     @POST
@@ -34,25 +41,46 @@ public class ViviendaResource {
         LOGGER.log(Level.INFO, "ViviendaResource.createVivienda: input:{0}", vivienda.toString());
         ViviendaEntity viviendaEntity = vivienda.toEntity();
         
-        ViviendaDTO nuevoViviendaDTO = new ViviendaDTO(viviendaEntity);
+        ViviendaEntity newViviendaEntity = logic.createVivienda(viviendaEntity);
+        
+        ViviendaDTO nuevoViviendaDTO = new ViviendaDTO(newViviendaEntity);
         return nuevoViviendaDTO;
     }
     
     @DELETE
+    @Path("{viviendaId: \\d+}")
     public void deleteVivienda(@PathParam("viviendaId") Long viviendaId){
         LOGGER.log(Level.INFO, "ViviendaResource.deleteVivienda: input:{0}", viviendaId);
+        logic.deleteVivienda(viviendaId);
     }
     
     @GET
     @Path("{viviendaId: \\d+}")
     public ViviendaDTO getVivienda(@PathParam("viviendaId") Long viviendaId)throws WebApplicationException{
-        return null;
+        ViviendaEntity vivienda = logic.getVivienda(viviendaId);
+        ViviendaDTO viviendaDTO = new ViviendaDTO(vivienda);
+        return viviendaDTO;
+    }
+    
+    @GET
+    public List<ViviendaDTO> getViviendas(){
+        List<ViviendaEntity> viviendas = logic.getViviendas();
+        ArrayList<ViviendaDTO> respuestas = new ArrayList<ViviendaDTO>();
+        
+        for (ViviendaEntity ent: viviendas){
+            ViviendaDTO viviendaDto = new ViviendaDTO(ent);
+            respuestas.add(viviendaDto);
+        }
+        return respuestas;
     }
     
     @PUT
     @Path("{viviendaId: \\d+}")
     public ViviendaDTO updateVivienda(@PathParam("viviendaId") Long viviendaId, ViviendaDTO vivienda){
-        return vivienda;
+        ViviendaEntity old = vivienda.toEntity();
+        ViviendaEntity newVivienda = logic.updateVivienda(viviendaId, old);
+        ViviendaDTO newDTO = new ViviendaDTO(newVivienda);
+        return newDTO;
     }
   
     @Path("{viviendaId: \\d+}/cuartos")
@@ -60,22 +88,22 @@ public class ViviendaResource {
         return ViviendaCuartoResource.class;
     }
     
-     @Path("{viviendaId: \\d+}/arrendador")
+    @Path("{viviendaId: \\d+}/arrendador")
     public Class<ViviendaArrendadorResource> getViviendaArrendadorResource(@PathParam("viviendaId") Long viviendaId){
         return ViviendaArrendadorResource.class;
     }
     
-     @Path("{viviendaId: \\d+}/calificaciones")
-    public Class<ViviendaCalificacionResource> getViviendaCalificacionResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaCalificacionResource.class;
+    @Path("{viviendaId: \\d+}/calificaciones")
+    public Class<ViviendaCalificacionesResource> getViviendaCalificacionesResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaCalificacionesResource.class;
     }
     
-     @Path("{viviendaId: \\d+}/contrato")
+    @Path("{viviendaId: \\d+}/contrato")
     public Class<ViviendaContratoResource> getViviendaContratoResource(@PathParam("viviendaId") Long viviendaId){
         return ViviendaContratoResource.class;
     }
     
-     @Path("{viviendaId: \\d+}/sitiosdeinteres")
+    @Path("{viviendaId: \\d+}/sitiosdeinteres")
     public Class<ViviendaSitioInteresResource> getViviendaSitioInteresResource(@PathParam("viviendaId") Long viviendaId){
         return ViviendaSitioInteresResource.class;
     }

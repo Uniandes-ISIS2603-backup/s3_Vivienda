@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import static javax.persistence.FetchType.LAZY;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 /**
@@ -24,9 +23,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class ViviendaEntity extends BaseEntity implements Serializable{
     private static final Logger LOGGER = Logger.getLogger(ViviendaEntity.class.getName());
-    
-    @Id
-    private Long id;
+   
     private String nombre;
     private String descripcion;
     private String tipo;
@@ -37,41 +34,39 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     @ElementCollection
     private List<String> serviciosIncluidos;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<CuartoEntity> cuartos;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<ContratoEntity> contratos;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<ServicioAdicionalEntity> serviciosAdicionales;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<SitioInteresEntity> sitiosDeInteres;
     
+    @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<CalificacionEntity> calificaciones;
     
+    @PodamExclude
     @ManyToOne()
     private ArrendadorEntity arrendador;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getNombre() {
         return nombre;
