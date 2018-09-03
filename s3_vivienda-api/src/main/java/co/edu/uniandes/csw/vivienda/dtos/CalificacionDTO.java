@@ -18,6 +18,7 @@ public class CalificacionDTO implements Serializable{
     private Float puntaje;
     private String descripcion;
     private EstudianteDTO estudiante;
+    private ViviendaDTO vivienda;
     
     public CalificacionDTO (){}
 
@@ -26,6 +27,10 @@ public class CalificacionDTO implements Serializable{
            this.id = entity.getId();
            this.puntaje = entity.getPuntaje();
            this.descripcion = entity.getDescripcion();
+           if (entity.getEstudinate() != null)
+               this.estudiante = new EstudianteDTO(entity.getEstudinate());
+           if (entity.getVivienda()!= null)
+               this.vivienda = new ViviendaDTO(entity.getVivienda());
         }
     }
     public CalificacionEntity toEntity(){
@@ -33,6 +38,10 @@ public class CalificacionDTO implements Serializable{
         entity.setId(id);
         entity.setDescripcion(descripcion);
         entity.setPuntaje(puntaje);
+        if (estudiante != null)
+            entity.setEstudinate(estudiante.toEntity());
+        if (vivienda != null)
+            entity.setVivienda(vivienda.toEntity());
         return entity;
     }
     public Float getPuntaje(){

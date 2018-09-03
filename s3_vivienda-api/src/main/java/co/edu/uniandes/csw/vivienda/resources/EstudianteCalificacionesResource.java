@@ -47,7 +47,7 @@ public class EstudianteCalificacionesResource{
     @PUT
     @Path("{calificacionId:\\d+}")
     public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacionDTO){
-        return null;
+        return calificacionDTO;
     }
     
     @Path("{calificacionId:\\d+}")
