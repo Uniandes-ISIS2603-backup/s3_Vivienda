@@ -21,9 +21,6 @@ public class ViviendaLogic {
     private ViviendaPersistence persistence;
     
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException{
-        if(persistence.find(viviendaEntity.getId()) == null){
-            throw new BusinessLogicException("Ya existe una vivienda con el Id dado");
-        }
         persistence.create(viviendaEntity);
         return(viviendaEntity);
     }
