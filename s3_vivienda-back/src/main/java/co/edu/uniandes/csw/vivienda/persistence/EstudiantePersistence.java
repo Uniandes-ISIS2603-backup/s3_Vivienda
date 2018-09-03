@@ -19,8 +19,8 @@ import javax.persistence.TypedQuery;
  * @author Juan Manuel Castillo
  */
 @Stateless
-public class EstudinatePersistence {
-    private final static Logger LOGGER = Logger.getLogger(EstudinatePersistence.class.getName());
+public class EstudiantePersistence {
+    private final static Logger LOGGER = Logger.getLogger(EstudiantePersistence.class.getName());
     
     @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
