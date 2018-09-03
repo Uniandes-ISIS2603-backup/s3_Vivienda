@@ -35,7 +35,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"fechaInicio\":\"2017/12/23\"\n,\n\t\"fechaFin\":\"2018/12/23\"\n, \n\t\"metodoPago\":\"Efectivo\"\n}"
+					"raw": "{\r\n\t\"fechaInicio\":\"2017/12/23\",    \r\n\t\"fechaFin\":\"2018/12/23\", \r\n\t\"metodoPago\":\"Efectivo\"\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/contratos",
@@ -50,7 +50,42 @@
 						"contratos"
 					]
 				},
-				"description": "**Release: **\r\n\r\nCrea un nuevo contrato. El recurso solo tiene un atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta de la aplicación. \r\n\r\nPara la prueba, se crea un entero que sera 01 el cual se concatena con el string \"contract\" y así evitar duplicados.\r\n\r\n**Código http esperado: 200**"
+				"description": "Crea un nuevo contrato. El recurso solo tiene un atributo \"name\" que debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta de la aplicación. \r\n\r\nPara la prueba, se crea un entero que sera 01 el cual se concatena con el string \"contract\" y así evitar duplicados.\r\n\r\n**Código http esperado: 200**"
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener contrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f89c365b-6ede-432c-baba-aee287fae855",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/contratos/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"contratos",
+						"{{new_id_a}}"
+					]
+				}
 			},
 			"response": []
 		}
