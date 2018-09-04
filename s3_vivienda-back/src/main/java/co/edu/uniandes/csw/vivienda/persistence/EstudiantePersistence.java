@@ -43,12 +43,12 @@ public class EstudiantePersistence {
         EstudianteEntity estudianteEntity = em.find(EstudianteEntity.class, estudianteId);
         em.remove(estudianteEntity);
     }
-    public Collection<EstudianteEntity> findByName(String nombre){
+    public Collection<EstudianteEntity> findByNombre(String nombre){
         TypedQuery query = em.createQuery("select u from EstudianteEntity u where u.nombre = :nombre", EstudianteEntity.class);
         query.setParameter("nombre", nombre);
         
         List <EstudianteEntity> resultList = query.getResultList();
-        if (resultList == null || resultList.isEmpty())
+        if (resultList.isEmpty())
             return null;
         return resultList;
     }

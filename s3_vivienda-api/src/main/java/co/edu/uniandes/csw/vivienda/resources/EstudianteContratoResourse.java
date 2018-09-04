@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -26,9 +27,15 @@ import javax.ws.rs.core.MediaType;
 public class EstudianteContratoResourse {
     private static final Logger LOGGER = Logger.getLogger(EstudianteContratoResourse.class.getName());
     
+    @Path("{contratoId:\\d+}")
     @POST
-    public ContratoDTO createContrato(@PathParam("estudianteId") Long estudianteId, ContratoDTO contratoDTO){
-        return contratoDTO;
+    public ContratoDTO addContrato(@PathParam("estudianteId") Long estudianteId, @PathParam("contratoId") Long contratoId){
+        return null;
+    }
+    @Path("{contratoId:\\d+}")
+    @PUT
+    public ContratoDTO replaceContrato(@PathParam("estudianteId") Long estudianteId, @PathParam("contratoId") Long contratoId){
+        return null;
     }
     @GET
     public ContratoDTO getContrato(@PathParam("estudianteId") Long estudianteId){
