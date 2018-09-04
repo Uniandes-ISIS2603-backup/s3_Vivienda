@@ -38,6 +38,7 @@ public class ApplicationConfig extends Application {
         resources.add(co.edu.uniandes.csw.vivienda.resources.ServicioAdicionalResource.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.SitioInteresResource.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.UniversidadResource.class);
+        resources.add(co.edu.uniandes.csw.vivienda.resources.ViviendaCalificacionesResource.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.ViviendaResource.class);
     }
     

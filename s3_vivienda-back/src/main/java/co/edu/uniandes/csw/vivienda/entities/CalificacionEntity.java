@@ -32,7 +32,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     public String getDescripcion(){
         return descripcion;
     }
-    public EstudianteEntity getEstudinate(){
+    public EstudianteEntity getEstudiante(){
         return estudiante;
     }
     public ViviendaEntity getVivienda(){
@@ -45,7 +45,7 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     public void setDescripcion(String d){
         this.descripcion = d;
     }
-    public void setEstudinate(EstudianteEntity est){
+    public void setEstudiante(EstudianteEntity est){
         this.estudiante = est;
     }
     public void setVivienda(ViviendaEntity viv){
