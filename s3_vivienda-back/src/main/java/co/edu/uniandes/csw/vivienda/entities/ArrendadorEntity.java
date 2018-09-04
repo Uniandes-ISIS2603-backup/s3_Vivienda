@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 /**
  *
- * @author estudiante
+ * @author msalcedo
  */
 @Entity
 public class ArrendadorEntity extends BaseEntity implements Serializable{
@@ -65,6 +65,15 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+    
+        /**
+     * Obtiene la colección de viviendas del arrendador.
+     *
+     * @return colección viviendas.
+     */
+    public List<ViviendaEntity> getViviendas() {
+        return viviendas;
     }
     
 }

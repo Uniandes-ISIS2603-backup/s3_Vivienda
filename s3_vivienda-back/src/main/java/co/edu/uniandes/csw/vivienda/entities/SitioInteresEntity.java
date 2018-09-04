@@ -19,7 +19,7 @@ public class SitioInteresEntity extends BaseEntity implements Serializable{
     private Float latitud;
     private Float longitud;
 
-    private ViviendaEntity vivienda;
+    //private ViviendaEntity vivienda;
     /**
      * @return the nombre
      */

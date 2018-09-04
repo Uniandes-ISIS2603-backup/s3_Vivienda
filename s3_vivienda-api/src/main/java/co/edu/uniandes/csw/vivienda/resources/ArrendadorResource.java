@@ -36,7 +36,7 @@ public class ArrendadorResource {
     
      @POST
     public ArrendadorDTO createSitioInteres(ArrendadorDTO arrendador) throws BusinessLogicException {
-         System.out.println("holi");
+         
         LOGGER.log(Level.INFO, "EditorialResource createEditorial: input: {0}", arrendador.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ArrendadorEntity arrendadorEntity = arrendador.toEntity();
@@ -46,21 +46,21 @@ public class ArrendadorResource {
     }
     
     @GET
-    @Path("arrendadores/{arrendadorId:\\d+}")
+    @Path("{arrendadorId:\\d+}")
     public List<ArrendadorDTO> getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
     {
         return null;
     }
     
     @PUT
-    @Path("arrendadores/{arrendadorId:\\d+}")
+    @Path("{arrendadorId:\\d+}")
     public ArrendadorDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws WebApplicationException
     {
         return null;
     }
     
     @DELETE
-    @Path("arrendadores/{arrendadorId:\\d+}")
+    @Path("{arrendadorId:\\d+}")
     public void deleteArrendador(@PathParam("arrendadorId")Long arrendadorId)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "ArrendadorResource.deleteArrendador: input:{0}", arrendadorId);

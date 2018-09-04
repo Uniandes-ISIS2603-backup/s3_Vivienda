@@ -29,7 +29,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author estudiante
  */
-@Path("viviendas/{viviendaId:\\d+}/sitioInteres")
+@Path("sitioInteres")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -50,21 +50,21 @@ public class SitioInteresResource {
     }
     
     @GET
-    @Path("viviendas/{viviendaId:\\d+}/{sitioInteresId: \\d+}")
+    @Path("{sitioInteresId: \\d+}")
     public List<SitioInteresDTO> getSitioInteres(@PathParam("sitioInteresId")Long sitioInteresId) throws WebApplicationException
     {
         return null;
     }
     
     @PUT
-    @Path("viviendas/{viviendaId:\\d+}/{sitioInteresId: \\d+}")
+    @Path("{sitioInteresId: \\d+}")
     public SitioInteresDTO updateSitioInteres(@PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException
     {
         return null;
     }
     
     @DELETE
-    @Path("viviendas/{viviendaId:\\d+}/{sitioInteresId: \\d+}")
+    @Path("{sitioInteresId: \\d+}")
     public void deleteSitioInteres(@PathParam("sitioInteresId")Long sitioInteresId)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "SitioInteresResource.deleteSitioInteres: input:{0}", sitioInteresId);
