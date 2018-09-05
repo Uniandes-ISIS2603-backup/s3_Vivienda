@@ -17,7 +17,9 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
@@ -73,9 +75,34 @@ public class ViviendaPersistenceTest {
     private void insertData(){
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 5; i++) {
-            ViviendaEntity ent = factory.manufacturePojo(ViviendaEntity.class);
-            em.persist(ent);
-            data.add(ent);            
+            ViviendaEntity entity = factory.manufacturePojo(ViviendaEntity.class);
+            em.persist(entity);
+            data.add(entity);
+        }
+    }
+
+    @Test
+    public void createViviendaTest(){
+        PodamFactory factory = new PodamFactoryImpl();
+        ViviendaEntity ent = factory.manufacturePojo(ViviendaEntity.class);
+        ViviendaEntity result = persistence.create(ent);
+        Assert.assertNotNull(result);
+        ViviendaEntity entity = em.find(ViviendaEntity.class, result.getId());
+        Assert.assertEquals(entity.getNombre(), result.getNombre());
+    }
+
+    @Test
+    public void getViviendasTest(){
+        List<ViviendaEntity> listResult = persistence.findAll();
+        Assert.assertEquals(listResult.size(), data.size());
+        for(ViviendaEntity entity : listResult){
+            boolean found = false;
+            for(ViviendaEntity entity2: data){
+                if(entity.getId().equals(entity2.getId())){
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
         }
     }
 }
