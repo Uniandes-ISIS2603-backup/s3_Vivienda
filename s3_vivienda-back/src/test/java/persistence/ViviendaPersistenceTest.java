@@ -105,4 +105,25 @@ public class ViviendaPersistenceTest {
             Assert.assertTrue(found);
         }
     }
+
+    @Test
+    public void getViviendaTest(){
+        for(ViviendaEntity entity: data){
+            ViviendaEntity found = persistence.find(entity.getId());
+            Assert.assertNotNull(found);
+            Assert.assertEquals(found.getId(), entity.getId());
+            Assert.assertEquals(found.getNombre(), entity.getNombre());
+        }
+    }
+
+    @Test
+    public void deleteViviendaTest(){
+        for(ViviendaEntity entity: data){
+            persistence.delete(entity.getId());
+            ViviendaEntity deleted = em.find(ViviendaEntity.class, entity.getId());
+            Assert.assertNull(deleted);
+        }
+        Assert.assertEquals(em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
+                .getResultList().size(), 0);
+    }
 }
