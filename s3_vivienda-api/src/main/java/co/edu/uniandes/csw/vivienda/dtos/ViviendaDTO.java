@@ -11,6 +11,8 @@ import java.util.List;
 
 
 public class ViviendaDTO implements Serializable{
+    private String direccion;
+    private String ciudad;
     private Long id;
     private String nombre;
     private String descripcion;
@@ -20,11 +22,12 @@ public class ViviendaDTO implements Serializable{
     private Float longitud;
     
     public ViviendaDTO(){
-        
     }
     
     public ViviendaDTO(ViviendaEntity viviendaEntity){
         if(viviendaEntity!=null){
+            this.direccion = viviendaEntity.getDireccion();
+            this.ciudad = viviendaEntity.getCiudad();
             this.id = viviendaEntity.getId();
             this.nombre = viviendaEntity.getNombre();
             this.descripcion = viviendaEntity.getDescripcion();
@@ -37,7 +40,8 @@ public class ViviendaDTO implements Serializable{
     
     public ViviendaEntity toEntity(){
         ViviendaEntity viviendaEntity = new ViviendaEntity();
-        
+        viviendaEntity.setDireccion(direccion);
+        viviendaEntity.setCiudad(ciudad);
         viviendaEntity.setId(id);
         viviendaEntity.setNombre(nombre);
         viviendaEntity.setDescripcion(descripcion);
@@ -104,6 +108,19 @@ public class ViviendaDTO implements Serializable{
         this.longitud = longitud;
     }
 
-   
-    
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
 }

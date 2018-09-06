@@ -8,10 +8,8 @@ package co.edu.uniandes.csw.vivienda.entities;
 import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+
 import uk.co.jemos.podam.common.PodamExclude;
 
 
@@ -23,7 +21,9 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ViviendaEntity extends BaseEntity implements Serializable{
     private static final Logger LOGGER = Logger.getLogger(ViviendaEntity.class.getName());
-   
+
+    private String direccion;
+    private String ciudad;
     private String nombre;
     private String descripcion;
     private String tipo;
@@ -163,7 +163,20 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     public void setArrendador(ArrendadorEntity arrendador) {
         this.arrendador = arrendador;
     }
-    
-    
-    
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
 }
