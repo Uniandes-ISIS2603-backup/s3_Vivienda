@@ -38,6 +38,7 @@ public class ViviendaLogic {
     }
     
     public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity){
+        viviendaEntity.setId(id);
         ViviendaEntity newVivienda = persistence.update(viviendaEntity);
         return newVivienda;
     }
