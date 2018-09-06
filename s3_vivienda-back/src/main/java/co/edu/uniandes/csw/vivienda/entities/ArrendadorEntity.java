@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.vivienda.entities;
 
+import uk.co.jemos.podam.common.PodamExclude;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Entity;
@@ -20,6 +22,8 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
     private String nombre;
     private String login;
     private String password;
+
+    @PodamExclude
     @OneToMany(
         mappedBy="arrendador",
         fetch=javax.persistence.FetchType.LAZY)
