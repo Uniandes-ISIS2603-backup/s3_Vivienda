@@ -76,4 +76,8 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
         return viviendas;
     }
     
+    public void setViviendas(List<ViviendaEntity> viviendas) {
+        this.viviendas = viviendas;
+    }
+    
 }
