@@ -7,9 +7,11 @@ package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
- * @author estudiante
+ * @author msalcedo
  */
 @Entity
 public class SitioInteresEntity extends BaseEntity implements Serializable{
@@ -19,6 +21,8 @@ public class SitioInteresEntity extends BaseEntity implements Serializable{
     private Float latitud;
     private Float longitud;
 
+    @PodamExclude
+    @ManyToOne
     private ViviendaEntity vivienda;
     /**
      * @return the nombre
@@ -74,6 +78,20 @@ public class SitioInteresEntity extends BaseEntity implements Serializable{
      */
     public void setLongitud(Float longitud) {
         this.longitud = longitud;
+    }
+
+    /**
+     * @return the vivienda
+     */
+    public ViviendaEntity getVivienda() {
+        return vivienda;
+    }
+
+    /**
+     * @param vivienda the vivienda to set
+     */
+    public void setVivienda(ViviendaEntity vivienda) {
+        this.vivienda = vivienda;
     }
     
 }

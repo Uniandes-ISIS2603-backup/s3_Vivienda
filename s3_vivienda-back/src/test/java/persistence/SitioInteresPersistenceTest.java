@@ -110,7 +110,7 @@ public class SitioInteresPersistenceTest {
 
         Assert.assertNotNull(result);
 
-        ArrendadorEntity entity = em.find(ArrendadorEntity.class, result.getId());
+        SitioInteresEntity entity = em.find(SitioInteresEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
     }

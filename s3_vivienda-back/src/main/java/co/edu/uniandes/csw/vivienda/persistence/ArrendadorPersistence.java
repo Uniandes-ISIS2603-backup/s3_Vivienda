@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
 public class ArrendadorPersistence {
     private static final Logger LOGGER = Logger.getLogger(ArrendadorPersistence.class.getName());
     
-       @PersistenceContext(unitName = "UniviviendaPU")
+    @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
 
     /**
