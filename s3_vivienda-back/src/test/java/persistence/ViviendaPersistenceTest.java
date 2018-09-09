@@ -126,4 +126,18 @@ public class ViviendaPersistenceTest {
         Assert.assertEquals(em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
                 .getResultList().size(), 0);
     }
+
+    @Test
+    public void updateViviendaTest(){
+        for(ViviendaEntity entity: data){
+            Long id = entity.getId();
+            ViviendaEntity entityUpdate = new ViviendaEntity();
+            entityUpdate.setId(id);
+            entityUpdate.setNombre(Long.toString(id));
+            persistence.update(entityUpdate);
+        }
+        for (ViviendaEntity entity: data){
+            Assert.assertEquals(entity.getNombre(), entity.getId());
+        }
+    }
 }
