@@ -54,6 +54,9 @@ public class UniversidadPersistence
         return em.merge(universidadEntity);
     }
     
+    public UniversidadEntity find(Long universidadId){
+        return em.find(UniversidadEntity.class, universidadId);
+    }
     /**
      * Buscar una reseña
      *
