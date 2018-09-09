@@ -5,10 +5,43 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
+import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
+import java.util.List;
+import javax.ejb.Stateless;
+
 /**
  *
- * @author estudiante
+ * @author msalcedo
  */
-public class SitioInteresLogic {
+@Stateless
+public class SitioInteresLogic 
+{
+    //@Inject
+    //private SitioInteresPersitence sitioInteresPersistence
     
+    public SitioInteresEntity getSitioInteres(Long sitioInteresId)
+    {
+        return null;
+    }
+    
+    public SitioInteresEntity createSitioInteres(SitioInteresEntity sitioInteresEntity)
+    {
+        return null;
+    }
+    
+    public SitioInteresEntity updateSitioInteres(Long sitioInteresId, SitioInteresEntity sitioInteresEntity)
+    {
+        return null;
+    }
+    
+    
+    public void deleteSitioInteres(Long sitioInteresId)
+    {
+        
+    }
+    
+    public List<SitioInteresEntity> getSitioInteres()
+    {
+        return null;
+    }
 }

@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.entities;
 
-import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -14,7 +14,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  * @author msalcedo
  */
 @Entity
-public class SitioInteresEntity extends BaseEntity implements Serializable{
+public class SitioInteresEntity extends BaseEntity{
 
     private String nombre;
     private String descripcion;
