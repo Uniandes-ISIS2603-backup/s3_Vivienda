@@ -48,6 +48,10 @@ public class ContratoLogic {
         if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
             throw new BusinessLogicException("El metodoPago es inválido");
         }
+        if(!validateId(contratoEntity.getId()))
+        {
+            throw new BusinessLogicException("El id es inválido");
+        }
         persistence.create(contratoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del contrato");
         return contratoEntity;
@@ -116,7 +120,19 @@ public class ContratoLogic {
      * @param metodoPago a verificar
      * @return true si el metodoPago es valido.
      */
-    private boolean validateMetodoPago(String metodoPago) {
+    private boolean validateMetodoPago(String metodoPago)
+    {
         return !(metodoPago == null || metodoPago.isEmpty());
+    }
+    
+    /**
+     * Verifica que el id no sea invalido.
+     *
+     * @param id a verificar
+     * @return true si el metodoPago es valido.
+     */
+    private boolean validateId(Long id)
+    {
+        return !(id == null || id <0);
     }
 }
