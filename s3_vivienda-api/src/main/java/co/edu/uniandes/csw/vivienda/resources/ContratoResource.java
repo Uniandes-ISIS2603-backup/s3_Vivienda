@@ -169,7 +169,7 @@ public class ContratoResource {
      * Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @Path("{contratoId: \\d+}/serviciosAdicionalesAgregados")
-    public Class<ServicioAdicionalResource> getServicioAdicionalResource(@PathParam("booksId") Long contratoId) {
+    public Class<ServicioAdicionalResource> getServicioAdicionalResource(@PathParam("contratoId") Long contratoId) {
         if (contratoLogic.getContrato(contratoId) == null) {
             throw new WebApplicationException("El recurso /contratos/" + contratoId + "/serviciosAdicionalesAgregados no existe.", 404);
         }

@@ -24,8 +24,8 @@ import javax.ws.rs.core.MediaType;
 
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-public class EstudianteContratoResourse {
-    private static final Logger LOGGER = Logger.getLogger(EstudianteContratoResourse.class.getName());
+public class EstudianteContratoResource {
+    private static final Logger LOGGER = Logger.getLogger(EstudianteContratoResource.class.getName());
     
     @Path("{contratoId:\\d+}")
     @POST
