@@ -41,14 +41,14 @@ public class ViviendaPersistenceTest {
     
     private List<ViviendaEntity> data = new ArrayList<ViviendaEntity>();
     
-    @Deployment
-    public static JavaArchive createDeployement(){
-        return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(ViviendaEntity.class.getPackage())
-                .addPackage(ViviendaPersistence.class.getPackage())
-                .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
-                .addAsManifestResource("META-INF/beans.xml", "beans.xml");
-    }
+        @Deployment
+        public static JavaArchive createDeployement(){
+            return ShrinkWrap.create(JavaArchive.class)
+                    .addPackage(ViviendaEntity.class.getPackage())
+                    .addPackage(ViviendaPersistence.class.getPackage())
+                    .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
+                    .addAsManifestResource("META-INF/beans.xml", "beans.xml");
+        }
     
     @Before
     public void configTest() {
@@ -68,7 +68,7 @@ public class ViviendaPersistenceTest {
         }
     }
     
-    private void clearData() {
+    private void clearData()     {
         em.createQuery("delete from ViviendaEntity").executeUpdate();
     }
     
@@ -129,15 +129,18 @@ public class ViviendaPersistenceTest {
 
     @Test
     public void updateViviendaTest(){
-        for(ViviendaEntity entity: data){
+        List<ViviendaEntity> viviendas = persistence.findAll();
+        for(ViviendaEntity entity: viviendas){
             Long id = entity.getId();
             ViviendaEntity entityUpdate = new ViviendaEntity();
             entityUpdate.setId(id);
             entityUpdate.setNombre(Long.toString(id));
             persistence.update(entityUpdate);
         }
-        for (ViviendaEntity entity: data){
-            Assert.assertEquals(entity.getNombre(), entity.getId());
+
+        List<ViviendaEntity> viviendas2 = persistence.findAll();
+        for (ViviendaEntity entity: viviendas2){
+            Assert.assertEquals(entity.getNombre(), Long.toString(entity.getId()));
         }
     }
 }

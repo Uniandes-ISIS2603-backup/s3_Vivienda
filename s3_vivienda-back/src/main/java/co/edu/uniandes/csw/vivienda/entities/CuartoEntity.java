@@ -5,8 +5,11 @@
  */
 package co.edu.uniandes.csw.vivienda.entities;
 
+import uk.co.jemos.podam.common.PodamExclude;
+
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -14,6 +17,34 @@ import javax.persistence.Entity;
  */
 @Entity
 public class CuartoEntity extends BaseEntity implements Serializable{
-      private ViviendaEntity vivienda;
 
+      @PodamExclude
+      @ManyToOne
+      private ViviendaEntity vivienda;
+      private String nombre;
+      private String descripcion;
+
+      public ViviendaEntity getVivienda() {
+            return vivienda;
+      }
+
+      public void setVivienda(ViviendaEntity vivienda) {
+            this.vivienda = vivienda;
+      }
+
+      public String getNombre() {
+            return nombre;
+      }
+
+      public void setNombre(String nombre) {
+            this.nombre = nombre;
+      }
+
+      public String getDescripcion() {
+            return descripcion;
+      }
+
+      public void setDescripcion(String descripcion) {
+            this.descripcion = descripcion;
+      }
 }

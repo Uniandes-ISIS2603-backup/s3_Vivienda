@@ -5,8 +5,8 @@
  */
 package co.edu.uniandes.csw.vivienda.dtos;
 
-import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
-import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
+import co.edu.uniandes.csw.vivienda.entities.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,10 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
     * Esta lista de tipo ContratoDTO contiene los contratos que estan asociados a una vivienda
      */
     private List<ContratoDTO> contratos;
+    private List<CuartoDTO> cuartos;
+    private List<SitioInteresDTO> sitiosDeInteres;
+    private List<CalificacionDTO> calificaciones;
+    private List<ServicioAdicionalDTO> serviciosOfrecidos;
 
     /**
      * Constructor por defecto
@@ -38,10 +42,39 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
     public ViviendaDetailDTO(ViviendaEntity viviendaEntity) {
         super(viviendaEntity);
         if (viviendaEntity != null) {
+
             if (viviendaEntity.getContratos() != null) {
                 contratos = new ArrayList<>();
-                for (ContratoEntity entityContrato : viviendaEntity.getContratos()) {
+                for (ContratoEntity entityContrato : viviendaEntity.getContratos()){
                     contratos.add(new ContratoDTO(entityContrato));
+                }
+            }
+
+            if (viviendaEntity.getCuartos() != null) {
+                cuartos = new ArrayList<>();
+                for(CuartoEntity entityCuarto : viviendaEntity.getCuartos()){
+                    cuartos.add(new CuartoDTO(entityCuarto));
+                }
+            }
+
+            if (viviendaEntity.getSitiosDeInteres() != null){
+                sitiosDeInteres = new ArrayList<>();
+                for(SitioInteresEntity sitioEntity : viviendaEntity.getSitiosDeInteres()){
+                    sitiosDeInteres.add(new SitioInteresDTO(sitioEntity));
+                }
+            }
+
+            if(viviendaEntity.getCalificaciones() != null ){
+                calificaciones = new ArrayList<>();
+                for(CalificacionEntity calificacionEntity : viviendaEntity.getCalificaciones()){
+                    calificaciones.add(new CalificacionDTO(calificacionEntity));
+                }
+            }
+
+            if(viviendaEntity.getServiciosAdicionales() != null){
+                serviciosOfrecidos = new ArrayList<>();
+                for (ServicioAdicionalEntity servicioEntity : viviendaEntity.getServiciosAdicionales()){
+                    serviciosOfrecidos.add(new ServicioAdicionalDTO(servicioEntity));
                 }
             }
         }
@@ -81,6 +114,38 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
      */
     public void setContratos(List<ContratoDTO> contratos) {
         this.contratos = contratos;
+    }
+
+    public List<CuartoDTO> getCuartos() {
+        return cuartos;
+    }
+
+    public void setCuartos(List<CuartoDTO> cuartos) {
+        this.cuartos = cuartos;
+    }
+
+    public List<SitioInteresDTO> getSitiosDeInteres() {
+        return sitiosDeInteres;
+    }
+
+    public void setSitiosDeInteres(List<SitioInteresDTO> sitiosDeInteres) {
+        this.sitiosDeInteres = sitiosDeInteres;
+    }
+
+    public List<CalificacionDTO> getCalificaciones() {
+        return calificaciones;
+    }
+
+    public void setCalificaciones(List<CalificacionDTO> calificaciones) {
+        this.calificaciones = calificaciones;
+    }
+
+    public List<ServicioAdicionalDTO> getServiciosOfrecidos() {
+        return serviciosOfrecidos;
+    }
+
+    public void setServiciosOfrecidos(List<ServicioAdicionalDTO> serviciosOfrecidos) {
+        this.serviciosOfrecidos = serviciosOfrecidos;
     }
 
     @Override
