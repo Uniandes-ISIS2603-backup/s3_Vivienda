@@ -7,11 +7,15 @@ package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
+import java.util.List;
+import java.util.logging.Level;
 //import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 //import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
-//import javax.inject.Inject;
+import javax.inject.Inject;
 
 /**
  *
@@ -22,39 +26,97 @@ public class ContratoLogic {
     
     private static final Logger LOGGER = Logger.getLogger(ContratoLogic.class.getName());
 
-//    @Inject
-//    private ContratoPersistence persistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
+    @Inject
+    private ContratoPersistence persistence;
+
+    @Inject
+    private ViviendaPersistence viviendaPersistence;
 
     /**
-     * Crea un contrato en la persistencia.
+     * Guardar un nuevo contrato
      *
-     * @param contratoEntity La entidad que representa el contrato a
-     * persistir.
-     * @return La entiddad del contrato luego de persistirlo.
-     * @throws BusinessLogicException Si el contrato a persistir ya existe.
+     * @param contratoEntity La entidad de tipo contrato del nuevo contrato a persistir.
+     * @return La entidad luego de persistirla
+     * @throws BusinessLogicException Si el metodoPago es inválido o ya existe en la
+     * persistencia.
      */
-    public ContratoEntity createContrato(ContratoEntity contratoEntity) throws BusinessLogicException {
-//        LOGGER.log(Level.INFO, "Inicia proceso de creación de la editorial");
-//        // Verifica la regla de negocio que dice que no puede haber dos contratos con el mismo ID
-//        if (persistence.findById(contratoEntity.getId()) != null) {
-//            throw new BusinessLogicException("Ya existe una Contrato con el id \"" + contratoEntity.getId() + "\"");
-//        }
-//        // Invoca la persistencia para crear el contrato
-//        persistence.create(contratoEntity);
-//        LOGGER.log(Level.INFO, "Termina proceso de creación del contrato");
-//        return contratoEntity;
-        return null;
+    public ContratoEntity createBook(ContratoEntity contratoEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del contrato");
+        if (contratoEntity.getVivienda() == null || viviendaPersistence.find(contratoEntity.getVivienda().getId()) == null) {
+            throw new BusinessLogicException("La vivienda es inválida");
+        }
+        if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
+            throw new BusinessLogicException("El metodoPago es inválido");
+        }
+        persistence.create(contratoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de creación del contrato");
+        return contratoEntity;
     }
 
     /**
-     * Borrar un contrato
+     * Devuelve todos los contratos que hay en la base de datos.
      *
-     * @param contratosId: id del contrato a borrar
+     * @return Lista de entidades de tipo contrato.
      */
-    public void deleteEditorial(Long contratosId) {
-//        LOGGER.log(Level.INFO, "Inicia proceso de borrar el contrato con id = {0}", contratosId);
-//        // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
-//        persistence.delete(contratosId);
-//        LOGGER.log(Level.INFO, "Termina proceso de borrar el contrato con id = {0}", contratosId);
+    public List<ContratoEntity> getContratos() {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los contratos");
+        List<ContratoEntity> contratos = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los contratos");
+        return contratos;
+    }
+
+    /**
+     * Busca un contrato por ID
+     *
+     * @param contratoId El id del contrato a buscar
+     * @return El contrato encontrado, null si no lo encuentra.
+     */
+    public ContratoEntity getContrato(Long contratoId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato con id = {0}", contratoId);
+        ContratoEntity contratoEntity = persistence.find(contratoId);
+        if (contratoEntity == null) {
+            LOGGER.log(Level.SEVERE, "El contrato con el id = {0} no existe", contratoId);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato con id = {0}", contratoId);
+        return contratoEntity;
+    }
+
+    /**
+     * Actualizar un contrato por ID
+     *
+     * @param contratoId El ID del contrato a actualizar
+     * @param contratoEntity La entidad del contrato con los cambios deseados
+     * @return La entidad del contrato luego de actualizarla
+     * @throws BusinessLogicException Si el metodoPago de la actualización es inválido
+     */
+    public ContratoEntity updateContrato(Long contratoId, ContratoEntity contratoEntity) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el contrato con id = {0}", contratoId);
+        if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
+            throw new BusinessLogicException("El metodoPago es inválido");
+        }
+        ContratoEntity newEntity = persistence.update(contratoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el libro con id = {0}", contratoEntity.getId());
+        return newEntity;
+    }
+
+    /**
+     * Eliminar un contrato por ID
+     *
+     * @param contratoId El ID del contrato a eliminar
+     */
+    public void deleteContrato(Long contratoId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el contrato con id = {0}", contratoId);
+        persistence.delete(contratoId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el contrato con id = {0}", contratoId);
+    }
+
+    /**
+     * Verifica que el metodoPago no sea invalido.
+     *
+     * @param metodoPago a verificar
+     * @return true si el metodoPago es valido.
+     */
+    private boolean validateMetodoPago(String metodoPago) {
+        return !(metodoPago == null || metodoPago.isEmpty());
     }
 }

@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import java.io.Serializable;
+import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -17,32 +18,57 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class ContratoDTO implements Serializable {
 
     private Long id;
-    private String fechaInicio;
-    private String fechaFin;
+    private Date fechaInicio;
+    private Date fechaFin;
     private String metodoPago;
-    
-    public ContratoDTO()
-    {
-        
+
+    /**
+     * Relación a una vivienda. dado que esta tiene cardinalidad 1.
+     */
+    private ViviendaDTO vivienda;
+
+    /**
+     * Constructor por defecto
+     */
+    public ContratoDTO() {
+
     }
-    
-    public ContratoDTO(ContratoEntity contratoEntity){
-        if(contratoEntity!=null){
+
+    /**
+     * Conviertir Entity a DTO (Crea un nuevo DTO con los valores que recibe en
+     * la entidad que viene de argumento.
+     *
+     * @param contratoEntity: Es la entidad que se va a convertir a DTO
+     */
+    public ContratoDTO(ContratoEntity contratoEntity) {
+        if (contratoEntity != null) {
             this.id = contratoEntity.getId();
             this.fechaInicio = contratoEntity.getFechaInicio();
             this.fechaFin = contratoEntity.getFechaFin();
             this.metodoPago = contratoEntity.getMetodoPago();
-
+            if (contratoEntity.getVivienda() != null) {
+                this.vivienda = new ViviendaDTO(contratoEntity.getVivienda());
+            } else {
+                this.vivienda = null;
+            }
         }
     }
-    
-        public ContratoEntity toEntity(){
+
+    /**
+     * Convertir DTO a Entity
+     *
+     * @return Un Entity con los valores del DTO
+     */
+    public ContratoEntity toEntity() {
         ContratoEntity contratoEntity = new ContratoEntity();
-        
+
         contratoEntity.setId(this.id);
         contratoEntity.setFechaInicio(this.fechaInicio);
         contratoEntity.setFechaFin(this.fechaFin);
         contratoEntity.setMetodoPago(this.metodoPago);
+        if (this.vivienda != null) {
+            contratoEntity.setVivienda(this.vivienda.toEntity());
+        }
 
         return contratoEntity;
     }
@@ -64,28 +90,28 @@ public class ContratoDTO implements Serializable {
     /**
      * @return the FechaInicio
      */
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @param FechaInicio the FechaInicio to set
      */
-    public void setFechaInicio(String FechaInicio) {
+    public void setFechaInicio(Date FechaInicio) {
         this.fechaInicio = FechaInicio;
     }
 
     /**
      * @return the FechaFin
      */
-    public String getFechaFin() {
+    public Date getFechaFin() {
         return fechaFin;
     }
 
     /**
      * @param FechaFin the FechaFin to set
      */
-    public void setFechaFin(String FechaFin) {
+    public void setFechaFin(Date FechaFin) {
         this.fechaFin = FechaFin;
     }
 
@@ -102,7 +128,25 @@ public class ContratoDTO implements Serializable {
     public void setMetodoPago(String MetodoPago) {
         this.metodoPago = MetodoPago;
     }
-    
+
+    /**
+     * Devuelve la vivienda asociada a este contrato.
+     *
+     * @return the vivienda
+     */
+    public ViviendaDTO getVivienda() {
+        return vivienda;
+    }
+
+    /**
+     * Modifica la vivienda asociada a este contrato.
+     *
+     * @param vivienda the vivienda to set
+     */
+    public void setVivienda(ViviendaDTO vivienda) {
+        this.vivienda = vivienda;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);

@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -20,7 +21,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class ContratoPersistence {
-    
     
     private static final Logger LOGGER = Logger.getLogger(ContratoPersistence.class.getName());
 
@@ -35,46 +35,93 @@ public class ContratoPersistence {
      */
     public ContratoEntity create(ContratoEntity contratoEntity) {
         LOGGER.log(Level.INFO, "Creando un contrato nuevo");
-        /* Note que hacemos uso de un método propio de EntityManager para persistir el contrato en la base de datos.
-        Es similar a "INSERT INTO table_name (column1, column2, column3, ...) VALUES (value1, value2, value3, ...);" en SQL.
-         */
         em.persist(contratoEntity);
-        LOGGER.log(Level.INFO, "Saliendo de crear un contrato nuevo");
+        LOGGER.log(Level.INFO, "Contrato creado");
         return contratoEntity;
     }
 
     /**
+     * Devuelve todos los contratos de la base de datos.
      *
-     * Borra un contrato de la base de datos recibiendo como argumento el id
-     * del contrato
-     *
-     * @param contratosId: id correspondiente a la editorial a borrar.
+     * @return una lista con todos los contratos que encuentre en la base de datos,
+     * "select u from ContratoEntity u" es como un "select * from ContratoEntity;" -
+     * "SELECT * FROM table_name" en SQL.
      */
-    public void delete(Long contratosId) {
-        LOGGER.log(Level.INFO, "Borrando editorial con id = {0}", contratosId);
-        // Se hace uso de mismo método que esta explicado en public ContratoEntity find(Long id) para obtener el contrato a borrar.
-        ContratoEntity entity = em.find(ContratoEntity.class, contratosId);
-        /* Note que una vez obtenido el objeto desde la base de datos llamado "entity", volvemos hacer uso de un método propio del
-         EntityManager para eliminar de la base de datos el objeto que encontramos y queremos borrar.
-         Es similar a "delete from ContratoEntity where id=id;" - "DELETE FROM table_name WHERE condition;" en SQL.*/
-        em.remove(entity);
-        LOGGER.log(Level.INFO, "Saliendo de borrar el contrato con id = {0}", contratosId);
+    public List<ContratoEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todos los contratos");
+        Query q = em.createQuery("select u from ContratoEntity u");
+        return q.getResultList();
     }
 
     /**
-     * Busca si hay algun contrato con el ID que se envía de argumento
+     * Busca si hay algun contrato con el id que se envía de argumento
      *
-     * @param id: Identificador del contrato que se está buscando
-     * @return null si no existe ninguna contrato con el id del argumento.
-     * Si existe alguno devuelve el primero.
+     * @param contratoId: id correspondiente al contrato buscado.
+     * @return un contrato.
      */
-    public ContratoEntity findById(Long id) {
-        LOGGER.log(Level.INFO, "Consultando contrato por id ", id);
-        // Se crea un query para buscar contratos con el id que recibe el método como argumento. ":id" es un placeholder que debe ser remplazado
+    public ContratoEntity find(Long contratoId) {
+        LOGGER.log(Level.INFO, "Consultando el contrato con id={0}", contratoId);
+        return em.find(ContratoEntity.class, contratoId);
+    }
+
+    /**
+     * Actualiza un contrato.
+     *
+     * @param contratoEntity: el contrato que viene con los nuevos cambios. Por ejemplo
+     * el nombre pudo cambiar. En ese caso, se haria uso del método update.
+     * @return un contrato con los cambios aplicados.
+     */
+    public ContratoEntity update(ContratoEntity contratoEntity) {
+        LOGGER.log(Level.INFO, "Actualizando el contrato con id={0}", contratoEntity.getId());
+        return em.merge(contratoEntity);
+    }
+
+    /**
+     *
+     * Borra un contrato de la base de datos recibiendo como argumento el id del contrato
+     * @param contratoId: id correspondiente al contrato a borrar.
+     */
+    public void delete(Long contratoId) {
+        LOGGER.log(Level.INFO, "Borrando el contrato con id={0}", contratoId);
+        ContratoEntity bookEntity = em.find(ContratoEntity.class, contratoId);
+        em.remove(bookEntity);
+    }
+
+    /**
+     * Busca si hay algun contrato con el metodoPago que se envía de argumento
+     *
+     * @param metodoPago: Metodo de pago del contrato que se está buscando
+     * @return null si no existe ningun contrato con el metodoPago del argumento. Si
+     * existe alguno devuelve el primero.
+     */
+    public ContratoEntity findByMetodoPago(String metodoPago) {
+        LOGGER.log(Level.INFO, "Consultando contratos por metodo de pago ", metodoPago);
+        // Se crea un query para buscar contratos con el metodoPago que recibe el método como argumento. ":metodoPago" es un placeholder que debe ser reemplazado
+        TypedQuery query = em.createQuery("Select e From ContratoEntity e where e.metodoPago = :metodoPago", ContratoEntity.class);
+        // Se remplaza el placeholder ":metodoPago" con el valor del argumento 
+        query = query.setParameter("metodoPago", metodoPago);
+        // Se invoca el query que obtiene la lista resultado
+        List<ContratoEntity> sameMetodoPago = query.getResultList();
+        ContratoEntity result;
+        if (sameMetodoPago == null) {
+            result = null;
+        } else if (sameMetodoPago.isEmpty()) {
+            result = null;
+        } else {
+            result = sameMetodoPago.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por metodo de pago ", metodoPago);
+        return result;
+    }
+    
+    public ContratoEntity findById(Long id)
+    {
+                LOGGER.log(Level.INFO, "Consultando contratos por id", id);
+        // Se crea un query para buscar contratos con el metodoPago que recibe el método como argumento. ":id" es un placeholder que debe ser reemplazado
         TypedQuery query = em.createQuery("Select e From ContratoEntity e where e.id = :id", ContratoEntity.class);
-        // Se remplaza el placeholder ":name" con el valor del argumento 
+        // Se remplaza el placeholder ":id" con el valor del argumento 
         query = query.setParameter("id", id);
-        // Se invoca el query se obtiene la lista resultado
+        // Se invoca el query que obtiene la lista resultado
         List<ContratoEntity> sameId = query.getResultList();
         ContratoEntity result;
         if (sameId == null) {
@@ -84,7 +131,7 @@ public class ContratoPersistence {
         } else {
             result = sameId.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar contrato por id ", id);
+        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por id", id);
         return result;
     }
 }
