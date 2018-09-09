@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.vivienda.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -19,7 +20,7 @@ import uk.co.jemos.podam.common.PodamExclude;
  *
  * @author estudiante
  */
-@javax.persistence.Entity
+@Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
 
     @Temporal(TemporalType.DATE)

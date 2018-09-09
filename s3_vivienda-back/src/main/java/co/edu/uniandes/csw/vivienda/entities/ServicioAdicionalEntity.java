@@ -22,6 +22,7 @@ public class ServicioAdicionalEntity extends BaseEntity implements Serializable{
   
   private ViviendaEntity vivienda;
   private EstudianteEntity estudiante;
+  private ContratoEntity contrato;
   
   public String getNombre() {
         return nombre;
@@ -53,6 +54,16 @@ public class ServicioAdicionalEntity extends BaseEntity implements Serializable{
 
     public void setVivienda(ViviendaEntity viviendaEntity) {
         this.vivienda = viviendaEntity;
+    }
+    
+    public ContratoEntity getContrato()
+    {
+        return contrato;
+    }
+    
+    public void setContrato(ContratoEntity contrato)
+    {
+        this.contrato = contrato;
     }
      
 }

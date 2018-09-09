@@ -71,8 +71,8 @@ public class EstudianteResource {
     }
     
     @Path("{estudianteId:\\d+}/contrato")
-    public Class<EstudianteContratoResourse> getEstudianteContratoResourse(@PathParam("estudianteId") Long estudianteId){
-        return EstudianteContratoResourse.class;
+    public Class<EstudianteContratoResource> getEstudianteContratoResourse(@PathParam("estudianteId") Long estudianteId){
+        return EstudianteContratoResource.class;
     }
     
     @Path("{estudianteId:\\d+}/universidad")

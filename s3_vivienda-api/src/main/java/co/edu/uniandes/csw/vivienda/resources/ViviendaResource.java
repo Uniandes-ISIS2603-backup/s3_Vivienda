@@ -99,8 +99,8 @@ public class ViviendaResource {
     }
     
     @Path("{viviendaId: \\d+}/contrato")
-    public Class<ViviendaContratoResource> getViviendaContratoResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaContratoResource.class;
+    public Class<ViviendaContratosResource> getViviendaContratoResource(@PathParam("viviendaId") Long viviendaId){
+        return ViviendaContratosResource.class;
     }
     
     @Path("{viviendaId: \\d+}/sitiosdeinteres")
