@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 
 /**
  *
- * @author DANIEL
+ * @author Daniel Giraldo
  */
 @Entity
 public class CuartoEntity extends BaseEntity implements Serializable{

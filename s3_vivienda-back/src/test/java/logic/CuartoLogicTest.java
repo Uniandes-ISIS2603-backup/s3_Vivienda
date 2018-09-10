@@ -24,7 +24,9 @@ import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * @author: Daniel Giraldo
+ */
 @RunWith(Arquillian.class)
 public class CuartoLogicTest {
 
@@ -90,6 +92,7 @@ public class CuartoLogicTest {
                 CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
                 try {
                     cuartoLogic.addCuarto(vivienda.getId(), cuarto);
+                    cuartosData.add(cuarto);
                 } catch (BusinessLogicException e) {
                     e.printStackTrace();
                 }
@@ -114,6 +117,10 @@ public class CuartoLogicTest {
                 Assert.fail("Debería añadirse el cuarto");
             }
         }
+    }
+
+    @Test
+    public void crearCuartoViviendaInexistenteTest(){
         CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
         try {
             cuartoLogic.addCuarto((long) 239234023, cuarto);
@@ -131,12 +138,16 @@ public class CuartoLogicTest {
             List<CuartoEntity> listaCuartos = cuartoLogic.getCuartos(vivienda.getId());
             Assert.assertEquals(listaCuartos.size(), 3);
         }
+    }
 
-        //get cuartos de una vivienda que no existe
+    @Test
+    public void getCuartosNullTest(){
         List<CuartoEntity> listaVacia = cuartoLogic.getCuartos((long)234234233);
         Assert.assertNull(listaVacia);
+    }
 
-        //get cuartos de un vivienda sin cuartos
+    @Test
+    public void getCuartosViviendaSinCuartosTest(){
         ViviendaEntity viviendaEntity = factory.manufacturePojo(ViviendaEntity.class);
         try {
             viviendaLogic.createVivienda(viviendaEntity);
@@ -145,7 +156,6 @@ public class CuartoLogicTest {
         } catch (BusinessLogicException e) {
             e.printStackTrace();
         }
-
     }
 
     @Test
@@ -167,8 +177,10 @@ public class CuartoLogicTest {
                 Assert.fail("No debería fallar");
             }
         }
+    }
 
-        //Pruebas con cuartos que existen y viviendas que existen pero que no estan asociados
+    @Test
+    public void getCuartoSinAsociacion(){
         for(ViviendaEntity vivienda : viviendasData){
             CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
             try {
@@ -179,17 +191,19 @@ public class CuartoLogicTest {
                 e.printStackTrace();
             }
         }
+    }
 
-        //Pruebas con cuartos o viviendas que no existen
+    @Test
+    public void getCuartoNull(){
         try {
-            CuartoEntity cuartoNull = cuartoLogic.getCuarto((long)2342344, idCuartoExistente);
+            insertarCuartos();
+            CuartoEntity cuartoNull = cuartoLogic.getCuarto((long)2342344, cuartosData.get(0).getId());
             Assert.assertNull(cuartoNull);
-            cuartoNull = cuartoLogic.getCuarto(idViviendaExistente, (long)2342343);
+            cuartoNull = cuartoLogic.getCuarto(viviendasData.get(0).getId(), (long)2342343);
             Assert.assertNull(cuartoNull);
         } catch (BusinessLogicException e) {
             e.printStackTrace();
             Assert.fail("debería devolver null en vez de fallar");
         }
     }
-
 }

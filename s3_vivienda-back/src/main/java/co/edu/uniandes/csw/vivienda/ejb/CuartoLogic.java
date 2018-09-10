@@ -11,6 +11,9 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import java.util.List;
 
+/**
+ * @author: Daniel Giraldo
+ */
 @Stateless
 public class CuartoLogic {
     @Inject

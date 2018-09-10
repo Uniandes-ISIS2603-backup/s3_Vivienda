@@ -20,6 +20,9 @@ import javax.transaction.UserTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author: Daniel Giraldo
+ */
 @RunWith(Arquillian.class)
 public class CuartoPersistenceTest {
 

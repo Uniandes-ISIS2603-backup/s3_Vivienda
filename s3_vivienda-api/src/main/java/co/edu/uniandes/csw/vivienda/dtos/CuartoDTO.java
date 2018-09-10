@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 
 /**
  *
- * @author Daniel
+ * @author Daniel Giraldo
  */
 public class CuartoDTO {
     private String nombre;
