@@ -64,7 +64,7 @@ public class ContratoResource {
     @POST
     public ContratoDTO createBook(ContratoDTO contrato) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ContratoResource createContrato: input: {0}", contrato.toString());
-        ContratoDTO nuevoContratoDTO = new ContratoDTO(contratoLogic.createBook(contrato.toEntity()));
+        ContratoDTO nuevoContratoDTO = new ContratoDTO(contratoLogic.createContrato(contrato.toEntity()));
         LOGGER.log(Level.INFO, "ContratoResource createContrato: output: {0}", nuevoContratoDTO.toString());
         return nuevoContratoDTO;
     }

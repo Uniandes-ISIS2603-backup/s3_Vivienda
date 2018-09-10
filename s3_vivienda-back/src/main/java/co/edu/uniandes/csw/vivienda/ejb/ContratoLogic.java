@@ -40,7 +40,7 @@ public class ContratoLogic {
      * @throws BusinessLogicException Si el metodoPago es inválido o ya existe en la
      * persistencia.
      */
-    public ContratoEntity createBook(ContratoEntity contratoEntity) throws BusinessLogicException {
+    public ContratoEntity createContrato(ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del contrato");
         if (contratoEntity.getVivienda() == null || viviendaPersistence.find(contratoEntity.getVivienda().getId()) == null) {
             throw new BusinessLogicException("La vivienda es inválida");

@@ -23,9 +23,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
 
-    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
-    @Temporal(TemporalType.DATE)
     private Date fechaFin;
     private String metodoPago;
 

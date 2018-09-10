@@ -1,9 +1,7 @@
 package persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
-import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.persistence.CuartoPersistence;
-import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
