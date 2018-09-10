@@ -45,4 +45,18 @@ public class ViviendaPersistence {
         ViviendaEntity viviendaEntity = em.find(ViviendaEntity.class, id);
         em.remove(viviendaEntity);
     }
+
+    public ViviendaEntity buscarPorDireccion(String ciudad, String direccion){
+        TypedQuery query = em.createQuery("Select v from ViviendaEntity v where v.ciudad = :ciudad and " +
+                "v.direccion = :direccion", ViviendaEntity.class);
+        query.setParameter("ciudad", ciudad);
+        query.setParameter("direccion", direccion);
+
+        List<ViviendaEntity> busc = query.getResultList();
+        ViviendaEntity result = null;
+        if(busc != null && !busc.isEmpty()){
+            result = busc.get(0);
+        }
+        return result;
+    }
 }

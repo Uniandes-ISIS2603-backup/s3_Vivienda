@@ -143,4 +143,18 @@ public class ViviendaPersistenceTest {
             Assert.assertEquals(entity.getNombre(), Long.toString(entity.getId()));
         }
     }
+
+    @Test
+    public void buscarDireccionTest(){
+        for(ViviendaEntity entity : data){
+            String ciudad = entity.getCiudad();
+            String direccion = entity.getDireccion();
+            ViviendaEntity resultado = persistence.buscarPorDireccion(ciudad, direccion);
+            Assert.assertNotNull(resultado);
+            Assert.assertEquals(resultado.getId(), entity.getId());
+        }
+        String ciudadNoExistente = "293jfaenj89jawr90j2330";
+        String direccionNoExistente = "2930jai0 j09j23 ewj02  2390j23 2340j23 23oij4p2'1 mepom 23";
+        Assert.assertNull(persistence.buscarPorDireccion(ciudadNoExistente, direccionNoExistente));
+    }
 }

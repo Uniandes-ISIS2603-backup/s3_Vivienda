@@ -23,8 +23,18 @@ public class ViviendaLogic {
     private ViviendaPersistence persistence;
     
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException{
-        viviendaEntity = persistence.create(viviendaEntity);
-        return(viviendaEntity);
+        String ciudad = viviendaEntity.getCiudad();
+        String direccion = viviendaEntity.getDireccion();
+
+        ViviendaEntity direccionRepetida = persistence.buscarPorDireccion(ciudad, direccion);
+
+        if (direccionRepetida == null){
+            viviendaEntity = persistence.create(viviendaEntity);
+            return(viviendaEntity);
+        }
+        else {
+            throw new BusinessLogicException("Ya existe una vivienda en la misma dirección");
+        }
     }
     
     public ViviendaEntity getVivienda(Long id){
