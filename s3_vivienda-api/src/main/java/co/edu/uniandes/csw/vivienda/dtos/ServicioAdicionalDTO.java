@@ -13,9 +13,9 @@ import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
  */
 public class ServicioAdicionalDTO {
     
-    public String nombre;
-    public String descripcion;
-    public Float costo;
+    private String nombre;
+    private String descripcion;
+    private Float costo;
     
     public ServicioAdicionalDTO(){
         

@@ -55,8 +55,9 @@ public class ViviendaCuartoResource {
             CuartoEntity cuartoEntity = logic.getCuarto(viviendaId, cuartoId);
             CuartoDTO cuarto = new CuartoDTO(cuartoEntity);
             return cuarto;
-        } catch (BusinessLogicException e) {
-            e.printStackTrace();
+        } catch (BusinessLogicException e) 
+        {
+            e.getMessage();
             return null;
         }
     }
@@ -67,7 +68,7 @@ public class ViviendaCuartoResource {
             CuartoEntity cuartoEntity = logic.addCuarto(viviendaId, cuartoDTO.toEntity());
             return new CuartoDTO(cuartoEntity);
         } catch (BusinessLogicException e){
-            e.printStackTrace();
+            e.getMessage();
             return null;
         }
     }

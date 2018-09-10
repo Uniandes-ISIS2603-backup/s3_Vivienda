@@ -95,10 +95,10 @@ public class ContratoDTO implements Serializable {
     }
 
     /**
-     * @param FechaInicio the FechaInicio to set
+     * @param fechaInicio the FechaInicio to set
      */
-    public void setFechaInicio(Date FechaInicio) {
-        this.fechaInicio = FechaInicio;
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
     }
 
     /**
@@ -109,10 +109,10 @@ public class ContratoDTO implements Serializable {
     }
 
     /**
-     * @param FechaFin the FechaFin to set
+     * @param fechaFin the FechaFin to set
      */
-    public void setFechaFin(Date FechaFin) {
-        this.fechaFin = FechaFin;
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
     }
 
     /**
@@ -123,10 +123,10 @@ public class ContratoDTO implements Serializable {
     }
 
     /**
-     * @param MetodoPago the MetodoPago to set
+     * @param metodoPago the MetodoPago to set
      */
-    public void setMetodoPago(String MetodoPago) {
-        this.metodoPago = MetodoPago;
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
     }
 
     /**
