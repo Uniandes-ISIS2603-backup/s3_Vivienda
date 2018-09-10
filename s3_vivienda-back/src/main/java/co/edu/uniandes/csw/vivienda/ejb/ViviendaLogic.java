@@ -47,13 +47,20 @@ public class ViviendaLogic {
         return viviendas;
     }
     
-    public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity){
+    public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity) throws BusinessLogicException{
+        if(persistence.find(id) == null){
+            throw new BusinessLogicException("La universidad con el id dado no existe");
+        }
         viviendaEntity.setId(id);
         ViviendaEntity newVivienda = persistence.update(viviendaEntity);
         return newVivienda;
     }
     
-    public void deleteVivienda(Long ViviedaId){
-        persistence.delete(ViviedaId);
+    public void deleteVivienda(Long viviendaId) throws BusinessLogicException{
+        if(persistence.find(viviendaId)==null){
+            throw new BusinessLogicException("La vivienda no existe");
+        }
+        persistence.delete(viviendaId);
     }
+
 }

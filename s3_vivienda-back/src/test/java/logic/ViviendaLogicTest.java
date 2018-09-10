@@ -130,9 +130,14 @@ public class ViviendaLogicTest {
     @Test
     public void deleteViviendaTest(){
         for(ViviendaEntity entity: data){
-            logic.deleteVivienda(entity.getId());
-            ViviendaEntity deleted = em.find(ViviendaEntity.class, entity.getId());
-            Assert.assertNull(deleted);
+            try {
+                logic.deleteVivienda(entity.getId());
+                ViviendaEntity deleted = em.find(ViviendaEntity.class, entity.getId());
+                Assert.assertNull(deleted);
+            } catch (BusinessLogicException e) {
+                e.printStackTrace();
+                Assert.fail("Vivienda existe");
+            }
         }
         Assert.assertEquals(em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
                 .getResultList().size(), 0);
@@ -145,7 +150,12 @@ public class ViviendaLogicTest {
             Long id = entity.getId();
             ViviendaEntity entityUpdate = new ViviendaEntity();
             entityUpdate.setNombre(Long.toString(id));
-            logic.updateVivienda(id, entityUpdate);
+            try {
+                logic.updateVivienda(id, entityUpdate);
+            } catch (BusinessLogicException e) {
+                e.printStackTrace();
+                Assert.fail("Vivienda existe");
+            }
         }
 
         List<ViviendaEntity> viviendas2 = logic.getViviendas();
