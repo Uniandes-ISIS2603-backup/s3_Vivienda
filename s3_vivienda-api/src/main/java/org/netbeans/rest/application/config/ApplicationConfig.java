@@ -29,10 +29,10 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
+        resources.add(co.edu.uniandes.csw.vivienda.ejb.ViviendaArrendadorLogic.class);
         resources.add(co.edu.uniandes.csw.vivienda.mappers.BusinessLogicExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.ArrendadorResource.class);
-        resources.add(co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.ContratoResource.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.ContratoViviendaResource.class);
         resources.add(co.edu.uniandes.csw.vivienda.resources.EstudianteResource.class);
