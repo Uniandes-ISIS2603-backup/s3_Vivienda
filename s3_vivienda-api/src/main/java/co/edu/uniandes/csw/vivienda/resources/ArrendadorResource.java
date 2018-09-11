@@ -6,12 +6,16 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDetailDTO;
+import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -34,22 +38,49 @@ public class ArrendadorResource {
     
     private static final Logger LOGGER = Logger.getLogger(ArrendadorResource.class.getName());
     
-     @POST
-    public ArrendadorDTO createSitioInteres(ArrendadorDTO arrendador) throws BusinessLogicException {
+    @Inject
+    private ArrendadorLogic arrendadorLogic;
+    
+    @POST
+    public ArrendadorDTO createArrendor(ArrendadorDTO arrendador) throws BusinessLogicException {
          
-        LOGGER.log(Level.INFO, "EditorialResource createEditorial: input: {0}", arrendador.toString());
+        LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: input: {0}", arrendador.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ArrendadorEntity arrendadorEntity = arrendador.toEntity();
+        
+        ArrendadorEntity nuevoArrendadorEntity = arrendadorLogic.createArrendador(arrendadorEntity);
  
-        ArrendadorDTO nuevoArrendador = new ArrendadorDTO(arrendadorEntity);
+        ArrendadorDTO nuevoArrendador = new ArrendadorDTO(nuevoArrendadorEntity);
         return nuevoArrendador;
     }
     
     @GET
+    public List<ArrendadorDetailDTO> getArrendadores() {
+        LOGGER.info("ArrendadorResource getArrendadores: input: void");
+        List<ArrendadorDetailDTO> listaArrendadores = listEntity2DetailDTO(arrendadorLogic.getArrendadores());
+        LOGGER.log(Level.INFO, "ArrendadorResource getArrendadores: output: {0}", listaArrendadores.toString());
+        return listaArrendadores;
+    }
+    
+    private List<ArrendadorDetailDTO> listEntity2DetailDTO(List<ArrendadorEntity> entityList) {
+        List<ArrendadorDetailDTO> list = new ArrayList<>();
+        for (ArrendadorEntity entity : entityList) {
+            list.add(new ArrendadorDetailDTO(entity));
+        }
+        return list;
+    }
+    
+    @GET
     @Path("{arrendadorId:\\d+}")
-    public List<ArrendadorDTO> getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
+    public ArrendadorDetailDTO getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
     {
-        return null;
+        ArrendadorEntity arrendadorEntity = arrendadorLogic.getArrendador(arrendadorId);
+        if(arrendadorEntity == null)
+        {
+            throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +"no existe.", 404);
+        }
+        ArrendadorDetailDTO detailDTO = new ArrendadorDetailDTO(arrendadorEntity);
+        return detailDTO;
     }
     
     @PUT
@@ -65,4 +96,5 @@ public class ArrendadorResource {
     {
         LOGGER.log(Level.INFO, "ArrendadorResource.deleteArrendador: input:{0}", arrendadorId);
     }
+    
 }

@@ -58,6 +58,19 @@ public class ArrendadorPersistence {
         return em.find(ArrendadorEntity.class, arrendadorId);
     }
     
+    public ArrendadorEntity findByLogin(String arrendadorLogin) {
+        
+        TypedQuery query = em.createQuery("Select v from ArrendadorEntity v where v.login = :login", ArrendadorEntity.class);
+        query.setParameter("login", arrendadorLogin);
+
+        List<ArrendadorEntity> busc = query.getResultList();
+        ArrendadorEntity result = null;
+        if(busc != null && !busc.isEmpty()){
+            result = busc.get(0);
+        }
+        return result;
+    }
+    
       /**
      * Actualiza un arrendador.
      *

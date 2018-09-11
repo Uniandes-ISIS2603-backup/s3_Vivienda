@@ -161,6 +161,23 @@ public class ArrendadorPersistenceTest {
 
         Assert.assertEquals(newEntity.getNombre(), resp.getNombre());
     }
+    
+    @Test
+    public void getArrendadorByLogin() {
+        ArrendadorEntity entity = data.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        ArrendadorEntity newEntity = factory.manufacturePojo(ArrendadorEntity.class);
+
+        newEntity.setId(entity.getId());
+
+        
+
+        ArrendadorEntity resp = arrendadorPersistence.findByLogin(newEntity.getLogin());
+        Assert.assertNull(resp);
+        arrendadorPersistence.create(newEntity);
+        resp = arrendadorPersistence.findByLogin(newEntity.getLogin());
+        Assert.assertNotNull(resp);
+    }
 
     /**
      * Prueba para eliminar un Arrendador.
