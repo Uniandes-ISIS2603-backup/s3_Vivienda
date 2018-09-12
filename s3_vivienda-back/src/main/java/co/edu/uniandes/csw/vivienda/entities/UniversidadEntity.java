@@ -7,7 +7,11 @@ package co.edu.uniandes.csw.vivienda.entities;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import uk.co.jemos.podam.common.PodamExclude;
 
 
 /**
@@ -15,24 +19,28 @@ import javax.persistence.Entity;
  * @author Paula Molina
  */
 @Entity
-
 public class UniversidadEntity extends BaseEntity implements Serializable
 {
     private String nombre;
     private Float latitud;
     private Float longitud;
     
-    private EstudianteEntity estudiante;
+    @PodamExclude
+    @OneToMany(mappedBy = "universidad")
+    private List<EstudianteEntity> estudiantes = new ArrayList<EstudianteEntity>();
     
      public String getNombre() {
         return nombre;
     }
      
-      public float getLatitud() {
+      public Float getLatitud() {
         return latitud;
     }
+     public List<EstudianteEntity> getEstudiantes() {
+        return estudiantes;
+    }
 
-    public float getLongitud() {
+    public Float getLongitud() {
         return longitud;
     }
     
@@ -47,17 +55,9 @@ public class UniversidadEntity extends BaseEntity implements Serializable
     public void setLongitud(Float longitud) {
         this.longitud = longitud;
     }
-
-    /**
-     * Devuelve el estudiante asociado a esta universidad
-     *
-     * @return Entidad de tipo Estudiante
-     */
-    public EstudianteEntity getEstudiante() {
-        return estudiante;
+    
+    public void setEstudiantes(List<EstudianteEntity> est) {
+        this.estudiantes = est;
     }
 
-    public void setEstudiante(EstudianteEntity estudianteEntity) {
-        this.estudiante = estudianteEntity;
-    }
 }

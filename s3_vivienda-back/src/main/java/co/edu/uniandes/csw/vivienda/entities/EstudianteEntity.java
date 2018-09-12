@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.CascadeType;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
@@ -30,12 +30,12 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante", orphanRemoval=true)
+    @OneToOne(mappedBy="estudiante",cascade=ALL, orphanRemoval=true)
     private ContratoEntity contrato;
     
     @PodamExclude
     @OneToMany(mappedBy="estudiante", cascade=ALL, orphanRemoval=true)
-    private Collection<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
+    private List<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
     
       
     public String getNombre(){
@@ -47,7 +47,7 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public String getPassword(){
         return password;
     }
-    public Collection <CalificacionEntity> getCalificaciones(){
+    public List <CalificacionEntity> getCalificaciones(){
         return calificaciones;
     }
     public UniversidadEntity getUniversidad(){
@@ -67,7 +67,7 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public void setPassword(String p){
         this.password = p;
     }
-    public void setCalificaciones(Collection<CalificacionEntity> cal){
+    public void setCalificaciones(List<CalificacionEntity> cal){
         this.calificaciones=cal;
     }
     public void setUniversidad(UniversidadEntity uni){

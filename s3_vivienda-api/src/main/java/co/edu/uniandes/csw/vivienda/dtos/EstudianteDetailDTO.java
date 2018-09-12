@@ -9,7 +9,7 @@ import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  *
@@ -17,7 +17,7 @@ import java.util.Collection;
  */
 public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
     
-    Collection <CalificacionDTO> calificaciones;
+    List <CalificacionDTO> calificaciones;
     
     public EstudianteDetailDTO(EstudianteEntity entity){
         super(entity);
@@ -32,7 +32,7 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
     public EstudianteEntity toEntity(){
         EstudianteEntity entity = super.toEntity();
         if (calificaciones != null){
-            Collection <CalificacionEntity> cal = new ArrayList<>();
+            List <CalificacionEntity> cal = new ArrayList<>();
             for (CalificacionDTO e: calificaciones)
                 cal.add(e.toEntity());
             entity.setCalificaciones(cal);
@@ -40,10 +40,10 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
         return entity;
     }
     
-    public Collection<CalificacionDTO> getCalificaciones(){
+    public List<CalificacionDTO> getCalificaciones(){
         return calificaciones;
     }
-    public void setCalificaciones(Collection<CalificacionDTO> cal){
+    public void setCalificaciones(List<CalificacionDTO> cal){
         this.calificaciones=cal;
     }
     

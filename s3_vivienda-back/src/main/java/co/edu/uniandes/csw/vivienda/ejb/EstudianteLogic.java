@@ -9,7 +9,9 @@ import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,48 +27,51 @@ public class EstudianteLogic {
 
     @Inject
     private UniversidadPersistence persistenceUniversidad;
+    
+    @Inject
+    private ContratoPersistence persistenceContrato;
     /**
      * Crea un estudiante en la persistencia.
      *
      * @param estudianteEntity La entidad que representa el estudiante a
      * persistir.
      * @return La entidad del estudiante luego de persistirlo.
-     * @throws BusinessLogicException Si el estudiante a persistir ya existe.
      * @throws BusinessLogicException Si el login del estudiante a persistir ya existe.
-     * @throws BusinessLogicException Si la universidad del estudiante a persistir no existe.
+     * Si el estudinate no tiene universidad.
+     * Si la universidad del estudiante a persistir no existe.
      */
     public EstudianteEntity createEstudiante(EstudianteEntity estudianteEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del estudiante");
-        // Verifica la regla de negocio que dice que no puede haber dos contratos con el mismo ID
-        if (persistence.find(estudianteEntity.getId()) != null) {
-            throw new BusinessLogicException("Ya existe un estudiante con el id \"" + estudianteEntity.getId() + "\"");
-        }
+        
         if (persistence.findByLogin(estudianteEntity.getLogin()) != null) {
             throw new BusinessLogicException("Ya existe un estudiante con el login \"" + estudianteEntity.getLogin() + "\"");
         }
-        if (estudianteEntity.getUniversidad() != null && persistenceUniversidad.find(estudianteEntity.getUniversidad().getId()) == null) {
+        if (estudianteEntity.getUniversidad() == null) {
+            throw new BusinessLogicException("El estudinate debe tener universidad");
+        }
+        else if (persistenceUniversidad.find(estudianteEntity.getUniversidad().getId()) == null){
             throw new BusinessLogicException("No existe la universidad con el id \"" +estudianteEntity.getUniversidad().getId() + "\"");
         }
-        // Invoca la persistencia para crear el contrato
+        // Invoca la persistencia para crear el estudiante
         persistence.create(estudianteEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del estudiante");
         return estudianteEntity;
     }
     
-    public Collection<EstudianteEntity> getEstudiantes(Long id){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los libros");
-        Collection<EstudianteEntity> estudiantes = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los libros");
+     public List<EstudianteEntity> getEstudiantes(){
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los estudinates");
+        List<EstudianteEntity> estudiantes = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los estudiantes");
         return estudiantes;
     }
     
     public EstudianteEntity getEstudiante(Long id){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los estudiantes");
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el estudiante");
         EstudianteEntity estudiante = persistence.find(id);
         if (estudiante == null) {
             LOGGER.log(Level.SEVERE, "El estudiantes con el id = {0} no existe", id);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los estudiantes");
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el estudiante");
         return estudiante;
     }
     
@@ -78,6 +83,12 @@ public class EstudianteLogic {
         }
         if (entity.getUniversidad() != null && persistenceUniversidad.find(entity.getUniversidad().getId()) == null) {
             throw new BusinessLogicException("No existe la universidad con el id \"" +entity.getUniversidad().getId() + "\"");
+        }
+        if (entity.getContrato() != null && (persistenceContrato.find(entity.getContrato().getId()) == null)){
+            throw new BusinessLogicException("No existe el contrato con el id \"" +entity.getContrato().getId() + "\"");
+        }
+        if (entity.getContrato() != null && !Objects.equals(entity.getContrato().getEstudiante().getId(), id)){
+            throw new BusinessLogicException("El contrato debe tener el mismo estudiante");
         }
         entity.setId(id);
         EstudianteEntity newEntity = persistence.update(entity);
