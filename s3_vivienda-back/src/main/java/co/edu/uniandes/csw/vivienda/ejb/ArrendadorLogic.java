@@ -6,9 +6,11 @@
 package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
+import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ArrendadorPersistence;
 import java.util.List;
+import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -25,6 +27,9 @@ public class ArrendadorLogic {
     public ArrendadorEntity getArrendador(Long arrendadorId)
     {
         ArrendadorEntity arrendadorEntity = arrendadorPersistence.find(arrendadorId);
+        if (arrendadorEntity == null) {
+            //LOGGER.log(Level.SEVERE, "El arrendador con el id = {0} no existe", arrendadorId);
+        }
         return arrendadorEntity;
     }
     
@@ -43,23 +48,21 @@ public class ArrendadorLogic {
         }
     }
     
-    public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity) throws BusinessLogicException
+    public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity)
     {
-        if(arrendadorPersistence.find(arrendadorId) == null){
-            throw new BusinessLogicException("La universidad con el id dado no existe");
-        }
-        arrendadorEntity.setId(arrendadorId);
         ArrendadorEntity newArrendador = arrendadorPersistence.update(arrendadorEntity);
         return newArrendador;
     }
     
     
-    public void deleteArrendador(Long arrendadorId) throws BusinessLogicException
+    public void deleteArrendador(Long arrendadorId) throws BusinessLogicException 
     {
-         if(arrendadorPersistence.find(arrendadorId)==null){
-            throw new BusinessLogicException("La vivienda no existe");
+        List<ViviendaEntity> viviendas = getArrendador(arrendadorId).getViviendas();
+        if (viviendas != null && !viviendas.isEmpty()) {
+            throw new BusinessLogicException("No se puede borrar el arrendador con id = " + arrendadorId + " porque tiene viviendas asociadas");
         }
         arrendadorPersistence.delete(arrendadorId);
+
     }
     
     public List<ArrendadorEntity> getArrendadores()

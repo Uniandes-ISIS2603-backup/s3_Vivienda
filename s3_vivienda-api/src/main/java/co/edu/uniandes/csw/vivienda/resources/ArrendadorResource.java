@@ -85,9 +85,17 @@ public class ArrendadorResource {
     
     @PUT
     @Path("{arrendadorId:\\d+}")
-    public ArrendadorDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws WebApplicationException
+    public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws WebApplicationException
     {
-        return null;
+        arrendador.setId(arrendadorId);
+        if(arrendadorLogic.getArrendador(arrendadorId)==null)
+        {
+            throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
+        }
+
+        ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(arrendadorLogic.updateArrendador(arrendadorId, arrendador.toEntity()));
+        return arrendadorDetailDTO;
+        
     }
     
     @DELETE
@@ -95,6 +103,19 @@ public class ArrendadorResource {
     public void deleteArrendador(@PathParam("arrendadorId")Long arrendadorId)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "ArrendadorResource.deleteArrendador: input:{0}", arrendadorId);
+        if (arrendadorLogic.getArrendador(arrendadorId) == null) {
+            throw new WebApplicationException("El recurso /arrendadores/" + arrendadorId + " no existe.", 404);
+        }
+        arrendadorLogic.deleteArrendador(arrendadorId);
     }
     
+    @Path("{arrendadorId: \\d+}/viviendas")
+    public Class<ArrendadorViviendasResource> getArrendadorViviendasResource(@PathParam("arrendadorId")Long arrendadorId)
+    {
+        if(arrendadorLogic.getArrendador(arrendadorId)==null)
+        {
+            throw new WebApplicationException("El recurso /arrendadores/ "+ arrendadorId + "no existe", 404);
+        }
+        return ArrendadorViviendasResource.class;
+    }
 }
