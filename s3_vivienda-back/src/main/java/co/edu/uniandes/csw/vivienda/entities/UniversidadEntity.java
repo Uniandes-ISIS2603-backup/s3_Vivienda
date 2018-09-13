@@ -59,5 +59,5 @@ public class UniversidadEntity extends BaseEntity implements Serializable
     public void setEstudiantes(List<EstudianteEntity> est) {
         this.estudiantes = est;
     }
-
+    
 }

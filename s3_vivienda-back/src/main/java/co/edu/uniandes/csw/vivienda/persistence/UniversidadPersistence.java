@@ -27,61 +27,53 @@ public class UniversidadPersistence
     @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
     
-    /**
-     * Método para persisitir la entidad en la base de datos.
-     *
-     * @param universidadEntity objeto universidad que se creará en la base de datos
-     * @return devuelve la entidad creada con un id dado por la base de datos.
-     */
     public UniversidadEntity create(UniversidadEntity universidadEntity) {
         LOGGER.log(Level.INFO, "Creando una universidad nueva");
-
         em.persist(universidadEntity);
-        LOGGER.log(Level.INFO, "Saliendo de crear una universidad nueva");
+        LOGGER.log(Level.INFO, "Saliendo de crear una universdiad nueva");
         return universidadEntity;
     }
     
-    /**
-     * Actualizar una universidad
-     *
-     * Actualiza la entidad que recibe en la base de datos
-     *
-     * @param universidadEntity La entidad actualizada que se desea guardar
-     * @return La entidad resultante luego de la acutalización
-     */
     public UniversidadEntity update(UniversidadEntity universidadEntity) {
         LOGGER.log(Level.INFO, "Actualizando universidad con id = {0}", universidadEntity.getId());
         return em.merge(universidadEntity);
     }
     
+    public List<UniversidadEntity> findAll() {
+        LOGGER.log(Level.INFO, "Consultando todas las universidades");
+        // Se crea un query para buscar todas las universidades en la base de datos.
+        TypedQuery query = em.createQuery("select u from UniversidadEntity u", UniversidadEntity.class);
+        return query.getResultList();
+    }
+    
     public UniversidadEntity find(Long universidadId){
         return em.find(UniversidadEntity.class, universidadId);
     }
-    /**
-     * Buscar una reseña
-     *
-     * Busca si hay alguna reseña asociada a un libro y con un ID específico
-     *
-     * @param estudianteId El ID del estudiante con respecto al cual se busca
-     * @param universidadeId El ID de la universidad buscada
-     * @return La universidad encontrada o null. 
-     */
-    public UniversidadEntity findByEstudiante(Long estudianteId, Long universidadId){
-        LOGGER.log(Level.INFO, "Consultando la universidad con id = {0} del estudiante con id = " + estudianteId, universidadId);
-        TypedQuery<UniversidadEntity> q = em.createQuery("select p from UniversidadEntity p where (p.estudiante.id = :estudianteId) and (p.id = :universidadId)", UniversidadEntity.class);
-        q.setParameter("estudianteId", estudianteId);
-        q.setParameter("universidadId", universidadId);
-        List<UniversidadEntity> results = q.getResultList();
-        UniversidadEntity universidad = null;
-        if (results == null) {
-            universidad = null;
-        } else if (results.isEmpty()) {
-            universidad = null;
-        } else if (results.size() >= 1) {
-            universidad = results.get(0);
+    
+    public void delete(Long universidadId) {
+        LOGGER.log(Level.INFO, "Borrando editorial con id = {0}", universidadId);
+        UniversidadEntity entity = em.find(UniversidadEntity.class, universidadId);
+        em.remove(entity);
+        LOGGER.log(Level.INFO, "Saliendo de borrar la editorial con id = {0}", universidadId);
+    }   
+    
+    public UniversidadEntity findByName(String nombre) {
+        LOGGER.log(Level.INFO, "Consultando universidad por nombre ", nombre);
+        // Se crea un query para buscar universidades con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
+        TypedQuery query = em.createQuery("Select u From UniversidadEntity u where u.nombre = :nombre", UniversidadEntity.class);
+        // Se remplaza el placeholder ":name" con el valor del argumento 
+        query = query.setParameter("nombre", nombre);
+        // Se invoca el query se obtiene la lista resultado
+        List<UniversidadEntity> sameName = query.getResultList();
+        UniversidadEntity result;
+        if (sameName == null) {
+            result = null;
+        } else if (sameName.isEmpty()) {
+            result = null;
+        } else {
+            result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar la universidad con id = {0} del estudiante con id =" + estudianteId, universidadId);
-        return universidad;
+        LOGGER.log(Level.INFO, "Saliendo de consultar universidad por nombre ", nombre);
+        return result;
     }
-          
 }

@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
 
 
 /**
- *
  * @author Paula Molina
  */
 
@@ -28,6 +27,7 @@ public class UniversidadDTO implements Serializable {
     public UniversidadDTO(UniversidadEntity universidadEntity){
         
         if (universidadEntity != null){
+           this.id = universidadEntity.getId();
            this.nombre = universidadEntity.getNombre();
            this.latitud = universidadEntity.getLatitud();
            this.longitud = universidadEntity.getLongitud();
@@ -37,10 +37,10 @@ public class UniversidadDTO implements Serializable {
     
     public UniversidadEntity toEntity(){
         UniversidadEntity universidadEntity = new UniversidadEntity(); 
-        universidadEntity.setId(id);
-        universidadEntity.setNombre(nombre);
-        universidadEntity.setLatitud(latitud);
-        universidadEntity.setLongitud(longitud);
+        universidadEntity.setId(this.id);
+        universidadEntity.setNombre(this.nombre);
+        universidadEntity.setLatitud(this.latitud);
+        universidadEntity.setLongitud(this.longitud);
         return universidadEntity;
     }
     
