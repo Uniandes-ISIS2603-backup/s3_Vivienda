@@ -6,7 +6,7 @@
 package co.edu.uniandes.csw.vivienda.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
-import java.util.Collection;
+import java.util.List;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -30,7 +30,7 @@ public class CalificacionPersistence {
         em.persist(entity);
         return entity;
     }
-    public Collection<CalificacionEntity> findAll(){
+    public List<CalificacionEntity> findAll(){
         TypedQuery query = em.createQuery("select u from CalificacionEntity u", CalificacionEntity.class);
         return query.getResultList();
     }

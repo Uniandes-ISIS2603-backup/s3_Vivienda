@@ -10,7 +10,7 @@ import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
-import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -51,8 +51,8 @@ public class CalificacionLogic {
         if (calificacionEntity.getVivienda() == null || persistenceVivienda.find(calificacionEntity.getVivienda().getId()) == null ){
             throw new BusinessLogicException("La vivienda es invalida");
         }
-        if (calificacionEntity.getPuntaje() >= 0 && calificacionEntity.getPuntaje() <= 5) {
-            throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, o menor o igual a 5");
+        if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
+            throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, o menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
         // Invoca la persistencia para crear el contrato
         persistence.create(calificacionEntity);
@@ -60,11 +60,11 @@ public class CalificacionLogic {
         return calificacionEntity;
     }
     
-    public Collection<CalificacionEntity> getCalificaciones(Long id){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los libros");
-        Collection<CalificacionEntity> calificacioness = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los libros");
-        return calificacioness;
+    public List<CalificacionEntity> getCalificaciones(){
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        List<CalificacionEntity> calificaciones = persistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        return calificaciones;
     }
     
     public CalificacionEntity getCalificacion(Long id){
@@ -85,8 +85,8 @@ public class CalificacionLogic {
         if (calificacionEntity.getVivienda() != null && persistenceVivienda.find(calificacionEntity.getVivienda().getId()) == null ){
             throw new BusinessLogicException("La vivienda es invalida");
         }
-        if (calificacionEntity.getPuntaje() >= 0 && calificacionEntity.getPuntaje() <= 5) {
-            throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, o menor o igual a 5");
+        if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
+            throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0 y menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
         calificacionEntity.setId(id);
         CalificacionEntity newEntity = persistence.update(calificacionEntity);
