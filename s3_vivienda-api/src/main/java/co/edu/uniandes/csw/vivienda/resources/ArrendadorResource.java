@@ -10,6 +10,9 @@ import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource;
+import co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource;
+import co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -118,4 +121,5 @@ public class ArrendadorResource {
         }
         return ArrendadorViviendasResource.class;
     }
+    
 }

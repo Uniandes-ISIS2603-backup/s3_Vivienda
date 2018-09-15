@@ -53,9 +53,34 @@ public class SitioInteresPersistence {
      * @param sitioInteresId: id correspondiente al sitioInteres buscado.
      * @return un sitioInteres.
      */
-    public SitioInteresEntity find(Long sitioInteresId) {
-        LOGGER.log(Level.INFO, "Consultando el sitioInteres con id={0}", sitioInteresId);
-        return em.find(SitioInteresEntity.class, sitioInteresId);
+    public SitioInteresEntity find(Long viviendaId, Long sitioInteresId) {
+        LOGGER.log(Level.INFO, "Consultando el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresId);
+        TypedQuery<SitioInteresEntity> q = em.createQuery("select p from SitioInteresEntity p where (p.vivienda.id = :viviendaid) and (p.id = :sitioInteresId)", SitioInteresEntity.class);
+        q.setParameter("viviendaId", viviendaId);
+        q.setParameter("sitioInteresId", sitioInteresId);
+        List<SitioInteresEntity> results = q.getResultList();
+        SitioInteresEntity sitioInteres = null;
+        if (results == null) {
+            sitioInteres = null;
+        } else if (results.isEmpty()) {
+            sitioInteres = null;
+        } else if (results.size() >= 1) {
+            sitioInteres = results.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar el sitioInteres con id = {0} de la vivienda con id =" + viviendaId, sitioInteresId);
+        return sitioInteres;
+    }
+    
+    public SitioInteresEntity findByLatLong(Float sitioInteresLat, Float sitioInteresLong) {
+        
+        TypedQuery query = em.createQuery("Select v from SitioInteresEntity v where v.latitud = :latitud and " + "where v.longitud = :longitud", SitioInteresEntity.class);
+        query.setParameter("latitud", sitioInteresLat);
+        query.setParameter("longitud", sitioInteresLong);
+        if(query.getSingleResult()==null)
+        {
+            return null;
+        }
+        return (SitioInteresEntity) query.getSingleResult();
     }
     
       /**
@@ -79,5 +104,10 @@ public class SitioInteresPersistence {
         LOGGER.log(Level.INFO, "Borrando el sitioInteres con id={0}", sitioInteresId);
         SitioInteresEntity sitioInteresEntity = em.find(SitioInteresEntity.class, sitioInteresId);
         em.remove(sitioInteresEntity);
+    }
+    
+    public SitioInteresEntity find(Long sitioInteresId) {
+        LOGGER.log(Level.INFO, "Consultando el sitioInteres con id={0}", sitioInteresId);
+        return em.find(SitioInteresEntity.class, sitioInteresId);
     }
 }

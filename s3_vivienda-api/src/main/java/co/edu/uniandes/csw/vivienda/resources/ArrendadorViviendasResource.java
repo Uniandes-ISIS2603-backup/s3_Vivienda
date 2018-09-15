@@ -7,19 +7,14 @@ package co.edu.uniandes.csw.vivienda.resources;
 
 //import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 
-import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDTO;
-import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDetailDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDetailDTO;
-import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorViviendasLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
-import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -30,14 +25,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
-//import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
-//import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
-//import java.util.logging.Level;
-//import javax.inject.Inject;
-//import javax.ws.rs.GET;
-//import javax.ws.rs.Path;
-//import javax.ws.rs.PathParam;
-//import javax.ws.rs.WebApplicationException;
 
 /**
  * Implementa el recurso "arrendadores/{id}/viviendas"
@@ -80,9 +67,9 @@ public class ArrendadorViviendasResource {
         if (viviendasLogic.getVivienda(viviendaId) == null) {
             throw new WebApplicationException("El recurso /arrendadores/" + arrendadorId + "/viviendas/" + viviendaId + " no existe.", 404);
         }
-        ViviendaDetailDTO bookDetailDTO = new ViviendaDetailDTO(arrendadorViviendasLogic.getVivienda(arrendadorId, viviendaId));
+        ViviendaDetailDTO viviendaDetailDTO = new ViviendaDetailDTO(arrendadorViviendasLogic.getVivienda(arrendadorId, viviendaId));
         
-        return bookDetailDTO;
+        return viviendaDetailDTO;
     }
     
     @PUT
