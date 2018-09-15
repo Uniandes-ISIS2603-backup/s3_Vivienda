@@ -47,7 +47,7 @@ public class ContratoLogicTest {
 
     private List<ContratoEntity> data = new ArrayList<ContratoEntity>();
 
-    private List<ViviendaEntity> editorialData = new ArrayList();
+    private List<ViviendaEntity> viviendaData = new ArrayList();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -97,14 +97,16 @@ public class ContratoLogicTest {
      * pruebas.
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++) {
-            ViviendaEntity editorial = factory.manufacturePojo(ViviendaEntity.class);
-            em.persist(editorial);
-            editorialData.add(editorial);
+        for (int i = 0; i < 3; i++)
+        {
+            ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
+            em.persist(vivienda);
+            viviendaData.add(vivienda);
         }
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++)
+        {
             ContratoEntity entity = factory.manufacturePojo(ContratoEntity.class);
-            entity.setVivienda(editorialData.get(0));
+            entity.setVivienda(viviendaData.get(0));
 
             em.persist(entity);
             data.add(entity);
@@ -119,7 +121,7 @@ public class ContratoLogicTest {
     @Test
     public void createContratoTest() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
-        newEntity.setVivienda(editorialData.get(0));
+        newEntity.setVivienda(viviendaData.get(0));
         ContratoEntity result = contratoLogic.createContrato(newEntity);
         Assert.assertNotNull(result);
         ContratoEntity entity = em.find(ContratoEntity.class, result.getId());
@@ -137,7 +139,7 @@ public class ContratoLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createContratoTestConMetodoPagoInvalido() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
-        newEntity.setVivienda(editorialData.get(0));
+        newEntity.setVivienda(viviendaData.get(0));
         newEntity.setMetodoPago("");
         contratoLogic.createContrato(newEntity);
     }
@@ -150,7 +152,7 @@ public class ContratoLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void createContratoTestConMetodoPagoInvalido2() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
-        newEntity.setVivienda(editorialData.get(0));
+        newEntity.setVivienda(viviendaData.get(0));
         newEntity.setMetodoPago(null);
         contratoLogic.createContrato(newEntity);
     }
@@ -161,7 +163,7 @@ public class ContratoLogicTest {
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
-    public void createBookTestConViviendaInexistente() throws BusinessLogicException {
+    public void createContratoTestConViviendaInexistente() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         ViviendaEntity viviendaEntity = new ViviendaEntity();
         viviendaEntity.setId(Long.MIN_VALUE);

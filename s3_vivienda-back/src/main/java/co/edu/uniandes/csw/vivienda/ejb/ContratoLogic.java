@@ -95,7 +95,8 @@ public class ContratoLogic {
      */
     public ContratoEntity updateContrato(Long contratoId, ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el contrato con id = {0}", contratoId);
-        if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
+        if (!validateMetodoPago(contratoEntity.getMetodoPago()))
+        {
             throw new BusinessLogicException("El metodoPago es inválido");
         }
         ContratoEntity newEntity = persistence.update(contratoEntity);
