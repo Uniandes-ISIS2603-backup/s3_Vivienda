@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ArrendadorPersistence;
 import java.util.List;
-import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 

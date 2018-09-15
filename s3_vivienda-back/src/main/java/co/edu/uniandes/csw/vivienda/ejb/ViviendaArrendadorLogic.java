@@ -12,7 +12,6 @@ import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 //import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.PUT;
 
 /**
  *
@@ -28,7 +27,6 @@ public class ViviendaArrendadorLogic {
     @Inject
     private ArrendadorPersistence arrendadorPersistence;
     
-    @PUT
     public ViviendaEntity replaceArrendador(Long viviendaId, Long arrendadorId) {   
         //LOGGER.log(Level.INFO, "Inicia proceso de actualizar con id = {0}", Id);
         ArrendadorEntity arrendadorEntity = arrendadorPersistence.find(arrendadorId);
@@ -37,5 +35,18 @@ public class ViviendaArrendadorLogic {
         //LOGGER.log(Level.INFO, "Termina proceso de actualizar  con id = {0}", viviendaEntity.getId());
         return viviendaEntity;
     }
+    
+    public ArrendadorEntity getArrendador(Long viviendaId, Long arrendadorId)
+    {
+        ArrendadorEntity arrendador = viviendaPersistence.find(viviendaId).getArrendador();
+        
+        if(arrendador!=null)
+        {
+            return arrendador;
+        }
+        
+        return null;
+    }
+    
     
 }
