@@ -11,10 +11,10 @@ import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaSitioInteresLogic;
 import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -34,6 +34,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class ViviendaSitioInteresResource 
 {
+    private static final Logger LOGGER = Logger.getLogger(ViviendaSitioInteresResource.class.getName());
     
     @Inject
     private ViviendaSitioInteresLogic viviendaSitioInteresLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.

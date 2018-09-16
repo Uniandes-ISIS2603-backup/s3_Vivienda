@@ -10,11 +10,11 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.SitioInteresPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 import java.util.List;
 import java.util.logging.Level;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,6 +22,8 @@ import javax.inject.Inject;
  */
 @Stateless
 public class ViviendaSitioInteresLogic {
+    
+    private static final Logger LOGGER = Logger.getLogger(ViviendaSitioInteresLogic.class.getName());
     
     @Inject
     private SitioInteresPersistence sitioInteresPersistence;
