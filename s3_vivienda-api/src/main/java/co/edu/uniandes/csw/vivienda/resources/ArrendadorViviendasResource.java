@@ -100,8 +100,4 @@ public class ArrendadorViviendasResource {
         }
         return list;
     }
-    
-    
-    
- 
 }

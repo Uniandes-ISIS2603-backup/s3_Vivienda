@@ -50,26 +50,15 @@ public class ViviendaCuartoResource {
 
     @GET
     @Path("{cuartoId:\\d+}")
-    public CuartoDTO getCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId){
-        try {
-            CuartoEntity cuartoEntity = logic.getCuarto(viviendaId, cuartoId);
-            CuartoDTO cuarto = new CuartoDTO(cuartoEntity);
-            return cuarto;
-        } catch (BusinessLogicException e) 
-        {
-            e.getMessage();
-            return null;
-        }
+    public CuartoDTO getCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId) throws BusinessLogicException{
+        CuartoEntity cuartoEntity = logic.getCuarto(viviendaId, cuartoId);
+        CuartoDTO cuarto = new CuartoDTO(cuartoEntity);
+        return cuarto;
     }
 
     @POST
-    public CuartoDTO createCuarto(@PathParam("viviendaId") Long viviendaId, CuartoDTO cuartoDTO){
-        try {
+    public CuartoDTO createCuarto(@PathParam("viviendaId") Long viviendaId, CuartoDTO cuartoDTO) throws BusinessLogicException{
             CuartoEntity cuartoEntity = logic.addCuarto(viviendaId, cuartoDTO.toEntity());
             return new CuartoDTO(cuartoEntity);
-        } catch (BusinessLogicException e){
-            e.getMessage();
-            return null;
-        }
     }
 }

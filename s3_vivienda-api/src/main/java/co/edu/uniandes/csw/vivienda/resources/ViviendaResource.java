@@ -49,17 +49,14 @@ public class ViviendaResource {
     
     @DELETE
     @Path("{viviendaId: \\d+}")
-    public void deleteVivienda(@PathParam("viviendaId") Long viviendaId){
+    public void deleteVivienda(@PathParam("viviendaId") Long viviendaId) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ViviendaResource.deleteVivienda: input:{0}", viviendaId);
-        try {
-            logic.deleteVivienda(viviendaId);
-        } catch (BusinessLogicException e) {
-        }
+        logic.deleteVivienda(viviendaId);
     }
     
     @GET
     @Path("{viviendaId: \\d+}")
-    public ViviendaDTO getVivienda(@PathParam("viviendaId") Long viviendaId)throws WebApplicationException{
+    public ViviendaDTO getVivienda(@PathParam("viviendaId") Long viviendaId) throws WebApplicationException{
         ViviendaEntity vivienda = logic.getVivienda(viviendaId);
         ViviendaDTO viviendaDTO = new ViviendaDTO(vivienda);
         return viviendaDTO;
