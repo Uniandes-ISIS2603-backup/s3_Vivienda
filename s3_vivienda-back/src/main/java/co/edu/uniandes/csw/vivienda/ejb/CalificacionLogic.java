@@ -39,8 +39,8 @@ public class CalificacionLogic {
      * persistir.
      * @return La entidad del calificacion luego de persistirlo.
      * @throws BusinessLogicException Si el estudiante es invalido.
-     * @throws BusinessLogicException Si la vivienda es invalida.
-     * @throws BusinessLogicException Si el puntaje es mayor o igual a 0, o menor o igual a 5
+     * BusinessLogicException Si la vivienda es invalida.
+     * BusinessLogicException Si el puntaje es menor a 0 o mayor a 5
      */
     public CalificacionEntity createCalificacion(CalificacionEntity calificacionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del calificacion");
@@ -52,7 +52,7 @@ public class CalificacionLogic {
             throw new BusinessLogicException("La vivienda es invalida");
         }
         if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
-            throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, o menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
+            throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, y menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
         // Invoca la persistencia para crear el contrato
         persistence.create(calificacionEntity);
@@ -103,7 +103,7 @@ public class CalificacionLogic {
     
     public CalificacionEntity getCalificacionVivienda(Long idVivienda, Long idCalificacion) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificaciones del estudiante");
-        CalificacionEntity calificacion = persistence.findByEstudiante(idVivienda, idCalificacion);
+        CalificacionEntity calificacion = persistence.findByVivienda(idVivienda, idCalificacion);
         if (calificacion == null) {
             throw new BusinessLogicException("La calificación no está asociada con la vivienda");
         }
@@ -126,6 +126,16 @@ public class CalificacionLogic {
         CalificacionEntity newEntity = persistence.update(calificacionEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el calificacion con id = {0}", calificacionEntity.getId());
         return newEntity;
+    }
+    
+    public CalificacionEntity updateCalificacionEstudiante(Long estudianteId, Long id, CalificacionEntity calificacionEntity)throws BusinessLogicException{
+        getCalificacionEstudiante(estudianteId, id);
+        return updateCalificacion(id, calificacionEntity);
+    }
+    
+    public CalificacionEntity updateCalificacionVivienda(Long viviendaId, Long id, CalificacionEntity calificacionEntity)throws BusinessLogicException{
+        getCalificacionVivienda(viviendaId, id);
+        return updateCalificacion(id, calificacionEntity);
     }
 
     /**

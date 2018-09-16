@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.CalificacionDTO;
 import co.edu.uniandes.csw.vivienda.ejb.CalificacionLogic;
-import co.edu.uniandes.csw.vivienda.ejb.EstudianteCalificacionesLogic;
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -50,17 +49,43 @@ public class EstudianteCalificacionesResource{
      * @return JSON {@link CalificacionDTO} - La calificación guardado en el estudiante.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la calificacion.
-     */
+     
     @POST
     @Path("{calificacionId: \\d+}")
     public CalificacionDTO addCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId) {
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource addCalificacion: input: estudianteID: {0} , calificacionId: {1}", new Object[]{estudianteId, calificacionId});
         if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /calificacion/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + " no existe.", 404);
         }
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.addCalificacion(calificacionId, estudianteId));
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource addCalificacion: output: {0}", calificacionDTO.toString());
         return calificacionDTO;
+    }
+    */
+    
+    /**
+     * Crea una nueva calificacion con la informacion que se recibe en el cuerpo de
+     * la petición y se regresa un objeto identico con un id auto-generado por
+     * la base de datos.
+     *
+     * @param calificacion {@link CalificacionDTO} - La calificacion que se desea
+     * guardar.
+     * @return JSON {@link CalificacionDTO} - La calificacion guardada con el atributo
+     * id autogenerado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede crear la calificación.
+     */
+    @POST
+    public CalificacionDTO createCalificacion(CalificacionDTO calificacion) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "EstudianteCalificacionResource createCalificacion: input: {0}", calificacion.toString());
+        // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
+        CalificacionEntity calificacionEntity = calificacion.toEntity();
+        // Invoca la lógica para crear la calificacion nueva
+        CalificacionEntity nuevoCalificacionEntity = calificacionLogic.createCalificacion(calificacionEntity);
+        // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
+        CalificacionDTO nuevoCalificacionDTO = new CalificacionDTO(nuevoCalificacionEntity);
+        LOGGER.log(Level.INFO, "EstudianteCalificacionResource createCalificacion: output: {0}", nuevoCalificacionDTO.toString());
+        return nuevoCalificacionDTO;
     }
     
     /**
@@ -89,20 +114,20 @@ public class EstudianteCalificacionesResource{
      * @return JSON {@link CalificacionDTO} - La calificación buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la calificacion.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la calificacion en la
-     * estudiante.
      */
     @GET
     @Path("{calificacionId: \\d+}")
-    public CalificacionDTO getCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException {
+    public CalificacionDTO getCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId){
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: input: estudianteID: {0} , calificacionId: {1}", new Object[]{estudianteId, calificacionId});
-        if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /estudiante/" + estudianteId + "/calificacion/" + calificacionId + " no existe.", 404);
+        try{
+            CalificacionEntity calificacion = calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId);
+            CalificacionDTO calificacionDTO = new CalificacionDTO(calificacion);
+            LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: output: {0}", calificacionDTO.toString());
+            return calificacionDTO;
         }
-        CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId));
-        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: output: {0}", calificacionDTO.toString());
-        return calificacionDTO;
+        catch(BusinessLogicException e){
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
+        }
     }
     
     /**
@@ -125,12 +150,15 @@ public class EstudianteCalificacionesResource{
     public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionId, calificacion.toString()});
         calificacion.setId(calificacionId);
-        if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /estudiante/" + estudianteId + "/calificacion/" + calificacionId + " no existe.", 404);
+        try{
+            CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(estudianteId, calificacionId, calificacion.toEntity());
+            CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
+            LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());
+            return calificacionDTO;
         }
-        CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.updateCalificacion(calificacionId, calificacion.toEntity()));
-        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());
-        return calificacionDTO;
+        catch(BusinessLogicException e){
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
+        }
     }
     
     /**
@@ -139,20 +167,20 @@ public class EstudianteCalificacionesResource{
      * @param estudianteId
      * @param calificacionId Identificador de la calificacion que se desea borrar.
      * Este debe ser una cadena de dígitos.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se puede eliminar la calificacion.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra la calificacion.
      */
     @Path("{calificacionId:\\d+}")
     @DELETE
-    public void deleteCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException{
+    public void deleteCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId){
         LOGGER.log(Level.INFO, "EstudianteCalificacionResource deleteCalificacion: input: {0}", calificacionId);
-        if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /calificacion/" + calificacionId + " no existe.", 404);
+        try{
+            calificacionLogic.deleteCalificacionEstudiante(estudianteId, calificacionId);
+            LOGGER.info("EstudianteCalificacionResource deleteCalificacion: output: void");
         }
-        calificacionLogic.deleteCalificacionEstudiante(estudianteId, calificacionId);
-        LOGGER.info("EstudianteCalificacionResource deleteCalificacion: output: void");
+        catch (BusinessLogicException e){
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
+        }
     }
     
     /**
