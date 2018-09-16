@@ -5,12 +5,12 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
+import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;

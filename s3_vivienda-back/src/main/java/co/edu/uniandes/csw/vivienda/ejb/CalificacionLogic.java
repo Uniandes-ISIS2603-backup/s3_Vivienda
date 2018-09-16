@@ -67,6 +67,20 @@ public class CalificacionLogic {
         return calificaciones;
     }
     
+    public List<CalificacionEntity> getCalificacionesEstudiante(Long estudianteId){
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        List<CalificacionEntity> calificaciones = persistence.findAllByEstudiante(estudianteId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        return calificaciones;
+    }
+    
+    public List<CalificacionEntity> getCalificacionesVivienda(Long viviendaId){
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        List<CalificacionEntity> calificaciones = persistence.findAllByVivienda(viviendaId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        return calificaciones;
+    }
+    
     public CalificacionEntity getCalificacion(Long id){
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los calificacions");
         CalificacionEntity calificacion = persistence.find(id);
@@ -74,6 +88,26 @@ public class CalificacionLogic {
             LOGGER.log(Level.SEVERE, "El calificacions con el id = {0} no existe", id);
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar todos los calificacions");
+        return calificacion;
+    }
+    
+    public CalificacionEntity getCalificacionEstudiante(Long idEstudiante, Long idCalificacion) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificaciones del estudiante");
+        CalificacionEntity calificacion = persistence.findByEstudiante(idEstudiante, idCalificacion);
+        if (calificacion == null) {
+            throw new BusinessLogicException("La calificación no está asociada con el estudiante");
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar las calificaciones del estudinate");
+        return calificacion;
+    }
+    
+    public CalificacionEntity getCalificacionVivienda(Long idVivienda, Long idCalificacion) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificaciones del estudiante");
+        CalificacionEntity calificacion = persistence.findByEstudiante(idVivienda, idCalificacion);
+        if (calificacion == null) {
+            throw new BusinessLogicException("La calificación no está asociada con la vivienda");
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar las calificaciones de la vivienda");
         return calificacion;
     }
     
@@ -102,6 +136,34 @@ public class CalificacionLogic {
     public void deleteCalificacion(Long calificacionId) {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el calificacion con id = {0}", calificacionId);
         // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
+        persistence.delete(calificacionId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el calificacion con id = {0}", calificacionId);
+    }
+    
+    /**
+     * Borrar un calificacion de un estudiante
+     *
+     * @param estudianteId: id del estudiante
+     * @param calificacionId: id del calificacion a borrar
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    public void deleteCalificacionEstudiante(Long estudianteId, Long calificacionId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el calificacion con id = {0}", calificacionId);
+        getCalificacionEstudiante(estudianteId, calificacionId);
+        persistence.delete(calificacionId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el calificacion con id = {0}", calificacionId);
+    }
+    
+    /**
+     * Borrar una calificacion de una vivienda
+     *
+     * @param viviendaId: id de la vivienda
+     * @param calificacionId: id del calificacion a borrar
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    public void deleteCalificacionVivienda(Long viviendaId, Long calificacionId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el calificacion con id = {0}", calificacionId);
+        getCalificacionVivienda(viviendaId, calificacionId);
         persistence.delete(calificacionId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el calificacion con id = {0}", calificacionId);
     }

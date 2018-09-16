@@ -34,6 +34,16 @@ public class CalificacionPersistence {
         TypedQuery query = em.createQuery("select u from CalificacionEntity u", CalificacionEntity.class);
         return query.getResultList();
     }
+    public List<CalificacionEntity> findAllByVivienda(Long viviendaId){
+        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.vivienda.id = :viviendaId)", CalificacionEntity.class);
+        query.setParameter("viviendaId", viviendaId);
+        return query.getResultList();
+    }
+    public List<CalificacionEntity> findAllByEstudiante(Long estudianteId){
+        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId)", CalificacionEntity.class);
+        query.setParameter("estudianteId", estudianteId);
+        return query.getResultList();
+    }
     public CalificacionEntity find(Long calificacionId){
         return em.find(CalificacionEntity.class, calificacionId);
     }
@@ -45,7 +55,7 @@ public class CalificacionPersistence {
         em.remove(entity);
     }
     public CalificacionEntity findByVivienda(Long viviendaId, Long calificacionId){
-        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.vivienda.id = :viviendaId) and (u.id = :calificacionId", CalificacionEntity.class);
+        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.vivienda.id = :viviendaId) and (u.id = :calificacionId)", CalificacionEntity.class);
         query.setParameter("viviendaId", viviendaId);
         query.setParameter("calificacionId", calificacionId);
         
