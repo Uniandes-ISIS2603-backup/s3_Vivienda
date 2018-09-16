@@ -151,14 +151,15 @@ public class EstudianteCalificacionesResource{
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionId, calificacion.toString()});
         calificacion.setId(calificacionId);
         try{
-            CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(estudianteId, calificacionId, calificacion.toEntity());
-            CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
-            LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());
-            return calificacionDTO;
+            calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId);
         }
         catch(BusinessLogicException e){
             throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
         }
+        CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(estudianteId, calificacionId, calificacion.toEntity());
+        CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
+        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());
+        return calificacionDTO;
     }
     
     /**

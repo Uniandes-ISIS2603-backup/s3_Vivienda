@@ -5,8 +5,9 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
-import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
+import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
+import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
@@ -26,15 +27,15 @@ public class EstudianteLogic {
     private EstudiantePersistence persistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
 
     @Inject
-    private UniversidadPersistence persistenceUniversidad;
+    private UniversidadPersistence persistenceUniversidad; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
     
     @Inject
-    private ContratoPersistence persistenceContrato;
+    private ContratoPersistence persistenceContrato; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
+    
     /**
      * Crea un estudiante en la persistencia.
      *
-     * @param estudianteEntity La entidad que representa el estudiante a
-     * persistir.
+     * @param estudianteEntity La entidad que representa el estudiante apersistir.
      * @return La entidad del estudiante luego de persistirlo.
      * @throws BusinessLogicException Si el login del estudiante a persistir ya existe.
      * Si el estudinate no tiene universidad.
@@ -58,13 +59,24 @@ public class EstudianteLogic {
         return estudianteEntity;
     }
     
-     public List<EstudianteEntity> getEstudiantes(){
+    /**
+     * Obtiene la lista de los registros de Estudiante.
+     *
+     * @return Colección de objetos de EstudianteEntity.
+     */
+    public List<EstudianteEntity> getEstudiantes(){
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los estudinates");
         List<EstudianteEntity> estudiantes = persistence.findAll();
         LOGGER.log(Level.INFO, "Termina proceso de consultar todos los estudiantes");
         return estudiantes;
     }
     
+    /**
+     * Obtiene los datos de una instancia de Estudiante a partir de su ID.
+     *
+     * @param id Identificador de la instancia a consultar
+     * @return Instancia de EstudianteEntity con los datos del Estudiante consultado.
+     */
     public EstudianteEntity getEstudiante(Long id){
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el estudiante");
         EstudianteEntity estudiante = persistence.find(id);
@@ -75,6 +87,15 @@ public class EstudianteLogic {
         return estudiante;
     }
     
+    /**
+     * Actualiza la información de una instancia de Estudiante.
+     *
+     * @param id Identificador de la instancia a actualizar
+     * @param entity Instancia de EstudianteEntity con los nuevos datos.
+     * @return Instancia de EstudianteEntity con los datos actualizados.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException si 
+     * no se puede actualizar el estudiante.
+     */
     public EstudianteEntity updateEstudiante(Long id, EstudianteEntity entity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el estudiante con id = {0}", id);
         EstudianteEntity prueba = persistence.findByLogin(entity.getLogin());
@@ -99,12 +120,62 @@ public class EstudianteLogic {
     /**
      * Borrar un estudiante
      *
-     * @param estudiantesId: id del estudiante a borrar
+     * @param estudianteId: id del estudiante a borrar
      */
-    public void deleteEstudiante(Long estudiantesId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el estudiante con id = {0}", estudiantesId);
-        // Note que, por medio de la inyección de dependencias se llama al método "delete(id)" que se encuentra en la persistencia.
-        persistence.delete(estudiantesId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el estudiante con id = {0}", estudiantesId);
+    public void deleteEstudiante(Long estudianteId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el estudiante con id = {0}", estudianteId);
+        persistence.delete(estudianteId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el estudiante con id = {0}", estudianteId);
+    }
+    
+    /**
+     * Reemplazar la universidad de un estudiante.
+     *
+     * @param estudianteId id del estudiante que se quiere actualizar.
+     * @param universidadId El id de la universidad que se será del estudiante.
+     * @return el nuevo estudianteId.
+     */
+    public EstudianteEntity replaceUniversidad(Long estudianteId, Long universidadId){
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar estudinate con id = {0}", estudianteId);
+        UniversidadEntity universidadEntity = persistenceUniversidad.find(universidadId);
+        EstudianteEntity estudianteEntity = persistence.find(estudianteId);
+        estudianteEntity.setUniversidad(universidadEntity);
+        universidadEntity.getEstudiantes().add(estudianteEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar estudiante con id = {0}", estudianteEntity.getId());
+        return estudianteEntity;
+    }
+
+    /**
+     * Borrar el contrato de un premio
+     *
+     * @param estudianteId El premio que se desea borrar del contrato.
+     * @throws BusinessLogicException si el premio no tiene contrato
+     */
+    public void deleteContrato(Long estudianteId) throws BusinessLogicException {
+       LOGGER.log(Level.INFO, "Inicia proceso de borrar el contrato del estudinate con id = {0}", estudianteId);
+        EstudianteEntity estudianteEntity = persistence.find(estudianteId);
+        if (estudianteEntity.getContrato() == null) {
+            throw new BusinessLogicException("El estudiante no tiene contrato");
+        }
+        ContratoEntity contratoEntity = persistenceContrato.find(estudianteEntity.getContrato().getId());
+        estudianteEntity.setContrato(null);
+        persistenceContrato.delete(estudianteEntity.getContrato().getId());
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el ontrato con id = {0} del estudiante con id = " + estudianteId, contratoEntity.getId());
+    }
+
+    /**
+     * Agregar un contrato a un estudiante
+     *
+     * @param estudianteId El id estudiante a guardar
+     * @param contratoId El id del contrato el cual se le va a guardar al estudiante.
+     * @return El contrato que fue agregado al estudiante.
+     */
+    public ContratoEntity addContrato(Long contratoId, Long estudianteId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de asociar el contrato con id = {0} al estudiante con id = " + estudianteId, contratoId);
+        ContratoEntity contratoEntity = persistenceContrato.find(contratoId);
+        EstudianteEntity estudianteEntity = persistence.find(estudianteId);
+        estudianteEntity.setContrato(contratoEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de asociar el contrato con id = {0} al estudiante con id = " + estudianteId, contratoId);
+        return persistenceContrato.find(contratoId);
     }
 }
