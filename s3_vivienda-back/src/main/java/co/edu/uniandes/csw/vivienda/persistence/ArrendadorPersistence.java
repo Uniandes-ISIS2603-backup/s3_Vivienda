@@ -61,7 +61,7 @@ public class ArrendadorPersistence {
     public ArrendadorEntity findByLogin(String arrendadorLogin) {
         
         TypedQuery query = em.createQuery("Select v from ArrendadorEntity v where v.login = :login", ArrendadorEntity.class);
-        query.setParameter("login", arrendadorLogin);
+        query = query.setParameter("login", arrendadorLogin);
 
         List<ArrendadorEntity> busc = query.getResultList();
         ArrendadorEntity result = null;
