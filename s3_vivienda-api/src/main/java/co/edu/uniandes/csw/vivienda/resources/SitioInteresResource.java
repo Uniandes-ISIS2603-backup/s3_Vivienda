@@ -55,7 +55,6 @@ public class SitioInteresResource {
     }
     
     @GET
-    @Path("{sitioInteresId: \\d+}")
     public List<SitioInteresDetailDTO> getSitiosInteres(@PathParam("sitioInteresId")Long sitioInteresId) throws WebApplicationException
     {
         List<SitioInteresEntity> lista = sitioInteresLogic.getSitiosInteres();
