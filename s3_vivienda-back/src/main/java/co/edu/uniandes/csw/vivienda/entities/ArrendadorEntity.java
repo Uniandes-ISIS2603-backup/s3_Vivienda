@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
  * @author msalcedo
  */
 @Entity
-public class ArrendadorEntity extends BaseEntity {
+public class ArrendadorEntity extends BaseEntity implements Serializable{
     
     private String nombre;
     private String login;

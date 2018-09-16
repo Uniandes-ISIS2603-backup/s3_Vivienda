@@ -27,22 +27,23 @@ public class SitioInteresLogic
     @Inject
     private ViviendaPersistence viviendaPersistence;
     
-    public SitioInteresEntity getSitioInteres(Long viviendaId, Long sitioInteresId)
-    {
-       SitioInteresEntity sitioInteresEntity = sitioInteresPersistence.find(viviendaId, sitioInteresId);
-       return sitioInteresEntity;
-    }
-    
-    public SitioInteresEntity createSitioInteres(Long viviendaId, SitioInteresEntity sitioInteresEntity) throws BusinessLogicException
+    public SitioInteresEntity createSitioInteres(SitioInteresEntity sitioInteresEntity) throws BusinessLogicException
     {
         if(sitioInteresPersistence.findByLatLong(sitioInteresEntity.getLatitud(), sitioInteresEntity.getLongitud())!=null)
         {
             throw new BusinessLogicException("Ya existe un sitioInteres con esa latitud y longitud ");
         }
-        ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
+        ViviendaEntity viviendaEntity = viviendaPersistence.find(sitioInteresEntity.getVivienda().getId());
         sitioInteresEntity.setVivienda(viviendaEntity);
 
         return sitioInteresPersistence.create(sitioInteresEntity);
+        
+    }
+    
+    public SitioInteresEntity getSitioInteres(Long viviendaId, Long sitioInteresId)
+    {
+       SitioInteresEntity sitioInteresEntity = sitioInteresPersistence.find(viviendaId, sitioInteresId);
+       return sitioInteresEntity;
     }
     
     public SitioInteresEntity updateSitioInteres(Long sitioInteresId, SitioInteresEntity sitioInteresEntity)

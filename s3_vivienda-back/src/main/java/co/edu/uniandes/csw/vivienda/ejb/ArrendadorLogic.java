@@ -37,7 +37,7 @@ public class ArrendadorLogic {
         String login = arrendadorEntity.getLogin();
 
         ArrendadorEntity arrendadorExiste = arrendadorPersistence.findByLogin(login);
-
+                    System.out.println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"+arrendadorExiste);
         if (arrendadorExiste == null){
             arrendadorEntity = arrendadorPersistence.create(arrendadorEntity);
             return(arrendadorEntity);

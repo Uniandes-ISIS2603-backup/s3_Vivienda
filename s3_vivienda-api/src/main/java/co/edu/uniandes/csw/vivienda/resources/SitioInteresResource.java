@@ -32,8 +32,10 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author estudiante
  */
+@Path("sitioInteres")
 @Produces("application/json")
 @Consumes("application/json")
+@RequestScoped
 public class SitioInteresResource {
     private static final Logger LOGGER = Logger.getLogger(SitioInteresResource.class.getName());
     
@@ -41,12 +43,12 @@ public class SitioInteresResource {
     SitioInteresLogic sitioInteresLogic;
     
     @POST
-    public SitioInteresDetailDTO createSitioInteres(@PathParam("viviendaId")Long viviendaId, SitioInteresDTO sitioInteres) throws BusinessLogicException {
+    public SitioInteresDetailDTO createSitioInteres( SitioInteresDTO sitioInteres) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EditorialResource createEditorial: input: {0}", sitioInteres.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         SitioInteresEntity sitioInteresEntity = sitioInteres.toEntity();
         
-        SitioInteresEntity nuevoSitioInteresEntity = sitioInteresLogic.createSitioInteres(viviendaId,sitioInteresEntity);
+        SitioInteresEntity nuevoSitioInteresEntity = sitioInteresLogic.createSitioInteres(sitioInteresEntity);
  
         SitioInteresDetailDTO nuevoSitioInteres = new SitioInteresDetailDTO(nuevoSitioInteresEntity);
         return nuevoSitioInteres;
