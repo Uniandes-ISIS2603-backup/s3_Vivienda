@@ -69,16 +69,16 @@ public class ServicioAdicionalPersistence
     }
 
     /**
-     * Buscar una reseña
+     * Buscar un servicio adicional
      *
-     * Busca si hay alguna reseña asociada a un libro y con un ID específico
+     * Busca si hay algun servicio adicional asociado a una vivienda y con un ID específico
      *
-     * @param booksId El ID del libro con respecto al cual se busca
-     * @param reviewsId El ID de la reseña buscada
-     * @return La reseña encontrada o null. Nota: Si existe una o más reseñas
-     * devuelve siempre la primera que encuentra
+     * @param viviendaId El ID de la vivienda con respecto al cual se busca
+     * @param servicioAdicionalId El ID del servicio adicional buscado
+     * @return El servicio adicional encontrado o null. Nota: Si existe uno o mas servicios adicionales
+     * devuelve siempre el primero que encuentra
      */
-    public ServicioAdicionalEntity findByVivienda(Long viviendaId, Long servicioAdicionalId) {
+    public ServicioAdicionalEntity find(Long viviendaId, Long servicioAdicionalId) {
         LOGGER.log(Level.INFO, "Consultando el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
         TypedQuery<ServicioAdicionalEntity> q = em.createQuery("select p from ServicioAdicionalEntity p where (p.vivienda.id = :viviendaId) and (p.id = :servicioAdicionalId)", ServicioAdicionalEntity.class);
         q.setParameter("viviendaId", viviendaId);
@@ -92,7 +92,7 @@ public class ServicioAdicionalPersistence
         } else if (results.size() >= 1) {
             servicioAdicional = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el review con id = {0} del libro con id =" + viviendaId, servicioAdicionalId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar el servicio adiconal con id = {0} de la vivienda con id =" + viviendaId, servicioAdicionalId);
         return servicioAdicional;
     }
 }

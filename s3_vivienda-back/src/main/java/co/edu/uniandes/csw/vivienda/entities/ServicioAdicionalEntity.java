@@ -6,7 +6,10 @@
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import uk.co.jemos.podam.common.PodamExclude;
 
 /**
  *
@@ -20,8 +23,10 @@ public class ServicioAdicionalEntity extends BaseEntity implements Serializable{
   private String descripcion;
   private Float costo; 
   
+  @PodamExclude
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private ViviendaEntity vivienda;
-  private EstudianteEntity estudiante;
+  
   private ContratoEntity contrato;
   
   public String getNombre() {
