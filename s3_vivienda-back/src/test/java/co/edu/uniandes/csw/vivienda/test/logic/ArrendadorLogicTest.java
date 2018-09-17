@@ -160,7 +160,7 @@ public class ArrendadorLogicTest {
      * Prueba para consultar un Arrendador.
      */
     @Test
-    public void getArrendadorTest() {
+    public void getArrendadorTest() throws BusinessLogicException {
         ArrendadorEntity entity = data.get(0);
         ArrendadorEntity resultEntity = arrendadorLogic.getArrendador(entity.getId());
         Assert.assertNotNull(resultEntity);
@@ -172,7 +172,7 @@ public class ArrendadorLogicTest {
      * Prueba para actualizar un Arrendador.
      */
     @Test
-    public void updateArrendadorTest() {
+    public void updateArrendadorTest() throws BusinessLogicException {
         ArrendadorEntity entity = data.get(0);
         ArrendadorEntity pojoEntity = factory.manufacturePojo(ArrendadorEntity.class);
         pojoEntity.setId(entity.getId());

@@ -64,7 +64,7 @@ public class ArrendadorLogic {
         if (viviendas != null && !viviendas.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el arrendador con id = " + arrendadorId + " porque tiene viviendas asociadas");
         }
-        else if(getArrendador(arrendadorId)!=null)
+        else if(getArrendador(arrendadorId)==null)
         {
             throw new BusinessLogicException("El recurso /arrendadores/" + arrendadorId +" no existe");
         }
