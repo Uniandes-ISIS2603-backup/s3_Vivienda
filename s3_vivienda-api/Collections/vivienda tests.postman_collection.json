@@ -1,0 +1,241 @@
+{
+	"info": {
+		"_postman_id": "5166e953-30a8-47c6-bea5-c73a0dccf240",
+		"name": "vivienda tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "POST Viviendas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4df6494e-998a-4a37-b838-d0bed0f14ca3",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"direccionExistente\", data.direccion)",
+							"postman.setGlobalVariable(\"viviendaId\", data.id)",
+							"tests[\"El post no genera error\"] = responseCode.code === 200;",
+							"",
+							"",
+							"",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url}}/viviendas/",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"viviendas",
+						""
+					]
+				},
+				"description": "<h1>Crea una vivienda</h1>\n<p>Mientras que se implemente la persistencia esta prueba verifica que se recibe un status code 200 y que la respuesta es un json igual al que se mando en el cuerpo del request.</p>"
+			},
+			"response": []
+		},
+		{
+			"name": "POST Vivivendas 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f27f7f64-032f-4fd7-8424-899463b0f088",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea una vivienda con dirección igual a otra\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe una vivienda en la misma dirección\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"direccion\":\"{{direccionExistente}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+				},
+				"url": {
+					"raw": "http://{{base_url}}/viviendas/",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"viviendas",
+						""
+					]
+				},
+				"description": "Crea una vivienda con una dirección repetida"
+			},
+			"response": []
+		},
+		{
+			"name": "GET ViviendaId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a276d33f-11f2-4a24-953f-73bb49b18b7f",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Status code 200\"] == responseCode.code === 200;",
+							"tests[\"Devuelve la vivienda esperada\"] == data.id === pm.globals.get(\"viviendaId\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{base_url}}/viviendas/{{viviendaId}}",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"viviendas",
+						"{{viviendaId}}"
+					]
+				},
+				"description": "Retorna la vivienda con el id dado si existe"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Viviendas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f879aca9-eeb8-4a11-9fa8-e36a19a9d432",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"El post no genera error\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{base_url}}/viviendas",
+					"protocol": "http",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"viviendas"
+					]
+				},
+				"description": "Devuelve todas las viviendas"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT Vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03f0490c-ba7b-4b1a-838c-bbeed6264812",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"El post no genera error\"] = responseCode.code === 200;",
+							"tests[\"El json recibido concuerda con el json enviado\"] = (data.nombre===\"Un nuevo nombre\")"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"nombre\": \"Un nuevo nombre\"}"
+				},
+				"url": {
+					"raw": "{{base_url}}/viviendas/{{viviendaId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"viviendas",
+						"{{viviendaId}}"
+					]
+				},
+				"description": "Actualiza la vivienda con el id dado según el json que entra como parametro."
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE ViviendaId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ed8f00ac-6cd6-4961-ac82-2ce239000f34",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"El post no genera error\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{base_url}}/viviendas/{{viviendaId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"viviendas",
+						"{{viviendaId}}"
+					]
+				},
+				"description": "Elimina la vivienda con el id dado."
+			},
+			"response": []
+		}
+	]
+}

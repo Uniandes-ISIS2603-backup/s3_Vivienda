@@ -14,6 +14,7 @@ import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 public class CuartoDTO {
     private String nombre;
     private String descripcion;
+    private Integer costoArriendo;
 
     public CuartoDTO(){
     }
@@ -22,6 +23,7 @@ public class CuartoDTO {
         if(cuartoEntity != null){
             this.nombre = cuartoEntity.getNombre();
             this.descripcion = cuartoEntity.getDescripcion();
+            this.costoArriendo = cuartoEntity.getCostoArriendo();
         }
     }
 
@@ -29,6 +31,7 @@ public class CuartoDTO {
         CuartoEntity cuartoEntity = new CuartoEntity();
         cuartoEntity.setNombre(nombre);
         cuartoEntity.setDescripcion(descripcion);
+        cuartoEntity.setCostoArriendo(costoArriendo);
         return cuartoEntity;
     }
 }

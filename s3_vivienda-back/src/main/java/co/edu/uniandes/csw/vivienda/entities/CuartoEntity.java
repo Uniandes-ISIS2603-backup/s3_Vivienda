@@ -23,6 +23,7 @@ public class CuartoEntity extends BaseEntity implements Serializable{
       private ViviendaEntity vivienda;
       private String nombre;
       private String descripcion;
+      private Integer costoArriendo;
 
       public ViviendaEntity getVivienda() {
             return vivienda;
@@ -46,5 +47,13 @@ public class CuartoEntity extends BaseEntity implements Serializable{
 
       public void setDescripcion(String descripcion) {
             this.descripcion = descripcion;
+      }
+
+      public Integer getCostoArriendo() {
+            return costoArriendo;
+      }
+
+      public void setCostoArriendo(Integer costoArriendo) {
+            this.costoArriendo = costoArriendo;
       }
 }
