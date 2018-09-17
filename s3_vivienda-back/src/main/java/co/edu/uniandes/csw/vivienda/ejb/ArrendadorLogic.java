@@ -10,6 +10,8 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ArrendadorPersistence;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -20,14 +22,15 @@ import javax.inject.Inject;
 @Stateless
 public class ArrendadorLogic {
     
+    private static final Logger LOGGER = Logger.getLogger(ArrendadorLogic.class.getName());
     @Inject
     private ArrendadorPersistence arrendadorPersistence;
     
-    public ArrendadorEntity getArrendador(Long arrendadorId) throws BusinessLogicException
+    public ArrendadorEntity getArrendador(Long arrendadorId) 
     {
         ArrendadorEntity arrendadorEntity = arrendadorPersistence.find(arrendadorId);
         if (arrendadorEntity == null) {
-            throw new BusinessLogicException("El arrendador con id: " + arrendadorId + " no existe");
+            LOGGER.log(Level.SEVERE, "El arrendador con el id = {0} no existe", arrendadorId);
         }
         return arrendadorEntity;
     }

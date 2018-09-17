@@ -88,7 +88,7 @@ public class ArrendadorResource {
     
     @PUT
     @Path("{arrendadorId:\\d+}")
-    public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws WebApplicationException
+    public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws BusinessLogicException
     {
         arrendador.setId(arrendadorId);
         if(arrendadorLogic.getArrendador(arrendadorId)==null)

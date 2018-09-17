@@ -44,7 +44,7 @@ public class ViviendaArrendadorResource {
     
     @GET
     @Path("{arrendadorId: \\d+}")
-    public ArrendadorDetailDTO getArrendador(@PathParam("viviendaId") Long viviendaId, @PathParam("arrendadorId") Long arrendadorId) throws WebApplicationException {
+    public ArrendadorDetailDTO getArrendador(@PathParam("viviendaId") Long viviendaId, @PathParam("arrendadorId") Long arrendadorId)  {
         
         if (arrendadorLogic.getArrendador(arrendadorId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/arrendadores/" + arrendadorId + " no existe.", 404);
