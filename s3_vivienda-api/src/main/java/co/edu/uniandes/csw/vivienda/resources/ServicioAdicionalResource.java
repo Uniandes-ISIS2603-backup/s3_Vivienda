@@ -12,8 +12,6 @@ import java.util.Collection;
 import java.util.logging.*;
 import javax.ws.rs.*;
 
-
-@Path("viviendas/{viviendaId:\\d+}/serviciosAdicionales")
 @Produces("application/json")
 @Consumes("application/json")
 
@@ -21,13 +19,12 @@ public class ServicioAdicionalResource {
     
     private static final Logger LOGGER = Logger.getLogger(ServicioAdicionalResource.class.getName());
     
+   // @Inject
+   // private ReviewLogic reviewLogic;
+    
     @POST
-    public ServicioAdicionalDTO createServicioAdicional(ServicioAdicionalDTO servicioAdicional) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "ServicioAdicionalResource.createServicioAdicional: input:{0}", servicioAdicional.toString());
-        ServicioAdicionalEntity servicioAdicionalEntity = servicioAdicional.toEntity();
-        
-        ServicioAdicionalDTO nuevoservicioAdicionalDTO = new ServicioAdicionalDTO(servicioAdicionalEntity);
-        return nuevoservicioAdicionalDTO;
+    public ServicioAdicionalDTO createServicioAdicional(@PathParam("viviendaId") Long viviendaId, ServicioAdicionalDTO servicio) throws BusinessLogicException{
+       return null;
     }
     
     @GET
@@ -36,21 +33,21 @@ public class ServicioAdicionalResource {
     }
     
     @GET
-    @Path("{calificacionId:\\d+}")
+    @Path("{servicioAdicionalId: \\d+}")
     public ServicioAdicionalDTO getServicioAdicional(@PathParam("servicioAdicionalId")Long servicioAdicionalId) throws WebApplicationException
     {
         return null;
     }
     
     @PUT
-    @Path("{sitioInteresId: \\d+}")
+    @Path("{servicioAdicionalId: \\d+}")
     public ServicioAdicionalDTO updateServicioAdicional(@PathParam("servicioAdicionalId")Long servicioAdicionalId, ServicioAdicionalDTO servicioAdicional)throws WebApplicationException
     {
         return null;
     }
     
     @DELETE
-    @Path("{sitioInteresId: \\d+}")
+    @Path("{servicioAdicionalId: \\d+}")
     public void deleteSitioInteres(@PathParam("sitioInteresId")Long sitioInteresId)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "SitioInteresResource.deleteSitioInteres: input:{0}", sitioInteresId);
