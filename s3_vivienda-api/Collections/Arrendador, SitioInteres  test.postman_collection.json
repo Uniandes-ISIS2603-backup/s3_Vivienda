@@ -11,7 +11,7 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7b14f888-1370-4db7-bc47-14c3e38e5fe7",
+						"id": "7af7bb22-41af-4200-9481-0a69001feef2",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
@@ -31,7 +31,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n\t\"nombre\": \"Pedro\",        \r\n\t\"login\": \"PedroPerez\",                \r\n\t\"password\": \"123456\"          \r\n\r\n}"
+					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
@@ -47,6 +47,71 @@
 					]
 				},
 				"description": "Se crea un arrendador nuevo y se verifica que la respuesta es igual al json que se envio en el cuerpo del reuest."
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un arrendador 2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear arrendador con login repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d0f93691-c1f9-41d4-bfb8-ae88d2d2eba7",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo login\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe una arrendador con ese login\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"juan\",\n\t\"login\":\"mario1\",\n\t\"password\":\"123456\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores"
+					]
+				}
 			},
 			"response": []
 		},
@@ -94,6 +159,52 @@
 			"response": []
 		},
 		{
+			"name": "Acutalizar un arrendador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7af7bb22-41af-4200-9481-0a69001feef2",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_a2}}"
+					]
+				},
+				"description": "Se crea un arrendador nuevo y se verifica que la respuesta es igual al json que se envio en el cuerpo del reuest."
+			},
+			"response": []
+		},
+		{
 			"name": "Obtener arrendador",
 			"event": [
 				{
@@ -123,6 +234,43 @@
 						"api",
 						"arrendadores",
 						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener arrendadores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a32ea2f8-b35e-45a1-802b-6382a4464b73",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"arrendadores count\"] = data.length > 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						""
 					]
 				}
 			},
@@ -166,6 +314,65 @@
 						"api",
 						"arrendadores",
 						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar arrendador 2",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_a2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar arrendador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4d6648a4-9027-40bf-a837-b12f076037a4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendador/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"0"
 					]
 				}
 			},

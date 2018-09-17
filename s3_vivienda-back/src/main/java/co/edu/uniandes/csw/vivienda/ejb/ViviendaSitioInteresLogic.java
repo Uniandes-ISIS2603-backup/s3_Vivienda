@@ -35,7 +35,7 @@ public class ViviendaSitioInteresLogic {
      * Agregar un sitioInteres a la vivienda
      *
      * @param sitioInteresId El id sitioInteres a guardar
-     * @param editorialsId El id de la vivienda en la cual se va a guardar el
+     * @param viviendaId El id de la vivienda en la cual se va a guardar el
      * sitioInteres.
      * @return El sitioInteres creado.
      */

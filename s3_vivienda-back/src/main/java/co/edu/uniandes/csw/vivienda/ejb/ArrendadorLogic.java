@@ -23,11 +23,11 @@ public class ArrendadorLogic {
     @Inject
     private ArrendadorPersistence arrendadorPersistence;
     
-    public ArrendadorEntity getArrendador(Long arrendadorId)
+    public ArrendadorEntity getArrendador(Long arrendadorId) throws BusinessLogicException
     {
         ArrendadorEntity arrendadorEntity = arrendadorPersistence.find(arrendadorId);
         if (arrendadorEntity == null) {
-            //LOGGER.log(Level.SEVERE, "El arrendador con el id = {0} no existe", arrendadorId);
+            throw new BusinessLogicException("El arrendador con id: " + arrendadorId + " no existe");
         }
         return arrendadorEntity;
     }
@@ -37,19 +37,23 @@ public class ArrendadorLogic {
         String login = arrendadorEntity.getLogin();
 
         ArrendadorEntity arrendadorExiste = arrendadorPersistence.findByLogin(login);
-                    System.out.println("AQUIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII"+arrendadorExiste);
+ 
         if (arrendadorExiste == null){
             arrendadorEntity = arrendadorPersistence.create(arrendadorEntity);
             return(arrendadorEntity);
         }
         else {
-            throw new BusinessLogicException("Ya existe un arrendador con ese login ");
+            throw new BusinessLogicException("Ya existe un arrendador con ese login");
         }
     }
     
-    public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity)
+    public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity) throws BusinessLogicException
     {
-        ArrendadorEntity newArrendador = arrendadorPersistence.update(arrendadorEntity);
+        ArrendadorEntity newArrendador = null;
+        if(getArrendador(arrendadorId)!=null)
+        {
+            newArrendador = arrendadorPersistence.update(arrendadorEntity);
+        }
         return newArrendador;
     }
     
@@ -59,6 +63,10 @@ public class ArrendadorLogic {
         List<ViviendaEntity> viviendas = getArrendador(arrendadorId).getViviendas();
         if (viviendas != null && !viviendas.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el arrendador con id = " + arrendadorId + " porque tiene viviendas asociadas");
+        }
+        else if(getArrendador(arrendadorId)!=null)
+        {
+            throw new BusinessLogicException("El recurso /arrendadores/" + arrendadorId +" no existe");
         }
         arrendadorPersistence.delete(arrendadorId);
 

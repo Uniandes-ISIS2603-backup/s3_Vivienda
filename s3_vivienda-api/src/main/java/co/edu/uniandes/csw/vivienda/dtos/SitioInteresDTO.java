@@ -21,17 +21,21 @@ public class SitioInteresDTO implements Serializable{
     private Float latitud;
     private Float longitud;
     
+    private ViviendaDTO viviendadto;
+    
     public SitioInteresDTO()
     {   
     }
     
-        public SitioInteresDTO(SitioInteresEntity sitioInteresEntity) {
+    public SitioInteresDTO(SitioInteresEntity sitioInteresEntity) {
         if (sitioInteresEntity != null) {
             this.id = sitioInteresEntity.getId();
             this.nombre = sitioInteresEntity.getNombre();
             this.descripcion = sitioInteresEntity.getDescripcion();
             this.latitud = sitioInteresEntity.getLatitud();
             this.longitud = sitioInteresEntity.getLongitud();
+            if (sitioInteresEntity.getVivienda() != null)
+                this.viviendadto = new ViviendaDTO(sitioInteresEntity.getVivienda());
         }
     }
     
@@ -114,11 +118,27 @@ public class SitioInteresDTO implements Serializable{
         sitioInteresEntity.setDescripcion(this.descripcion);
         sitioInteresEntity.setLatitud(this.latitud);
         sitioInteresEntity.setLongitud(this.longitud);
+        if (viviendadto != null)
+            sitioInteresEntity.setVivienda(viviendadto.toEntity());
         return sitioInteresEntity;
     }
     
         @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the viviendadto
+     */
+    public ViviendaDTO getViviendadto() {
+        return viviendadto;
+    }
+
+    /**
+     * @param viviendadto the viviendadto to set
+     */
+    public void setViviendadto(ViviendaDTO viviendadto) {
+        this.viviendadto = viviendadto;
     }
 }

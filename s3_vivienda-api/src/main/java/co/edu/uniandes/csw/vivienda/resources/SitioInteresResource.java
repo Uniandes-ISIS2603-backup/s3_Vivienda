@@ -43,14 +43,14 @@ public class SitioInteresResource {
     SitioInteresLogic sitioInteresLogic;
     
     @POST
-    public SitioInteresDetailDTO createSitioInteres( SitioInteresDTO sitioInteres) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EditorialResource createEditorial: input: {0}", sitioInteres.toString());
+    public SitioInteresDTO createSitioInteres( SitioInteresDTO sitioInteres) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: input: {0}", sitioInteres.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         SitioInteresEntity sitioInteresEntity = sitioInteres.toEntity();
         
         SitioInteresEntity nuevoSitioInteresEntity = sitioInteresLogic.createSitioInteres(sitioInteresEntity);
  
-        SitioInteresDetailDTO nuevoSitioInteres = new SitioInteresDetailDTO(nuevoSitioInteresEntity);
+        SitioInteresDTO nuevoSitioInteres = new SitioInteresDTO(nuevoSitioInteresEntity);
         return nuevoSitioInteres;
     }
     

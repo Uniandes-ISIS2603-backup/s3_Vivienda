@@ -119,11 +119,11 @@ public class SitioInteresLogicTest {
         
     }
     
-//    /**
-//     * Prueba para crear un SitioInteres
-//     */
-//    @Test
-//    public void createSitioInteresTest() throws BusinessLogicException {
+    /**
+     * Prueba para crear un SitioInteres
+     */
+    @Test
+    public void createSitioInteresTest() throws BusinessLogicException {
 //        SitioInteresEntity newEntity = factory.manufacturePojo(SitioInteresEntity.class);
 //        SitioInteresEntity result = sitioInteresLogic.createSitioInteres(newEntity);
 //        Assert.assertNotNull(result);
@@ -132,5 +132,5 @@ public class SitioInteresLogicTest {
 //        Assert.assertEquals(newEntity.getLatitud(), entity.getLatitud());
 //        Assert.assertEquals(newEntity.getLongitud(), entity.getLongitud());
 //        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
-//    }
+    }
 }
