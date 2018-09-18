@@ -51,12 +51,13 @@ public class EstudianteContratoResource {
      * @param contratoId Identificador del autor que se desea guardar. Este debe
      * ser una cadena de dígitos.
      * @return JSON {@link ContratoDTO} - El autor guardado en el premio.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el autor.
      */
     @POST
     @Path("{contratoId: \\d+}")
-    public ContratoDTO addContrato(@PathParam("estudianteId") Long estudianteId, @PathParam("contratoId") Long contratoId) {
+    public ContratoDTO addContrato(@PathParam("estudianteId") Long estudianteId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EstudianteContratoResource addContrato: input: estudiantesID: {0} , contratoId: {1}", new Object[]{estudianteId, contratoId});
         if (contratoLogic.getContrato(contratoId) == null) {
             throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);

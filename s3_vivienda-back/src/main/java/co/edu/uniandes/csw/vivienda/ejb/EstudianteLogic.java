@@ -174,12 +174,12 @@ public class EstudianteLogic {
      * @param estudianteId El id estudiante a guardar
      * @param contratoId El id del contrato el cual se le va a guardar al estudiante.
      * @return El contrato que fue agregado al estudiante.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     public ContratoEntity addContrato(Long contratoId, Long estudianteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de asociar el contrato con id = {0} al estudiante con id = " + estudianteId, contratoId);
         ContratoEntity contratoEntity = persistenceContrato.find(contratoId);
         EstudianteEntity estudianteEntity = persistence.find(estudianteId);
-        assert (estudianteEntity != null);
         estudianteEntity.setContrato(contratoEntity);
         updateEstudiante(estudianteId, estudianteEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociar el contrato con id = {0} al estudiante con id = " + estudianteId, contratoId);
