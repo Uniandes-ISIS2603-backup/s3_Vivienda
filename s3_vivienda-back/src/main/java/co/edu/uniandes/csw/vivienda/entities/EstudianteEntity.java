@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
-import static javax.persistence.CascadeType.ALL;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -26,15 +25,15 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private String password;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(cascade ={CascadeType.MERGE, CascadeType.REFRESH})
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante",cascade=ALL, orphanRemoval=true)
+    @OneToOne(mappedBy="estudiante", cascade=CascadeType.ALL, orphanRemoval=true)
     private ContratoEntity contrato;
     
     @PodamExclude
-    @OneToMany(mappedBy="estudiante", cascade=ALL, orphanRemoval=true)
+    @OneToMany(mappedBy="estudiante", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
     
       

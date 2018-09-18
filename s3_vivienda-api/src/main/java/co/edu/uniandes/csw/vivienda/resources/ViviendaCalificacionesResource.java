@@ -38,6 +38,7 @@ public class ViviendaCalificacionesResource{
      * la petición y se regresa un objeto identico con un id auto-generado por
      * la base de datos.
      *
+     * @param viviendaId La vivienda asociadad a la calificación
      * @param calificacion {@link CalificacionDTO} - La calificacion que se desea
      * guardar.
      * @return JSON {@link CalificacionDTO} - La calificacion guardada con el atributo
@@ -46,7 +47,7 @@ public class ViviendaCalificacionesResource{
      * Error de lógica que se genera cuando no se puede crear la calificación.
      */
     @POST
-    public CalificacionDTO createCalificacion(CalificacionDTO calificacion) throws BusinessLogicException {
+    public CalificacionDTO createCalificacion(@PathParam("viviendaId") Long viviendaId, CalificacionDTO calificacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: input: {0}", calificacion.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         CalificacionEntity calificacionEntity = calificacion.toEntity();

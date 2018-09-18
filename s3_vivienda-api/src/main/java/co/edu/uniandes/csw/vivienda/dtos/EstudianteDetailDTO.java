@@ -22,7 +22,7 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
     /*
     * Esta lista de tipo CalificacionDTO contiene las calificaciones que estan asociados a un estudiante
     */
-    List <CalificacionDTO> calificaciones;
+    private List <CalificacionDTO> calificaciones;
     
     /**
      * Constructor por defecto

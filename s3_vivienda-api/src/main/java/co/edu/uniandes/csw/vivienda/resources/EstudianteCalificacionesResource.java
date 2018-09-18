@@ -74,7 +74,7 @@ public class EstudianteCalificacionesResource{
      * id autogenerado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se puede crear la calificación.
-     */
+     
     @POST
     public CalificacionDTO createCalificacion(CalificacionDTO calificacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EstudianteCalificacionResource createCalificacion: input: {0}", calificacion.toString());
@@ -87,6 +87,7 @@ public class EstudianteCalificacionesResource{
         LOGGER.log(Level.INFO, "EstudianteCalificacionResource createCalificacion: output: {0}", nuevoCalificacionDTO.toString());
         return nuevoCalificacionDTO;
     }
+    */
     
     /**
      * Busca y devuelve todos las calificacioness que existen en el estudiante.

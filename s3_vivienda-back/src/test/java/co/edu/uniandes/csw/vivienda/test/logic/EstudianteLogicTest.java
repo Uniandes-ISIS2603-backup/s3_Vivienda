@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.test.logic;
 
+import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
@@ -41,6 +42,9 @@ public class EstudianteLogicTest {
 
     @Inject
     private EstudianteLogic estudianteLogic;
+    
+    @Inject
+    private ContratoLogic contratoLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -133,13 +137,21 @@ public class EstudianteLogicTest {
             dataUniversidad.get(0).getEstudiantes().add(entity);
         }
 
+        ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
+        ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
+        contrato.setVivienda(vivienda);
+        em.persist(contrato); 
+        em.persist(vivienda);
+        dataContrato.add(contrato);
+        dataVivienda.add(vivienda);
+        
         EstudianteEntity estudiante = data.get(2);
         CalificacionEntity entity = factory.manufacturePojo(CalificacionEntity.class);
         entity.setEstudiante(estudiante);
         em.persist(entity);
         estudiante.getCalificaciones().add(entity);
     }
-
+    /*
     private void printList (List<EstudianteEntity> lista){
         for (EstudianteEntity e : lista){
             String s = "";
@@ -150,6 +162,8 @@ public class EstudianteLogicTest {
             System.out.println("ID: " + e.getId() + "\nLOGIN: "+ e.getLogin()+"\nUNIVERSIDAD: "+ s);
         }
     }
+    */
+    
     private void esIgual(EstudianteEntity entity, EstudianteEntity newEntity){
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
@@ -157,7 +171,7 @@ public class EstudianteLogicTest {
         Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
         
         // Universidad
-        if (entity.getContrato() != null && newEntity.getContrato() != null){
+        if (entity.getUniversidad()!= null && newEntity.getUniversidad() != null){
             Assert.assertEquals(newEntity.getUniversidad().getId(), entity.getUniversidad().getId());
             Assert.assertEquals(newEntity.getUniversidad().getLatitud(), entity.getUniversidad().getLatitud());
             Assert.assertEquals(newEntity.getUniversidad().getLongitud(), entity.getUniversidad().getLongitud());
@@ -229,8 +243,7 @@ public class EstudianteLogicTest {
     @Test
     public void getEstudiantesTest() {
         List<EstudianteEntity> list =  estudianteLogic.getEstudiantes();
-        printList(list); 
-        printList(data);
+
         Assert.assertEquals(data.size(), list.size());
         for (EstudianteEntity entity : list) {
             boolean found = false;
@@ -267,7 +280,8 @@ public class EstudianteLogicTest {
 
         estudianteLogic.updateEstudiante(pojoEntity.getId(), pojoEntity);
         EstudianteEntity resp = em.find(EstudianteEntity.class, entity.getId());
-
+        
+        Assert.assertTrue(resp.getUniversidad()!= null && pojoEntity.getUniversidad() != null);
         esIgual(pojoEntity, resp);
     }
     
@@ -320,5 +334,65 @@ public class EstudianteLogicTest {
         EstudianteEntity deleted = em.find(EstudianteEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
-
+    
+    @Test
+    public void replaceUniversidadTest() {
+        EstudianteEntity entity = data.get(0);
+        UniversidadEntity universidad = dataUniversidad.get(2);
+        Assert.assertNotEquals(entity.getUniversidad().getId(), universidad.getId());
+        estudianteLogic.replaceUniversidad(entity.getId(), universidad.getId());
+        
+        EstudianteEntity replaced = em.find(EstudianteEntity.class, entity.getId());
+        Assert.assertNotNull(replaced);
+        Assert.assertEquals(replaced.getUniversidad().getId(), universidad.getId());
+    }
+    
+    @Test
+    public void deleteContratoTest() throws BusinessLogicException{
+        EstudianteEntity entity = data.get(1);
+        entity = estudianteLogic.getEstudiante(entity.getId());
+        Assert.assertNotNull(entity.getContrato());
+        estudianteLogic.deleteContrato(entity.getId());
+        entity = estudianteLogic.getEstudiante(entity.getId());
+        Assert.assertNull(entity.getContrato());
+        Assert.assertNull(em.find(ContratoEntity.class, dataContrato.get(1).getId()));
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void deleteContratoTestSinContrato() throws BusinessLogicException{
+        EstudianteEntity entity = data.get(0);
+        entity = estudianteLogic.getEstudiante(entity.getId());
+        Assert.assertNotNull(entity.getContrato());
+        estudianteLogic.deleteContrato(entity.getId());
+        entity = estudianteLogic.getEstudiante(entity.getId());
+        Assert.assertNull(entity.getContrato());
+        
+        estudianteLogic.deleteContrato(entity.getId());
+    }
+    
+    @Test
+    public void addContrato() throws BusinessLogicException{
+        EstudianteEntity entity = data.get(0);
+        Assert.assertNotNull(entity.getContrato());
+        estudianteLogic.deleteContrato(entity.getId());
+        entity = estudianteLogic.getEstudiante(entity.getId());
+        Assert.assertNull(entity.getContrato());
+        
+        ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
+        contrato.setVivienda(dataVivienda.get(2));
+        contrato.setEstudiante(entity);
+        contratoLogic.createContrato(contrato);
+        
+        contrato = em.find(ContratoEntity.class, contrato.getId());
+        Assert.assertNotNull(contrato);
+        Assert.assertNotNull(contrato.getEstudiante());
+       
+        estudianteLogic.addContrato(contrato.getId(), entity.getId());
+        
+        entity = estudianteLogic.getEstudiante(entity.getId());
+        Assert.assertNotNull(entity);
+        Assert.assertNotNull(entity.getContrato());
+        Assert.assertEquals(entity.getContrato().getId(), contrato.getId());
+    }
+    
 }
