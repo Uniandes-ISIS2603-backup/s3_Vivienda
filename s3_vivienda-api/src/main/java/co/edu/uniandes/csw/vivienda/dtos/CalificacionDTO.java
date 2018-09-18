@@ -101,8 +101,17 @@ public class CalificacionDTO implements Serializable{
      *
      * @return el estudiante
      */
-    public EstudianteDTO getEstudinate(){
+    public EstudianteDTO getEstudiante(){
         return estudiante;
+    }
+    
+    /**
+     * Devuelve la vivienda de la calificación
+     *
+     * @return la vivienda
+     */
+    public ViviendaDTO getVivienda(){
+        return vivienda;
     }
     
     /**
@@ -137,8 +146,17 @@ public class CalificacionDTO implements Serializable{
      *
      * @param est the estudiante to set
      */
-    public void setEstudinate(EstudianteDTO est){
+    public void setEstudiante(EstudianteDTO est){
         this.estudiante=est;
+    }
+    
+    /**
+     * Modifica la vivienda de la calificación.
+     *
+     * @param viv the vivienda to set
+     */
+    public void setVivienda(ViviendaDTO viv){
+        this.vivienda=viv;
     }
     
     @Override

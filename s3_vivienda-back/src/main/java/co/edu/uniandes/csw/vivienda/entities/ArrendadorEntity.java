@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.vivienda.entities;
 import uk.co.jemos.podam.common.PodamExclude;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -27,7 +28,7 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
     @OneToMany(
         mappedBy="arrendador",
         fetch=javax.persistence.FetchType.LAZY)
-    private List<ViviendaEntity> viviendas;
+    private List<ViviendaEntity> viviendas = new ArrayList<>();
     
     /**
      * @return the nombre

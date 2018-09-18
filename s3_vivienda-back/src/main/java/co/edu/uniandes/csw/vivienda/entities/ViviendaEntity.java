@@ -6,9 +6,14 @@
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -32,40 +37,40 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
 
     
     @ElementCollection
-    private List<String> serviciosIncluidos;
+    private List<String> serviciosIncluidos = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
-    private List<CuartoEntity> cuartos;
+    private List<CuartoEntity> cuartos = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
-    private List<ContratoEntity> contratos;
+    private List<ContratoEntity> contratos = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
-    private List<ServicioAdicionalEntity> serviciosAdicionales;
+    private List<ServicioAdicionalEntity> serviciosAdicionales = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
-    private List<SitioInteresEntity> sitiosDeInteres;
+    private List<SitioInteresEntity> sitiosDeInteres = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
-    private List<CalificacionEntity> calificaciones;
+    private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
     @PodamExclude
-    @ManyToOne()
+    @ManyToOne
     private ArrendadorEntity arrendador;
 
     public String getNombre() {

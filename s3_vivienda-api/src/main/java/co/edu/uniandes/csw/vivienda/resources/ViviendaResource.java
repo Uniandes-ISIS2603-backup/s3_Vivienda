@@ -40,7 +40,7 @@ public class ViviendaResource {
     public ViviendaDTO createVivienda(ViviendaDTO vivienda) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ViviendaResource.createVivienda: input:{0}", vivienda.toString());
         ViviendaEntity viviendaEntity = vivienda.toEntity();
-        
+     
         ViviendaEntity newViviendaEntity = logic.createVivienda(viviendaEntity);
         
         ViviendaDTO nuevoViviendaDTO = new ViviendaDTO(newViviendaEntity);

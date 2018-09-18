@@ -64,7 +64,7 @@ public class ArrendadorDTO implements Serializable{
      *
      * @param pNombre the name to set
      */
-    public void setName(String pNombre) {
+    public void setNombre(String pNombre) {
         this.nombre = pNombre;
     }
     

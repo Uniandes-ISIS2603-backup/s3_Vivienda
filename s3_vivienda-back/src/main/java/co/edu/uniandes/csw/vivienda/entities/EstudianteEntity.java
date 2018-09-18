@@ -25,16 +25,16 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private String password;
     
     @PodamExclude
-    @ManyToOne(cascade ={CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade =CascadeType.MERGE)
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante", cascade=CascadeType.ALL, orphanRemoval=true)
+    @OneToOne(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true)
     private ContratoEntity contrato;
     
     @PodamExclude
-    @OneToMany(mappedBy="estudiante", cascade=CascadeType.ALL, orphanRemoval=true)
-    private List<CalificacionEntity> calificaciones = new ArrayList<CalificacionEntity>();
+    @OneToMany(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true)
+    private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
       
     public String getNombre(){

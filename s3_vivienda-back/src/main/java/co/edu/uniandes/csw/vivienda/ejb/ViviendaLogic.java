@@ -25,7 +25,7 @@ public class ViviendaLogic {
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException{
         String ciudad = viviendaEntity.getCiudad();
         String direccion = viviendaEntity.getDireccion();
-
+        
         ViviendaEntity direccionRepetida = persistence.buscarPorDireccion(ciudad, direccion);
 
         if (direccionRepetida == null){
