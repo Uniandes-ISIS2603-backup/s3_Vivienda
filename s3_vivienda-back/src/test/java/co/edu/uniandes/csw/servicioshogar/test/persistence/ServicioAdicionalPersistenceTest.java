@@ -26,9 +26,9 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de persistencia de Reviews
+ * Pruebas de persistencia de ServicioAdicional
  *
- * @author ISIS2603
+ * @author Paula Molina 
  */
 @RunWith(Arquillian.class)
 public class ServicioAdicionalPersistenceTest {
