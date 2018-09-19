@@ -27,6 +27,8 @@ public class ServicioAdicionalEntity extends BaseEntity implements Serializable{
   @ManyToOne(cascade = CascadeType.PERSIST)
   private ViviendaEntity vivienda;
   
+  @PodamExclude
+  @ManyToOne
   private ContratoEntity contrato;
   
   public String getNombre() {
