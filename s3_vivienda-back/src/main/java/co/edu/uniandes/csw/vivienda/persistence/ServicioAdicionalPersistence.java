@@ -35,9 +35,9 @@ public class ServicioAdicionalPersistence
      * @return La entidad creada
      */
     public ServicioAdicionalEntity create(ServicioAdicionalEntity servicioAdicionalEntity) {
-        LOGGER.log(Level.INFO, "Creando un servicioAdicional nuevo");
+        LOGGER.log(Level.INFO, "Creando un ServicioAdicional nuevo");
         em.persist(servicioAdicionalEntity);
-        LOGGER.log(Level.INFO, "Servicio adicional creado");
+        LOGGER.log(Level.INFO, "ServicioAdicional creado");
         return servicioAdicionalEntity;
     }
 
