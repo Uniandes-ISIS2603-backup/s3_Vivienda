@@ -23,6 +23,9 @@ public class CuartoLogic {
     ViviendaPersistence viviendaPersistence;
 
     public CuartoEntity addCuarto(Long viviendaId, CuartoEntity cuartoEntity) throws BusinessLogicException{
+        if(cuartoEntity.getCostoArriendo() == null || cuartoEntity.getCostoArriendo() == 0){
+            throw new BusinessLogicException("El cuarto debe tener un costo de arriendo");
+        }
         ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
         if(vivienda == null){
             throw new BusinessLogicException("No existe la vivienda");
@@ -56,5 +59,21 @@ public class CuartoLogic {
             return cuartosVivienda.get(index);
         }
         throw new BusinessLogicException("El cuarto no esta asociado a la vivienda");
+    }
+
+    public CuartoEntity actualizarCuarto(Long viviendaId, Long cuartoId, CuartoEntity cuartoEntity) throws BusinessLogicException{
+        if(cuartoEntity.getCostoArriendo() != null && cuartoEntity.getCostoArriendo() <= 0){
+            throw new BusinessLogicException("El cuarto debe tener un costo de arriendo");
+        }
+        cuartoEntity.setId(cuartoId);
+        cuartoPersistence.update(cuartoEntity);
+        return cuartoEntity;
+    }
+
+    public void deleteCuarto(Long cuartoId) throws BusinessLogicException{
+        if(cuartoPersistence.find(cuartoId) == null){
+            throw new BusinessLogicException("El cuarto no existe");
+        }
+        cuartoPersistence.delete(cuartoId);
     }
 }

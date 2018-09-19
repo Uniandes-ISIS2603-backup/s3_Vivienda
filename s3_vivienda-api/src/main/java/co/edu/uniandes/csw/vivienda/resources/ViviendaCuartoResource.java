@@ -19,14 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 
 /**
  * Implementa el recurso /viviendas/{id}/cuartos
@@ -60,5 +53,18 @@ public class ViviendaCuartoResource {
     public CuartoDTO createCuarto(@PathParam("viviendaId") Long viviendaId, CuartoDTO cuartoDTO) throws BusinessLogicException{
             CuartoEntity cuartoEntity = logic.addCuarto(viviendaId, cuartoDTO.toEntity());
             return new CuartoDTO(cuartoEntity);
+    }
+
+    @PUT
+    @Path("{cuartoId:\\d+}")
+    public CuartoDTO updateCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId, CuartoDTO cuartoDTO) throws BusinessLogicException{
+        CuartoEntity cuartoEntity = logic.actualizarCuarto(viviendaId, cuartoId, cuartoDTO.toEntity());
+        return new CuartoDTO(cuartoEntity);
+    }
+
+    @DELETE
+    @Path("{cuartoId:\\d+}")
+    public void deleteCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId) throws BusinessLogicException{
+        logic.deleteCuarto(cuartoId);
     }
 }
