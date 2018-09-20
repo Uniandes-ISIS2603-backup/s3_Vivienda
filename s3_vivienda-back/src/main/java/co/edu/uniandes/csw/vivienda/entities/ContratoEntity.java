@@ -8,10 +8,9 @@ package co.edu.uniandes.csw.vivienda.entities;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
+
+import org.springframework.format.annotation.DateTimeFormat;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -21,8 +20,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
 
+    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
+    @Temporal(TemporalType.DATE)
     private Date fechaFin;
     
     private String metodoPago;
