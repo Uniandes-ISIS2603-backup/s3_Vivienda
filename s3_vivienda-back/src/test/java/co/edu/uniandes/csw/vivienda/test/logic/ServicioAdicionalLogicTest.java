@@ -28,9 +28,9 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * Pruebas de logica de Reviews
+ * Pruebas de logica de ServicioAdicionalLogic
  *
- * @author ISIS2603
+ * @author Paula Molina Ruiz
  */
 @RunWith(Arquillian.class)
 public class ServicioAdicionalLogicTest {
@@ -123,7 +123,7 @@ public class ServicioAdicionalLogicTest {
     public void createServicioAdicionalTest() throws BusinessLogicException {
         ServicioAdicionalEntity newEntity = factory.manufacturePojo(ServicioAdicionalEntity.class);
         newEntity.setVivienda(dataVivienda.get(1));
-        ServicioAdicionalEntity result = reviewLogic.createReview(dataVivienda.get(1).getId(), newEntity);
+        ServicioAdicionalEntity result = reviewLogic.createServicioAdicional(dataVivienda.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         ServicioAdicionalEntity entity = em.find(ServicioAdicionalEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -133,7 +133,7 @@ public class ServicioAdicionalLogicTest {
     }
 
     /**
-     * Prueba para consultar la lista de Reviews.
+     * Prueba para consultar la lista de Servicios Adicionales.
      *
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
@@ -153,7 +153,7 @@ public class ServicioAdicionalLogicTest {
     }
 
     /**
-     * Prueba para consultar un Review.
+     * Prueba para consultar un ServicioAdicional.
      */
     @Test
     public void getServicioAdicionalTest() {
@@ -194,7 +194,7 @@ public class ServicioAdicionalLogicTest {
     @Test
     public void deleteServicioAdicionalTest() throws BusinessLogicException {
         ServicioAdicionalEntity entity = data.get(0);
-        reviewLogic.deleteReview(dataVivienda.get(1).getId(), entity.getId());
+        reviewLogic.deleteServicioAdicional(dataVivienda.get(1).getId(), entity.getId());
         ServicioAdicionalEntity deleted = em.find(ServicioAdicionalEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
@@ -207,7 +207,7 @@ public class ServicioAdicionalLogicTest {
     @Test(expected = BusinessLogicException.class)
     public void deleteReviewConBookNoAsociadoTest() throws BusinessLogicException {
         ServicioAdicionalEntity entity = data.get(0);
-        reviewLogic.deleteReview(dataVivienda.get(0).getId(), entity.getId());
+        reviewLogic.deleteServicioAdicional(dataVivienda.get(0).getId(), entity.getId());
     }
     
 }

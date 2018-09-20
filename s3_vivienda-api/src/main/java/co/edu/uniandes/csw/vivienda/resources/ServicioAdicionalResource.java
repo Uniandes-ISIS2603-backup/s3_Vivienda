@@ -26,11 +26,11 @@ public class ServicioAdicionalResource {
     private ServicioAdicionalLogic servicioAdicionalLogic;
 
     /**
-     * Crea una nueva reseña con la informacion que se recibe en el cuerpo de la
+     * Crea un nuevo servicio adicional con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la
      * base de datos.
      *
-     * @param viviendaId El ID del libro del cual se le agrega la reseña
+     * @param viviendaId El ID de la vivienda de la cual se le agrega el servicio adicional
      * @param servicio {@link ReviewDTO} - La reseña que se desea guardar.
      * @return JSON {@link ReviewDTO} - La reseña guardada con el atributo id
      * autogenerado.
@@ -40,13 +40,13 @@ public class ServicioAdicionalResource {
     @POST
     public ServicioAdicionalDTO createServicioAdicional(@PathParam("viviendaId") Long viviendaId, ServicioAdicionalDTO servicio) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: input: {0}", servicio.toString());
-        ServicioAdicionalDTO nuevoReviewDTO = new ServicioAdicionalDTO(servicioAdicionalLogic.createReview(viviendaId, servicio.toEntity()));
+        ServicioAdicionalDTO nuevoReviewDTO = new ServicioAdicionalDTO(servicioAdicionalLogic.createServicioAdicional(viviendaId, servicio.toEntity()));
         LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: output: {0}", nuevoReviewDTO.toString());
         return nuevoReviewDTO;
     }
 
     /**
-     * Busca y devuelve todas las reseñas que existen en un libro.
+     * Busca y devuelve todos los servicios adicionales que existen en una vivienda.
      *
      * @param viviendaId El ID del libro del cual se buscan las reseñas
      * @return JSONArray {@link ReviewDTO} - Las reseñas encontradas en el
@@ -61,16 +61,16 @@ public class ServicioAdicionalResource {
     }
 
     /**
-     * Busca y devuelve la reseña con el ID recibido en la URL, relativa a un
-     * libro.
+     * Busca y devuelve el servicio adicional con el ID recibido en la URL, relativa a una
+     * vivienda.
      *
-     * @param viviendaId El ID del libro del cual se buscan las reseñas
-     * @param servicioAdicionalId El ID de la reseña que se busca
-     * @return {@link ReviewDTO} - La reseña encontradas en el libro.
+     * @param viviendaId El ID de la vivienda de la cual se buscan los servicios adicionales.
+     * @param servicioAdicionalId El ID del servicio adicional que se busca
+     * @return {@link ReviewDTO} - El servicio adicional encontrado en la vivienda.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el libro.
+     * Error de lógica que se genera cuando no se encuentra la vivienda.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la reseña.
+     * Error de lógica que se genera cuando no se encuentra el servicio adicional.
      */
     @GET
     @Path("{servicioAdicionalId: \\d+}")
@@ -89,14 +89,14 @@ public class ServicioAdicionalResource {
      * Actualiza una reseña con la informacion que se recibe en el cuerpo de la
      * petición y se regresa el objeto actualizado.
      *
-     * @param viviendaId El ID del libro del cual se guarda la reseña
-     * @param servicioAdicionalId El ID de la reseña que se va a actualizar
-     * @param servicio {@link ReviewDTO} - La reseña que se desea guardar.
-     * @return JSON {@link ReviewDTO} - La reseña actualizada.
+     * @param viviendaId El ID de la vivienda de la cual se guarda el servicio adicional
+     * @param servicioAdicionalId El ID del servicio adicional que se va a actualizar
+     * @param servicio {@link ReviewDTO} - El servicio adicional que se desea guardar.
+     * @return JSON {@link ReviewDTO} - El servicio adicional actualizado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando ya existe la reseña.
+     * Error de lógica que se genera cuando ya existe el servicio adicional.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la reseña.
+     * Error de lógica que se genera cuando no se encuentra el servicio adicional.
      */
     @PUT
     @Path("{servicioAdicionalId: \\d+}")
@@ -117,14 +117,14 @@ public class ServicioAdicionalResource {
     }
 
     /**
-     * Borra la reseña con el id asociado recibido en la URL.
+     * Borra el servicio adicional con el id asociado recibido en la URL.
      *
-     * @param viviendaId El ID del libro del cual se va a eliminar la reseña.
-     * @param servicioAdicionalId El ID de la reseña que se va a eliminar.
+     * @param viviendaId El ID de la vivienda del cual se va a eliminar el servicio adicional.
+     * @param servicioAdicionalId El ID del servicio adicional que se va a eliminar.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se puede eliminar la reseña.
+     * Error de lógica que se genera cuando no se puede eliminar el servicio adicional.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la reseña.
+     * Error de lógica que se genera cuando no se encuentra el servicio adicional.
      */
     @DELETE
     @Path("{servicioAdicionalId: \\d+}")
@@ -133,18 +133,18 @@ public class ServicioAdicionalResource {
         if (entity == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/serviciosadicionales/" + servicioAdicionalId + " no existe.", 404);
         }
-        servicioAdicionalLogic.deleteReview(viviendaId, servicioAdicionalId);
+        servicioAdicionalLogic.deleteServicioAdicional(viviendaId, servicioAdicionalId);
     }
 
     /**
      * Lista de entidades a DTO.
      *
-     * Este método convierte una lista de objetos PrizeEntity a una lista de
-     * objetos ReviewDTO (json)
+     * Este método convierte una lista de objetos ServicioAdicionalEntity a una lista de
+     * objetos ServicioAdicionalDTO (json)
      *
      * @param entityList corresponde a la lista de reseñas de tipo Entity que
      * vamos a convertir a DTO.
-     * @return la lista de reseñas en forma DTO (json)
+     * @return la lista de servicios adicinales en forma DTO (json)
      */
     private List<ServicioAdicionalDTO> listEntity2DTO(List<ServicioAdicionalEntity> entityList) {
         List<ServicioAdicionalDTO> list = new ArrayList<>();
