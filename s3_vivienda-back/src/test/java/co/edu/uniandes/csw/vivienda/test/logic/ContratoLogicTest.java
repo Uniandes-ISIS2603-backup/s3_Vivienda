@@ -137,6 +137,8 @@ public class ContratoLogicTest {
         ContratoEntity entity = em.find(ContratoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getMetodoPago(), entity.getMetodoPago());
+        
+        
         Assert.assertEquals(newEntity.getFechaInicio(), entity.getFechaInicio());
         Assert.assertEquals(newEntity.getFechaFin(), entity.getFechaFin());
     }

@@ -6,11 +6,14 @@
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.*;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -47,7 +50,16 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      */
     public Date getFechaInicio() 
     {
-        return fechaInicio;
+        Date date = null;
+        try 
+        {
+            date= getDateWithoutTimeUsingFormat(fechaInicio);
+        } 
+        catch (ParseException ex) 
+        {
+            Logger.getLogger(ContratoEntity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return date;
     }
 
     /**
@@ -63,7 +75,16 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      */
     public Date getFechaFin() 
     {
-        return fechaFin;
+                Date date = null;
+        try 
+        {
+            date= getDateWithoutTimeUsingFormat(fechaFin);
+        } 
+        catch (ParseException ex) 
+        {
+            Logger.getLogger(ContratoEntity.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return date;
     }
 
     /**
@@ -139,4 +160,9 @@ public class ContratoEntity extends BaseEntity implements Serializable {
         this.serviciosAdicionalesAgregados = serviciosAdicionalesAgregados;
     }
 
+        public static Date getDateWithoutTimeUsingFormat(Date date) throws ParseException
+    {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        return formatter.parse(formatter.format(date));
+    }
 }
