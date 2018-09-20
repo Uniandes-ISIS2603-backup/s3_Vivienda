@@ -29,7 +29,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
+ *Pruebas de logica de sitioInteres
  * @author msalcedo
  */
 @RunWith(Arquillian.class)
@@ -63,6 +63,7 @@ public class SitioInteresLogicTest {
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
                 .addPackage(SitioInteresEntity.class.getPackage())  
+                .addPackage(ViviendaEntity.class.getPackage())
                 .addPackage(SitioInteresLogic.class.getPackage())
                 .addPackage(SitioInteresPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
@@ -93,7 +94,7 @@ public class SitioInteresLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-         em.createQuery("delete from ViviendaEntity").executeUpdate();
+//         em.createQuery("delete from ViviendaEntity").executeUpdate();
         em.createQuery("delete from SitioInteresEntity").executeUpdate();
         
     }
@@ -103,19 +104,21 @@ public class SitioInteresLogicTest {
      * pruebas.
      */
     private void insertData() {
+        
         for (int i = 0; i < 3; i++) {
             ViviendaEntity viviendas = factory.manufacturePojo(ViviendaEntity.class);
             em.persist(viviendas);
             viviendaData.add(viviendas);
+ 
         }
         for (int i = 0; i < 3; i++) {
+            
             SitioInteresEntity entity = factory.manufacturePojo(SitioInteresEntity.class);
+            entity.setVivienda(viviendaData.get(1));
             em.persist(entity);
             data.add(entity);
-            if (i == 2) {
-                viviendaData.get(0).setSitiosDeInteres(data);
-            }
         }
+
         
     }
     
@@ -124,13 +127,93 @@ public class SitioInteresLogicTest {
      */
     @Test
     public void createSitioInteresTest() throws BusinessLogicException {
-//        SitioInteresEntity newEntity = factory.manufacturePojo(SitioInteresEntity.class);
-//        SitioInteresEntity result = sitioInteresLogic.createSitioInteres(newEntity);
-//        Assert.assertNotNull(result);
-//        SitioInteresEntity entity = em.find(SitioInteresEntity.class, result.getId());
-//        Assert.assertEquals(newEntity.getId(), entity.getId());
-//        Assert.assertEquals(newEntity.getLatitud(), entity.getLatitud());
-//        Assert.assertEquals(newEntity.getLongitud(), entity.getLongitud());
-//        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        SitioInteresEntity newEntity = factory.manufacturePojo(SitioInteresEntity.class);
+        newEntity.setVivienda(viviendaData.get(1));
+        SitioInteresEntity result = sitioInteresLogic.createSitioInteres(viviendaData.get(1).getId(),newEntity);
+        Assert.assertNotNull(result);
+        SitioInteresEntity entity = em.find(SitioInteresEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+        Assert.assertEquals(newEntity.getLatitud(), entity.getLatitud());
+        Assert.assertEquals(newEntity.getLongitud(), entity.getLongitud());
+        Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+    }
+    
+    /**
+     * Prueba para consultar la lista de sitiosInteres.
+     */
+    @Test
+    public void getSitiosInteresTest() {
+        ViviendaEntity newVivienda = viviendaData.get(1);
+        List<SitioInteresEntity> list = sitioInteresLogic.getSitiosInteres(newVivienda.getId());
+        Assert.assertEquals(data.size(), list.size());
+        for (SitioInteresEntity ent : list) {
+            boolean found = false;
+            for (SitioInteresEntity entity : data) {
+                if (ent.getId().equals(entity.getId())) {
+                    found = true;
+                }
+            }
+            Assert.assertTrue(found);
+        }
+    }
+    
+    /**
+     * Prueba para consultar un SitioInteres.
+     */
+    @Test
+    public void getSitioInteresTest() {
+        ViviendaEntity newVivienda = viviendaData.get(1);
+        SitioInteresEntity entity = data.get(0);
+        SitioInteresEntity resultEntity = sitioInteresLogic.getSitioInteres(newVivienda.getId(),entity.getId());
+        Assert.assertNotNull(resultEntity);
+        Assert.assertEquals(entity.getId(), resultEntity.getId());
+        Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
+        Assert.assertEquals(entity.getDescripcion(), resultEntity.getDescripcion());
+        Assert.assertEquals(entity.getLatitud(), resultEntity.getLatitud());
+        Assert.assertEquals(entity.getLongitud(), resultEntity.getLongitud());
+    }
+    
+    /**
+    * Prueba para actualizar un SitioInteres.
+     */
+    @Test
+    public void updateSitioInteresTest() {
+        SitioInteresEntity entity = data.get(0);
+        SitioInteresEntity pojoEntity = factory.manufacturePojo(SitioInteresEntity.class);
+
+        pojoEntity.setId(entity.getId());
+
+        sitioInteresLogic.updateSitioInteres(pojoEntity.getId(), pojoEntity);
+
+        SitioInteresEntity resp = em.find(SitioInteresEntity.class, entity.getId());
+
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getNombre(), resp.getNombre());
+        Assert.assertEquals(pojoEntity.getLatitud(), resp.getLatitud());
+        Assert.assertEquals(pojoEntity.getLongitud(), resp.getLongitud());
+    }
+
+    /**
+     * Prueba para eliminar un SitioInteres de una vivienda a la cual no esta asociada.
+     *
+     * @throws co.edu.uniandes.csw.univiviendaDB.exceptions.BusinessLogicException
+     */
+    @Test(expected = BusinessLogicException.class)
+    public void deleteSitioInteresConViviendaNoAsociadaTest() throws BusinessLogicException {
+        SitioInteresEntity entity = data.get(0);
+        sitioInteresLogic.deleteSitioInteres(viviendaData.get(0).getId(),entity.getId());
+    }
+    
+    /**
+     * Prueba para eliminar un SitioInteres.
+     *
+     * @throws co.edu.uniandes.csw.univiviendaDB.exceptions.BusinessLogicException
+     */
+    @Test
+    public void deleteSitioInteresTest() throws BusinessLogicException {
+        SitioInteresEntity entity = data.get(0);
+        sitioInteresLogic.deleteSitioInteres(viviendaData.get(1).getId(), entity.getId());
+        SitioInteresEntity deleted = em.find(SitioInteresEntity.class, entity.getId());
+        Assert.assertNull(deleted);
     }
 }

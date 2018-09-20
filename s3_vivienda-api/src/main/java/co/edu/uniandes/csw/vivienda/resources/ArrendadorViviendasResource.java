@@ -40,7 +40,14 @@ public class ArrendadorViviendasResource {
     @Inject
     private ViviendaLogic viviendasLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
    
-    
+     /**
+     * Busca y devuelve todas las viviendas que existen en el arrendador.
+     *
+     * @param arrendadorId Identificador del arrendador que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @return JSONArray {@link ViviendaDetailDTO} - Las viviendas encontrados en la
+     * arrendador. Si no hay ninguno retorna una lista vacía.
+     */
     @GET
     public List<ViviendaDetailDTO> getViviendas(@PathParam("arrendadorId")Long arrendadorId)
     {
@@ -48,6 +55,18 @@ public class ArrendadorViviendasResource {
         return listaDetailDTOs;
     }
     
+        /**
+     * Guarda una vivienda dentro de un arrendador con la informacion que recibe el
+     * la URL. Se devuelve la vivienda que se guarda en el arrendador.
+     *
+     * @param arrendadorId Identificador del arrendador que se esta
+     * actualizando. Este debe ser una cadena de dígitos.
+     * @param viviendaId Identificador de la vivienda que se desea guardar. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link ViviendaDTO} - La vivienda guardada en el arrendador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la vivienda.
+     */
     @POST
     @Path("{viviendaId: \\d+}")
     public ViviendaDTO addVivienda(@PathParam("arrendadorId") Long arrendadorId, @PathParam("viviendaId") Long viviendaId) {
@@ -60,6 +79,19 @@ public class ArrendadorViviendasResource {
         return viviendaDTO;
     }
     
+     /**
+     * Busca la vivienda con el id asociado dentro del arrendador con id asociado.
+     *
+     * @param arrendadorId Identificador del arrendador que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @param viviendaId Identificador de la vivienda que se esta buscando. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link ViviendaDetailDTO} - la vivienda buscada
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la vivienda.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la vivienda en el arrendador.
+     */
     @GET
     @Path("{viviendaId: \\d+}")
     public ViviendaDetailDTO getVivienda(@PathParam("arrendadorId") Long arrendadorId, @PathParam("viviendaId") Long viviendaId) throws BusinessLogicException {
@@ -72,6 +104,16 @@ public class ArrendadorViviendasResource {
         return viviendaDetailDTO;
     }
     
+        /**
+     * Remplaza las instancias de Vivienda asociadas a una instancia de Arrendador
+     *
+     * @param arrendadorId Identificador del arrendador que se esta
+     * remplazando. Este debe ser una cadena de dígitos.
+     * @param viviendas JSONArray {@link ViviendaDTO} El arreglo de viviendas nuevo para el arrendador.
+     * @return JSON {@link ViviendaDTO} - El arreglo de viviendas guardado en el arrendador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la vivienda.
+     */
     @PUT
     public List<ViviendaDetailDTO> replaceViviendas(@PathParam("arrendadorId") Long arrendadorId, List<ViviendaDetailDTO> viviendas) {
         

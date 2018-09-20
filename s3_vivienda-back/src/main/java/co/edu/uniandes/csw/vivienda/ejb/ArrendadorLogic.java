@@ -26,6 +26,13 @@ public class ArrendadorLogic {
     @Inject
     private ArrendadorPersistence arrendadorPersistence;
     
+        /**
+     *
+     * Obtener una arrendador por medio de su id.
+     *
+     * @param arrendadorId: id del arrendador para ser buscada.
+     * @return el arrendador solicitada por medio de su id.
+     */
     public ArrendadorEntity getArrendador(Long arrendadorId) 
     {
         ArrendadorEntity arrendadorEntity = arrendadorPersistence.find(arrendadorId);
@@ -35,6 +42,13 @@ public class ArrendadorLogic {
         return arrendadorEntity;
     }
     
+    /**
+     * Guardar un nuevo Arrendador 
+     *
+     * @param ArrendadorEntity La entidad de tipo arrendador del nuevo arrendador a persistir.
+     * @return La entidad luego de persistirla
+     * @throws BusinessLogicException Si el login del usuario ya esta en uso por otro usuario
+     */
     public ArrendadorEntity createArrendador(ArrendadorEntity arrendadorEntity) throws BusinessLogicException
     {
         String login = arrendadorEntity.getLogin();
@@ -50,6 +64,16 @@ public class ArrendadorLogic {
         }
     }
     
+        /**
+     *
+     * Actualizar un arrendador.
+     *
+     * @param arrendadorId: id del arrendador para buscarla en la base de
+     * datos.
+     * @param arrendadorEntity: arrendador con los cambios para ser actualizada,
+     * por ejemplo el nombre.
+     * @return el arrendador con los cambios actualizados en la base de datos.
+     */
     public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity) throws BusinessLogicException
     {
         ArrendadorEntity newArrendador = null;
@@ -60,7 +84,12 @@ public class ArrendadorLogic {
         return newArrendador;
     }
     
-    
+        /**
+     * Borrar un arrendador
+     *
+     * @param arrendadorId: id del arrendador a borrar
+     * @throws BusinessLogicException Si el arrendador a eliminar tiene viviendas.
+     */
     public void deleteArrendador(Long arrendadorId) throws BusinessLogicException 
     {
         List<ViviendaEntity> viviendas = getArrendador(arrendadorId).getViviendas();
@@ -75,6 +104,12 @@ public class ArrendadorLogic {
 
     }
     
+        /**
+     *
+     * Obtener todos los arrendadores existentes en la base de datos.
+     *
+     * @return una lista de arrendadores.
+     */
     public List<ArrendadorEntity> getArrendadores()
     {
         List<ArrendadorEntity> arrendadores = arrendadorPersistence.findAll();

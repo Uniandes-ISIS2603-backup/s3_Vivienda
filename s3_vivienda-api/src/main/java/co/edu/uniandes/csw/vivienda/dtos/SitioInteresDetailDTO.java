@@ -16,6 +16,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class SitioInteresDetailDTO extends SitioInteresDTO implements Serializable{
     
+    // relación  cero o muchos vivienda
     private ViviendaDTO vivienda;
     
     public SitioInteresDetailDTO()
@@ -23,6 +24,11 @@ public class SitioInteresDetailDTO extends SitioInteresDTO implements Serializab
         super();
     }
     
+        /**
+     * Constructor para transformar un Entity a un DTO
+     *
+     * @param sitioInteresEntity La entidad de la cual se construye el DTO
+     */
     public SitioInteresDetailDTO(SitioInteresEntity sitioInteresEntity)
     {
         super(sitioInteresEntity);
@@ -31,6 +37,11 @@ public class SitioInteresDetailDTO extends SitioInteresDTO implements Serializab
         }
     }
     
+        /**
+     * Transformar el DTO a una entidad
+     *
+     * @return La entidad que representa el sitioInteres.
+     */
     @Override
     public SitioInteresEntity toEntity() {
         SitioInteresEntity sitioInteresEntity = super.toEntity();

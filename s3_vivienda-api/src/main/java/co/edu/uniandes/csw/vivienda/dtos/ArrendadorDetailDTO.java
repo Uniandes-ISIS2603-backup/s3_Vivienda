@@ -22,11 +22,23 @@ public class ArrendadorDetailDTO extends ArrendadorDTO implements Serializable{
     //Relación 1 a muchos arrendadores
     private List<ViviendaDTO> viviendas;
     
+    
+    /**
+     * Constructor vacio
+     */
     public ArrendadorDetailDTO()
     {
         super();
     }
     
+    /**
+     * Crea un objeto ArredadorDetailDTO a partir de un objeto ArrendadorEntity
+     * incluyendo los atributos de ArrendadorDTO.
+     *
+     * @param arrendadorEntity Entidad ArrendadorEntity desde la cual se va a crear el
+     * nuevo objeto.
+     *
+     */
     public ArrendadorDetailDTO(ArrendadorEntity arrendadorEntity)
     {
         super(arrendadorEntity);

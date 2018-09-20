@@ -11,22 +11,37 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
+ *  SitioInteresDTO Objeto de transferencia de datos de SitioInteres. Los DTO contienen las
+ * representaciones de los JSON que se transfieren entre el cliente y el
+ * servidor.
  * @author estudiante
  */
 public class SitioInteresDTO implements Serializable{
-    private long id;
+    
+    private Long id;
     private String nombre;
     private String descripcion;
     private Float latitud;
     private Float longitud;
     
-    private ViviendaDTO viviendadto;
+       /*
+    * Relación a una vivienda
+    * dado que esta tiene cardinalidad 1.
+     */
+    private ViviendaDTO vivienda;
     
+        /**
+     * Constructor por defecto
+     */
     public SitioInteresDTO()
     {   
     }
     
+        /**
+     * Constructor a partir de una entidad
+     *
+     * @param sitioInteresEntity La entidad de la cual se construye el DTO
+     */
     public SitioInteresDTO(SitioInteresEntity sitioInteresEntity) {
         if (sitioInteresEntity != null) {
             this.id = sitioInteresEntity.getId();
@@ -35,7 +50,13 @@ public class SitioInteresDTO implements Serializable{
             this.latitud = sitioInteresEntity.getLatitud();
             this.longitud = sitioInteresEntity.getLongitud();
             if (sitioInteresEntity.getVivienda() != null)
-                this.viviendadto = new ViviendaDTO(sitioInteresEntity.getVivienda());
+            {
+                this.vivienda = new ViviendaDTO(sitioInteresEntity.getVivienda());
+            }
+            else
+            {
+                this.vivienda=null;
+            }
         }
     }
     
@@ -118,8 +139,9 @@ public class SitioInteresDTO implements Serializable{
         sitioInteresEntity.setDescripcion(this.descripcion);
         sitioInteresEntity.setLatitud(this.latitud);
         sitioInteresEntity.setLongitud(this.longitud);
-        if (viviendadto != null)
-            sitioInteresEntity.setVivienda(viviendadto.toEntity());
+        if (this.vivienda != null){
+            sitioInteresEntity.setVivienda(this.vivienda.toEntity());
+        }
         return sitioInteresEntity;
     }
     
@@ -131,14 +153,14 @@ public class SitioInteresDTO implements Serializable{
     /**
      * @return the viviendadto
      */
-    public ViviendaDTO getViviendadto() {
-        return viviendadto;
+    public ViviendaDTO getVivienda() {
+        return vivienda;
     }
 
     /**
-     * @param viviendadto the viviendadto to set
+     * @param vivienda the viviendadto to set
      */
-    public void setViviendadto(ViviendaDTO viviendadto) {
-        this.viviendadto = viviendadto;
+    public void setVivienda(ViviendaDTO vivienda) {
+        this.vivienda = vivienda;
     }
 }

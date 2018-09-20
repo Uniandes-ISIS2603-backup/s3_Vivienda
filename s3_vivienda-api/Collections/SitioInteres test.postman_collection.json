@@ -1,0 +1,428 @@
+{
+	"info": {
+		"_postman_id": "7c0b89eb-2c58-4a76-b44e-74640d997963",
+		"name": "SitioInteres test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear una vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18eb81fa-2236-4071-a5bd-ea43c49fb6df",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_v\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear un sitio de interes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "821ec467-4701-4299-ac9e-013c8165360e",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_s\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\": \"Cancha de baloncesto\",       \r\n\r\n\t\"descripción\": \"Cancha de baloncesto a 2 minutos a pie\",   \r\n\t\r\n\t\"latitud\": 0.32456, \r\n\r\n\t\"longitud\": 0.02456\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear sitioInteres 2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\": \"Caffe bar\",       \r\n\r\n\t\"descripción\": \"Delicioso lugar donde tomar un buen cafe\",   \r\n\t\r\n\t\"latitud\": 4.32456, \r\n\r\n\t\"longitud\": -2.32456\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/sitioInteres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"sitioInteres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear sitioInteres con latitud y longitud repetidas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0f6c2f5c-1e74-45b0-b27f-baef2dad70bd",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con el mismo login\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un sitioInteres con esa latitud y longitud \");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\": \"Cancha de futbol\",       \r\n\r\n\t\"descripción\": \"Cancha de futbol a 2 minutos a pie\",   \r\n\t\r\n\t\"latitud\": 0.32456, \r\n\r\n\t\"longitud\": 0.02456\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar la información de un sitio de interes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ad57432-c2b7-40de-878e-2c9f066d65d2",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"{{new_id_s}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar la informacion de un sitioInteres que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d64088d-4f4b-4ca9-9da5-13ad742a3bce",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar un review que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_v\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/\"+id+\"/sitioInteres/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener un sitio de interes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37b3702a-7189-4039-933f-61cf205cc55f",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"{{new_id_s}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener sitiosInteres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "40b60c46-f16a-40c7-b317-6241c8fdcde4",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"arrendadores count\"] = data.length > 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un sitio de interes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae8b4b3d-23d0-48ad-9166-d80310842b2b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"{{new_id_s}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar sitioInteres 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "88d62f12-ef11-4cb7-a39a-eafa6247ad91",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"{{new_id_s2}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
