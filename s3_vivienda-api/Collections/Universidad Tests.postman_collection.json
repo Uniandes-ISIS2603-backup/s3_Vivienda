@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "125a0d1a-fd7a-4b8b-8ead-62cf19bafa1d",
+		"name": "Universidad Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18eb81fa-2236-4071-a5bd-ea43c49fb6df",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_v\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "06440448-8bb6-4083-9db9-0745759df5c3",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_v\",data.id);",
+							"tests[\"no genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{new_id_v}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades",
+						"{{new_id_v}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get lista universidades",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear Universidad Repetida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3867b185-186f-4000-b739-b46d4895d22d",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Ya existe una universidad con el mismo nombre\"] = responseCode.code === 412;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}\r\n{\r\n\t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "51b6a8e3-c445-4037-b7e8-f37c3ab46d49",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_v\",data.id);",
+							"tests[\"no genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\":\"Universidad Nacional de Colombia\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{new_id_v}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades",
+						"{{new_id_v}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BorrarUniversidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94a6cfa3-bfa7-4b12-8a61-36fd553cebac",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{new_id_v}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades",
+						"{{new_id_v}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f334bd21-5b8e-4a84-8d3c-fb92ba89b214",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "39745050-8d6d-4caf-9217-0cb2b64d9c82",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
