@@ -53,7 +53,8 @@ public class ContratoViviendaLogic {
      *
      * @param contratoId El contrato que se desea borrar de la vivienda.
      */
-    public void removeVivienda(Long contratoId) {
+    public void removeVivienda(Long contratoId) 
+    {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar la Vivienda del contrato con id = {0}", contratoId);
         ContratoEntity contratoEntity = contratoPersistence.find(contratoId);
         ViviendaEntity viviendaEntity = viviendaPersistence.find(contratoEntity.getVivienda().getId());
