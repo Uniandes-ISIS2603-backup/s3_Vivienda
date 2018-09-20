@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -23,11 +21,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
 
-    @Temporal(TemporalType.DATE)
     private Date fechaInicio;
 
-    @Temporal(TemporalType.DATE)
     private Date fechaFin;
+    
     private String metodoPago;
 
     @PodamExclude

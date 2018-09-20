@@ -15,6 +15,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -69,17 +74,22 @@ public class ContratoLogicTest {
      */
     @Before
     public void configTest() {
-        try {
+        try 
+        {
             utx.begin();
             clearData();
             insertData();
             utx.commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            try {
+        } 
+        catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e)
+        {
+            e.getMessage();
+            try
+            {
                 utx.rollback();
-            } catch (Exception e1) {
-                e1.printStackTrace();
+            }
+            catch (IllegalStateException | SecurityException | SystemException e1) {
+                e1.getMessage();
             }
         }
     }
@@ -190,10 +200,13 @@ public class ContratoLogicTest {
     public void getContratosTest() {
         List<ContratoEntity> list = contratoLogic.getContratos();
         Assert.assertEquals(data.size(), list.size());
-        for (ContratoEntity entity : list) {
+        for (ContratoEntity entity : list)
+        {
             boolean found = false;
-            for (ContratoEntity storedEntity : data) {
-                if (entity.getId().equals(storedEntity.getId())) {
+            for (ContratoEntity storedEntity : data)
+            {
+                if (entity.getId().equals(storedEntity.getId())) 
+                {
                     found = true;
                 }
             }
