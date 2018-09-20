@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.servicioshogar.test.persistence;
+package co.edu.uniandes.csw.vivienda.test.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.persistence.CuartoPersistence;
