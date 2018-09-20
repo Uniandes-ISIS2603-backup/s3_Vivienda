@@ -32,57 +32,97 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author estudiante
  */
-@Path("sitioInteres")
 @Produces("application/json")
 @Consumes("application/json")
-@RequestScoped
 public class SitioInteresResource {
     private static final Logger LOGGER = Logger.getLogger(SitioInteresResource.class.getName());
     
     @Inject 
     SitioInteresLogic sitioInteresLogic;
     
+       /**
+     * Crea un nuevo sitioInteres con la informacion que se recibe en el cuerpo de la
+     * petición y se regresa un objeto identico con un id auto-generado por la
+     * base de datos.
+     *
+     * @param viviendaId El ID de la vivienda del cual se le agrega el sitioInteres
+     * @param sitioInteres {@link SitioInteresDTO} - El sitioInteres que se desea guardar.
+     * @return JSON {@link SitioInteresDTO} - El sitioInteres guardada con el atributo id
+     * autogenerado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe un sitioInteres con esa longitud y latitud.
+     */
     @POST
-    public SitioInteresDTO createSitioInteres( SitioInteresDTO sitioInteres) throws BusinessLogicException {
+    public SitioInteresDTO createSitioInteres(@PathParam("viviendaId") Long viviendaId, SitioInteresDTO sitioInteres) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: input: {0}", sitioInteres.toString());
-        // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
-        SitioInteresEntity sitioInteresEntity = sitioInteres.toEntity();
-        
-        SitioInteresEntity nuevoSitioInteresEntity = sitioInteresLogic.createSitioInteres(sitioInteresEntity);
- 
-        SitioInteresDTO nuevoSitioInteres = new SitioInteresDTO(nuevoSitioInteresEntity);
-        return nuevoSitioInteres;
+        SitioInteresEntity entity = sitioInteres.toEntity();
+        SitioInteresDTO sitioInteresDTO = new SitioInteresDTO(sitioInteresLogic.createSitioInteres(viviendaId, entity));
+        LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: output: {0}", sitioInteresDTO.toString());
+        return sitioInteresDTO;
     }
     
+    /**
+     * Remplaza las instancias de SitioInteres asociadas a una instancia de Vivienda
+     *
+     * @param viviendaId Identificador de la vivienda que se esta
+     * remplazando. Este debe ser una cadena de dígitos.
+     * @param sitiosInteres JSONArray {@link SitioInteresDTO} El arreglo de sitiosInteres nuevo para la
+     * vivienda.
+     * @return JSON {@link SitioInteresDTO} - El arreglo de sitiosInteres guardado en la
+     * vivienda.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el sitioInteres.
+     */
     @GET
-    public List<SitioInteresDetailDTO> getSitiosInteres(@PathParam("sitioInteresId")Long sitioInteresId) throws WebApplicationException
-    {
-        List<SitioInteresEntity> lista = sitioInteresLogic.getSitiosInteres();
-        List<SitioInteresDetailDTO> resp = new ArrayList<SitioInteresDetailDTO>();
-        
-        for (SitioInteresEntity ent: lista){
-            SitioInteresDetailDTO sitioInteresDto = new SitioInteresDetailDTO(ent);
-            resp.add(sitioInteresDto);
-        }
-        return resp;
+    public List<SitioInteresDetailDTO> getSitiosInteres(@PathParam("viviendaId") Long viviendaId) {
+        LOGGER.log(Level.INFO, "SitioInteresResource getSitiosInteres: input: {0}", viviendaId);
+        List<SitioInteresDetailDTO> listaDetailDTOs = sitioInteresListEntity2DTO(sitioInteresLogic.getSitiosInteres(viviendaId));
+        LOGGER.log(Level.INFO, "SitioInteresResource getSitiosInteres: output: {0}", listaDetailDTOs.toString());
+        return listaDetailDTOs;
     }
     
+    /**
+     * Busca el sitioInteres con el id asociado dentro de la vivienda con id asociado.
+     *
+     * @param viviendaId Identificador de la vivienda que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @param sitioInteresId Identificador del sitioInteres que se esta buscando. Este debe
+     * ser una cadena de dígitos.
+     * @return JSON {@link SitioInteresDetailDTO} - El sitioIntere buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el sitioInteres.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el sitioInteres en la
+     * vivienda.
+     */
     @GET
     @Path("{sitioInteresId: \\d+}")
-    public SitioInteresDetailDTO getSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitiointeresId") Long sitioInteresId) throws BusinessLogicException {
-       // LOGGER.log(Level.INFO, "ReviewResource getReview: input: {0}", reviewsId);
-        SitioInteresEntity entity = sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId);
-        if (entity == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
+    public SitioInteresDTO getSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId") Long sitioInteresId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "SitioInteresResource getSitioInteres: input: viviendaID: {0} , sitioInteresId: {1}", new Object[]{viviendaId, sitioInteresId});
+        if (sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId) == null) {
+            throw new WebApplicationException("El recurso /vivienda/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
         }
-        SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(entity);
+        SitioInteresDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId));
         LOGGER.log(Level.INFO, "SitioInteresResource getSitioInteres: output: {0}", sitioInteresDTO.toString());
         return sitioInteresDTO;
     }
     
+        /**
+     * Actualiza un sitioInteres con la informacion que se recibe en el cuerpo de la
+     * petición y se regresa el objeto actualizado.
+     *
+     * @param viviendaId El ID del libro del cual se guarda la vivienda
+     * @param sitioInteresId El ID del sitioInteres que se va a actualizar
+     * @param sitioInteres {@link ReviewDTO} - El sitioInteres que se desea guardar.
+     * @return JSON {@link SitioInteresDTO} - El sitioInteres actualizada.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe el sitioInteres.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el sitioInteres.
+     */
     @PUT
     @Path("{sitioInteresId: \\d+}")
-    public SitioInteresDetailDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
+    public SitioInteresDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
     {
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , review:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
         if (sitioInteresId.equals(sitioInteres.getId())) {
@@ -93,11 +133,21 @@ public class SitioInteresResource {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
 
         }
-        SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));
+        SitioInteresDTO sitioInteresDTO = new SitioInteresDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: output:{0}", sitioInteresDTO.toString());
         return sitioInteresDTO;
     }
     
+     /**
+     * Borra el sitioInteres con el id asociado recibido en la URL.
+     *
+     * @param viviendaId El ID de la viviena del cual se va a eliminar el sitioInteres.
+     * @param stioInteresId El ID del sitioInteres que se va a eliminar.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede eliminar el sitioInteres.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el sitioInteres.
+     */
     @DELETE
     @Path("{sitioInteresId: \\d+}")
     public void deleteSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId)throws BusinessLogicException
@@ -109,6 +159,18 @@ public class SitioInteresResource {
         sitioInteresLogic.deleteSitioInteres(viviendaId, sitioInteresId);
     }
     
- 
+     /**
+     * Convierte una lista de SitioInteresEntity a una lista de SitioInteresDetailDTO.
+     *
+     * @param entityList Lista de SitioInteresEntity a convertir.
+     * @return Lista de SitioInteresDTO convertida.
+     */
+    private List<SitioInteresDetailDTO> sitioInteresListEntity2DTO(List<SitioInteresEntity> entityList) {
+        List<SitioInteresDetailDTO> list = new ArrayList();
+        for (SitioInteresEntity entity : entityList) {
+            list.add(new SitioInteresDetailDTO(entity));
+        }
+        return list;
+    }
     
 }

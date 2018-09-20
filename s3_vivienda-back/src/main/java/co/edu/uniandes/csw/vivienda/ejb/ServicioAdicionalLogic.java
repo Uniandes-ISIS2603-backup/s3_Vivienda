@@ -30,16 +30,15 @@ public class ServicioAdicionalLogic {
     private ViviendaPersistence viviendaPersistence;
 
     /**
-     * Se encarga de crear un Review en la base de datos.
+     * Se encarga de crear un ServicioAdicional en la base de datos.
      *
-     * @param servicioAdicionalEntity Objeto de ReviewEntity con los datos nuevos
-     * @param viviendaId id del Book el cual sera padre del nuevo Review.
-     * @return Objeto de ReviewEntity con los datos nuevos y su ID.
-     * @throws BusinessLogicException si booksId no es el mismo que tiene el
-     * entity.
+     * @param servicioAdicionalEntity Objeto de ServicioAdicionalEntity con los datos nuevos
+     * @param viviendaId id de la Vivienda el cual sera padre del nuevo ServicioAdicional.
+     * @return Objeto de ServicioAdicionalEntity con los datos nuevos y su ID.
+     * @throws BusinessLogicException si viviendaId no es el mismo que tiene el entity.
      *
      */
-    public ServicioAdicionalEntity createReview(Long viviendaId, ServicioAdicionalEntity servicioAdicionalEntity) throws BusinessLogicException {
+    public ServicioAdicionalEntity createServicioAdicional(Long viviendaId, ServicioAdicionalEntity servicioAdicionalEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de crear servicio adicional");
         ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
         servicioAdicionalEntity.setVivienda(vivienda);
@@ -66,7 +65,7 @@ public class ServicioAdicionalLogic {
      *
      * @param viviendaId El id de la vivienda buscado
      * @param servicioAdicionalId Identificador del servicio adicional a consultar
-     * @return Instancia de ReviewEntity con los datos del Review consultado.
+     * @return Instancia de ServicioAdicionalEntity con los datos del ServicioAdicional consultado.
      *
      */
     public ServicioAdicionalEntity getServicioAdicional(Long viviendaId, Long servicioAdicionalId) {
@@ -75,7 +74,7 @@ public class ServicioAdicionalLogic {
     }
 
     /**
-     * Actualiza la información de una instancia de ServicioAdicional.
+     * Actualiza la información de una instancia de Servicio Adicional.
      *
      * @param servicioAdicionalEntity Instancia de ServicioAdicionalEntity con los nuevos datos.
      * @param viviendaId id de la Vivienda el cual sera padre del ServicioAdicoinal actualizado.
@@ -92,14 +91,14 @@ public class ServicioAdicionalLogic {
     }
 
     /**
-     * Elimina una instancia de Review de la base de datos.
+     * Elimina una instancia de Servicio Adicional de la base de datos.
      *
      * @param servicioAdicionalId Identificador de la instancia a eliminar.
-     * @param viviendaId id del Book el cual es padre del Review.
-     * @throws BusinessLogicException Si la reseña no esta asociada al libro.
+     * @param viviendaId id del Book el cual es padre del ServicioAdicional.
+     * @throws BusinessLogicException Si el servicio no esta asociada a la vivienda.
      *
      */
-    public void deleteReview(Long viviendaId, Long servicioAdicionalId) throws BusinessLogicException {
+    public void deleteServicioAdicional(Long viviendaId, Long servicioAdicionalId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
         ServicioAdicionalEntity old = getServicioAdicional(viviendaId, servicioAdicionalId);
         if (old == null) {
@@ -108,5 +107,4 @@ public class ServicioAdicionalLogic {
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
     }
-    
 }

@@ -20,10 +20,21 @@ public class ArrendadorDTO implements Serializable{
     private String login;
     private String password;
     
+    
+    /**
+     * Constructor vacio
+     */
     public ArrendadorDTO()
     { 
     }
     
+        /**
+     * Crea un objeto ArrendadorDTO a partir de un objeto ArrendadorEntity.
+     *
+     * @param authorEntity Entidad AuthorEntity desde la cual se va a crear el
+     * nuevo objeto.
+     *
+     */
     public ArrendadorDTO(ArrendadorEntity arrendadorEntity) {
         if (arrendadorEntity != null) {
             this.id = arrendadorEntity.getId();
@@ -64,7 +75,7 @@ public class ArrendadorDTO implements Serializable{
      *
      * @param pNombre the name to set
      */
-    public void setName(String pNombre) {
+    public void setNombre(String pNombre) {
         this.nombre = pNombre;
     }
     

@@ -33,7 +33,7 @@ import javax.ws.rs.WebApplicationException;
  *
  * @author estudiante
  */
-@Path("arrendadores")
+@Path("/arrendadores")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -44,6 +44,17 @@ public class ArrendadorResource {
     @Inject
     private ArrendadorLogic arrendadorLogic;
     
+    /**
+     * Crea un nuevo arrendador con la informacion que se recibe en el cuerpo de la
+     * petición y se regresa un objeto identico con un id auto-generado por la
+     * base de datos.
+     *
+     * @param arrendador {@link ArrendadorDTO} - EL arrendador que se desea guardar.
+     * @return JSON {@link ArrendadorDTO} - El arrendador guardado con el atributo id
+     * autogenerado.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando ya existe el arrendador con un mismo login
+     */
     @POST
     public ArrendadorDTO createArrendor(ArrendadorDTO arrendador) throws BusinessLogicException {
          
@@ -57,6 +68,12 @@ public class ArrendadorResource {
         return nuevoArrendador;
     }
     
+        /**
+     * Busca y devuelve todas los arrendadores que existen en la aplicacion.
+     *
+     * @return JSONArray {@link ArrendadorDetailDTO} - Los arrendadores
+     * encontradas en la aplicación. Si no hay ninguna retorna una lista vacía.
+     */
     @GET
     public List<ArrendadorDetailDTO> getArrendadores() {
         LOGGER.info("ArrendadorResource getArrendadores: input: void");
@@ -65,6 +82,16 @@ public class ArrendadorResource {
         return listaArrendadores;
     }
     
+        /**
+     * Convierte una lista de entidades a DTO.
+     *
+     * Este método convierte una lista de objetos ArrendadorEntity a una lista de
+     * objetos ArrendadorDetailDTO (json)
+     *
+     * @param entityList corresponde a la lista de arrendadores de tipo Entity
+     * que vamos a convertir a DTO.
+     * @return la lista de arrendadores en forma DTO (json)
+     */
     private List<ArrendadorDetailDTO> listEntity2DetailDTO(List<ArrendadorEntity> entityList) {
         List<ArrendadorDetailDTO> list = new ArrayList<>();
         for (ArrendadorEntity entity : entityList) {
@@ -73,6 +100,15 @@ public class ArrendadorResource {
         return list;
     }
     
+     /**
+     * Busca el arrendador con el id asociado recibido en la URL y la devuelve.
+     *
+     * @param arrendadorId Identificador de el arrendador que se esta buscando.
+     * Este debe ser una cadena de dígitos.
+     * @return JSON {@link ArrendadorDetailDTO} - El arrendador buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el arrendador.
+     */
     @GET
     @Path("{arrendadorId:\\d+}")
     public ArrendadorDetailDTO getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
@@ -80,12 +116,25 @@ public class ArrendadorResource {
         ArrendadorEntity arrendadorEntity = arrendadorLogic.getArrendador(arrendadorId);
         if(arrendadorEntity == null)
         {
-            throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +"no existe.", 404);
+            throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
         }
         ArrendadorDetailDTO detailDTO = new ArrendadorDetailDTO(arrendadorEntity);
         return detailDTO;
     }
     
+     /**
+     * Actualiza el arrendador con el id recibido en la URL con la informacion
+     * que se recibe en el cuerpo de la petición.
+     *
+     * @param arrendadorId Identificador del arrendador que se desea
+     * actualizar. Este debe ser una cadena de dígitos.
+     * @param arrendador {@link ArrendadorDetailDTO} El arrendador que se desea
+     * guardar.
+     * @return JSON {@link ArrendadorDetailDTO} - El arrendador guardado.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el arrendador a
+     * actualizar.
+     */
     @PUT
     @Path("{arrendadorId:\\d+}")
     public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws BusinessLogicException
@@ -101,6 +150,16 @@ public class ArrendadorResource {
         
     }
     
+     /**
+     * Borra el arrendador con el id asociado recibido en la URL.
+     *
+     * @param arrendadorId Identificador dl arrendador que se desea borrar.
+     * Este debe ser una cadena de dígitos.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede eliminar el arrendador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el arrendador.
+     */
     @DELETE
     @Path("{arrendadorId:\\d+}")
     public void deleteArrendador(@PathParam("arrendadorId")Long arrendadorId)throws BusinessLogicException
@@ -112,6 +171,20 @@ public class ArrendadorResource {
         arrendadorLogic.deleteArrendador(arrendadorId);
     }
     
+     /**
+     * Conexión con el servicio de viviendas para un arrendador.
+     * {@link ArrendadorViviendasResource}
+     *
+     * Este método conecta la ruta de /arrendadores con las rutas de /viviendas que
+     * dependen del arrendador, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de las viviendas de un arrendador.
+     *
+     * @param arrendadorId El ID del arrendador con respecto a la cual se
+     * accede al servicio.
+     * @return El servicio de viviendas para este arrendador en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el arrendador.
+     */
     @Path("{arrendadorId: \\d+}/viviendas")
     public Class<ArrendadorViviendasResource> getArrendadorViviendasResource(@PathParam("arrendadorId")Long arrendadorId)
     {

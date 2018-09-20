@@ -15,14 +15,15 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 /**
- *
+ *Clase que maneja la persistencia para sitioInteres. Se conecta a traves el Entity
+ * Maneger de javax.persistance con la base de datos SQL
  * @author msalcedo
  */
 @Stateless
 public class SitioInteresPersistence {
         private static final Logger LOGGER = Logger.getLogger(SitioInteresPersistence.class.getName());
     
-       @PersistenceContext(unitName = "UniviviendaPU")
+    @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
 
     /**
@@ -33,7 +34,6 @@ public class SitioInteresPersistence {
      */
     public SitioInteresEntity create(SitioInteresEntity sitioInteresEntity) {
         LOGGER.log(Level.INFO, "Creando un sitioInteres nuevo");
-
         em.persist(sitioInteresEntity);
         LOGGER.log(Level.INFO, "Saliendo de crear un sitioInteres nuevo");
         return sitioInteresEntity;
@@ -50,12 +50,13 @@ public class SitioInteresPersistence {
     /**
      * Busca si hay alguna arrendador con el id que se envía de argumento
      *
+     * @param viviendaId El id de la vivienda con respecto al cual se busca
      * @param sitioInteresId: id correspondiente al sitioInteres buscado.
      * @return un sitioInteres.
      */
     public SitioInteresEntity find(Long viviendaId, Long sitioInteresId) {
         LOGGER.log(Level.INFO, "Consultando el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresId);
-        TypedQuery<SitioInteresEntity> q = em.createQuery("select p from SitioInteresEntity p where (p.vivienda.id = :viviendaid) and (p.id = :sitioInteresId)", SitioInteresEntity.class);
+        TypedQuery<SitioInteresEntity> q = em.createQuery("select p from SitioInteresEntity p where (p.vivienda.id = :viviendaId) and (p.id = :sitioInteresId)", SitioInteresEntity.class);
         q.setParameter("viviendaId", viviendaId);
         q.setParameter("sitioInteresId", sitioInteresId);
         List<SitioInteresEntity> results = q.getResultList();
@@ -73,14 +74,17 @@ public class SitioInteresPersistence {
     
     public SitioInteresEntity findByLatLong(Float sitioInteresLat, Float sitioInteresLong) {
         
-        TypedQuery query = em.createQuery("Select v from SitioInteresEntity v where v.latitud = :latitud and " + "where v.longitud = :longitud", SitioInteresEntity.class);
+        TypedQuery query = em.createQuery("Select v from SitioInteresEntity v where v.latitud = :latitud and "+ "v.longitud = :longitud", SitioInteresEntity.class);
         query.setParameter("latitud", sitioInteresLat);
         query.setParameter("longitud", sitioInteresLong);
-        if(query.getSingleResult()==null)
+        
+        List<SitioInteresEntity> busc = query.getResultList();
+        SitioInteresEntity result = null;
+        if(busc != null && !busc.isEmpty())
         {
-            return null;
+            result = busc.get(0);;
         }
-        return (SitioInteresEntity) query.getSingleResult();
+        return result;
     }
     
       /**

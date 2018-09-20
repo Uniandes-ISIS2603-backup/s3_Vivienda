@@ -54,9 +54,11 @@ public class EstudianteLogic {
             throw new BusinessLogicException("No existe la universidad con el id \"" +estudianteEntity.getUniversidad().getId() + "\"");
         }
         // Invoca la persistencia para crear el estudiante
-        estudianteEntity = persistence.create(estudianteEntity);
+        System.out.println("Id estudinate: " + estudianteEntity.getId());
+        persistence.create(estudianteEntity);
+        UniversidadEntity universidad = persistenceUniversidad.find(estudianteEntity.getUniversidad().getId());
         LOGGER.log(Level.INFO, "Termina proceso de creación del estudiante");
-        return persistence.find(estudianteEntity.getId());
+        return estudianteEntity;
     }
     
     /**

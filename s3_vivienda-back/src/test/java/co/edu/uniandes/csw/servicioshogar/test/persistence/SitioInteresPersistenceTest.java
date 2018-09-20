@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.servicioshogar.test.persistence;
 
-import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
 import co.edu.uniandes.csw.vivienda.persistence.SitioInteresPersistence;
 import java.util.ArrayList;
@@ -140,6 +139,18 @@ public class SitioInteresPersistenceTest {
     public void getSitioInteresTest() {
         SitioInteresEntity entity = data.get(0);
         SitioInteresEntity newEntity = sitioInteresPersistence.find(entity.getId());
+        Assert.assertNotNull(newEntity);
+        Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
+        Assert.assertEquals(entity.getLatitud(), newEntity.getLatitud());
+    }
+    
+        /**
+     * Prueba para consultar un SitioInteres.
+     */
+    @Test
+    public void getSitioInteresByLatLongTest() {
+        SitioInteresEntity entity = data.get(0);
+        SitioInteresEntity newEntity = sitioInteresPersistence.findByLatLong(entity.getLatitud(),entity.getLongitud());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getNombre(), newEntity.getNombre());
         Assert.assertEquals(entity.getLatitud(), newEntity.getLatitud());

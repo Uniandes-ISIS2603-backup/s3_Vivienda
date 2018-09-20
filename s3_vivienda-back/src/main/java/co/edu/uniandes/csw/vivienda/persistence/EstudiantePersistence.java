@@ -25,7 +25,7 @@ public class EstudiantePersistence {
     protected EntityManager em;
     
     /**
-     * Crea un autor en la base de datos
+     * Crea un estudiante en la base de datos
      *
      * @param estudianteEntity objeto estudiante que se creará en la base de datos
      * @return devuelve la entidad creada con un id dado por la base de datos.

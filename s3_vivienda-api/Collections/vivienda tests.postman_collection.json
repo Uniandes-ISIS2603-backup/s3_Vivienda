@@ -40,12 +40,15 @@
 					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://{{base_url}}/viviendas/",
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"s3_univivienda-api",
+						"api",
 						"viviendas",
 						""
 					]
@@ -82,12 +85,15 @@
 					"raw": "{\r\n  \"direccion\":\"{{direccionExistente}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://{{base_url}}/viviendas/",
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"s3_univivienda-api",
+						"api",
 						"viviendas",
 						""
 					]
@@ -102,11 +108,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "a276d33f-11f2-4a24-953f-73bb49b18b7f",
+						"id": "556e5454-1fa0-44d0-8f8c-3d534bb0e9fa",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] == responseCode.code === 200;",
+							"tests[\"Status code 200\"] = responseCode.code === 200;",
 							"tests[\"Devuelve la vivienda esperada\"] == data.id === pm.globals.get(\"viviendaId\")"
 						]
 					}
@@ -117,12 +123,15 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{base_url}}/viviendas/{{viviendaId}}",
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"s3_univivienda-api",
+						"api",
 						"viviendas",
 						"{{viviendaId}}"
 					]
@@ -150,12 +159,15 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{base_url}}/viviendas",
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"s3_univivienda-api",
+						"api",
 						"viviendas"
 					]
 				},
@@ -192,11 +204,15 @@
 					"raw": "{\"nombre\": \"Un nuevo nombre\"}"
 				},
 				"url": {
-					"raw": "{{base_url}}/viviendas/{{viviendaId}}",
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"s3_univivienda-api",
+						"api",
 						"viviendas",
 						"{{viviendaId}}"
 					]
@@ -211,10 +227,10 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "ed8f00ac-6cd6-4961-ac82-2ce239000f34",
+						"id": "95c548c5-8087-4cf4-be73-e31c7da92875",
 						"type": "text/javascript",
 						"exec": [
-							"tests[\"El post no genera error\"] = responseCode.code === 204;"
+							"tests[\"El delete no genera error\"] = responseCode.code === 204;"
 						]
 					}
 				}
@@ -224,11 +240,15 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "{{base_url}}/viviendas/{{viviendaId}}",
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"protocol": "http",
 					"host": [
-						"{{base_url}}"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
+						"s3_univivienda-api",
+						"api",
 						"viviendas",
 						"{{viviendaId}}"
 					]

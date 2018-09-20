@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "f71b8176-c61e-4453-88fd-4d8bddd285d9",
-		"name": "Arrendador, SitioInteres  test",
+		"_postman_id": "e1894cb4-4699-4f8a-ac6d-830a466e96cf",
+		"name": "Arrendador test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -52,10 +52,32 @@
 		},
 		{
 			"name": "Crear un arrendador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ee305567-6604-422e-8347-14c29709c076",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_a2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
-				"header": [],
-				"body": {},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"mario\",\n\t\"login\":\"mario1\",\n\t\"password\":\"123456\"\n\t\n}"
+				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
@@ -78,11 +100,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "d0f93691-c1f9-41d4-bfb8-ae88d2d2eba7",
+						"id": "2814a002-a58d-47ae-bea3-f2f9055640b5",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No crea con el mismo login\"] = responseCode.code === 412;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe una arrendador con ese login\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe un arrendador con ese login\");"
 						]
 					}
 				}
@@ -112,6 +134,126 @@
 						"arrendadores"
 					]
 				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener arrendador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a3fb5a9a-2e67-401b-ae19-fe71330d4100",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_a}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener arrendadores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a32ea2f8-b35e-45a1-802b-6382a4464b73",
+						"type": "text/javascript",
+						"exec": [
+							"var data= JSON.parse(responseBody);",
+							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
+							"tests[\"arrendadores count\"] = data.length > 1;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener unaarrendador que no existe Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f5d2552f-0fbf-4e46-a02e-2168e54c76d0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendadores/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"0"
+					]
+				},
+				"description": "**Release: Paso-2**\r\n\r\nConsulta un arrendador que no existe en la aplicacion.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /arrendadores/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
 			},
 			"response": []
 		},
@@ -164,12 +306,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "7af7bb22-41af-4200-9481-0a69001feef2",
+						"id": "9d124f02-3068-458b-aeb2-13a0f085c80f",
 						"type": "text/javascript",
 						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_a\",data.id);",
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+							"tests[\"No actualiza con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendadores/0 no existe.\");"
 						]
 					}
 				}
@@ -187,7 +328,7 @@
 					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a2}}",
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -197,82 +338,10 @@
 						"s3_vivienda-api",
 						"api",
 						"arrendadores",
-						"{{new_id_a2}}"
+						"0"
 					]
 				},
 				"description": "Se crea un arrendador nuevo y se verifica que la respuesta es igual al json que se envio en el cuerpo del reuest."
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener arrendador",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "f89c365b-6ede-432c-baba-aee287fae855",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"arrendadores",
-						"{{new_id_a}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener arrendadores",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "a32ea2f8-b35e-45a1-802b-6382a4464b73",
-						"type": "text/javascript",
-						"exec": [
-							"var data= JSON.parse(responseBody);",
-							"tests[\"No genera error en el Get all\"] = responseCode.code === 200;",
-							"tests[\"arrendadores count\"] = data.length > 1;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"arrendadores",
-						""
-					]
-				}
 			},
 			"response": []
 		},
@@ -321,10 +390,25 @@
 		},
 		{
 			"name": "Eliminar arrendador 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45749651-d642-47dd-8ec7-0804d20ddf2a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a2}}",
 					"protocol": "http",
@@ -348,11 +432,11 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "4d6648a4-9027-40bf-a837-b12f076037a4",
+						"id": "796bd16a-61a2-4be2-bcac-e8d580a3e5d4",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendador/0 no existe.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendadores/0 no existe.\");"
 						]
 					}
 				}
@@ -360,7 +444,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
 					"protocol": "http",
@@ -373,160 +460,6 @@
 						"api",
 						"arrendadores",
 						"0"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Crear un sitio de interes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "821ec467-4701-4299-ac9e-013c8165360e",
-						"type": "text/javascript",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"new_id_s\",data.id);",
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\": \"Cancha de baloncesto\",       \r\n\r\n\t\"descripción\": \"Cancha de baloncesto a 2 minutos a pie\",   \r\n\t\r\n\t\"latitud\": 5.32456, \r\n\r\n\t\"longitud\": -5.32456\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/sitioInteres",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"sitioInteres"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar la información de un sitio de interes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5ad57432-c2b7-40de-878e-2c9f066d65d2",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/sitioInteres{{new_id_s}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"sitioInteres{{new_id_s}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Obtener un sitio de interes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "37b3702a-7189-4039-933f-61cf205cc55f",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/sitioInteres{{new_id_s}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"sitioInteres{{new_id_s}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Eliminar un sitio de interes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "ae8b4b3d-23d0-48ad-9166-d80310842b2b",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/sitioInteres{{new_id_s}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"sitioInteres{{new_id_s}}"
 					]
 				}
 			},

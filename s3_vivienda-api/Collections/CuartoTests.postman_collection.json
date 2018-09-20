@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "b36fae09-ed3b-4e4b-92b0-63012a1d66df",
+		"name": "CuartoTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crea vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f2ac0ac-1bb4-4840-879f-9f920f432fb4",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"viviendaId\", data.id)"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						""
+					]
+				},
+				"description": "Crea una vivienda sobre la cual van a correr los tests de cuarto"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear cuarto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "afb4e165-e23a-4dc6-b0ac-6fb9ec229ceb",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cuartoId\", data.id)",
+							"tests[\"El post no genera error\"] = responseCode.code === 200;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"cuarto1\",\n\t\"descripcion\":\"Un cuarto\",\n\t\"costoArriendo\": \"1000000\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}/cuartos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos"
+					]
+				},
+				"description": "Crea un cuarto"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear cuarto error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "00e659cc-b554-429c-a573-c7dd731abf85",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"El post genera error\"] = responseCode.code === 412;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"cuarto1\",\n\t\"descripcion\":\"Un cuarto\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}/cuartos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos"
+					]
+				},
+				"description": "Crea un cuarto sin costo de arrendamiento, debe generar un error"
+			},
+			"response": []
+		},
+		{
+			"name": "GET cuarto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Status code 200\"] = responseCode.code === 200;",
+							"tests[\"Devuelve el cuarto esperado\"] = data.id == pm.globals.get(\"cuartoId\");",
+							"tests[\"El cuarto esta asociado con la vivienda esperada\"] = data.vivienda.id == pm.globals.get(\"viviendaId\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos",
+						"{{cuartoId}}"
+					]
+				},
+				"description": "Obtiene el cuarto creado anteriormente\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar cuarto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "348ad66a-c554-4985-a197-c9f2d14ea61f",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Status code 200\"] = responseCode.code === 200;",
+							"tests[\"El cuarto se actualiza\"] = data.costoArriendo === 1200000",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"costoArriendo\": 1200000\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos",
+						"{{cuartoId}}"
+					]
+				},
+				"description": "Actualiza el costo del cuarto"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar cuarto error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "95382fc9-9a79-48d0-bbd4-a7d88999a3af",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera error\"] = responseCode.code === 412;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"costoArriendo\": 0\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos",
+						"{{cuartoId}}"
+					]
+				},
+				"description": "Actualiza el costo del cuarto a un valor invalido, debe generar error"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE cuarto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "929631d4-669a-4c8c-a3e0-ddabc5ac3d74",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"El delete no genera error\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_univivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos",
+						"{{cuartoId}}"
+					]
+				},
+				"description": "Elimina un cuarto"
+			},
+			"response": []
+		}
+	]
+}
