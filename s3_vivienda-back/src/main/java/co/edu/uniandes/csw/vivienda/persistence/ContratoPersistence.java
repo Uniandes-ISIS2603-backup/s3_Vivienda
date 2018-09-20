@@ -134,4 +134,24 @@ public class ContratoPersistence {
         LOGGER.log(Level.INFO, "Saliendo de consultar contratos por id", id);
         return result;
     }
+
+    public ContratoEntity findByEstudiante(Long estudianteId) {
+        LOGGER.log(Level.INFO, "Consultando contratos por id de estudiante", estudianteId);
+        // Se crea un query para buscar contratos con el metodoPago que recibe el método como argumento. ":id" es un placeholder que debe ser reemplazado
+        TypedQuery query = em.createQuery("Select e From ContratoEntity e where estudiante_id = :id", ContratoEntity.class);
+        // Se remplaza el placeholder ":id" con el valor del argumento 
+        query = query.setParameter("id", estudianteId);
+        // Se invoca el query que obtiene la lista resultado
+        List<ContratoEntity> sameId = query.getResultList();
+        ContratoEntity result;
+        if (sameId == null) {
+            result = null;
+        } else if (sameId.isEmpty()) {
+            result = null;
+        } else {
+            result = sameId.get(0);
+        }
+        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por id de estudiante", estudianteId);
+        return result;
+    }
 }

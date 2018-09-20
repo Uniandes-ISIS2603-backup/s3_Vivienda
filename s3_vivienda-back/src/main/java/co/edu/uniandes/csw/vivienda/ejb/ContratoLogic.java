@@ -48,10 +48,6 @@ public class ContratoLogic {
         if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
             throw new BusinessLogicException("El metodoPago es inválido");
         }
-        if(!validateId(contratoEntity.getId()))
-        {
-            throw new BusinessLogicException("El id es inválido");
-        }
         persistence.create(contratoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del contrato");
         return contratoEntity;
@@ -75,13 +71,30 @@ public class ContratoLogic {
      * @param contratoId El id del contrato a buscar
      * @return El contrato encontrado, null si no lo encuentra.
      */
-    public ContratoEntity getContrato(Long contratoId) {
+    public ContratoEntity getContrato(Long contratoId)  {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato con id = {0}", contratoId);
         ContratoEntity contratoEntity = persistence.find(contratoId);
         if (contratoEntity == null) {
             LOGGER.log(Level.SEVERE, "El contrato con el id = {0} no existe", contratoId);
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato con id = {0}", contratoId);
+        return contratoEntity;
+    }
+    
+    /**
+     * Busca un contrato por ID
+     *
+     * @param estudianteId El id del estudiante a buscar
+     * @return El contrato encontrado, null si no lo encuentra.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    public ContratoEntity getContratoByEstudiante(Long estudianteId) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato del estudiante con id = {0}", estudianteId);
+        ContratoEntity contratoEntity = persistence.findByEstudiante(estudianteId);
+        if (contratoEntity == null) {
+            throw new BusinessLogicException("El estudiante no tiene contrato");
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato del estudiante con id = {0}", estudianteId);
         return contratoEntity;
     }
 

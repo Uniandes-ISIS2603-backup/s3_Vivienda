@@ -5,14 +5,18 @@
  */
 package co.edu.uniandes.csw.vivienda.entities;
 
+import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
@@ -20,20 +24,21 @@ import uk.co.jemos.podam.common.PodamExclude;
  */
 @Entity
 public class EstudianteEntity extends BaseEntity implements Serializable{
+    
     private String nombre;
     private String login;
     private String password;
     
     @PodamExclude
-    @ManyToOne(cascade =CascadeType.MERGE)
+    @ManyToOne(cascade =CascadeType.MERGE, fetch = javax.persistence.FetchType.LAZY)
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true)
+    @OneToOne(mappedBy="estudiante", cascade ={CascadeType.MERGE, CascadeType.REMOVE}, fetch = javax.persistence.FetchType.LAZY)
     private ContratoEntity contrato;
     
     @PodamExclude
-    @OneToMany(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true)
+    @OneToMany(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true, fetch = javax.persistence.FetchType.LAZY)
     private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
       
@@ -72,7 +77,7 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public void setUniversidad(UniversidadEntity uni){
         this.universidad=uni;
     }
-    public void setContrato(ContratoEntity cont){
-        this.contrato=cont;
+    public void setContrato(ContratoEntity contrato){
+        this.contrato = contrato;
     }
 }

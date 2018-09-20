@@ -179,8 +179,7 @@ public class CalificacionLogicTest {
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
         newEntity.setPuntaje(r.nextFloat()*MAX_PUNTAJE);
         newEntity.setEstudiante(dataEstudiante.get(0));
-        newEntity.setVivienda(dataVivienda.get(1));
-        CalificacionEntity result = calificacionLogic.createCalificacion(newEntity);
+        CalificacionEntity result = calificacionLogic.createCalificacion(dataVivienda.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         CalificacionEntity entity = em.find(CalificacionEntity.class, result.getId());
         
@@ -191,8 +190,7 @@ public class CalificacionLogicTest {
     public void createCalificacionTestSinEstudiante() throws BusinessLogicException{
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
         newEntity.setPuntaje(r.nextFloat()*MAX_PUNTAJE);
-        newEntity.setVivienda(dataVivienda.get(2));
-        calificacionLogic.createCalificacion(newEntity);
+        calificacionLogic.createCalificacion(dataVivienda.get(2).getId(), newEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
@@ -200,17 +198,15 @@ public class CalificacionLogicTest {
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
         newEntity.setPuntaje(r.nextFloat()*MAX_PUNTAJE);
         EstudianteEntity estudiante = factory.manufacturePojo(EstudianteEntity.class);
-        newEntity.setVivienda(dataVivienda.get(2));
         newEntity.setEstudiante(estudiante);
-        calificacionLogic.createCalificacion(newEntity);
+        calificacionLogic.createCalificacion(dataVivienda.get(2).getId(), newEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
     public void createCalificacionTestSinVivienda() throws BusinessLogicException{
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
         newEntity.setPuntaje(r.nextFloat()*MAX_PUNTAJE);
-        newEntity.setEstudiante(dataEstudiante.get(2));
-        calificacionLogic.createCalificacion(newEntity);
+        calificacionLogic.createCalificacion(dataEstudiante.get(2).getId(), newEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
@@ -218,16 +214,16 @@ public class CalificacionLogicTest {
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
         newEntity.setPuntaje(r.nextFloat()*MAX_PUNTAJE);
         ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
-        newEntity.setVivienda(vivienda);
         newEntity.setEstudiante(dataEstudiante.get(1));
-        calificacionLogic.createCalificacion(newEntity);
+        calificacionLogic.createCalificacion(vivienda.getId(), newEntity);
     }
     
     @Test(expected = BusinessLogicException.class)
     public void createCalificacionTestConPuntajeInvalido() throws BusinessLogicException{
         CalificacionEntity newEntity = factory.manufacturePojo(CalificacionEntity.class);
+        newEntity.setEstudiante(dataEstudiante.get(2));
         newEntity.setPuntaje(r.nextFloat()*MAX_PUNTAJE+6);
-        calificacionLogic.createCalificacion(newEntity);
+        calificacionLogic.createCalificacion(dataVivienda.get(2).getId(), newEntity);
     }
     
     /**

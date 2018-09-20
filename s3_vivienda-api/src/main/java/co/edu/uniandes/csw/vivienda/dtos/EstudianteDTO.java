@@ -24,11 +24,6 @@ public class EstudianteDTO implements Serializable {
     */
     private UniversidadDTO universidad;
     
-    /*
-    * Relación a un contrato 
-    * dado que esta tiene cardinalidad 1.
-    */
-    private ContratoDTO contrato;
     
     /**
      * Constructor por defecto
@@ -48,8 +43,6 @@ public class EstudianteDTO implements Serializable {
             this.password = estudianteEntity.getPassword();
             if (estudianteEntity.getUniversidad() != null)
                 this.universidad = new UniversidadDTO(estudianteEntity.getUniversidad());
-            if (estudianteEntity.getContrato() != null)
-                this.contrato = new ContratoDTO(estudianteEntity.getContrato());
         }
     }
     
@@ -66,8 +59,6 @@ public class EstudianteDTO implements Serializable {
         entity.setPassword(password);
         if (universidad != null)
             entity.setUniversidad(universidad.toEntity());
-        if (contrato != null)
-            entity.setContrato(contrato.toEntity());
         return entity;
     }
     
@@ -115,15 +106,7 @@ public class EstudianteDTO implements Serializable {
     public UniversidadDTO getUniversidad(){
         return universidad;
     }
-    
-    /**
-     * Devuelve el contrato del estudiante
-     *
-     * @return the contrato
-     */
-    public ContratoDTO getContrato(){
-        return contrato;
-    }
+
     
     /**
      * Modifica el id del estudiante.
@@ -170,14 +153,7 @@ public class EstudianteDTO implements Serializable {
         this.universidad=uni;
     }
     
-    /**
-     * Modifica el contrato del estudiante.
-     *
-     * @param cont the contrato to set
-     */
-    public void setContrato(ContratoDTO cont){
-        this.contrato=cont;
-    }
+
     
     @Override
     public String toString() {

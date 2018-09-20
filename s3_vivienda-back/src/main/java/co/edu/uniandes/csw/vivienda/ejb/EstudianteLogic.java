@@ -48,7 +48,7 @@ public class EstudianteLogic {
             throw new BusinessLogicException("Ya existe un estudiante con el login \"" + estudianteEntity.getLogin() + "\"");
         }
         if (estudianteEntity.getUniversidad() == null) {
-            throw new BusinessLogicException("El estudinate debe tener universidad");
+            throw new BusinessLogicException("El estudiante debe tener universidad");
         }
         else if (persistenceUniversidad.find(estudianteEntity.getUniversidad().getId()) == null){
             throw new BusinessLogicException("No existe la universidad con el id \"" +estudianteEntity.getUniversidad().getId() + "\"");
@@ -100,26 +100,25 @@ public class EstudianteLogic {
      */
     public EstudianteEntity updateEstudiante(Long id, EstudianteEntity entity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el estudiante con id = {0}", id);
-        if (entity.getLogin() == null)
-            System.out.println("Es null");
-        else
-            System.out.println("No es null");
         
         EstudianteEntity prueba = persistence.findByLogin(entity.getLogin());
         if (prueba != null && !Objects.equals(prueba.getId(), id)) {
             throw new BusinessLogicException("Ya existe un estudiante con el login \"" + entity.getLogin() + "\"");
         }
-        if (entity.getUniversidad() != null && persistenceUniversidad.find(entity.getUniversidad().getId()) == null) {
-            throw new BusinessLogicException("No existe la universidad con el id \"" +entity.getUniversidad().getId() + "\"");
+        if (entity.getUniversidad() != null && persistenceUniversidad.find(entity.getUniversidad().getId()) == null){
+            throw new BusinessLogicException("Universidad invalida");
         }
-        if (entity.getContrato() != null && (persistenceContrato.find(entity.getContrato().getId()) == null)){
-            throw new BusinessLogicException("No existe el contrato con el id \"" +entity.getContrato().getId() + "\"");
-        }
-        if (entity.getContrato() != null &&(entity.getContrato().getEstudiante() == null || !Objects.equals(entity.getContrato().getEstudiante().getId(), id))){
-            throw new BusinessLogicException("El contrato debe tener el mismo estudiante");
-        }
-        entity.setId(id);
-        EstudianteEntity newEntity = persistence.update(entity);
+        EstudianteEntity old = persistence.find(id);
+        if (entity.getLogin() != null)
+            old.setLogin(entity.getLogin());
+        if (entity.getNombre()!= null)
+            old.setNombre(entity.getNombre());
+        if (entity.getPassword()!= null)
+            old.setPassword(entity.getPassword());
+        if (entity.getUniversidad()!= null)
+            old.setUniversidad(entity.getUniversidad());
+        
+        persistence.update(old);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el estudiante con id = {0}", entity.getId());
         return persistence.find(id);
     }
@@ -141,34 +140,19 @@ public class EstudianteLogic {
      * @param estudianteId id del estudiante que se quiere actualizar.
      * @param universidadId El id de la universidad que se será del estudiante.
      * @return el nuevo estudianteId.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
-    public EstudianteEntity replaceUniversidad(Long estudianteId, Long universidadId){
+    public EstudianteEntity replaceUniversidad(Long estudianteId, Long universidadId) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar estudinate con id = {0}", estudianteId);
         UniversidadEntity universidadEntity = persistenceUniversidad.find(universidadId);
         EstudianteEntity estudianteEntity = persistence.find(estudianteId);
         estudianteEntity.setUniversidad(universidadEntity);
+        updateEstudiante(estudianteId, estudianteEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar estudiante con id = {0}", estudianteEntity.getId());
         return persistence.find(estudianteId);
     }
 
-    /**
-     * Borrar el contrato de un premio
-     *
-     * @param estudianteId El premio que se desea borrar del contrato.
-     * @throws BusinessLogicException si el premio no tiene contrato
-     */
-    public void deleteContrato(Long estudianteId) throws BusinessLogicException {
-       LOGGER.log(Level.INFO, "Inicia proceso de borrar el contrato del estudinate con id = {0}", estudianteId);
-        EstudianteEntity estudianteEntity = persistence.find(estudianteId);
-        if (estudianteEntity.getContrato() == null) {
-            throw new BusinessLogicException("El estudiante no tiene contrato");
-        }
-        ContratoEntity contratoEntity = persistenceContrato.find(estudianteEntity.getContrato().getId());
-        persistenceContrato.delete(contratoEntity.getId());
-        estudianteEntity.setContrato(null);
-        
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el contrato con id = {0} del estudiante con id = " + estudianteId, contratoEntity.getId());
-    }
+    
 
     /**
      * Agregar un contrato a un estudiante
@@ -177,14 +161,17 @@ public class EstudianteLogic {
      * @param contratoId El id del contrato el cual se le va a guardar al estudiante.
      * @return El contrato que fue agregado al estudiante.
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
-     */
-    public ContratoEntity addContrato(Long contratoId, Long estudianteId) throws BusinessLogicException {
+     
+    public EstudianteEntity addContrato(Long contratoId, Long estudianteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de asociar el contrato con id = {0} al estudiante con id = " + estudianteId, contratoId);
-        ContratoEntity contratoEntity = persistenceContrato.find(contratoId);
         EstudianteEntity estudianteEntity = persistence.find(estudianteId);
+        if (estudianteEntity.getContrato() != null)
+            throw new BusinessLogicException("El estudiante ya tiene un contrato");
+        ContratoEntity contratoEntity = persistenceContrato.find(contratoId);
         estudianteEntity.setContrato(contratoEntity);
         updateEstudiante(estudianteId, estudianteEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociar el contrato con id = {0} al estudiante con id = " + estudianteId, contratoId);
-        return persistenceContrato.find(contratoId);
+        return persistence.find(estudianteId);
     }
+    */
 }

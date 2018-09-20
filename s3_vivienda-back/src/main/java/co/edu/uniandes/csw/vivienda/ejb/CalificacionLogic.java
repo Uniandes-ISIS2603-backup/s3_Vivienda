@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
+import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
@@ -36,6 +37,7 @@ public class CalificacionLogic {
     /**
      * Crea un calificacion en la persistencia.
      *
+     * @param viviendaId: id de la vivienda a la cual se va a agregar
      * @param calificacionEntity La entidad que representa el calificacion a
      * persistir.
      * @return La entidad del calificacion luego de persistirlo.
@@ -43,19 +45,22 @@ public class CalificacionLogic {
      * BusinessLogicException Si la vivienda es invalida.
      * BusinessLogicException Si el puntaje es menor a 0 o mayor a 5
      */
-    public CalificacionEntity createCalificacion(CalificacionEntity calificacionEntity) throws BusinessLogicException {
+    public CalificacionEntity createCalificacion(Long viviendaId, CalificacionEntity calificacionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del calificacion");
         // Verifica la regla de negocio que dice que no puede haber dos contratos con el mismo ID
         if (calificacionEntity.getEstudiante() == null || persistenceEstudiante.find(calificacionEntity.getEstudiante().getId()) == null) {
             throw new BusinessLogicException("El estudiante es invalido");
         }
-        if (calificacionEntity.getVivienda() == null || persistenceVivienda.find(calificacionEntity.getVivienda().getId()) == null ){
+        ViviendaEntity vivienda = persistenceVivienda.find(viviendaId);
+        if (vivienda == null){
             throw new BusinessLogicException("La vivienda es invalida");
         }
         if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
             throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, y menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
         // Invoca la persistencia para crear el contrato
+        
+        calificacionEntity.setVivienda(vivienda);
         persistence.create(calificacionEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del calificacion");
         return calificacionEntity;

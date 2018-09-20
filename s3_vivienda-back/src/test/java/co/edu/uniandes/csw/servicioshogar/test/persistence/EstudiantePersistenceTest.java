@@ -88,7 +88,6 @@ public class EstudiantePersistenceTest {
         Assert.assertEquals(newEntity.getPassword(), entity.getPassword());
         Assert.assertEquals(newEntity.getUniversidad(), entity.getUniversidad());
         Assert.assertEquals(newEntity.getCalificaciones(), entity.getCalificaciones());
-        Assert.assertEquals(newEntity.getContrato(), entity.getContrato());
     }
     @Test
     public void createEstudianteTest() {

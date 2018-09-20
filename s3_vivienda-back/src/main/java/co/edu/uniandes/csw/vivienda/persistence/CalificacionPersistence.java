@@ -116,7 +116,7 @@ public class CalificacionPersistence {
      * @return una calificacion.
      */
     public CalificacionEntity findByEstudiante(Long estudianteId, Long calificacionId){
-        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.id = :calificacionId", CalificacionEntity.class);
+        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.id = :calificacionId)", CalificacionEntity.class);
         query.setParameter("estudianteId", estudianteId);
         query.setParameter("calificacionId", calificacionId);
         

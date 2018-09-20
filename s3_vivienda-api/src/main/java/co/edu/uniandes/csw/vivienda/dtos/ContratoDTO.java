@@ -26,6 +26,11 @@ public class ContratoDTO implements Serializable {
      * Relación a una vivienda. dado que esta tiene cardinalidad 1.
      */
     private ViviendaDTO vivienda;
+    
+    /**
+     * Relación a un estudiante. dado que esta tiene cardinalidad 1.
+     */
+    private EstudianteDTO estudiante;
 
     /**
      * Constructor por defecto
@@ -51,6 +56,11 @@ public class ContratoDTO implements Serializable {
             } else {
                 this.vivienda = null;
             }
+            if (contratoEntity.getEstudiante() != null) {
+                this.estudiante = new EstudianteDTO(contratoEntity.getEstudiante());
+            } else {
+                this.estudiante = null;
+            }
         }
     }
 
@@ -68,6 +78,9 @@ public class ContratoDTO implements Serializable {
         contratoEntity.setMetodoPago(this.metodoPago);
         if (this.vivienda != null) {
             contratoEntity.setVivienda(this.vivienda.toEntity());
+        }
+        if (this.estudiante != null) {
+            contratoEntity.setEstudiante(this.estudiante.toEntity());
         }
 
         return contratoEntity;
@@ -146,6 +159,26 @@ public class ContratoDTO implements Serializable {
     public void setVivienda(ViviendaDTO vivienda) {
         this.vivienda = vivienda;
     }
+    
+    /**
+     * Devuelve el estudiante asociado a este contrato.
+     *
+     * @return the estudiante
+     */
+    public EstudianteDTO getEstudiante() {
+        return estudiante;
+    }
+
+    /**
+     * Modifica el estudiante asociada a este contrato.
+     *
+     * @param estudiante the estudinate to set
+     */
+    public void setEstudiante(EstudianteDTO estudiante) {
+        this.estudiante = estudiante;
+    }
+    
+    
 
     @Override
     public String toString() {

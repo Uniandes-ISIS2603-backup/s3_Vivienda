@@ -52,7 +52,7 @@ public class ViviendaCalificacionesResource{
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         CalificacionEntity calificacionEntity = calificacion.toEntity();
         // Invoca la lógica para crear la calificacion nueva
-        CalificacionEntity nuevoCalificacionEntity = calificacionLogic.createCalificacion(calificacionEntity);
+        CalificacionEntity nuevoCalificacionEntity = calificacionLogic.createCalificacion(viviendaId, calificacionEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         CalificacionDTO nuevoCalificacionDTO = new CalificacionDTO(nuevoCalificacionEntity);
         LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: output: {0}", nuevoCalificacionDTO.toString());

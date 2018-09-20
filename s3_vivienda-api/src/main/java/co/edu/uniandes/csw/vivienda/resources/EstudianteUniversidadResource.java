@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.dtos.UniversidadDTO;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.ejb.UniversidadLogic;
+import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -43,7 +44,7 @@ public class EstudianteUniversidadResource {
      */
     @PUT
     @Path("{universidadId:\\d+}")
-    public EstudianteDetailDTO replaceUniversidad(@PathParam("estudianteId") Long estudianteId, @PathParam("universidadId") Long universidadId){
+    public EstudianteDetailDTO replaceUniversidad(@PathParam("estudianteId") Long estudianteId, @PathParam("universidadId") Long universidadId) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: input: estudianteId{0} , Universidad:{1}", new Object[]{estudianteId, universidadId});
         if (universidadLogic.getUniversidad(universidadId) == null) {
             throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);

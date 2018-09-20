@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -32,7 +33,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     private EstudianteEntity estudiante;
 
     @PodamExclude
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = javax.persistence.FetchType.LAZY)
     private ViviendaEntity vivienda;
 
     @PodamExclude

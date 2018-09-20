@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,14 +38,11 @@ public class EstudianteContratoResource {
     private static final Logger LOGGER = Logger.getLogger(EstudianteContratoResource.class.getName());
     
     @Inject
-    private EstudianteLogic estudianteLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-
-    @Inject
     private ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
-    /**
-     * Guarda un contrato dentro de un premio con la informacion que recibe el la
+    /* Guarda un contrato dentro de un premio con la informacion que recibe el la
      * URL.
+    /**
      *
      * @param estudianteId Identificador de el premio que se esta actualizando. Este
      * debe ser una cadena de dígitos.
@@ -54,38 +52,42 @@ public class EstudianteContratoResource {
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el autor.
-     */
+     
     @POST
     @Path("{contratoId: \\d+}")
-    public ContratoDTO addContrato(@PathParam("estudianteId") Long estudianteId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException {
+    public EstudianteDetailDTO addContrato(@PathParam("estudianteId") Long estudianteId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EstudianteContratoResource addContrato: input: estudiantesID: {0} , contratoId: {1}", new Object[]{estudianteId, contratoId});
         if (contratoLogic.getContrato(contratoId) == null) {
-            throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso estudiantes/"+ estudianteId+"/contratos/" + contratoId + " no existe.", 404);
         }
-        ContratoDTO contratoDTO = new ContratoDTO(estudianteLogic.addContrato(contratoId, estudianteId));
-        LOGGER.log(Level.INFO, "EstudianteContratoResource addContrato: output: {0}", contratoDTO.toString());
-        return contratoDTO;
+        EstudianteDetailDTO estudianteDTO = new EstudianteDetailDTO(estudianteLogic.addContrato(contratoId, estudianteId));
+        LOGGER.log(Level.INFO, "EstudianteContratoResource addContrato: output: {0}", estudianteDTO.toString());
+        return estudianteDTO;
     }
-
+    */
+    
     /**
      * Busca el autor dentro de el premio con id asociado.
      *
      * @param estudianteId Identificador de el premio que se esta buscando. Este
      * debe ser una cadena de dígitos.
-     * @return JSON {@link ContratoDetailDTO} - El autor buscado
+     * @return JSON {@link ContratoDetailDTO} - El contrato buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando el premio no tiene autor.
      */
     @GET
-    public ContratoDetailDTO getContrato(@PathParam("estudianteId") Long estudianteId) {
+    public ContratoDTO getContrato(@PathParam("estudianteId") Long estudianteId) {
         LOGGER.log(Level.INFO, "EstudianteContratoResource getContrato: input: {0}", estudianteId);
-        ContratoEntity contratoEntity = estudianteLogic.getEstudiante(estudianteId).getContrato();
-        if (contratoEntity == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/contrato no existe.", 404);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar del contrato del estudiante");
+        try {
+            ContratoEntity contratoEntity = contratoLogic.getContratoByEstudiante(estudianteId);
+            ContratoDTO contratoDTO = new ContratoDTO(contratoEntity);
+            LOGGER.log(Level.INFO, "EstudianteContratoResource getContrato: output: {0}", contratoDTO.toString());
+            return contratoDTO;
         }
-        ContratoDetailDTO contratoDetailDTO = new ContratoDetailDTO(contratoEntity);
-        LOGGER.log(Level.INFO, "EstudianteContratoResource getContrato: output: {0}", contratoDetailDTO.toString());
-        return contratoDetailDTO;
+        catch (BusinessLogicException e){
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/contrato no existe.", 404);
+        }    
     }
 
     /**
@@ -122,8 +124,15 @@ public class EstudianteContratoResource {
     @DELETE
     public void deleteContrato(@PathParam("estudianteId") Long estudianteId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EstudianteContratoResource deleteContrato: input: {0}", estudianteId);
-        estudianteLogic.deleteContrato(estudianteId);
-        LOGGER.info("EstudianteContratoResource deleteContrato: output: void");
+        try{
+            ContratoEntity contrato = contratoLogic.getContratoByEstudiante(estudianteId);
+            contratoLogic.deleteContrato(contrato.getId());
+            LOGGER.info("EstudianteContratoResource deleteContrato: output: void");
+        }
+        catch (BusinessLogicException e){
+            throw new WebApplicationException("El recurso estudiantes/"+estudianteId+"/contrato no existe.", 404);
+        }
+        
     }
     
 }
