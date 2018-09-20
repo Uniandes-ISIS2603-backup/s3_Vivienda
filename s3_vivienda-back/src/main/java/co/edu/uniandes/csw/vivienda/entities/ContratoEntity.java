@@ -44,42 +44,48 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() {
+    public Date getFechaInicio() 
+    {
         return fechaInicio;
     }
 
     /**
      * @param fechaInicio the fechaInicio to set
      */
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(Date fechaInicio)
+    {
         this.fechaInicio = fechaInicio;
     }
 
     /**
      * @return the fechaFin
      */
-    public Date getFechaFin() {
+    public Date getFechaFin() 
+    {
         return fechaFin;
     }
 
     /**
      * @param fechaFin the fechaFin to set
      */
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(Date fechaFin)
+    {
         this.fechaFin = fechaFin;
     }
 
     /**
      * @return the metodoPago
      */
-    public String getMetodoPago() {
+    public String getMetodoPago()
+    {
         return metodoPago;
     }
 
     /**
      * @param metodoPago the metodoPago to set
      */
-    public void setMetodoPago(String metodoPago) {
+    public void setMetodoPago(String metodoPago)
+    {
         this.metodoPago = metodoPago;
     }
 
@@ -88,7 +94,8 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      *
      * @return Una entidad de estudiante.
      */
-    public EstudianteEntity getEstudiante() {
+    public EstudianteEntity getEstudiante() 
+    {
         return estudiante;
     }
 
@@ -97,7 +104,8 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      *
      * @param estudianteEntity El nuevo estudiante.
      */
-    public void setEstudiante(EstudianteEntity estudianteEntity) {
+    public void setEstudiante(EstudianteEntity estudianteEntity) 
+    {
         this.estudiante = estudianteEntity;
     }
 
@@ -115,15 +123,18 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      *
      * @param viviendaEntity La nueva vivienda.
      */
-    public void setVivienda(ViviendaEntity viviendaEntity) {
+    public void setVivienda(ViviendaEntity viviendaEntity)
+    {
         this.vivienda = viviendaEntity;
     }
 
-    public List<ServicioAdicionalEntity> getServiciosAdicionalesAgregados() {
+    public List<ServicioAdicionalEntity> getServiciosAdicionalesAgregados()
+    {
         return serviciosAdicionalesAgregados;
     }
 
-    public void setServiciosAdicionalesAgregados(List<ServicioAdicionalEntity> serviciosAdicionalesAgregados) {
+    public void setServiciosAdicionalesAgregados(List<ServicioAdicionalEntity> serviciosAdicionalesAgregados)
+    {
         this.serviciosAdicionalesAgregados = serviciosAdicionalesAgregados;
     }
 
