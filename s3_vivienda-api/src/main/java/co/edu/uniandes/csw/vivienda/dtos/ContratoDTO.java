@@ -159,27 +159,6 @@ public class ContratoDTO implements Serializable {
     public void setVivienda(ViviendaDTO vivienda) {
         this.vivienda = vivienda;
     }
-    
-    /**
-     * Devuelve el estudiante asociado a este contrato.
-     *
-     * @return the estudiante
-     */
-    public EstudianteDTO getEstudiante() {
-        return estudiante;
-    }
-
-    /**
-     * Modifica el estudiante asociada a este contrato.
-     *
-     * @param estudiante the estudinate to set
-     */
-    public void setEstudiante(EstudianteDTO estudiante) {
-        this.estudiante = estudiante;
-    }
-    
-    
-
     /**
      * Da el estudiante que esta en el contrato
      * @return Estudiante que posee el contrato.
