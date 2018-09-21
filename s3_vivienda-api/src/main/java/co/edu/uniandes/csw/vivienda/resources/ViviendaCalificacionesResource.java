@@ -24,10 +24,15 @@ import javax.inject.Inject;
 import javax.ws.rs.PUT;
 import javax.ws.rs.WebApplicationException;
 
+/**
+ *
+ * @authors Juan Manuel Castillo y Daniel Giraldo
+ */
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class ViviendaCalificacionesResource{
+    
     private static final Logger LOGGER = Logger.getLogger(ViviendaCalificacionesResource.class.getName());
     
     @Inject
@@ -111,10 +116,10 @@ public class ViviendaCalificacionesResource{
      * @param calificacion {@link CalificacionDetailDTO} La calificacion que se desea
      * guardar.
      * @return JSON {@link CalificacionDetailDTO} - La calificacion guardada.
-     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException - 
+     * Error de lógica que se genera cuando no se encuentra la calificacion a actualizar.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la calificacion a
-     * actualizar.
+     * Error de lógica que se genera cuando no se encuentra la calificacion a actualizar.
      */
     @PUT
     @Path("{calificacionId:\\d+}")

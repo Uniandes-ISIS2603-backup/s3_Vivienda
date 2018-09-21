@@ -17,7 +17,6 @@ import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -27,7 +26,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author estudiante
+ * @author Juan Manuel Castillo
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -38,30 +37,7 @@ public class EstudianteCalificacionesResource{
     @Inject
     private CalificacionLogic calificacionLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
-    /**
-     * Guarda una calificacion dentro de una estudiante con la informacion que recibe el
-     * la URL. Se devuelve la calificacion que se guarda en el estudiante.
-     *
-     * @param estudianteId Identificador de el estudiante que se esta
-     * actualizando. Este debe ser una cadena de dígitos.
-     * @param calificacionId Identificador de la calificación que se desea guardar. Este debe
-     * ser una cadena de dígitos.
-     * @return JSON {@link CalificacionDTO} - La calificación guardado en el estudiante.
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la calificacion.
-     
-    @POST
-    @Path("{calificacionId: \\d+}")
-    public CalificacionDTO addCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId) {
-        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource addCalificacion: input: estudianteID: {0} , calificacionId: {1}", new Object[]{estudianteId, calificacionId});
-        if (calificacionLogic.getCalificacion(calificacionId) == null) {
-            throw new WebApplicationException("El recurso /calificaciones/" + calificacionId + " no existe.", 404);
-        }
-        CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.addCalificacion(calificacionId, estudianteId));
-        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource addCalificacion: output: {0}", calificacionDTO.toString());
-        return calificacionDTO;
-    }
-    */
+
     
     /**
      * Crea una nueva calificacion con la informacion que se recibe en el cuerpo de
@@ -149,7 +125,7 @@ public class EstudianteCalificacionesResource{
     @PUT
     @Path("{calificacionId:\\d+}")
     public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionId, calificacion.toString()});
+        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: estudianteId:{0}, calificacionId:{1} , calificacion: {2}", new Object[]{estudianteId, calificacionId, calificacion.toString()});
         calificacion.setId(calificacionId);
         try{
             calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId);

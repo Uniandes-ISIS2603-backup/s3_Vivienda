@@ -48,7 +48,7 @@ public class CalificacionLogic {
     public CalificacionEntity createCalificacion(Long viviendaId, CalificacionEntity calificacionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del calificacion");
         // Verifica la regla de negocio que dice que no puede haber dos contratos con el mismo ID
-        if (calificacionEntity.getEstudiante() == null || persistenceEstudiante.find(calificacionEntity.getEstudiante().getId()) == null) {
+        if (calificacionEntity.getEstudiante() == null || calificacionEntity.getEstudiante().getId() == null || persistenceEstudiante.find(calificacionEntity.getEstudiante().getId()) == null) {
             throw new BusinessLogicException("El estudiante es invalido");
         }
         ViviendaEntity vivienda = persistenceVivienda.find(viviendaId);
@@ -58,7 +58,8 @@ public class CalificacionLogic {
         if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
             throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0, y menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
-        // Invoca la persistencia para crear el contrato
+        if (getCalificacionViviendaEstudiante(viviendaId, calificacionEntity.getEstudiante().getId()) != null)
+            throw new BusinessLogicException("La vivienda y el estudiante ya tienen una calificacion");
         
         calificacionEntity.setVivienda(vivienda);
         calificacionEntity = persistence.create(calificacionEntity);
@@ -154,11 +155,28 @@ public class CalificacionLogic {
      * si a calificación no está asociada con la vivienda.
      */
     public CalificacionEntity getCalificacionVivienda(Long viviendaId, Long calificacionId) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificaciones del estudiante");
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la calificacion de la vivienda");
         CalificacionEntity calificacion = persistence.findByVivienda(viviendaId, calificacionId);
         if (calificacion == null) {
             throw new BusinessLogicException("La calificación no está asociada con la vivienda");
         }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar las calificaciones de la vivienda");
+        return calificacion;
+    }
+    
+    /**
+     *
+     * Obtener una calificacion, de una vivienda y un estudiante
+     *
+     * @param viviendaId: id de la vivienda para ser buscada.
+     * @param estudianteId: id del estudiante para ser buscada.
+     * @return la calificacion solicitada por medio de su id.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException 
+     * si no hay calificación asociada con la vivienda y el estudiante.
+     */
+    public CalificacionEntity getCalificacionViviendaEstudiante(Long viviendaId, Long estudianteId) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar las calificacion de la vivienda y el estudiante");
+        CalificacionEntity calificacion = persistence.findByViviendaEstudiante(viviendaId, estudianteId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar las calificaciones de la vivienda");
         return calificacion;
     }
@@ -176,12 +194,6 @@ public class CalificacionLogic {
      */
     public CalificacionEntity updateCalificacion(Long calificacionId, CalificacionEntity calificacionEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el calificacion con id = {0}", calificacionId);
-        if (calificacionEntity.getEstudiante() != null && persistenceEstudiante.find(calificacionEntity.getEstudiante().getId()) == null) {
-            throw new BusinessLogicException("El estudiante es invalido");
-        }
-        if (calificacionEntity.getVivienda() != null && persistenceVivienda.find(calificacionEntity.getVivienda().getId()) == null ){
-            throw new BusinessLogicException("La vivienda es invalida");
-        }
         if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
             throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0 y menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
@@ -246,12 +258,13 @@ public class CalificacionLogic {
      * @param estudianteId: id del estudiante
      * @param calificacionId: id del calificacion a borrar
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     * si no existe calificacion del estudiante
      */
     public void deleteCalificacionEstudiante(Long estudianteId, Long calificacionId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el calificacion con id = {0}", calificacionId);
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el calificacion, de estudiante, con id = {0}", calificacionId);
         getCalificacionEstudiante(estudianteId, calificacionId);
         persistence.delete(calificacionId);
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el calificacion con id = {0}", calificacionId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el calificacion, de estudiante, con id = {0}", calificacionId);
     }
     
     /**
@@ -260,6 +273,7 @@ public class CalificacionLogic {
      * @param viviendaId: id de la vivienda
      * @param calificacionId: id del calificacion a borrar
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     * si no existe calificacion de la vivienda
      */
     public void deleteCalificacionVivienda(Long viviendaId, Long calificacionId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el calificacion con id = {0}", calificacionId);

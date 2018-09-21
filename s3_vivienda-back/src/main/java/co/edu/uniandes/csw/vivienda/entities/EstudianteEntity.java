@@ -5,22 +5,18 @@
  */
 package co.edu.uniandes.csw.vivienda.entities;
 
-import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.inject.Inject;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Transient;
 import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
- * @author estudiante
+ * @author Juan Manuel Castillo
  */
 @Entity
 public class EstudianteEntity extends BaseEntity implements Serializable{
@@ -30,11 +26,11 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private String password;
     
     @PodamExclude
-    @ManyToOne(cascade =CascadeType.MERGE, fetch = javax.persistence.FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.MERGE, fetch=javax.persistence.FetchType.LAZY)
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante", cascade ={CascadeType.MERGE, CascadeType.REMOVE},orphanRemoval=true, fetch=javax.persistence.FetchType.LAZY)
+    @OneToOne(mappedBy="estudiante", cascade={CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval=true, fetch=javax.persistence.FetchType.LAZY)
     private ContratoEntity contrato;
     
     @PodamExclude

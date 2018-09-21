@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Implementa el recurso /estudiantes/{id}/universidad
- * @author estudiante
+ * @author Juan Manuel Castillo y Paula Molina
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -36,11 +36,11 @@ public class EstudianteUniversidadResource {
      *
      * @param estudianteId Identificador del estudinate que se está actualizando.
      * @param universidadId La universidad que estará asociada al estudiante.
-     * @return JSON {@link EstudianteDetailDTO} - El arreglo de libros guardado en la
-     * universidad.
+     * @return JSON {@link EstudianteDetailDTO} - El estudiante actualizado
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException -
+     * Error de lógica que se genera cuando no se encuentra la universidad.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la universidad o el
-     * libro.
+     * Error de lógica que se genera cuando no se encuentra la universidad.
      */
     @PUT
     @Path("{universidadId:\\d+}")
@@ -55,19 +55,14 @@ public class EstudianteUniversidadResource {
     }
     
     /**
-     * Busca la universidad con el id asociado dentro de la estudiante con id asociado.
+     * Busca la universidad con dentro del estudiante con id asociado.
      *
-     * @param estudianteId Identificador del estudinate que se esta buscando.
+     * @param estudianteId Identificador del estudinate con la universidad que se está buscando.
      * @return JSON {@link UniversidadDTO} - La universidad buscada
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante.
      */
     @GET
     public UniversidadDTO getUniversidad(@PathParam("estudianteId") Long estudianteId){
         LOGGER.log(Level.INFO, "EstudianteUniversidadResource getUniversidad: input: estudianteID: {0}", new Object[]{estudianteId});
-        if (estudianteLogic.getEstudiante(estudianteId) == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
-        }
         UniversidadDTO universidadDTO = new UniversidadDTO(estudianteLogic.getEstudiante(estudianteId).getUniversidad());
         LOGGER.log(Level.INFO, "EstudianteUniversidadResource getUniversidad: output: {0}", universidadDTO.toString());
         return universidadDTO;

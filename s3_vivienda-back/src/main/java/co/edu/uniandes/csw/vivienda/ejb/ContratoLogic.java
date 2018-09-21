@@ -81,22 +81,6 @@ public class ContratoLogic {
         return contratoEntity;
     }
     
-    /**
-     * Busca un contrato por ID
-     *
-     * @param estudianteId El id del estudiante a buscar
-     * @return El contrato encontrado, null si no lo encuentra.
-     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
-     */
-    public ContratoEntity getContratoByEstudiante(Long estudianteId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato del estudiante con id = {0}", estudianteId);
-        ContratoEntity contratoEntity = persistence.findByEstudiante(estudianteId);
-        if (contratoEntity == null) {
-            throw new BusinessLogicException("El estudiante no tiene contrato");
-        }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato del estudiante con id = {0}", estudianteId);
-        return contratoEntity;
-    }
 
     /**
      * Actualizar un contrato por ID
