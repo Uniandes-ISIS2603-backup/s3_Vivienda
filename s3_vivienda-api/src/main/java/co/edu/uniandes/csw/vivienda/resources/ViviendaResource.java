@@ -90,27 +90,42 @@ public class ViviendaResource {
   
     @Path("{viviendaId: \\d+}/cuartos")
     public Class<ViviendaCuartoResource> getViviendaCuartoResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaCuartoResource.class;
+        if( logic.getVivienda(viviendaId) != null)
+            return ViviendaCuartoResource.class;
+        else
+            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
     @Path("{viviendaId: \\d+}/arrendador")
     public Class<ViviendaArrendadorResource> getViviendaArrendadorResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaArrendadorResource.class;
+        if( logic.getVivienda(viviendaId) != null)
+            return ViviendaArrendadorResource.class;
+        else
+            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
     @Path("{viviendaId: \\d+}/calificaciones")
     public Class<ViviendaCalificacionesResource> getViviendaCalificacionesResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaCalificacionesResource.class;
+        if( logic.getVivienda(viviendaId) != null)
+            return ViviendaCalificacionesResource.class;
+        else
+            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
     @Path("{viviendaId: \\d+}/contratos")
     public Class<ViviendaContratosResource> getViviendaContratoResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaContratosResource.class;
+        if( logic.getVivienda(viviendaId) != null)
+            return ViviendaContratosResource.class;
+        else
+            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
     @Path("{viviendaId: \\d+}/sitioInteres")
     public Class<ViviendaSitioInteresResource> getViviendaSitioInteresResource(@PathParam("viviendaId") Long viviendaId){
-        return ViviendaSitioInteresResource.class;
+        if( logic.getVivienda(viviendaId) != null)
+            return ViviendaSitioInteresResource.class;
+        else
+            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
     

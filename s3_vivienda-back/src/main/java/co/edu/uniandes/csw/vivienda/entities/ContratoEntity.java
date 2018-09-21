@@ -29,7 +29,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     private String metodoPago;
 
     @PodamExclude
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = javax.persistence.FetchType.LAZY)
     private EstudianteEntity estudiante;
 
     @PodamExclude

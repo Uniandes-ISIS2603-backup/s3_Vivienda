@@ -127,6 +127,7 @@ public class ViviendaCalificacionesResource{
         catch(BusinessLogicException e){
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/calificaciones/" + calificacionId + " no existe.", 404);
         }
+        
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionVivienda(viviendaId, calificacionId, calificacion.toEntity());
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
         LOGGER.log(Level.INFO, "ViviendaCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());

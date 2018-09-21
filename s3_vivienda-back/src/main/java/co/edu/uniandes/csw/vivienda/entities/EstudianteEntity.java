@@ -34,11 +34,11 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante", cascade ={CascadeType.MERGE, CascadeType.REMOVE}, fetch = javax.persistence.FetchType.LAZY)
+    @OneToOne(mappedBy="estudiante", cascade ={CascadeType.MERGE, CascadeType.REMOVE},orphanRemoval=true, fetch=javax.persistence.FetchType.LAZY)
     private ContratoEntity contrato;
     
     @PodamExclude
-    @OneToMany(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true, fetch = javax.persistence.FetchType.LAZY)
+    @OneToMany(mappedBy="estudiante", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
       

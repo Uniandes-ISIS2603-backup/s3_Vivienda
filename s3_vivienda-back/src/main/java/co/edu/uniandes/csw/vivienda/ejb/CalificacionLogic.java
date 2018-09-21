@@ -61,7 +61,7 @@ public class CalificacionLogic {
         // Invoca la persistencia para crear el contrato
         
         calificacionEntity.setVivienda(vivienda);
-        persistence.create(calificacionEntity);
+        calificacionEntity = persistence.create(calificacionEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del calificacion");
         return calificacionEntity;
     }
@@ -185,8 +185,13 @@ public class CalificacionLogic {
         if (calificacionEntity.getPuntaje() < 0 || calificacionEntity.getPuntaje() > 5) {
             throw new BusinessLogicException("El puntaje debe ser mayor o igual a 0 y menor o igual a 5. Puntaje= " + calificacionEntity.getPuntaje());
         }
-        calificacionEntity.setId(calificacionId);
-        CalificacionEntity newEntity = persistence.update(calificacionEntity);
+        CalificacionEntity old = persistence.find(calificacionId);
+        if (calificacionEntity.getDescripcion() != null)
+            old.setDescripcion(calificacionEntity.getDescripcion());
+        if (calificacionEntity.getPuntaje()!= null)
+            old.setPuntaje(calificacionEntity.getPuntaje());
+        
+        CalificacionEntity newEntity = persistence.update(old);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el calificacion con id = {0}", calificacionEntity.getId());
         return newEntity;
     }

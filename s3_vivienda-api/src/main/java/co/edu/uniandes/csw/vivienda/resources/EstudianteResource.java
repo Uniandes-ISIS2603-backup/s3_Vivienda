@@ -159,11 +159,11 @@ public class EstudianteResource {
      * Error de lógica que se genera cuando no se encuentra el estudiante.
      */
     @Path("{estudianteId:\\d+}/contrato")
-    public Class<EstudianteContratoResource> getEstudianteContratoResource(@PathParam("estudianteId") Long estudianteId){
+    public Class<EstudianteContratoResource2> getEstudianteContratoResource(@PathParam("estudianteId") Long estudianteId){
         if (estudianteLogic.getEstudiante(estudianteId) == null) {
             throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "  no existe.", 404);
         }
-        return EstudianteContratoResource.class;
+        return EstudianteContratoResource2.class;
     }
     
     /**
