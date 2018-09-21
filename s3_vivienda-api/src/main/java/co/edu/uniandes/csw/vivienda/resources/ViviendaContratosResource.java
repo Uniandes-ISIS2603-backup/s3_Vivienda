@@ -43,6 +43,9 @@ public class ViviendaContratosResource {
     @Inject
     private ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
+    
+    
+    
     /**
      * Guarda un contrato dentro de una vivienda con la informacion que recibe el
      * la URL. Se devuelve el contrato que se guarda en la vivienda.
@@ -65,6 +68,25 @@ public class ViviendaContratosResource {
         ContratoDTO contratoDTO = new ContratoDTO(viviendaContratosLogic.addContrato(contratoId, viviendaId));
         LOGGER.log(Level.INFO, "EditorialBooksResource addBook: output: {0}", contratoDTO.toString());
         return contratoDTO;
+    }
+    
+    /**
+     * Guarda un contrato dentro de una vivienda con la informacion que recibe el
+     * la URL. Se devuelve el contrato que se guarda en la vivienda.
+     *
+     * @param viviendaId Identificador de la vivienda que se esta
+     * actualizando. Este debe ser una cadena de dígitos.
+     * @param contrato
+     * @return JSON {@link BookDTO} - El contrato guardado en la vivienda.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el contrato.
+     */
+    @POST
+    public ContratoDTO createContrato(@PathParam("viviendaId") Long viviendaId, ContratoDTO contrato) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: input: {0}", contrato.toString());
+        ContratoDTO nuevoContrato = new ContratoDTO(contratoLogic.createContrato(contrato.toEntity()));
+        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: output: {0}", nuevoContrato.toString());
+        return nuevoContrato;
     }
 
     /**

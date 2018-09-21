@@ -1,10 +1,11 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.vivienda.resources;
 
+import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -17,7 +18,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
+import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
+import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -29,7 +32,7 @@ import javax.ws.rs.WebApplicationException;
 
 /**
  *
- * @author estudiante
+ * @author Juan Manuel Castillo
  */
 @Path("estudiantes")
 @Produces("application/json")
@@ -41,6 +44,9 @@ public class EstudianteResource {
     
     @Inject
     EstudianteLogic estudianteLogic;  // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    
+    @Inject
+    ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
     /**
      * Crea un nuevo estudiante con la informacion que se recibe en el cuerpo de la
@@ -158,28 +164,6 @@ public class EstudianteResource {
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el estudiante.
      */
-    @Path("{estudianteId:\\d+}/contrato")
-    public Class<EstudianteContratoResource> getEstudianteContratoResource(@PathParam("estudianteId") Long estudianteId){
-        if (estudianteLogic.getEstudiante(estudianteId) == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "  no existe.", 404);
-        }
-        return EstudianteContratoResource.class;
-    }
-    
-    /**
-     * Conexión con el servicio de autores para un estudiante.
-     * {@link EstudianteAuthorsResource}
-     *
-     * Este método conecta la ruta de /estudiantes con las rutas de /authors que
-     * dependen del estudiante, es una redirección al servicio que maneja el segmento
-     * de la URL que se encarga de las reseñas.
-     *
-     * @param estudianteId El ID del estudiante con respecto al cual se accede al
-     * servicio.
-     * @return El servicio de autores para ese estudiante en paricular.\
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante.
-     */
     @Path("{estudianteId:\\d+}/universidad")
     public Class<EstudianteUniversidadResource> getEstudianteUniversidadResource(@PathParam("estudianteId") Long estudianteId){
         if (estudianteLogic.getEstudiante(estudianteId) == null) {
@@ -208,6 +192,60 @@ public class EstudianteResource {
             throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
         }
         return EstudianteCalificacionesResource.class;
+    }
+    
+    /**
+     * Busca el autor dentro de el premio con id asociado.
+     *
+     * @param estudianteId Identificador de el premio que se esta buscando. Este
+     * debe ser una cadena de dígitos.
+     * @return JSON {@link ContratoDetailDTO} - El contrato buscado
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * cuando el estudinate no existe o 
+     * cuando el estudiante no tiene contrato.
+     */
+    @GET
+    @Path("{estudianteId:\\d+}/contrato")
+    public ContratoDTO getContrato(@PathParam("estudianteId") Long estudianteId) {
+        LOGGER.log(Level.INFO, "EstudianteResource getContrato: input: {0}", estudianteId);
+        EstudianteEntity estudiante = estudianteLogic.getEstudiante(estudianteId);
+        if (estudiante == null) {
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
+        }
+        ContratoEntity contratoEntity = estudiante.getContrato();
+        if (contratoEntity != null){
+            ContratoDTO contratoDTO = new ContratoDTO(contratoEntity);
+            LOGGER.log(Level.INFO, "EstudianteResource getContrato: output: {0}", contratoDTO.toString());
+            return contratoDTO;
+        }
+        else
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/contrato no existe.", 404);   
+    }
+    
+    /**
+     * Elimina el contrato.
+     *
+     * @param estudianteId El ID del estudinate del cual se va a eliminar el contrato
+     * @throws WebApplicationException cuando el estudinate no existe o 
+     * cuando el estudiante no tiene contrato.
+     */
+    @DELETE
+    @Path("{estudianteId:\\d+}/contrato")
+    public void deleteContrato(@PathParam("estudianteId") Long estudianteId){
+        LOGGER.log(Level.INFO, "EstudianteResource deleteContrato: input: {0}", estudianteId);
+        EstudianteEntity estudiante = estudianteLogic.getEstudiante(estudianteId);
+        if (estudiante == null) {
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
+        }
+        ContratoEntity contratoEntity = estudiante.getContrato();
+        if (contratoEntity != null){
+            contratoLogic.deleteContrato(contratoEntity.getId());
+            LOGGER.info("EstudianteResource deleteContrato: output: void");
+        }
+        else {
+            throw new WebApplicationException("El recurso estudiantes/"+estudianteId+"/contrato no existe.", 404);
+        }
+        
     }
     
     /**

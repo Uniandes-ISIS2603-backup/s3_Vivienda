@@ -24,10 +24,15 @@ import javax.inject.Inject;
 import javax.ws.rs.PUT;
 import javax.ws.rs.WebApplicationException;
 
+/**
+ *
+ * @authors Juan Manuel Castillo y Daniel Giraldo
+ */
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
 public class ViviendaCalificacionesResource{
+    
     private static final Logger LOGGER = Logger.getLogger(ViviendaCalificacionesResource.class.getName());
     
     @Inject
@@ -52,7 +57,7 @@ public class ViviendaCalificacionesResource{
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         CalificacionEntity calificacionEntity = calificacion.toEntity();
         // Invoca la lógica para crear la calificacion nueva
-        CalificacionEntity nuevoCalificacionEntity = calificacionLogic.createCalificacion(calificacionEntity);
+        CalificacionEntity nuevoCalificacionEntity = calificacionLogic.createCalificacion(viviendaId, calificacionEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         CalificacionDTO nuevoCalificacionDTO = new CalificacionDTO(nuevoCalificacionEntity);
         LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: output: {0}", nuevoCalificacionDTO.toString());
@@ -111,10 +116,10 @@ public class ViviendaCalificacionesResource{
      * @param calificacion {@link CalificacionDetailDTO} La calificacion que se desea
      * guardar.
      * @return JSON {@link CalificacionDetailDTO} - La calificacion guardada.
-     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException - 
+     * Error de lógica que se genera cuando no se encuentra la calificacion a actualizar.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra la calificacion a
-     * actualizar.
+     * Error de lógica que se genera cuando no se encuentra la calificacion a actualizar.
      */
     @PUT
     @Path("{calificacionId:\\d+}")
@@ -127,6 +132,7 @@ public class ViviendaCalificacionesResource{
         catch(BusinessLogicException e){
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/calificaciones/" + calificacionId + " no existe.", 404);
         }
+        
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionVivienda(viviendaId, calificacionId, calificacion.toEntity());
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
         LOGGER.log(Level.INFO, "ViviendaCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());

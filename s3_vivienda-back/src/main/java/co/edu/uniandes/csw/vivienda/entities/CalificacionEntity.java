@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -19,11 +20,11 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     private String descripcion;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(optional=false, cascade =CascadeType.MERGE, fetch = javax.persistence.FetchType.LAZY)
     private EstudianteEntity estudiante;
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(optional=false)
     private ViviendaEntity vivienda;
 
     public Float getPuntaje(){

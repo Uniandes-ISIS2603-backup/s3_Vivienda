@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.vivienda.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import java.util.List;
-import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,7 +15,7 @@ import javax.persistence.TypedQuery;
 
 /**
  *
- * @author estudiante
+ * @author Juan Manuel Castillo
  */
 @Stateless
 public class CalificacionPersistence {
@@ -116,9 +115,30 @@ public class CalificacionPersistence {
      * @return una calificacion.
      */
     public CalificacionEntity findByEstudiante(Long estudianteId, Long calificacionId){
-        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.id = :calificacionId", CalificacionEntity.class);
+        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.id = :calificacionId)", CalificacionEntity.class);
         query.setParameter("estudianteId", estudianteId);
         query.setParameter("calificacionId", calificacionId);
+        
+        List <CalificacionEntity> resultList = query.getResultList();
+        CalificacionEntity result;
+        if (resultList == null || resultList.isEmpty())
+            result = null;
+        else
+            result = resultList.get(0);
+        return result;
+    }
+    
+    /**
+     * Busca si hay alguna calificacion de un estudiante y una vivienda
+     *
+     * @param estudianteId: id del estudinate
+     * @param viviendaId: id de la vivienda.
+     * @return una calificacion.
+     */
+    public CalificacionEntity findByViviendaEstudiante(Long viviendaId, Long estudianteId) {
+        TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.vivienda.id = :viviendaId)", CalificacionEntity.class);
+        query.setParameter("estudianteId", estudianteId);
+        query.setParameter("viviendaId", viviendaId);
         
         List <CalificacionEntity> resultList = query.getResultList();
         CalificacionEntity result;

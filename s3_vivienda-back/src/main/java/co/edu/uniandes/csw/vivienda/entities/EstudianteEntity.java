@@ -16,24 +16,25 @@ import javax.persistence.OneToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 /**
  *
- * @author estudiante
+ * @author Juan Manuel Castillo
  */
 @Entity
 public class EstudianteEntity extends BaseEntity implements Serializable{
+    
     private String nombre;
     private String login;
     private String password;
     
     @PodamExclude
-    @ManyToOne(cascade =CascadeType.MERGE)
+    @ManyToOne(cascade=CascadeType.MERGE, fetch=javax.persistence.FetchType.LAZY)
     private UniversidadEntity universidad;
     
     @PodamExclude
-    @OneToOne(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true)
+    @OneToOne(mappedBy="estudiante", cascade={CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval=true, fetch=javax.persistence.FetchType.LAZY)
     private ContratoEntity contrato;
     
     @PodamExclude
-    @OneToMany(mappedBy="estudiante", cascade={CascadeType.REMOVE, CascadeType.MERGE}, orphanRemoval=true)
+    @OneToMany(mappedBy="estudiante", cascade=CascadeType.ALL, orphanRemoval=true)
     private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
       
@@ -72,7 +73,7 @@ public class EstudianteEntity extends BaseEntity implements Serializable{
     public void setUniversidad(UniversidadEntity uni){
         this.universidad=uni;
     }
-    public void setContrato(ContratoEntity cont){
-        this.contrato=cont;
+    public void setContrato(ContratoEntity contrato){
+        this.contrato = contrato;
     }
 }

@@ -79,7 +79,7 @@ public class ContratoDTO implements Serializable {
         if (this.vivienda != null) {
             contratoEntity.setVivienda(this.vivienda.toEntity());
         }
-        if (this.vivienda != null) {
+        if (this.estudiante != null) {
             contratoEntity.setEstudiante(this.estudiante.toEntity());
         }
 
@@ -159,6 +159,26 @@ public class ContratoDTO implements Serializable {
     public void setVivienda(ViviendaDTO vivienda) {
         this.vivienda = vivienda;
     }
+    
+    /**
+     * Devuelve el estudiante asociado a este contrato.
+     *
+     * @return the estudiante
+     */
+    public EstudianteDTO getEstudiante() {
+        return estudiante;
+    }
+
+    /**
+     * Modifica el estudiante asociada a este contrato.
+     *
+     * @param estudiante the estudinate to set
+     */
+    public void setEstudiante(EstudianteDTO estudiante) {
+        this.estudiante = estudiante;
+    }
+    
+    
 
     /**
      * Da el estudiante que esta en el contrato

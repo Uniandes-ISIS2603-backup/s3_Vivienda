@@ -118,7 +118,7 @@ public class EstudianteLogicTest {
             EstudianteEntity entity = factory.manufacturePojo(EstudianteEntity.class);
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
             
-            entity.setContrato(contrato);
+            //entity.setContrato(contrato);
             contrato.setEstudiante(entity);
             contrato.setVivienda(vivienda);
             
@@ -151,18 +151,6 @@ public class EstudianteLogicTest {
         em.persist(entity);
         estudiante.getCalificaciones().add(entity);
     }
-    /*
-    private void printList (List<EstudianteEntity> lista){
-        for (EstudianteEntity e : lista){
-            String s = "";
-            s += (e.getUniversidad() != null) ? e.getUniversidad().getId(): "NULL";
-            s += "\nCONTRATO: ";
-            s += (e.getContrato()!= null) ? e.getContrato().getId(): "NULL";
-                 
-            System.out.println("ID: " + e.getId() + "\nLOGIN: "+ e.getLogin()+"\nUNIVERSIDAD: "+ s);
-        }
-    }
-    */
     
     private void esIgual(EstudianteEntity entity, EstudianteEntity newEntity){
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -176,14 +164,6 @@ public class EstudianteLogicTest {
             Assert.assertEquals(newEntity.getUniversidad().getLatitud(), entity.getUniversidad().getLatitud());
             Assert.assertEquals(newEntity.getUniversidad().getLongitud(), entity.getUniversidad().getLongitud());
             Assert.assertEquals(newEntity.getUniversidad().getNombre(), entity.getUniversidad().getNombre());
-        }
-        
-        // Contratos
-        if (entity.getContrato() != null && newEntity.getContrato() != null){
-            Assert.assertEquals(newEntity.getContrato().getId(), entity.getContrato().getId());
-            Assert.assertEquals(newEntity.getContrato().getFechaFin(), entity.getContrato().getFechaFin());
-            Assert.assertEquals(newEntity.getContrato().getFechaInicio(), entity.getContrato().getFechaInicio());
-            Assert.assertEquals(newEntity.getContrato().getMetodoPago(), entity.getContrato().getMetodoPago());
         }
         
         // Calificaciones
@@ -234,6 +214,14 @@ public class EstudianteLogicTest {
         EstudianteEntity newEntity = factory.manufacturePojo(EstudianteEntity.class);
         UniversidadEntity universidad = factory.manufacturePojo(UniversidadEntity.class);
         newEntity.setUniversidad(universidad);
+        estudianteLogic.createEstudiante(newEntity);
+    }
+    
+    @Test(expected = BusinessLogicException.class)
+    public void createEstudianteTestSinLogin() throws BusinessLogicException{
+        EstudianteEntity newEntity = factory.manufacturePojo(EstudianteEntity.class);
+        newEntity.setUniversidad(dataUniversidad.get(0));
+        newEntity.setLogin(null);
         estudianteLogic.createEstudiante(newEntity);
     }
     
@@ -305,27 +293,6 @@ public class EstudianteLogicTest {
         estudianteLogic.updateEstudiante(pojoEntity.getId(), pojoEntity);
     }
     
-    @Test(expected = BusinessLogicException.class)
-    public void updateEstudianteTestConContratoInexistente() throws BusinessLogicException {
-        EstudianteEntity pojoEntity = factory.manufacturePojo(EstudianteEntity.class);
-        ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
-        contrato.setEstudiante(pojoEntity);
-        pojoEntity.setContrato(contrato);
-        pojoEntity.setId(data.get(0).getId());
-
-        estudianteLogic.updateEstudiante(pojoEntity.getId(), pojoEntity);
-    }
-    
-    @Test(expected = BusinessLogicException.class)
-    public void updateEstudianteTestConContratoInvalido() throws BusinessLogicException {
-        EstudianteEntity pojoEntity = factory.manufacturePojo(EstudianteEntity.class);
-        ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
-        contrato.setEstudiante(data.get(1));
-        pojoEntity.setContrato(contrato);
-        pojoEntity.setId(data.get(0).getId());
-
-        estudianteLogic.updateEstudiante(pojoEntity.getId(), pojoEntity);
-    }
 
     @Test
     public void deleteEstudianteTest() throws BusinessLogicException {
@@ -336,7 +303,7 @@ public class EstudianteLogicTest {
     }
     
     @Test
-    public void replaceUniversidadTest() {
+    public void replaceUniversidadTest() throws BusinessLogicException {
         EstudianteEntity entity = data.get(0);
         UniversidadEntity universidad = dataUniversidad.get(2);
         Assert.assertNotEquals(entity.getUniversidad().getId(), universidad.getId());
@@ -347,52 +314,10 @@ public class EstudianteLogicTest {
         Assert.assertEquals(replaced.getUniversidad().getId(), universidad.getId());
     }
     
-    @Test
-    public void deleteContratoTest() throws BusinessLogicException{
-        EstudianteEntity entity = data.get(1);
-        entity = estudianteLogic.getEstudiante(entity.getId());
-        Assert.assertNotNull(entity.getContrato());
-        estudianteLogic.deleteContrato(entity.getId());
-        entity = estudianteLogic.getEstudiante(entity.getId());
-        Assert.assertNull(entity.getContrato());
-        Assert.assertNull(em.find(ContratoEntity.class, dataContrato.get(1).getId()));
-    }
-    
     @Test(expected = BusinessLogicException.class)
-    public void deleteContratoTestSinContrato() throws BusinessLogicException{
+    public void replaceUniversidadTestConUniversidadInvalida() throws BusinessLogicException {
         EstudianteEntity entity = data.get(0);
-        entity = estudianteLogic.getEstudiante(entity.getId());
-        Assert.assertNotNull(entity.getContrato());
-        estudianteLogic.deleteContrato(entity.getId());
-        entity = estudianteLogic.getEstudiante(entity.getId());
-        Assert.assertNull(entity.getContrato());
-        
-        estudianteLogic.deleteContrato(entity.getId());
+        UniversidadEntity universidad = factory.manufacturePojo(UniversidadEntity.class);
+        estudianteLogic.replaceUniversidad(entity.getId(), universidad.getId());
     }
-    
-    @Test
-    public void addContrato() throws BusinessLogicException{
-        EstudianteEntity entity = data.get(0);
-        Assert.assertNotNull(entity.getContrato());
-        estudianteLogic.deleteContrato(entity.getId());
-        entity = estudianteLogic.getEstudiante(entity.getId());
-        Assert.assertNull(entity.getContrato());
-        
-        ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
-        contrato.setVivienda(dataVivienda.get(2));
-        contrato.setEstudiante(entity);
-        contratoLogic.createContrato(contrato);
-        
-        contrato = em.find(ContratoEntity.class, contrato.getId());
-        Assert.assertNotNull(contrato);
-        Assert.assertNotNull(contrato.getEstudiante());
-       
-        estudianteLogic.addContrato(contrato.getId(), entity.getId());
-        
-        entity = estudianteLogic.getEstudiante(entity.getId());
-        Assert.assertNotNull(entity);
-        Assert.assertNotNull(entity.getContrato());
-        Assert.assertEquals(entity.getContrato().getId(), contrato.getId());
-    }
-    
 }

@@ -48,10 +48,6 @@ public class ContratoLogic {
         if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
             throw new BusinessLogicException("El metodoPago es inválido");
         }
-        if(!validateId(contratoEntity.getId()))
-        {
-            throw new BusinessLogicException("El id es inválido");
-        }
         persistence.create(contratoEntity);
         LOGGER.log(Level.INFO, "Termina proceso de creación del contrato");
         return contratoEntity;
@@ -75,7 +71,7 @@ public class ContratoLogic {
      * @param contratoId El id del contrato a buscar
      * @return El contrato encontrado, null si no lo encuentra.
      */
-    public ContratoEntity getContrato(Long contratoId) {
+    public ContratoEntity getContrato(Long contratoId)  {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato con id = {0}", contratoId);
         ContratoEntity contratoEntity = persistence.find(contratoId);
         if (contratoEntity == null) {
@@ -84,6 +80,7 @@ public class ContratoLogic {
         LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato con id = {0}", contratoId);
         return contratoEntity;
     }
+    
 
     /**
      * Actualizar un contrato por ID
