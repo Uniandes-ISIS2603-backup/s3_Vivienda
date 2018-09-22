@@ -78,18 +78,20 @@ public class SitioInteresLogic
      * Actualiza la información de una instancia de SitioInteres.
      *
      * @param sitioInteresEntity Instancia de SitioInteresEntity con los nuevos datos.
-     * @param viviendaId id de la vivienda el cual sera padre del sitioInteres actualizado.
+     * @param viviendaId id de la vivienda que sera el padre del sitioInteres a actualizar.
      * @return Instancia de SitioInteresEntity con los datos actualizados.
      *
      */
-    public SitioInteresEntity updateSitioInteres(Long sitioInteresId, SitioInteresEntity sitioInteresEntity)
+    public SitioInteresEntity updateSitioInteres(Long viviendaId, SitioInteresEntity sitioInteresEntity)
     {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el sitioInteres con id = {0}", sitioInteresId);
-        SitioInteresEntity newSitioInteres = sitioInteresPersistence.update(sitioInteresEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el sitioInteres con id = {0}", sitioInteresEntity.getId());
-        return newSitioInteres;
+        
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresEntity.getId());
+
+        sitioInteresPersistence.update(sitioInteresEntity);
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresEntity.getId());
+        return sitioInteresEntity;
     }
-    
+
      /**
      * Elimina una instancia de SitioInteres de la base de datos.
      *

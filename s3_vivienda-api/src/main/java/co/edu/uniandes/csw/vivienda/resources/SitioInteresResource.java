@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,7 +28,7 @@ import javax.ws.rs.WebApplicationException;
 
 
 /**
- *
+ * Clase que implementa el recurso "sitioInteres"
  * @author estudiante
  */
 @Produces("application/json")
@@ -66,12 +65,8 @@ public class SitioInteresResource {
      *
      * @param viviendaId Identificador de la vivienda que se esta
      * remplazando. Este debe ser una cadena de dígitos.
-     * @param sitiosInteres JSONArray {@link SitioInteresDTO} El arreglo de sitiosInteres nuevo para la
-     * vivienda.
      * @return JSON {@link SitioInteresDTO} - El arreglo de sitiosInteres guardado en la
      * vivienda.
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el sitioInteres.
      */
     @GET
     public List<SitioInteresDetailDTO> getSitiosInteres(@PathParam("viviendaId") Long viviendaId) {
@@ -124,7 +119,7 @@ public class SitioInteresResource {
     @Path("{sitioInteresId: \\d+}")
     public SitioInteresDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , review:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
+        LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , sitioInteres:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
         if (sitioInteresId.equals(sitioInteres.getId())) {
             throw new BusinessLogicException("Los ids del sitio no coinciden.");
         }
@@ -133,6 +128,7 @@ public class SitioInteresResource {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
 
         }
+        sitioInteres.setId(sitioInteresId);
         SitioInteresDTO sitioInteresDTO = new SitioInteresDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: output:{0}", sitioInteresDTO.toString());
         return sitioInteresDTO;
@@ -142,7 +138,7 @@ public class SitioInteresResource {
      * Borra el sitioInteres con el id asociado recibido en la URL.
      *
      * @param viviendaId El ID de la viviena del cual se va a eliminar el sitioInteres.
-     * @param stioInteresId El ID del sitioInteres que se va a eliminar.
+     * @param sitioInteresId El ID del sitioInteres que se va a eliminar.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando no se puede eliminar el sitioInteres.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -

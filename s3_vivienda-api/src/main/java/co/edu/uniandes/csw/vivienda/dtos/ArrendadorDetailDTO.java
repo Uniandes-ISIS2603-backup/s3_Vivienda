@@ -14,8 +14,10 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
- * @author estudiante
+ * Clase que extiende de {@link ArrendadorDTO} para manejar las relaciones entre los
+ * ArrendadorDTO y otros DTOs. Para conocer el contenido de un Arrendador vaya a la
+ * documentacion de {@link ArrendadorDTO}
+ * @author msalcedo
  */
 public class ArrendadorDetailDTO extends ArrendadorDTO implements Serializable{
     

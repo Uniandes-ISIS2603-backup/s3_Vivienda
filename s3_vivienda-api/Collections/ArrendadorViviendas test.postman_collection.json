@@ -55,7 +55,53 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "168164b6-893e-4827-9026-8e98761bcd60",
+						"id": "a340af24-2a81-40f6-b351-61d317cce779",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_v1\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_av}}",
+						"viviendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear vivienda 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d2e5f5a2-04c1-4de6-b421-42d307a64551",
 						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
@@ -75,7 +121,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Cali\",\r\n  \"nombre\": \"Apartamento en vallegrande numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad dl valles\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\",\r\n    \"PS4\"\r\n    ],\r\n  \"latitud\": 10.5965,\r\n  \"longitud\": -64.0715\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas",
@@ -116,7 +162,7 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v2}}",
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v1}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -128,7 +174,7 @@
 						"arrendadores",
 						"{{new_id_av}}",
 						"viviendas",
-						"{{new_id_v2}}"
+						"{{new_id_v1}}"
 					]
 				}
 			},
@@ -199,10 +245,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Cali\",\r\n  \"nombre\": \"Apartamento en vallegrande numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad del valle\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 6.5965,\r\n  \"longitud\": -84.0715\r\n}"
+					"raw": "{\r\n  \"ciudad\": \"Bogota\",\r\n  \"nombre\": \"Apartamento en la candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"A\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\",\r\n    \"TV\"\r\n    ],\r\n  \"latitud\": 6.5965,\r\n  \"longitud\": -84.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v2}}",
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v1}}",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -214,7 +260,120 @@
 						"arrendadores",
 						"{{new_id_av}}",
 						"viviendas",
-						"{{new_id_v2}}"
+						"{{new_id_v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una vivienda de un arrendador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05c968b2-6436-4bb4-89e6-dbe0280abf7a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_av}}",
+						"viviendas",
+						"{{new_id_v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una vivienda de un arrendador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eec9e37a-9c76-4a74-9cf4-34195408d9c0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendadores/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0/viviendas/{{new_id_v1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"0",
+						"viviendas",
+						"{{new_id_v1}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una vivienda que no existe de un arrendador ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4f2be27d-4620-49fa-bca3-778499d24bd3",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No borra con id que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_av}}",
+						"viviendas",
+						"0"
 					]
 				}
 			},

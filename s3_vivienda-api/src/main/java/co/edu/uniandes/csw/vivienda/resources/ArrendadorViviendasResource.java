@@ -15,6 +15,8 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -34,6 +36,7 @@ import javax.ws.rs.WebApplicationException;
 @Produces("application/json")
 public class ArrendadorViviendasResource {
     
+    private static final Logger LOGGER = Logger.getLogger(ArrendadorViviendasResource.class.getName());
     @Inject
     private ArrendadorViviendasLogic arrendadorViviendasLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
@@ -51,7 +54,9 @@ public class ArrendadorViviendasResource {
     @GET
     public List<ViviendaDetailDTO> getViviendas(@PathParam("arrendadorId")Long arrendadorId)
     {
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource getViviendas: input: {0}", arrendadorId);
         List<ViviendaDetailDTO> listaDetailDTOs = viviendasListEntity2DTO(arrendadorViviendasLogic.getViviendas(arrendadorId));
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource getViviendas: output: {0}", listaDetailDTOs.toString());
         return listaDetailDTOs;
     }
     
@@ -70,12 +75,12 @@ public class ArrendadorViviendasResource {
     @POST
     @Path("{viviendaId: \\d+}")
     public ViviendaDTO addVivienda(@PathParam("arrendadorId") Long arrendadorId, @PathParam("viviendaId") Long viviendaId) {
-        
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource addVivienda: input: arrendadorID: {0} , viviendaId: {1}", new Object[]{arrendadorId, viviendaId});
         if (viviendasLogic.getVivienda(viviendaId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + " no existe.", 404);
         }
         ViviendaDTO viviendaDTO = new ViviendaDTO(arrendadorViviendasLogic.addVivienda(viviendaId, arrendadorId));
-        
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource addVivienda: output: {0}", viviendaDTO.toString());
         return viviendaDTO;
     }
     
@@ -96,11 +101,12 @@ public class ArrendadorViviendasResource {
     @Path("{viviendaId: \\d+}")
     public ViviendaDetailDTO getVivienda(@PathParam("arrendadorId") Long arrendadorId, @PathParam("viviendaId") Long viviendaId) throws BusinessLogicException {
         
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource getVIvienda: input: arrendadorID: {0} , viviendaId: {1}", new Object[]{arrendadorId, viviendaId});
         if (viviendasLogic.getVivienda(viviendaId) == null) {
             throw new WebApplicationException("El recurso /arrendadores/" + arrendadorId + "/viviendas/" + viviendaId + " no existe.", 404);
         }
         ViviendaDetailDTO viviendaDetailDTO = new ViviendaDetailDTO(arrendadorViviendasLogic.getVivienda(arrendadorId, viviendaId));
-        
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource getVivienda: output: {0}", viviendaDetailDTO.toString());        
         return viviendaDetailDTO;
     }
     
@@ -117,13 +123,14 @@ public class ArrendadorViviendasResource {
     @PUT
     public List<ViviendaDetailDTO> replaceViviendas(@PathParam("arrendadorId") Long arrendadorId, List<ViviendaDetailDTO> viviendas) {
         
+        LOGGER.log(Level.INFO, "ArrendadorViviendasResource replaceViviendas: input: arrendadorId: {0} , viviendas: {1}", new Object[]{arrendadorId, viviendas.toString()});
         for (ViviendaDetailDTO vivienda : viviendas) {
             if (viviendasLogic.getVivienda(vivienda.getId()) == null) {
                 throw new WebApplicationException("El recurso /viviendas/" + vivienda.getId() + " no existe.", 404);
             }
         }
         List<ViviendaDetailDTO> listaDetailDTOs = viviendasListEntity2DTO(arrendadorViviendasLogic.replaceViviendas(arrendadorId, viviendaListDTO2Entity(viviendas)));
-        
+           LOGGER.log(Level.INFO, "ArrendadorViviendasResource replaceViviendas: output: {0}", listaDetailDTOs.toString());
         return listaDetailDTOs;
     }
     

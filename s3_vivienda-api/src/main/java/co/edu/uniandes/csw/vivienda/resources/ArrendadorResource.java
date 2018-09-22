@@ -10,9 +10,6 @@ import co.edu.uniandes.csw.vivienda.dtos.ArrendadorDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
-import co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource;
-import co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource;
-import co.edu.uniandes.csw.vivienda.resources.ArrendadorViviendasResource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,10 +27,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *
+ * Clase que implementa el recurso "arrendadores"
  * @author estudiante
  */
-@Path("/arrendadores")
+@Path("arrendadores")
 @Produces("application/json")
 @Consumes("application/json")
 @RequestScoped
@@ -56,7 +53,7 @@ public class ArrendadorResource {
      * Error de lógica que se genera cuando ya existe el arrendador con un mismo login
      */
     @POST
-    public ArrendadorDTO createArrendor(ArrendadorDTO arrendador) throws BusinessLogicException {
+    public ArrendadorDTO createArrendador(ArrendadorDTO arrendador) throws BusinessLogicException {
          
         LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: input: {0}", arrendador.toString());
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
@@ -64,8 +61,9 @@ public class ArrendadorResource {
         
         ArrendadorEntity nuevoArrendadorEntity = arrendadorLogic.createArrendador(arrendadorEntity);
  
-        ArrendadorDTO nuevoArrendador = new ArrendadorDTO(nuevoArrendadorEntity);
-        return nuevoArrendador;
+        ArrendadorDTO nuevoArrendadorDTO = new ArrendadorDTO(nuevoArrendadorEntity);
+        LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: output: {0}", nuevoArrendadorDTO.toString());
+        return nuevoArrendadorDTO;
     }
     
         /**
@@ -112,13 +110,14 @@ public class ArrendadorResource {
     @GET
     @Path("{arrendadorId:\\d+}")
     public ArrendadorDetailDTO getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
-    {
+    {   LOGGER.log(Level.INFO, "ArrendadorResource getArrendador: input: {0}", arrendadorId);
         ArrendadorEntity arrendadorEntity = arrendadorLogic.getArrendador(arrendadorId);
         if(arrendadorEntity == null)
         {
             throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
         }
         ArrendadorDetailDTO detailDTO = new ArrendadorDetailDTO(arrendadorEntity);
+        LOGGER.log(Level.INFO, "ArrendadorResource getArrendador: output: {0}", detailDTO.toString());
         return detailDTO;
     }
     
@@ -138,14 +137,16 @@ public class ArrendadorResource {
     @PUT
     @Path("{arrendadorId:\\d+}")
     public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws BusinessLogicException
-    {
+    {    
+        LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: input: id:{0} , arrendador: {1}", new Object[]{arrendadorId, arrendador.toString()});
         arrendador.setId(arrendadorId);
         if(arrendadorLogic.getArrendador(arrendadorId)==null)
         {
             throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
         }
-
+        arrendador.setId(arrendadorId);
         ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(arrendadorLogic.updateArrendador(arrendadorId, arrendador.toEntity()));
+        LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: output: {0}", arrendadorDetailDTO.toString());
         return arrendadorDetailDTO;
         
     }
@@ -169,6 +170,7 @@ public class ArrendadorResource {
             throw new WebApplicationException("El recurso /arrendadores/" + arrendadorId + " no existe.", 404);
         }
         arrendadorLogic.deleteArrendador(arrendadorId);
+        LOGGER.info("ArrendadorResource deleteArrendador: output: void");
     }
     
      /**

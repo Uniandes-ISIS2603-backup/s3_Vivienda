@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\": \"Cancha de baloncesto\",       \r\n\r\n\t\"descripción\": \"Cancha de baloncesto a 2 minutos a pie\",   \r\n\t\r\n\t\"latitud\": 0.32456, \r\n\r\n\t\"longitud\": 0.02456\r\n}"
+					"raw": "{\r\n\t\"nombre\": \"Cancha de baloncesto\",\r\n\t\"descripcion\": \"Cancha de baloncesto a 2 minutos a pie\",\r\n\t\"latitud\": 0.32456,\r\n\t\"longitud\": 0.02456\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
@@ -110,7 +110,7 @@
 					"raw": "{\r\n\t\"nombre\": \"Caffe bar\",       \r\n\r\n\t\"descripción\": \"Delicioso lugar donde tomar un buen cafe\",   \r\n\t\r\n\t\"latitud\": 4.32456, \r\n\r\n\t\"longitud\": -2.32456\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/sitioInteres",
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -119,6 +119,8 @@
 					"path": [
 						"s3_vivienda-api",
 						"api",
+						"viviendas",
+						"{{new_id_v}}",
 						"sitioInteres"
 					]
 				}
@@ -194,7 +196,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
+					"raw": "{\r\n\t\"nombre\":\"cancha tenis\",\r\n\t\"descripcion\": \"lugar para jugar tenis\"\r\n\t\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
@@ -345,6 +347,45 @@
 			"response": []
 		},
 		{
+			"name": "Obtener arrendador que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cab862ca-71ee-4ceb-830f-261a22005b10",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_v\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/\"+id+\"/sitioInteres/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Eliminar un sitio de interes",
 			"event": [
 				{
@@ -419,6 +460,48 @@
 						"{{new_id_v}}",
 						"sitioInteres",
 						"{{new_id_s2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar sitioInteres que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2027cc3b-3026-4873-8d68-c2699bf21f4e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede borrar un review que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_v\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/\"+id+\"/sitioInteres/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"0"
 					]
 				}
 			},

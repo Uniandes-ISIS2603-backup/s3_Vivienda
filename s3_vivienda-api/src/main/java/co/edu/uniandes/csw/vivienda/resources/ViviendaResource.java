@@ -121,9 +121,9 @@ public class ViviendaResource {
     }
     
     @Path("{viviendaId: \\d+}/sitioInteres")
-    public Class<ViviendaSitioInteresResource> getViviendaSitioInteresResource(@PathParam("viviendaId") Long viviendaId){
+    public Class<SitioInteresResource> getViviendaSitioInteresResource(@PathParam("viviendaId") Long viviendaId){
         if( logic.getVivienda(viviendaId) != null)
-            return ViviendaSitioInteresResource.class;
+            return SitioInteresResource.class;
         else
             throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }

@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 /**
- *
+ * Clase que representa un sitioInteres en la persistencia y permite su serializacion
  * @author msalcedo
  */
 @Entity

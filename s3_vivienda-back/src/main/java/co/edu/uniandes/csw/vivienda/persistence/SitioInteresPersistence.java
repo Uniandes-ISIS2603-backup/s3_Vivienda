@@ -94,7 +94,7 @@ public class SitioInteresPersistence {
      * @return un sitioInteres con los cambios aplicados.
      */
     public SitioInteresEntity update(SitioInteresEntity sitioInteresEntity) {
-        LOGGER.log(Level.INFO, "Actualizando el arrendador con id={0}", sitioInteresEntity.getId());
+        LOGGER.log(Level.INFO, "Actualizando el sitioInteres con id={0}", sitioInteresEntity.getId());
         return em.merge(sitioInteresEntity);
     }
     
