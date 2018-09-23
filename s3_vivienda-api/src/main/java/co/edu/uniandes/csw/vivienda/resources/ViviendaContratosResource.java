@@ -144,11 +144,11 @@ public class ViviendaContratosResource {
      * Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @PUT
-    public List<ContratoDTO> replaceContratos(@PathParam("editorialsId") Long viviendaId, List<ContratoDTO> contratos) {
-        LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: input: editorialsId: {0} , books: {1}", new Object[]{viviendaId, contratos.toString()});
+    public List<ContratoDTO> replaceContratos(@PathParam("viviendaId") Long viviendaId, List<ContratoDTO> contratos) {
+        LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: input: viviendaId: {0} , contratos: {1}", new Object[]{viviendaId, contratos.toString()});
         for (ContratoDTO contrato : contratos) {
             if (contratoLogic.getContrato(contrato.getId()) == null) {
-                throw new WebApplicationException("El recurso /books/" + contrato.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /contratos/" + contrato.getId() + " no existe.", 404);
             }
         }
         List<ContratoDTO> listaDetailDTOs = contratosListEntity2DTO(viviendaContratosLogic.replaceContratos(viviendaId, contratosListDTO2Entity(contratos)));
