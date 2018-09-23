@@ -35,28 +35,42 @@ public class ArrendadorLogic {
      */
     public ArrendadorEntity getArrendador(Long arrendadorId) 
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el arrendador con id = {0}", arrendadorId);
         ArrendadorEntity arrendadorEntity = arrendadorPersistence.find(arrendadorId);
         if (arrendadorEntity == null) {
             LOGGER.log(Level.SEVERE, "El arrendador con el id = {0} no existe", arrendadorId);
         }
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el arrendador con id = {0}", arrendadorId);
         return arrendadorEntity;
     }
     
     /**
      * Guardar un nuevo Arrendador 
      *
-     * @param ArrendadorEntity La entidad de tipo arrendador del nuevo arrendador a persistir.
+     * @param arrendadorEntity La entidad de tipo arrendador del nuevo arrendador a persistir.
      * @return La entidad luego de persistirla
      * @throws BusinessLogicException Si el login del usuario ya esta en uso por otro usuario
      */
     public ArrendadorEntity createArrendador(ArrendadorEntity arrendadorEntity) throws BusinessLogicException
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de creación del arrendador");
         String login = arrendadorEntity.getLogin();
+        String password = arrendadorEntity.getPassword();
+        
+        if(password==null || password.equals(" "))
+        {
+            throw new BusinessLogicException("La contraseña es invalida");
+        }
+        if(login==null || login.equals(" "))
+        {
+            throw new BusinessLogicException("El login es invalido");
+        }
 
         ArrendadorEntity arrendadorExiste = arrendadorPersistence.findByLogin(login);
  
         if (arrendadorExiste == null){
             arrendadorEntity = arrendadorPersistence.create(arrendadorEntity);
+            LOGGER.log(Level.INFO, "Termina proceso de creación del arrendador");
             return(arrendadorEntity);
         }
         else {
@@ -76,11 +90,13 @@ public class ArrendadorLogic {
      */
     public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity) throws BusinessLogicException
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el arrendador con id = {0}", arrendadorId);
         ArrendadorEntity newArrendador = null;
         if(getArrendador(arrendadorId)!=null)
         {
             newArrendador = arrendadorPersistence.update(arrendadorEntity);
         }
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el arrendador con id = {0}", arrendadorEntity.getId());
         return newArrendador;
     }
     
@@ -92,6 +108,7 @@ public class ArrendadorLogic {
      */
     public void deleteArrendador(Long arrendadorId) throws BusinessLogicException 
     {
+         LOGGER.log(Level.INFO, "Inicia proceso de borrar el arrendador con id = {0}", arrendadorId);
         List<ViviendaEntity> viviendas = getArrendador(arrendadorId).getViviendas();
         if (viviendas != null && !viviendas.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el arrendador con id = " + arrendadorId + " porque tiene viviendas asociadas");
@@ -101,6 +118,7 @@ public class ArrendadorLogic {
             throw new BusinessLogicException("El recurso /arrendadores/" + arrendadorId +" no existe");
         }
         arrendadorPersistence.delete(arrendadorId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el arrendador con id = {0}", arrendadorId);
 
     }
     
@@ -112,7 +130,9 @@ public class ArrendadorLogic {
      */
     public List<ArrendadorEntity> getArrendadores()
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los arrendadores");
         List<ArrendadorEntity> arrendadores = arrendadorPersistence.findAll();
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores");
         return arrendadores;
     }
 }

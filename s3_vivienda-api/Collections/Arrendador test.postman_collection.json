@@ -46,7 +46,7 @@
 						"arrendadores"
 					]
 				},
-				"description": "Se crea un arrendador nuevo y se verifica que la respuesta es igual al json que se envio en el cuerpo del reuest."
+				"description": "\nCrea un nuevo arrendador. El recurso tiene los atributos nombre,login, password. El atributo \"login\" debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \n\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -90,7 +90,8 @@
 						"api",
 						"arrendadores"
 					]
-				}
+				},
+				"description": "Crea un nuevo arrendador. El recurso tiene los atributos nombre, login, password. El Id es inicializado por la BD y se debe ver en la respuesta.\r\n\r\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\r\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -133,7 +134,52 @@
 						"api",
 						"arrendadores"
 					]
+				},
+				"description": "Crea un arrendador con un login que ya existe. Verifica que genere error y el mensaje \"Ya existe un arrendador con ese login\".\nCódigo http esperado: 412"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear arrendador con password invalida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f3b09d2b-ee42-4304-8048-283c8553a327",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No crea con esa password\"] = responseCode.code === 412;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"La contraseña es invalida\");"
+						]
+					}
 				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\" \"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores"
+					]
+				},
+				"description": "Crea un arrendador con una contraseña invalida. Verifica que se genera error y el mensaje \"La contraseña es invalida\".\nCódigo http esperado: 412"
 			},
 			"response": []
 		},
@@ -173,7 +219,8 @@
 						"arrendadores",
 						"{{new_id_a}}"
 					]
-				}
+				},
+				"description": "Consulta todos los arrendadores de la aplicación. La petición no tiene cuerpo.\r\n\r\nPara la prueba, se verifica que el conjunto de arrendadores en la respuesta tenga mas de uno.\r\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -213,12 +260,13 @@
 						"arrendadores",
 						""
 					]
-				}
+				},
+				"description": "Consulta un arrendador. La peticion no tiene cuerpo. Se envia el id el arrendador deseado por la URL de la peticion.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
 		{
-			"name": "Obtener unaarrendador que no existe Copy",
+			"name": "Obtener un arrendador que no existe ",
 			"event": [
 				{
 					"listen": "test",
@@ -253,7 +301,7 @@
 						"0"
 					]
 				},
-				"description": "**Release: Paso-2**\r\n\r\nConsulta un arrendador que no existe en la aplicacion.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /arrendadores/0 no existe.\".\r\n\r\n**Código http esperado: 404**"
+				"description": "Consulta un arrendador que no existe en la aplicacion.  \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /arrendadores/0 no existe.\".\r\nCódigo http esperado: 404\r\n"
 			},
 			"response": []
 		},
@@ -281,7 +329,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{ \r\n\t\"password\":\"654321\"     \r\n}"
+					"raw": "{\r\n\t\"nombre\": \"PedroPerez\",\r\n\t\"password\":\"654321\"     \r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
@@ -296,7 +344,8 @@
 						"arrendadores",
 						"{{new_id_a}}"
 					]
-				}
+				},
+				"description": "Actualiza un arrendador con los datos enviados en el cuerpo de la peticion. Se debe ver en la respuesta la actualizacion de los datos.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -341,7 +390,7 @@
 						"0"
 					]
 				},
-				"description": "Se crea un arrendador nuevo y se verifica que la respuesta es igual al json que se envio en el cuerpo del reuest."
+				"description": "Actualiza un arrendador. Verifica que se genera error y el mensaje \"El recurso /arrendadores/\"+ arrendadorId+\" no existe.\"\nCódigo http esperado: 404"
 			},
 			"response": []
 		},
@@ -384,7 +433,8 @@
 						"arrendadores",
 						"{{new_id_a}}"
 					]
-				}
+				},
+				"description": "Elimina un arrendador. Se envia el id creado anteriormente.\nCódigo http esperado: 204"
 			},
 			"response": []
 		},
@@ -422,7 +472,8 @@
 						"arrendadores",
 						"{{new_id_a2}}"
 					]
-				}
+				},
+				"description": "Se elimina al segundo arrendador creado.\nCódigo http esperado: 204"
 			},
 			"response": []
 		},
@@ -461,7 +512,8 @@
 						"arrendadores",
 						"0"
 					]
-				}
+				},
+				"description": "Elimina un arrendador que no existe en la aplicacion. Se verifica que genera un error y el mensaje \"El recurso /arrendadores/0 no existe\"\nCódigo http esperado: 404\n"
 			},
 			"response": []
 		}

@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 
 /**
  *
@@ -24,8 +25,10 @@ public class ArrendadorViviendasLogic {
     
      private static final Logger LOGGER = Logger.getLogger(ArrendadorViviendasLogic.class.getName());
         
+   @Inject
     private ViviendaPersistence viviendasPersistence;
     
+   @Inject
     private ArrendadorPersistence arrendadorPersistence;
     
      /**

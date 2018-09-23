@@ -96,7 +96,7 @@ public class ViviendaResource {
             throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
-    @Path("{viviendaId: \\d+}/arrendador")
+    @Path("{viviendaId: \\d+}/arrendadores")
     public Class<ViviendaArrendadorResource> getViviendaArrendadorResource(@PathParam("viviendaId") Long viviendaId){
         if( logic.getVivienda(viviendaId) != null)
             return ViviendaArrendadorResource.class;

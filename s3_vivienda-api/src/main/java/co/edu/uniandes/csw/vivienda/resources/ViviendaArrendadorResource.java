@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.vivienda.dtos.ViviendaDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
-import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -55,7 +54,6 @@ public class ViviendaArrendadorResource {
     }
     
     @PUT
-    @Path("{viviendaId: \\d+}")
     public ViviendaDetailDTO replaceArrendador(@PathParam("viviendaId") Long viviendaId, ArrendadorDTO arrendador) {
         
         if (viviendasLogic.getVivienda(viviendaId) == null) {

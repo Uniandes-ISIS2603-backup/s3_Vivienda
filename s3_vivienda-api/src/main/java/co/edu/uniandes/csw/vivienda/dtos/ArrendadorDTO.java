@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author msalcedo
  */
 public class ArrendadorDTO implements Serializable{
-    private long id;
+    private Long id;
     private String nombre;
     private String login;
     private String password;
@@ -33,7 +33,7 @@ public class ArrendadorDTO implements Serializable{
         /**
      * Crea un objeto ArrendadorDTO a partir de un objeto ArrendadorEntity.
      *
-     * @param authorEntity Entidad AuthorEntity desde la cual se va a crear el
+     * @param arrendadorEntity Entidad ArerndadorEntity desde la cual se va a crear el
      * nuevo objeto.
      *
      */

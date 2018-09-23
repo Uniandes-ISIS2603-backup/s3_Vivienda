@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "667947de-dba0-469c-b7fa-9ecbc72e5d06",
+		"name": "ViviendaArrendador test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear un arrendador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f61d6b56-6271-430a-96ec-ab467a6a06d6",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_va1\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores"
+					]
+				},
+				"description": "\nCrea un nuevo arrendador. El recurso tiene los atributos nombre,login, password. El atributo \"login\" debe ser único. El Id es inicializado por la BD y se debe ver en la respuesta. \n\nPara la prueba, se guarda el id en una variable que será utilizada en otras peticiones de la colección.\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Crear vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4cd9644-8c52-49f3-9dd8-a85bc3bf1d87",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"new_id_va2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas"
+					]
+				},
+				"description": "Crea una vivienda con los atributos ciudad, direccion, nombre,descripcion, tipo, una lista de servicios incluidos, latitud y una longitud.\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un arrendador a una vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "315a513d-f8a4-47ed-ac11-2d9e9cdac1da",
+						"type": "text/javascript",
+						"exec": [
+							"console.log(responseBody);",
+							"var data = JSON.parse(responseBody);",
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": {{new_id_va1}},\n    \"login\": \"PedroPerez\",\n    \"nombre\": \"Pedro\",\n    \"password\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_va2}}",
+						"arrendadores"
+					]
+				},
+				"description": "\r\nActualiza el arrendador de una vivienda existente. Se envían los Ids de las entidades asociar en la URL de la petición.\r\n\r\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un arrendador que no existe a una vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "60f4c368-358f-49cb-b2fa-fd374a7c1d31",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No actualiza con arrendador que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /arrendadores/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 0,\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_va2}}",
+						"arrendadores"
+					]
+				},
+				"description": "\r\nAsocia un arrendador que no existe a una vivienda. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /arrendadores/0 no existe.\".\r\n\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Asociar un arrendador a una vivienda que no existe ",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "587dde4a-4fad-4b0a-845f-c46e329bbad8",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No actualiza con una vivienda que no existe\"] = responseCode.code === 404;",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso viviendas/0 no existe\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\":\"Norma\",\n\t\"id\":{{new_id_e}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/0/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"0",
+						"arrendadores"
+					]
+				},
+				"description": "Asocia un arrendador a una vivienda que no existe. \r\n\r\nPara la prueba se verifica que se genera el error y el mensaje \"El recurso /viviendas/0 no existe.\"\r\nCódigo HTTP esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05c968b2-6436-4bb4-89e6-dbe0280abf7a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_va2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_va2}}"
+					]
+				},
+				"description": "Borra una vivienda. Se envia el id creado anteriormente.\nCódigo http esperado: 204\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar un arrendador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "82d8d305-c645-40a4-a8f0-22f8a78f6046",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Status code is 204\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_va1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{new_id_va1}}"
+					]
+				},
+				"description": "Elimina un arrendador. Se envia el id del arrendador creado anteriormente.\nCódigo http esperado: 204"
+			},
+			"response": []
+		}
+	]
+}

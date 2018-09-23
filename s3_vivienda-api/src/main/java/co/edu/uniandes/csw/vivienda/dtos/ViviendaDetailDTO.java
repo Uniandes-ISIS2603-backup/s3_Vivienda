@@ -32,6 +32,7 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
      * Constructor por defecto
      */
     public ViviendaDetailDTO() {
+        super();
     }
 
     /**

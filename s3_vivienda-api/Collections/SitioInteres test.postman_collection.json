@@ -45,7 +45,8 @@
 						"api",
 						"viviendas"
 					]
-				}
+				},
+				"description": "Crea una vivienda con los atributos ciudad, direccion, nombre,descripcion, tipo, una lista de servicios incluidos, latitud y una longitud.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -91,7 +92,8 @@
 						"{{new_id_v}}",
 						"sitioInteres"
 					]
-				}
+				},
+				"description": "Crea un sitioInteres con los atributos nombre, descripcion, latitud, longitud. La latitud y longitud del sitio deben ser unicos. El id es inicializado por la BD y se debe ver en la respuesta.\nPara la prueba se guarda el id en una variable\tque sera utilizada en otras peticiones de la collecion."
 			},
 			"response": []
 		},
@@ -123,12 +125,13 @@
 						"{{new_id_v}}",
 						"sitioInteres"
 					]
-				}
+				},
+				"description": "Crea un segundo sitioInteres con los atributos nombre, descripcion, latitud, longitud. La latitud y longitud del sitio deben ser unicos. El id es inicializado por la BD y se debe ver en la respuesta.\nPara la prueba se guarda el id en una variable\tque sera utilizada en otras peticiones de la collecion."
 			},
 			"response": []
 		},
 		{
-			"name": "Crear sitioInteres con latitud y longitud repetidas",
+			"name": "Crear sitioInteres con latitud y longitud repetidas ",
 			"event": [
 				{
 					"listen": "test",
@@ -168,7 +171,8 @@
 						"{{new_id_v}}",
 						"sitioInteres"
 					]
-				}
+				},
+				"description": "Crea un sitioInteres con una latitud y longitud que ya existen en la BD. Verifica que genera error y el mensaje \"Ya existe un sitioInteres con esa latitud y longitud\".\nCódigo http esperado: 412"
 			},
 			"response": []
 		},
@@ -213,7 +217,8 @@
 						"sitioInteres",
 						"{{new_id_s}}"
 					]
-				}
+				},
+				"description": "Actualiza la informacion de un sitioInteres. La id se envia en la URL de la peticion. La respuesta debe mostrar los atributos actualizados y con el mismo id enviado.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -260,7 +265,8 @@
 						"sitioInteres",
 						"0"
 					]
-				}
+				},
+				"description": "Actualiza la informacion de un sitioInteres que no existe. Verifica que genera error y el mensaje \"El recurso /viviendas/\"+idVivienda+\"/sitioInteres/0 no existe.\"\nCódigo http esperado: 404"
 			},
 			"response": []
 		},
@@ -300,7 +306,8 @@
 						"sitioInteres",
 						"{{new_id_s}}"
 					]
-				}
+				},
+				"description": "Consulta un sitioInteres de la aplicacion. La peticion no tiene cuerpo. Se envia la id de la vivienda y el sitioInteres a consultar en la URL de la peticion.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -342,7 +349,8 @@
 						"sitioInteres",
 						""
 					]
-				}
+				},
+				"description": "Consulta los sitiosInteres de la aplicacion. La peticion no tiene cuerpo. Se envia la id de la vivienda en la URL de la peticion.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},
@@ -381,7 +389,8 @@
 						"sitioInteres",
 						"0"
 					]
-				}
+				},
+				"description": "Consulta un sitioInteres que o existe en la aplicacion. La peticion no tiene cuerpo. Para la prueba se verifica que genera error.\nCódigo http esperado: 404"
 			},
 			"response": []
 		},
@@ -421,7 +430,8 @@
 						"sitioInteres",
 						"{{new_id_s}}"
 					]
-				}
+				},
+				"description": "Elimina un sitioInteres con el id creado anteriormente.\nCódigo HTTP esperado: 204"
 			},
 			"response": []
 		},
@@ -461,7 +471,8 @@
 						"sitioInteres",
 						"{{new_id_s2}}"
 					]
-				}
+				},
+				"description": "Elimina el segundo sitioInteres con el id creado anteriormente.\nCódigo HTTP esperado: 204"
 			},
 			"response": []
 		},
@@ -503,7 +514,8 @@
 						"sitioInteres",
 						"0"
 					]
-				}
+				},
+				"description": "Elimina un sitioInteres que no existe. Para la prueba se verifica que genera error.\nCódigo HTTP esperado: 404"
 			},
 			"response": []
 		}
