@@ -45,6 +45,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
             fetch = javax.persistence.FetchType.LAZY)
     private List<ServicioAdicionalEntity> serviciosAdicionalesAgregados;
 
+    
     /**
      * @return the fechaInicio
      */
@@ -164,5 +165,6 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.parse(formatter.format(date));
+        
     }
 }
