@@ -35,12 +35,12 @@
 					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de Los Andes\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -91,12 +91,12 @@
 					"raw": "{\n    \"login\": \"jucas40\",\n    \"nombre\": \"juan ma castillo\",\n    \"password\": \"passws0rd\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -134,12 +134,12 @@
 					"raw": "{\n    \"login\": \"jucas50\",\n    \"nombre\": \"juan 50 castillo\",\n    \"password\": \"p4ssws0rd\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -177,12 +177,12 @@
 					"raw": "{\n    \"login\": \"{{login_est}}\",\n    \"nombre\": \"juan 60 castillo\",\n    \"password\": \"p4zsws0rd\",\n    \"universidad\":{\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -222,12 +222,12 @@
 					"raw": "{\n    \"login\": \"loggin\",\n    \"nombre\": \"juan 60 c4stillo\",\n    \"password\": \"p4zswOrd\",\n    \"universidad\":{\"id\":{{id_uni_not}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -261,12 +261,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -306,12 +306,12 @@
 					"raw": "{\n\t\"nombre\": \"nombre_cambiado\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -351,12 +351,12 @@
 					"raw": "{\n    \"latitud\": 8.5335,\n    \"longitud\": -9.0235,\n    \"nombre\": \"Javeriana\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -395,12 +395,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/universidad/{{id_uni_2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/universidad/{{id_uni_2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -442,12 +442,12 @@
 					"raw": "{\t\r\n\t\"nombre\": \"Pedro\",        \r\n\t\"login\": \"PedroPerez\",                \r\n\t\"password\": \"123456\"             \r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -497,12 +497,12 @@
 					"raw": "{\n\t\"direccion\":\"Ventura\",\n\t\"ciudad\":\"Bogota\",\n\t\"nombre\":\"apto 304\",\n\t\"descripcion\":\"apartamento\",\n\t\"tipo\":\"A\",\n\t\"latitud\":3.432435,\n\t\"longitud\":12.98943,\n\t\"serviciosIncluidos\":[\"lavadora\", \"internet\"],\n\t\"arrendador\":{\"id\":{{id_arr}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -536,12 +536,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -594,12 +594,12 @@
 					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -637,12 +637,12 @@
 					"raw": "{\n\t\"login\": \"{{login_est}}\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -703,12 +703,12 @@
 					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -759,12 +759,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_not}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -808,12 +808,12 @@
 					"raw": "{\n\t\"puntaje\":4.5,\n\t\"descripcion\":\"Muy buena\",\n\t\"estudiante\":{\"id\":{{id_est}}},\n\t\"vivienda\":{\"id\":{{id_viv}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -853,12 +853,12 @@
 					"raw": "{\n\t\"puntaje\":4.5,\n\t\"descripcion\":\"Muy buena\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -900,12 +900,12 @@
 					"raw": "{\n\t\"puntaje\":4.5,\n\t\"descripcion\":\"Muy buena\",\n\t\"estudiante\":{\"id\":{{id_est}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv_not}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv_not}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -945,12 +945,12 @@
 					"raw": "{\n\t\"puntaje\":5.5,\n\t\"descripcion\":\"Muy buena\",\n\t\"estudiante\":{\"id\":{{id_est}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1008,12 +1008,12 @@
 					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1072,12 +1072,12 @@
 					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1129,12 +1129,12 @@
 					"raw": "{\n\t\"puntaje\":4.9,\n\t\"descripcion\":\"La MEJOR experiencia de mi vida\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1184,12 +1184,12 @@
 					"raw": "{\n\t\"puntaje\":0.1,\n\t\"descripcion\":\"La PEOR experiencia de mi vida\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1236,12 +1236,12 @@
 					"raw": "{\n\t\"puntaje\":3.2,\n\t\"descripcion\":\"Normalita\",\n\t\"estudiante\":{\"id\":{{id_est_2}}},\n\t\"vivienda\":{\"id\":{{id_viv}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1303,12 +1303,12 @@
 					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1379,12 +1379,12 @@
 					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1424,12 +1424,12 @@
 					"raw": "{\n\t\"puntaje\":3.4\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal_not}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal_not}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1470,12 +1470,12 @@
 					"raw": "{\n\t\"puntaje\":-1\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal_2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal_2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1516,12 +1516,12 @@
 					"raw": "{\n\t\"puntaje\":3.3\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal_not}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal_not}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1562,12 +1562,12 @@
 					"raw": "{\n\t\"puntaje\":-2\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1618,12 +1618,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_2}}/calificaciones/{{id_cal_2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_2}}/calificaciones/{{id_cal_2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1674,12 +1674,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1731,12 +1731,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1785,12 +1785,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1839,12 +1839,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1893,12 +1893,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{id_arr}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{id_arr}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -1947,12 +1947,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{id_uni_2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{id_uni_2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -2001,12 +2001,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{id_uni}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{id_uni}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
