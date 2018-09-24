@@ -34,12 +34,12 @@
 					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -79,12 +79,12 @@
 					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -124,12 +124,12 @@
 					"raw": "{\n    \"id\": {{new_id_va1}},\n    \"login\": \"PedroPerez\",\n    \"nombre\": \"Pedro\",\n    \"password\": \"123456\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -170,12 +170,12 @@
 					"raw": "{\n    \"id\": 0,\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -216,12 +216,12 @@
 					"raw": "{\n\t\"name\":\"Norma\",\n\t\"id\":{{new_id_e}}\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/0/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/0/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -253,12 +253,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_va2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_va2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -289,12 +289,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_va1}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_va1}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",

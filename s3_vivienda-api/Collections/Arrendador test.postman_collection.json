@@ -34,12 +34,12 @@
 					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -79,12 +79,12 @@
 					"raw": "{\n\t\"nombre\":\"mario\",\n\t\"login\":\"mario1\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -123,12 +123,12 @@
 					"raw": "{\n\t\"nombre\":\"juan\",\n\t\"login\":\"mario1\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -167,12 +167,12 @@
 					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\" \"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -207,12 +207,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -248,12 +248,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -288,12 +288,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -332,12 +332,12 @@
 					"raw": "{\r\n\t\"nombre\": \"PedroPerez\",\r\n\t\"password\":\"654321\"     \r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -377,12 +377,12 @@
 					"raw": "{\n\t\"nombre\":\"Pedro\",\n\t\"login\":\"PedroPerez\",\n\t\"password\":\"123456\"\n\t\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -421,12 +421,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_a}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -460,12 +460,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{new_id_a2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_a2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -500,12 +500,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/0",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",

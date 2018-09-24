@@ -34,12 +34,12 @@
 					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -79,12 +79,12 @@
 					"raw": "{\r\n\t\"nombre\": \"Cancha de baloncesto\",\r\n\t\"descripcion\": \"Cancha de baloncesto a 2 minutos a pie\",\r\n\t\"latitud\": 0.32456,\r\n\t\"longitud\": 0.02456\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -112,12 +112,12 @@
 					"raw": "{\r\n\t\"nombre\": \"Caffe bar\",       \r\n\r\n\t\"descripción\": \"Delicioso lugar donde tomar un buen cafe\",   \r\n\t\r\n\t\"latitud\": 4.32456, \r\n\r\n\t\"longitud\": -2.32456\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -158,12 +158,12 @@
 					"raw": "{\r\n\t\"nombre\": \"Cancha de futbol\",       \r\n\r\n\t\"descripción\": \"Cancha de futbol a 2 minutos a pie\",   \r\n\t\r\n\t\"latitud\": 0.32456, \r\n\r\n\t\"longitud\": 0.02456\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -198,12 +198,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -241,12 +241,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -266,12 +266,12 @@
 				{
 					"listen": "test",
 					"script": {
-						"id": "cab862ca-71ee-4ceb-830f-261a22005b10",
+						"id": "f99b48aa-b3cd-4c04-a62d-e374bc1a8ef5",
 						"type": "text/javascript",
 						"exec": [
 							"tests[\"No consulta con id que no existe\"] = responseCode.code === 404;",
 							"let id = pm.variables.get(\"new_id_v\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/\"+id+\"/sitioInteres/0 no existe.\");"
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /vivienda/\"+id+\"/sitioInteres/0 no existe.\");"
 						]
 					}
 				}
@@ -281,12 +281,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -329,12 +329,12 @@
 					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -375,12 +375,12 @@
 					"raw": "{\r\n\t\"nombre\":\"cancha tenis\",\r\n\t\"descripcion\": \"lugar para jugar tenis\"\r\n\t\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -416,12 +416,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -457,12 +457,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s2}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s2}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -500,12 +500,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
