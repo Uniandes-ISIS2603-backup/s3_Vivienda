@@ -1,0 +1,2021 @@
+{
+	"info": {
+		"_postman_id": "2bed922f-79e8-4456-bb4a-34c123a740d0",
+		"name": "pruebas_postman_estudiante_y_calificacion",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "crear universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e2f452d-03e1-4908-879f-c723ab2965b1",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_uni\", data.id);",
+							"postman.setGlobalVariable(\"id_uni_not\", data.id+5);",
+							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de Los Andes\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear estudiante",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1219bd91-e598-449f-b3ee-33f3d65381e5",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"login_est\", data.login);",
+							"postman.setGlobalVariable(\"id_est\", data.id);",
+							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jucas40\",\n    \"nombre\": \"juan ma castillo\",\n    \"password\": \"passws0rd\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear estudiante sin universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ca2117b-c196-44e8-9827-b1585ec28073",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el codigo correcto en el post estudiante\"] = responseCode.code === 412;",
+							"tests[\"Genera el mensaje correcto en el post estudiante\"] = responseBody.has(\"El estudiante debe tener universidad\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jucas50\",\n    \"nombre\": \"juan 50 castillo\",\n    \"password\": \"p4ssws0rd\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear estudiante con login repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c5e67faa-115a-4a05-b619-89b0cf10510a",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el codigo correcto en el post estudiante\"] = responseCode.code === 412;",
+							"tests[\"Genera el mensaje correcto en el post estudiante\"] = responseBody.has(\"Ya existe un estudiante con el login \\\"\"+ pm.globals.get(\"login_est\") +\"\\\"\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"{{login_est}}\",\n    \"nombre\": \"juan 60 castillo\",\n    \"password\": \"p4zsws0rd\",\n    \"universidad\":{\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear estudiante con universidad invalida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "72c226b4-2b8f-40bb-8de3-0d4d184fe306",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el codigo correcto en el post estudiante\"] = responseCode.code === 412;",
+							"tests[\"Genera el mensaje correcto en el post estudiante\"] = responseBody.has(\"No existe la universidad con el id \\\"\"+ pm.globals.get(\"id_uni_not\") +\"\\\"\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"loggin\",\n    \"nombre\": \"juan 60 c4stillo\",\n    \"password\": \"p4zswOrd\",\n    \"universidad\":{\"id\":{{id_uni_not}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar estudiante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bec02116-21a7-4338-a577-a980b2b87205",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Login correcto\"] = data.login === pm.globals.get(\"login_est\");",
+							"tests[\"Id correcto\"] = data.id == pm.globals.get(\"id_est\");",
+							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update estudiante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "58eea138-f005-41b8-9e48-317a8301d592",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Cambio de nombre correcto\"] = data.nombre === \"nombre_cambiado\"",
+							"tests[\"No genera errores en el put estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"nombre_cambiado\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear universidad 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c97f4d1c-cca0-4b3a-abe9-23a8f72fc28e",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_uni_2\", data.id);",
+							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"latitud\": 8.5335,\n    \"longitud\": -9.0235,\n    \"nombre\": \"Javeriana\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estudiante replace universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b3ca572-ee57-4c0b-a2ad-003c152311f0",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Reemplaza la universidad correctamente\"] = pm.globals.get(\"id_uni_2\") == data.universidad.id",
+							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/universidad/{{id_uni_2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"universidad",
+						"{{id_uni_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear arrendador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4a647e52-2359-4b55-8855-ca88310b5caa",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_arr\", data.id);",
+							"tests[\"No genera errores en el post arrendador\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\t\r\n\t\"nombre\": \"Pedro\",        \r\n\t\"login\": \"PedroPerez\",                \r\n\t\"password\": \"123456\"             \r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear vivivenda",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad14acf3-c448-4967-962c-c5e11f310434",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "052e186b-2fbd-467e-927e-56fef357611b",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_viv\", data.id);",
+							"postman.setGlobalVariable(\"id_viv_not\", data.id+5);",
+							"tests[\"No genera errores en el post vivienda\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"direccion\":\"Ventura\",\n\t\"ciudad\":\"Bogota\",\n\t\"nombre\":\"apto 304\",\n\t\"descripcion\":\"apartamento\",\n\t\"tipo\":\"A\",\n\t\"latitud\":3.432435,\n\t\"longitud\":12.98943,\n\t\"serviciosIncluidos\":[\"lavadora\", \"internet\"],\n\t\"arrendador\":{\"id\":{{id_arr}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar estudiante Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "735a32a5-a79a-42b4-9ba7-4a1a428b66d6",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[pm.globals.get(\"login_est\") + \"Login correcto \" +  data.login] = data.login == pm.globals.get(\"login_est\");",
+							"tests[\"Id correcto\"] = data.id == pm.globals.get(\"id_est\");",
+							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear estudiante 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "77ae3da8-40bb-43dc-9e6e-772089930ac7",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"login_est_2\", data.login);",
+							"postman.setGlobalVariable(\"id_est_2\", data.id);",
+							"postman.setGlobalVariable(\"id_est_not\", data.id+5);",
+							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update estudiante con login repetido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "358a8c8c-fcea-4974-98a5-85f55df6e7ff",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el codigo correcto en el put estudiante\"] = responseCode.code === 412;",
+							"tests[\"Genera el mensaje correcto en el put estudiante\"] = responseBody.has(\"Ya existe un estudiante con el login \\\"\" + pm.globals.get(\"login_est\") + \"\\\"\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"login\": \"{{login_est}}\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get estudiantes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "86b25316-21da-4dd8-a42b-7321b722c877",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"el número de estudinates es correcto\"] = data.length === 2;",
+							"for (var i =0; i< data.length; i++){",
+							"    if (data[i].id == pm.globals.get(\"id_est\")){",
+							"        tests[\"Se encuentra el estudiante con login adecuado\"] = data[i].login === pm.globals.get(\"login_est\");",
+							"    }",
+							"    else{",
+							"        tests[\"Se encuentra el estudiante adecuado\"] = data[i].id == pm.globals.get(\"id_est_2\");",
+							"        tests[\"Se encuentra el estudiante con login adecuado\"] = data[i].login === pm.globals.get(\"login_est_2\");",
+							"    }",
+							"}",
+							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete estudiante inexistente",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2562e814-a7b7-4827-83a7-de677adb525c",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_not}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear calificacion",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0ec55b54-d56a-4417-b4ba-2ffc24ab512b",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_cal\", data.id);",
+							"postman.setGlobalVariable(\"puntaje_cal\", data.puntaje);",
+							"postman.setGlobalVariable(\"descripcion_cal\", data.descripcion);",
+							"tests[\"La universidad es correcta\"] = data.vivienda.id == pm.globals.get(\"id_viv\");",
+							"tests[\"El estudiante es correcto\"] = data.estudiante.id  == pm.globals.get(\"id_est\");",
+							"tests[\"No genera errores en el post calificacion\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":4.5,\n\t\"descripcion\":\"Muy buena\",\n\t\"estudiante\":{\"id\":{{id_est}}},\n\t\"vivienda\":{\"id\":{{id_viv}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear calificacion sin estudiante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0df0562f-32d1-4c85-9ab7-0f2af603aeab",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el monsaje correcto\"] = responseBody.has(\"El estudiante es invalido\");",
+							"tests[\"Genera el código correcto\"] = responseCode.code === 412;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":4.5,\n\t\"descripcion\":\"Muy buena\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear calificacion con vivienda invalida",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "42b07877-a26b-49f5-a5d0-707880628bad",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el monsaje correcto\"] = responseBody.has(\"El recurso viviendas/\" + pm.globals.get(\"id_viv_not\") + \" no existe\");",
+							"tests[\"Genera el código correcto\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":4.5,\n\t\"descripcion\":\"Muy buena\",\n\t\"estudiante\":{\"id\":{{id_est}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv_not}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv_not}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear calificacion con puntaje invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "39dd359c-57a3-404b-b67f-ec888beab0b6",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el monsaje correcto\"] = responseBody.has(\"El puntaje debe ser mayor o igual a 0, y menor o igual a 5. Puntaje= 5.5\");",
+							"tests[\"Genera el código correcto\"] = responseCode.code === 412;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":5.5,\n\t\"descripcion\":\"Muy buena\",\n\t\"estudiante\":{\"id\":{{id_est}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get calificacion estudiante",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a038573b-80f9-4897-ae93-1a4f91a97108",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"el id del la calificacion es correcta\"] = data.id == pm.globals.get(\"id_cal\");",
+							"tests[\"la descripcion es correcta\"] = data.descripcion === pm.globals.get(\"descripcion_cal\");",
+							"tests[\"el puntaje es correcto\"] = data.puntaje == pm.globals.get(\"puntaje_cal\");",
+							"tests[\"el estudiante es correcto\"] = data.vivienda.id == pm.globals.get(\"id_viv\");",
+							"tests[\"la vivienda es correcta\"] = data.estudiante.id == pm.globals.get(\"id_est\");",
+							"",
+							"tests[\"No genera errores en el get calificacion de estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"calificaciones",
+						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get calificacion vivienda",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "80ab7cc6-4e3c-4f0b-9238-0aec0a24fe7f",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"el id del la calificacion es correcta\"] = data.id == pm.globals.get(\"id_cal\");",
+							"tests[\"la descripcion es correcta\"] = data.descripcion === pm.globals.get(\"descripcion_cal\");",
+							"tests[\"el puntaje es correcto\"] = data.puntaje == pm.globals.get(\"puntaje_cal\");",
+							"tests[\"la vivienda es correcta\"] = data.vivienda.id == pm.globals.get(\"id_viv\");",
+							"tests[\"el estudiante es correcto\"] = data.estudiante.id == pm.globals.get(\"id_est\");",
+							"",
+							"tests[\"No genera errores en el get calificacion de estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones",
+						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update calificacion vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "03110241-4f4c-4678-a822-ccee560fea32",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Descripcion correcta\"] = data.descripcion === \"La MEJOR experiencia de mi vida\";",
+							"tests[\"Puntaje correcta\"] = data.puntaje === 4.9;",
+							"",
+							"postman.setGlobalVariable(\"id_cal\", data.id);",
+							"postman.setGlobalVariable(\"puntaje_cal\", data.puntaje);",
+							"postman.setGlobalVariable(\"descripcion_cal\", data.descripcion);",
+							"tests[\"La universidad es correcta\"] = data.vivienda.id == pm.globals.get(\"id_viv\");",
+							"tests[\"El estudiante es correcto\"] = data.estudiante.id  == pm.globals.get(\"id_est\");",
+							"",
+							"tests[\"No genera errores en el post calificacion\"] = responseCode.code === 200;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":4.9,\n\t\"descripcion\":\"La MEJOR experiencia de mi vida\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones",
+						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update calificacion estudiante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "46c8f8e5-afa4-49c0-a522-4fae55f6abb5",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Descripcion correcta\"] = data.descripcion === \"La PEOR experiencia de mi vida\";",
+							"tests[\"Puntaje correcta\"] = data.puntaje === 0.1;",
+							"",
+							"postman.setGlobalVariable(\"id_cal\", data.id);",
+							"postman.setGlobalVariable(\"puntaje_cal\", data.puntaje);",
+							"postman.setGlobalVariable(\"descripcion_cal\", data.descripcion);",
+							"tests[\"La universidad es correcta\"] = data.vivienda.id == pm.globals.get(\"id_viv\");",
+							"tests[\"El estudiante es correcto\"] = data.estudiante.id  == pm.globals.get(\"id_est\");",
+							"",
+							"tests[\"No genera errores en el post calificacion\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":0.1,\n\t\"descripcion\":\"La PEOR experiencia de mi vida\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"calificaciones",
+						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crear calificacion 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "048147fa-0dd7-439e-9d19-740578414f8c",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_cal_2\", data.id);",
+							"postman.setGlobalVariable(\"id_cal_not\", data.id+5);",
+							"postman.setGlobalVariable(\"puntaje_cal_2\", data.puntaje);",
+							"postman.setGlobalVariable(\"descripcion_cal_2\", data.descripcion);",
+							"tests[\"La universidad es correcta\"] = data.vivienda.id == pm.globals.get(\"id_viv\");",
+							"tests[\"El estudiante es correcto\"] = data.estudiante.id  == pm.globals.get(\"id_est_2\");",
+							"tests[\"No genera errores en el post calificacion\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":3.2,\n\t\"descripcion\":\"Normalita\",\n\t\"estudiante\":{\"id\":{{id_est_2}}},\n\t\"vivienda\":{\"id\":{{id_viv}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get calificaciones estudiante",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "1ca0ab7f-22aa-4157-89fc-cd2b4cbd8cf6",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"número de calificaciones correcto\"] = data.length === 1;",
+							"",
+							"tests[\"el id del la calificacion es correcta\"] = data[0].id ==  pm.variables.get(\"id_cal\");",
+							"tests[\"la descripcion es correcta\"] = data[0].descripcion === pm.variables.get(\"descripcion_cal\");",
+							"tests[\"el puntaje es correcto\"] = data[0].puntaje == pm.variables.get(\"puntaje_cal\");",
+							"tests[\"la vivienda es correcta\"] = data[0].vivienda.id == pm.variables.get(\"id_viv\");",
+							"tests[\"el estudiante es correcto\"] = data[0].estudiante.id == pm.variables.get(\"id_est\");",
+							"",
+							"tests[\"No genera errores en el get calificaciones de estudiante\"] = responseCode.code === 200;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get calificaciones vivienda",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e84896e-783c-4a11-ac62-abf626c651ba",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"número de calificaciones correcto\"] = data.length === 2;",
+							"",
+							"for (var i = 0; i < data.length; i++){",
+							"    if (data[i].id == pm.variables.get(\"id_cal\")){",
+							"        tests[\"la descripcion es correcta\"] = data[i].descripcion === pm.variables.get(\"descripcion_cal\");",
+							"        tests[\"el puntaje es correcto\"] = data[i].puntaje == pm.variables.get(\"puntaje_cal\");",
+							"        tests[\"la vivienda es correcta\"] = data[i].vivienda.id == pm.variables.get(\"id_viv\");",
+							"        tests[\"el estudiante es correcto\"] = data[i].estudiante.id == pm.variables.get(\"id_est\");",
+							"    }",
+							"    else{",
+							"            tests[\"el id del la calificacion es correcta\"] = data[i].id == pm.variables.get(\"id_cal_2\");",
+							"            tests[\"la descripcion es correcta\"] = data[i].descripcion === pm.variables.get(\"descripcion_cal_2\");",
+							"            tests[\"el puntaje es correcto\"] = data[i].puntaje == pm.variables.get(\"puntaje_cal_2\");",
+							"            tests[\"la vivienda es correcta\"] = data[i].vivienda.id == pm.variables.get(\"id_viv\");",
+							"            tests[\"el estudiante es correcto\"] = data[i].estudiante.id == pm.variables.get(\"id_est_2\");",
+							"    }",
+							"}",
+							"",
+							"",
+							"tests[\"No genera errores en el get calificaciones de estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update calificacion invalida vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "125652b6-1989-49b2-a65e-1a37c2c4702e",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"El recurso /viviendas/\" + pm.variables.get(\"id_viv\") + \"/calificaciones/\"+ pm.variables.get(\"id_cal_not\")+ \" no existe.\");",
+							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":3.4\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal_not}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones",
+						"{{id_cal_not}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update calificacion vivienda con puntaje invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a8aeca4-f7dc-4b92-8505-1974156de5bf",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"El puntaje debe ser mayor o igual a 0 y menor o igual a 5. Puntaje= -1\");",
+							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 412;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":-1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal_2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones",
+						"{{id_cal_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update calificacion invalida estudiante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f6bd00f9-ff9f-43d3-8b81-3e794193bca4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"El recurso /estudiantes/\" + pm.variables.get(\"id_est\") + \"/calificaciones/\"+ pm.variables.get(\"id_cal_not\") + \" no existe.\");",
+							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":3.3\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal_not}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"calificaciones",
+						"{{id_cal_not}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update calificacion estudiante con puntaje invalido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "432167e2-4af3-429f-85f7-a2b14c574026",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"El puntaje debe ser mayor o igual a 0 y menor o igual a 5. Puntaje= -2\");",
+							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 412;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"puntaje\":-2\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"calificaciones",
+						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete calificacion estudiante",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_2}}/calificaciones/{{id_cal_2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_2}}",
+						"calificaciones",
+						"{{id_cal_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete calificacion vivienda",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"calificaciones",
+						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete estudiante",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbc00918-eb4e-4807-a3c3-bc9f4eed31d0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete estudiante 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/estudiantes/{{id_est_2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete vivienda",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{id_viv}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete arrendador",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/arrendadores/{{id_arr}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"{{id_arr}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete universidad 2",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{id_uni_2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades",
+						"{{id_uni_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete universidad",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6b89b998-c877-4d05-ac02-e99decb16206",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{id_uni}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades",
+						"{{id_uni}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
