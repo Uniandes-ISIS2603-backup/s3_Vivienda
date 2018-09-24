@@ -41,21 +41,40 @@ public class ViviendaArrendadorResource {
     @Inject
     private ArrendadorLogic arrendadorLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
+     /**
+     * Busca y devuelve el arrendador con el ID recibido en la URL, relativo a una vivienda
+     *
+     * @param arrendadorId El ID del arrendador que se busca
+     * @param viviendaId El ID de la vivienda del cual se busca el arrendador
+     * @return {@link ArrendadorDetailDTO} - El arrendador encontrado en la vivienda.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper}
+     * Error de lógica que se genera cuando no se encuentra el arrendador.
+     */
     @GET
     @Path("{arrendadorId: \\d+}")
     public ArrendadorDetailDTO getArrendador(@PathParam("viviendaId") Long viviendaId, @PathParam("arrendadorId") Long arrendadorId)  {
-        
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource getArrendador: input: viviendaId {0} , arrendadorId {1}", new Object[]{viviendaId, arrendadorId});
         if (arrendadorLogic.getArrendador(arrendadorId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/arrendadores/" + arrendadorId + " no existe.", 404);
         }
-        ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(viviendaArrendadorLogic.getArrendador(viviendaId, arrendadorId));
-        
+        ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(viviendaArrendadorLogic.getArrendador(viviendaId));
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource getArrendador: output: {0}", arrendadorDetailDTO.toString());
         return arrendadorDetailDTO;
     }
     
+     /**
+     * Remplaza la instancia de Arrendador asociada a una Vivienda.
+     *
+     * @param viviendaId Identificador de la vivienda que se esta actualizando. Este
+     * debe ser una cadena de dígitos.
+     * @param arrendador El arrendador de la vivienda.
+     * @return JSON {@link ViviendaDetailDTO} - El arreglo de viviendas guardado en el arrendador.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el arrendador o la vivienda.
+     */
     @PUT
     public ViviendaDetailDTO replaceArrendador(@PathParam("viviendaId") Long viviendaId, ArrendadorDTO arrendador) {
-        
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: input: viviendaId{0} , Arrendador:{1}", new Object[]{viviendaId, arrendador.toString()});
         if (viviendasLogic.getVivienda(viviendaId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + " no existe.", 404);
         }
@@ -63,7 +82,7 @@ public class ViviendaArrendadorResource {
             throw new WebApplicationException("El recurso /arrendadores/" + arrendador.getId() + " no existe.", 404);
         }
         ViviendaDetailDTO viviendaDetailDTO = new ViviendaDetailDTO(viviendaArrendadorLogic.replaceArrendador(viviendaId, arrendador.getId()));
-        
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: output: {0}", viviendaDetailDTO.toString());
         return viviendaDetailDTO;
     }
 }

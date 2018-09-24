@@ -8,7 +8,6 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.dtos.SitioInteresDTO;
 import co.edu.uniandes.csw.vivienda.dtos.SitioInteresDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
-//import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
 import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
@@ -117,7 +116,7 @@ public class SitioInteresResource {
      */
     @PUT
     @Path("{sitioInteresId: \\d+}")
-    public SitioInteresDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
+    public SitioInteresDetailDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
     {
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , sitioInteres:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
         if (sitioInteresId.equals(sitioInteres.getId())) {
@@ -129,7 +128,7 @@ public class SitioInteresResource {
 
         }
         sitioInteres.setId(sitioInteresId);
-        SitioInteresDTO sitioInteresDTO = new SitioInteresDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));
+        SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: output:{0}", sitioInteresDTO.toString());
         return sitioInteresDTO;
     }

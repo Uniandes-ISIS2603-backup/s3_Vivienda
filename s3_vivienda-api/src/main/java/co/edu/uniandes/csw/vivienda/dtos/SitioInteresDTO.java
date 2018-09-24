@@ -30,7 +30,7 @@ public class SitioInteresDTO implements Serializable{
      */
     private ViviendaDTO vivienda;
     
-        /**
+     /**
      * Constructor por defecto
      */
     public SitioInteresDTO()
@@ -49,14 +49,6 @@ public class SitioInteresDTO implements Serializable{
             this.descripcion = sitioInteresEntity.getDescripcion();
             this.latitud = sitioInteresEntity.getLatitud();
             this.longitud = sitioInteresEntity.getLongitud();
-            if (sitioInteresEntity.getVivienda() != null)
-            {
-                this.vivienda = new ViviendaDTO(sitioInteresEntity.getVivienda());
-            }
-            else
-            {
-                this.vivienda=null;
-            }
         }
     }
     
@@ -91,29 +83,12 @@ public class SitioInteresDTO implements Serializable{
         sitioInteresEntity.setDescripcion(this.getDescripcion());
         sitioInteresEntity.setLatitud(this.getLatitud());
         sitioInteresEntity.setLongitud(this.getLongitud());
-        if (this.vivienda != null){
-            sitioInteresEntity.setVivienda(this.vivienda.toEntity());
-        }
         return sitioInteresEntity;
     }
     
         @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-    }
-
-    /**
-     * @return the vivienda
-     */
-    public ViviendaDTO getVivienda() {
-        return vivienda;
-    }
-
-    /**
-     * @param vivienda the vivienda to set
-     */
-    public void setVivienda(ViviendaDTO vivienda) {
-        this.vivienda = vivienda;
     }
 
     /**

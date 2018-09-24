@@ -11,7 +11,6 @@ import co.edu.uniandes.csw.vivienda.persistence.ArrendadorPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-//import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 
@@ -48,20 +47,21 @@ public class ViviendaArrendadorLogic {
     
         /**
      *
-     * Obtener un premio por medio de su id y el de su autor.
+     * Obtener un arrendador por medio de su id y de la vivienda sociada al arrendador.
      *
-     * @param prizesId id del premio a ser buscado.
-     * @return el autor solicitada por medio de su id.
+     * @param viviendaId id del premio a ser buscado.
+     * @return el arrendador solicitado por medio de su id.
      */
-    public ArrendadorEntity getArrendador(Long viviendaId, Long arrendadorId)
+    public ArrendadorEntity getArrendador(Long viviendaId)
     {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar un arrendador de la vivienda con id = {0}", viviendaId);
         ArrendadorEntity arrendador = viviendaPersistence.find(viviendaId).getArrendador();
         
         if(arrendador!=null)
         {
             return arrendador;
         }
-        
+        LOGGER.log(Level.INFO, "Termina proceso de consultar un arrendador de la vivienda id = {0}", viviendaId);
         return null;
     }
     

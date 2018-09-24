@@ -42,6 +42,21 @@ public class SitioInteresLogic
     public SitioInteresEntity createSitioInteres(Long viviendaId, SitioInteresEntity sitioInteresEntity) throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del sitioInteres");
+        Float latitud = sitioInteresEntity.getLatitud();
+        Float longitud = sitioInteresEntity.getLongitud();
+        String nombre = sitioInteresEntity.getNombre();
+        if(latitud==null)
+        {
+            throw new BusinessLogicException("latitud invalida");
+        }
+        else if(longitud==null)
+        {
+            throw new BusinessLogicException("longitud invalida");
+        }
+        else if(nombre==null || nombre.equals(" "))
+        {
+            throw new BusinessLogicException("nombre invalido");
+        }
         if(sitioInteresPersistence.findByLatLong(sitioInteresEntity.getLatitud(), sitioInteresEntity.getLongitud())!=null)
         {
             throw new BusinessLogicException("Ya existe un sitioInteres con esa latitud y longitud ");
@@ -86,7 +101,8 @@ public class SitioInteresLogic
     {
         
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresEntity.getId());
-
+        ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
+        sitioInteresEntity.setVivienda(vivienda);
         sitioInteresPersistence.update(sitioInteresEntity);
         LOGGER.log(Level.INFO, "Termina proceso de actualizar el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresEntity.getId());
         return sitioInteresEntity;

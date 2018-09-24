@@ -177,100 +177,6 @@
 			"response": []
 		},
 		{
-			"name": "Actualizar la información de un sitio de interes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "5ad57432-c2b7-40de-878e-2c9f066d65d2",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\":\"cancha tenis\",\r\n\t\"descripcion\": \"lugar para jugar tenis\"\r\n\t\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{new_id_v}}",
-						"sitioInteres",
-						"{{new_id_s}}"
-					]
-				},
-				"description": "Actualiza la informacion de un sitioInteres. La id se envia en la URL de la peticion. La respuesta debe mostrar los atributos actualizados y con el mismo id enviado.\nCódigo http esperado: 200"
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar la informacion de un sitioInteres que no existe",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "3d64088d-4f4b-4ca9-9da5-13ad742a3bce",
-						"type": "text/javascript",
-						"exec": [
-							"tests[\"No se puede editar un review que no existe.\"] = responseCode.code === 404;",
-							"let id = pm.variables.get(\"new_id_v\");",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/\"+id+\"/sitioInteres/0 no existe.\");"
-						]
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
-				},
-				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{new_id_v}}",
-						"sitioInteres",
-						"0"
-					]
-				},
-				"description": "Actualiza la informacion de un sitioInteres que no existe. Verifica que genera error y el mensaje \"El recurso /viviendas/\"+idVivienda+\"/sitioInteres/0 no existe.\"\nCódigo http esperado: 404"
-			},
-			"response": []
-		},
-		{
 			"name": "Obtener un sitio de interes",
 			"event": [
 				{
@@ -391,6 +297,100 @@
 					]
 				},
 				"description": "Consulta un sitioInteres que o existe en la aplicacion. La peticion no tiene cuerpo. Para la prueba se verifica que genera error.\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar la informacion de un sitioInteres que no existe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3d64088d-4f4b-4ca9-9da5-13ad742a3bce",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No se puede editar un review que no existe.\"] = responseCode.code === 404;",
+							"let id = pm.variables.get(\"new_id_v\");",
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/\"+id+\"/sitioInteres/0 no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\":\"cancha tenis\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"0"
+					]
+				},
+				"description": "Actualiza la informacion de un sitioInteres que no existe. Verifica que genera error y el mensaje \"El recurso /viviendas/\"+idVivienda+\"/sitioInteres/0 no existe.\"\nCódigo http esperado: 404"
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar la información de un sitio de interes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5ad57432-c2b7-40de-878e-2c9f066d65d2",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera error en el Put\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\":\"cancha tenis\",\r\n\t\"descripcion\": \"lugar para jugar tenis\"\r\n\t\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/s3_vivienda-api/api/viviendas/{{new_id_v}}/sitioInteres/{{new_id_s}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"sitioInteres",
+						"{{new_id_s}}"
+					]
+				},
+				"description": "Actualiza la informacion de un sitioInteres. La id se envia en la URL de la peticion. La respuesta debe mostrar los atributos actualizados y con el mismo id enviado.\nCódigo http esperado: 200"
 			},
 			"response": []
 		},

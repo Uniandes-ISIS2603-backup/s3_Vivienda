@@ -51,7 +51,7 @@ public class SitioInteresDetailDTO extends SitioInteresDTO implements Serializab
         return sitioInteresEntity;
     }
     
-        @Override
+    @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }

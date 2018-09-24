@@ -61,11 +61,7 @@ public class SitioInteresPersistence {
         q.setParameter("sitioInteresId", sitioInteresId);
         List<SitioInteresEntity> results = q.getResultList();
         SitioInteresEntity sitioInteres = null;
-        if (results == null) {
-            sitioInteres = null;
-        } else if (results.isEmpty()) {
-            sitioInteres = null;
-        } else if (results.size() >= 1) {
+        if (!results.isEmpty()) {
             sitioInteres = results.get(0);
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar el sitioInteres con id = {0} de la vivienda con id =" + viviendaId, sitioInteresId);
