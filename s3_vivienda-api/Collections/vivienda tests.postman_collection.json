@@ -40,12 +40,12 @@
 					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_univivienda-api",
 						"api",
@@ -58,7 +58,7 @@
 			"response": []
 		},
 		{
-			"name": "POST Vivivendas 2",
+			"name": "POST Viviendas 2",
 			"event": [
 				{
 					"listen": "test",
@@ -85,12 +85,12 @@
 					"raw": "{\r\n  \"direccion\":\"{{direccionExistente}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_univivienda-api",
 						"api",
@@ -123,12 +123,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_univivienda-api",
 						"api",
@@ -159,12 +159,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_univivienda-api",
 						"api",
@@ -204,12 +204,12 @@
 					"raw": "{\"nombre\": \"Un nuevo nombre\"}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_univivienda-api",
 						"api",
@@ -240,12 +240,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_univivienda-api",
 						"api",
