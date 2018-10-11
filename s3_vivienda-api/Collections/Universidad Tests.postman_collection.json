@@ -34,12 +34,12 @@
 					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -78,12 +78,12 @@
 					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{new_id_v}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{new_id_v}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -101,12 +101,12 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -143,12 +143,12 @@
 					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}\r\n{\r\n\t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -187,12 +187,12 @@
 					"raw": "{\r\n\t\"nombre\":\"Universidad Nacional de Colombia\"\r\n\t\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{new_id_v}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{new_id_v}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
@@ -225,12 +225,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:8080/s3_vivienda-api/api/universidades/{{new_id_v}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{new_id_v}}",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{ip}}"
 					],
-					"port": "8080",
+					"port": "{{puerto}}",
 					"path": [
 						"s3_vivienda-api",
 						"api",
