@@ -20,6 +20,8 @@ public class ViviendaDTO implements Serializable{
     private List<String> serviciosIncluidos;
     private Float latitud;
     private Float longitud;
+    private String imgUrl;
+
     /*
     * Relación a un arrendador  
     * dado que esta tiene cardinalidad 1.
@@ -40,6 +42,7 @@ public class ViviendaDTO implements Serializable{
             this.serviciosIncluidos = viviendaEntity.getServiciosIncluidos();
             this.latitud = viviendaEntity.getLatitud();
             this.longitud = viviendaEntity.getLongitud();
+            this.imgUrl = viviendaEntity.getImgUrl();
             if (viviendaEntity.getArrendador() != null)
                 this.arrendador = new ArrendadorDTO(viviendaEntity.getArrendador());
         }
@@ -56,6 +59,7 @@ public class ViviendaDTO implements Serializable{
         viviendaEntity.setServiciosIncluidos(serviciosIncluidos);
         viviendaEntity.setLatitud(latitud);
         viviendaEntity.setLongitud(longitud);
+        viviendaEntity.setImgUrl(imgUrl);
         if (arrendador != null)
             viviendaEntity.setArrendador(arrendador.toEntity());
         return viviendaEntity;
@@ -139,5 +143,13 @@ public class ViviendaDTO implements Serializable{
     
     public void setArrendador(ArrendadorDTO arrendador){
         this.arrendador = arrendador;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

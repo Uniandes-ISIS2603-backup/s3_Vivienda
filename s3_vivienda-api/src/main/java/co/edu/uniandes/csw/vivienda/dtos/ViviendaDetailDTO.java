@@ -26,7 +26,8 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
     private List<CuartoDTO> cuartos;
     private List<SitioInteresDTO> sitiosDeInteres;
     private List<CalificacionDTO> calificaciones;
-    private List<ServicioAdicionalDTO> serviciosOfrecidos;
+    private List<String> serviciosOfrecidos;
+    private List<ServicioAdicionalDTO> serviciosAdicionales;
 
     /**
      * Constructor por defecto
@@ -75,7 +76,14 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
             if(viviendaEntity.getServiciosAdicionales() != null){
                 serviciosOfrecidos = new ArrayList<>();
                 for (ServicioAdicionalEntity servicioEntity : viviendaEntity.getServiciosAdicionales()){
-                    serviciosOfrecidos.add(new ServicioAdicionalDTO(servicioEntity));
+                    serviciosAdicionales.add(new ServicioAdicionalDTO(servicioEntity));
+                }
+            }
+
+            if(viviendaEntity.getServiciosIncluidos() != null){
+                serviciosOfrecidos = new ArrayList<>();
+                for (String servicio : viviendaEntity.getServiciosIncluidos()){
+                    serviciosOfrecidos.add(servicio);
                 }
             }
         }
@@ -96,6 +104,43 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
             }
             viviendaEntity.setContratos(contratosEntity);
         }
+
+        if (cuartos != null) {
+            List<CuartoEntity> cuartoEntities = new ArrayList<>();
+            for (CuartoDTO dto : cuartos) {
+                cuartoEntities.add(dto.toEntity());
+            }
+            viviendaEntity.setCuartos(cuartoEntities);
+        }
+
+        if (sitiosDeInteres != null) {
+            List<SitioInteresEntity> entities = new ArrayList<>();
+            for (SitioInteresDTO dto : sitiosDeInteres) {
+                entities.add(dto.toEntity());
+            }
+            viviendaEntity.setSitiosDeInteres(entities);
+        }
+
+        if (calificaciones != null) {
+            List<CalificacionEntity> entities = new ArrayList<>();
+            for (CalificacionDTO dto : calificaciones) {
+                entities.add(dto.toEntity());
+            }
+            viviendaEntity.setCalificaciones(entities);
+        }
+
+        if (serviciosOfrecidos != null) {
+            viviendaEntity.setServiciosIncluidos(serviciosOfrecidos);
+        }
+
+        if (serviciosAdicionales != null) {
+            List<ServicioAdicionalEntity> entities = new ArrayList<>();
+            for (ServicioAdicionalDTO dto : serviciosAdicionales) {
+                entities.add(dto.toEntity());
+            }
+            viviendaEntity.setServiciosAdicionales(entities);
+        }
+
         return viviendaEntity;
     }
 
@@ -141,12 +186,20 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
         this.calificaciones = calificaciones;
     }
 
-    public List<ServicioAdicionalDTO> getServiciosOfrecidos() {
+    public List<String> getServiciosOfrecidos() {
         return serviciosOfrecidos;
     }
 
-    public void setServiciosOfrecidos(List<ServicioAdicionalDTO> serviciosOfrecidos) {
+    public void setServiciosOfrecidos(List<String> serviciosOfrecidos) {
         this.serviciosOfrecidos = serviciosOfrecidos;
+    }
+
+    public List<ServicioAdicionalDTO> getServiciosAdicionales() {
+        return serviciosAdicionales;
+    }
+
+    public void setServiciosAdicionales(List<ServicioAdicionalDTO> serviciosAdicionales) {
+        this.serviciosAdicionales = serviciosAdicionales;
     }
 
     @Override

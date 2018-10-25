@@ -24,7 +24,7 @@ public class ViviendaPersistence {
     protected EntityManager em;
     
     public ViviendaEntity create(ViviendaEntity viviendaEntity){
-        em.persist(viviendaEntity );
+        em.persist(viviendaEntity);
         return viviendaEntity;
     }
     

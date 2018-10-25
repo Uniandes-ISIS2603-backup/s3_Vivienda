@@ -25,6 +25,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class ViviendaEntity extends BaseEntity implements Serializable{
+
     private static final Logger LOGGER = Logger.getLogger(ViviendaEntity.class.getName());
 
     private String direccion;
@@ -34,7 +35,7 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     private String tipo;
     private Float latitud;
     private Float longitud;
-
+    private String imgUrl;
     
     @ElementCollection
     private List<String> serviciosIncluidos = new ArrayList<>();
@@ -183,5 +184,13 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
 
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }
