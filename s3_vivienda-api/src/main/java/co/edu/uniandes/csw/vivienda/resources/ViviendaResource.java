@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ViviendaDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -56,9 +57,9 @@ public class ViviendaResource {
     
     @GET
     @Path("{viviendaId: \\d+}")
-    public ViviendaDTO getVivienda(@PathParam("viviendaId") Long viviendaId) throws WebApplicationException{
+    public ViviendaDetailDTO getVivienda(@PathParam("viviendaId") Long viviendaId) throws WebApplicationException{
         ViviendaEntity vivienda = logic.getVivienda(viviendaId);
-        ViviendaDTO viviendaDTO = new ViviendaDTO(vivienda);
+        ViviendaDetailDTO viviendaDTO = new ViviendaDetailDTO(vivienda);
         return viviendaDTO;
     }
     

@@ -20,7 +20,7 @@ public class SitioInteresDTO implements Serializable{
     
     private Long id;
     private String nombre;
-    private String descripcion;
+    private String descripccion;
     private Float latitud;
     private Float longitud;
     
@@ -46,7 +46,7 @@ public class SitioInteresDTO implements Serializable{
         if (sitioInteresEntity != null) {
             this.id = sitioInteresEntity.getId();
             this.nombre = sitioInteresEntity.getNombre();
-            this.descripcion = sitioInteresEntity.getDescripcion();
+            this.descripccion = sitioInteresEntity.getDescripcion();
             this.latitud = sitioInteresEntity.getLatitud();
             this.longitud = sitioInteresEntity.getLongitud();
         }
@@ -80,7 +80,7 @@ public class SitioInteresDTO implements Serializable{
         
         sitioInteresEntity.setId(this.id);
         sitioInteresEntity.setNombre(this.getNombre());
-        sitioInteresEntity.setDescripcion(this.getDescripcion());
+        sitioInteresEntity.setDescripcion(this.getDescripccion());
         sitioInteresEntity.setLatitud(this.getLatitud());
         sitioInteresEntity.setLongitud(this.getLongitud());
         return sitioInteresEntity;
@@ -108,15 +108,15 @@ public class SitioInteresDTO implements Serializable{
     /**
      * @return the descripcion
      */
-    public String getDescripcion() {
-        return descripcion;
+    public String getDescripccion() {
+        return descripccion;
     }
 
     /**
      * @param descripcion the descripcion to set
      */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setDescripccion(String descripcion) {
+        this.descripccion = descripcion;
     }
 
     /**
