@@ -9,11 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import javax.persistence.CascadeType;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import uk.co.jemos.podam.common.PodamExclude;
 
@@ -31,6 +27,9 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     private String direccion;
     private String ciudad;
     private String nombre;
+
+    @Lob
+    @Column(name="descripcion", length=5000)
     private String descripcion;
     private String tipo;
     private Float latitud;
@@ -42,36 +41,43 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     
     @PodamExclude
     @OneToMany(
+        cascade = CascadeType.ALL,
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<CuartoEntity> cuartos = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
+        cascade = CascadeType.ALL,
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<ContratoEntity> contratos = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
+        cascade = CascadeType.ALL,
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<ServicioAdicionalEntity> serviciosAdicionales = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
+        cascade = CascadeType.ALL,
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<SitioInteresEntity> sitiosDeInteres = new ArrayList<>();
     
     @PodamExclude
     @OneToMany(
+        cascade = CascadeType.ALL,
         mappedBy="vivienda",
         fetch=javax.persistence.FetchType.LAZY)
     private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
     @PodamExclude
-    @ManyToOne
+    @ManyToOne(
+        cascade = CascadeType.ALL
+    )
     private ArrendadorEntity arrendador;
 
     public String getNombre() {

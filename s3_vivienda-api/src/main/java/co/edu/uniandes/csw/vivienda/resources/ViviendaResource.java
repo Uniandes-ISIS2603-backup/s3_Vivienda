@@ -88,7 +88,21 @@ public class ViviendaResource {
             return null;
         }
     }
-  
+
+    @POST
+    @Path("generardatos")
+    public List<ViviendaDTO> generarDatos() {
+        logic.generarDatos();
+        List<ViviendaEntity> viviendas = logic.getViviendas();
+        ArrayList<ViviendaDTO> respuestas = new ArrayList<ViviendaDTO>();
+
+        for (ViviendaEntity ent: viviendas){
+            ViviendaDTO viviendaDto = new ViviendaDTO(ent);
+            respuestas.add(viviendaDto);
+        }
+        return respuestas;
+    }
+
     @Path("{viviendaId: \\d+}/cuartos")
     public Class<ViviendaCuartoResource> getViviendaCuartoResource(@PathParam("viviendaId") Long viviendaId){
         if( logic.getVivienda(viviendaId) != null)
@@ -133,6 +147,5 @@ public class ViviendaResource {
     public Class<ServicioAdicionalResource> getServicioAdicionalResource(@PathParam("viviendaId") Long viviendaId) {
         return ServicioAdicionalResource.class;
     }
-    
             
 }

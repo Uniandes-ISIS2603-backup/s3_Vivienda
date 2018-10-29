@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -44,6 +45,11 @@ public class ViviendaPersistence {
     public void delete(Long id){
         ViviendaEntity viviendaEntity = em.find(ViviendaEntity.class, id);
         em.remove(viviendaEntity);
+    }
+
+    public void deleteAll() {
+        Query q1 = em.createQuery("delete FROM ViviendaEntity", ViviendaEntity.class);
+        q1.executeUpdate();
     }
 
     public ViviendaEntity buscarPorDireccion(String ciudad, String direccion){
