@@ -21,6 +21,7 @@ public class SitioInteresEntity extends BaseEntity implements Serializable{
     private String descripcion;
     private Float latitud;
     private Float longitud;
+    private String img;
 
     @PodamExclude
     @ManyToOne
@@ -94,5 +95,20 @@ public class SitioInteresEntity extends BaseEntity implements Serializable{
     public void setVivienda(ViviendaEntity vivienda) {
         this.vivienda = vivienda;
     }
+
+    /**
+     * @return the img
+     */
+    public String getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(String img) {
+        this.img = img;
+    }
+    
     
 }
