@@ -23,6 +23,7 @@ public class SitioInteresDTO implements Serializable{
     private String descripccion;
     private Float latitud;
     private Float longitud;
+    private String img;
     
        /*
     * Relación a una vivienda
@@ -49,6 +50,7 @@ public class SitioInteresDTO implements Serializable{
             this.descripccion = sitioInteresEntity.getDescripcion();
             this.latitud = sitioInteresEntity.getLatitud();
             this.longitud = sitioInteresEntity.getLongitud();
+            this.img = sitioInteresEntity.getImg();
         }
     }
     
@@ -83,6 +85,7 @@ public class SitioInteresDTO implements Serializable{
         sitioInteresEntity.setDescripcion(this.getDescripccion());
         sitioInteresEntity.setLatitud(this.getLatitud());
         sitioInteresEntity.setLongitud(this.getLongitud());
+        sitioInteresEntity.setImg(this.getImg());
         return sitioInteresEntity;
     }
     
@@ -146,4 +149,20 @@ public class SitioInteresDTO implements Serializable{
     public void setLongitud(Float longitud) {
         this.longitud = longitud;
     }
+
+    /**
+     * @return the img
+     */
+    public String getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(String img) {
+        this.img = img;
+    }
+    
+    
 }
