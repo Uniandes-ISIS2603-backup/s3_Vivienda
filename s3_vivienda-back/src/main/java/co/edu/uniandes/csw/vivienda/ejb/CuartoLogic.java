@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author: Daniel Giraldo
@@ -75,5 +76,33 @@ public class CuartoLogic {
             throw new BusinessLogicException("El cuarto no existe");
         }
         cuartoPersistence.delete(cuartoId);
+    }
+
+    public void generarCuartos(Long viviendaId) {
+
+        List<CuartoEntity> cuartosViejos = getCuartos(viviendaId);
+        for (CuartoEntity c : cuartosViejos) {
+            try {
+                deleteCuarto(c.getId());
+            } catch (BusinessLogicException e) {
+                e.printStackTrace();
+            }
+        }
+
+        int numeroCuartos = new Random().nextInt(3) + 1;
+        for (int i = 0; i < numeroCuartos; i++) {
+            CuartoEntity cuarto = new CuartoEntity();
+            int costoArriendo = (800 + new Random().nextInt(1000))*1000;
+
+            cuarto.setNombre("Cuarto "+ i);
+            cuarto.setCostoArriendo(costoArriendo);
+            cuarto.setDescripcion("Un cuarto común");
+
+            try {
+                addCuarto(viviendaId, cuarto);
+            } catch (BusinessLogicException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
