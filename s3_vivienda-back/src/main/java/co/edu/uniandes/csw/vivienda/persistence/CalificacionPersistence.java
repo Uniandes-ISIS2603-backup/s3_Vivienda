@@ -171,5 +171,10 @@ public class CalificacionPersistence {
     public void delete(Long calificacionId){
         CalificacionEntity entity = em.find(CalificacionEntity.class, calificacionId);
         em.remove(entity);
+        entity = em.find(CalificacionEntity.class, calificacionId);
+    }
+    
+    public void deleteAll(){
+        em.createQuery("Delete from CalificacionEntity").executeUpdate();
     }
 }

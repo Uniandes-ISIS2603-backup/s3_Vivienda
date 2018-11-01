@@ -19,6 +19,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
     
+    private ContratoDTO contrato;
     /*
     * Esta lista de tipo CalificacionDTO contiene las calificaciones que estan asociados a un estudiante
     */
@@ -78,6 +79,14 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
      */
     public void setCalificaciones(List<CalificacionDTO> cal){
         this.calificaciones=cal;
+    }
+    
+    public ContratoDTO getContrato(){
+        return contrato;
+    }
+    
+    public void setContrato (ContratoDTO contrato){
+        this.contrato =  contrato;
     }
     
     @Override
