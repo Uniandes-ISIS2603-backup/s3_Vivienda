@@ -7,14 +7,17 @@ package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
+import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.CalificacionPersistence;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
+import java.util.Random;
 import javax.inject.Inject;
 
 /**
@@ -30,7 +33,52 @@ public class EstudianteLogic {
 
     @Inject
     private UniversidadPersistence persistenceUniversidad; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
-      
+    
+    @Inject
+    private CalificacionPersistence persistenceCalificacion;
+    
+    public void generarDatos(){
+        persistenceCalificacion.deleteAll();
+
+        List<EstudianteEntity> estudiantesViejos = persistence.findAll();
+        for (EstudianteEntity estudiante: estudiantesViejos){
+            persistence.delete(estudiante.getId());
+        }
+        estudiantesViejos = persistence.findAll();
+        List<UniversidadEntity> universidadesViejas = persistenceUniversidad.findAll();
+        for (UniversidadEntity universidad: universidadesViejas){
+            persistenceUniversidad.delete(universidad.getId());
+        }
+        universidadesViejas =  persistenceUniversidad.findAll();
+        
+        String [] nombres = new String[]{"Juan David", "Carlos Andrés", "Julián Felipe", "Oscar", "Carolina", "Daniela", "Jimena Sofía"};
+        String [] apellidos = new String[]{"Cardoso", "Meneses", "Rojas", "García", "Gómez", "Vargas", "Quintero", "González"};
+        String [] universidadesString = new String[]{"Universidad de Los Andes", "Universidad Javeriana", "Universidad de La Sabana"};
+        
+        Random rand = new Random();
+        
+        for (int i = 0; i < universidadesString.length; i ++){
+            UniversidadEntity universidad = new UniversidadEntity();
+            universidad.setLatitud(rand.nextFloat()*40);
+            universidad.setLongitud(rand.nextFloat()*40);
+            universidad.setNombre(universidadesString[i]);
+            persistenceUniversidad.create(universidad);
+        }
+        
+        List<UniversidadEntity> universidades = persistenceUniversidad.findAll();
+        for (int i = 0; i < 10; i ++){
+            EstudianteEntity estudiante = new EstudianteEntity();
+            String nombre = nombres[rand.nextInt(nombres.length)];
+            String apellido = apellidos[rand.nextInt(apellidos.length)];
+            estudiante.setNombre(nombre + " " + apellido);
+            estudiante.setLogin(nombre.substring(0, 3) + apellido.substring(0, 3) + (i+1));
+            estudiante.setPassword("password" + (i+1));
+            estudiante.setUniversidad(universidades.get(rand.nextInt(universidades.size())));
+            persistence.create(estudiante);
+        }
+    }
+    
+    
     /**
      * Crea un estudiante en la persistencia.
      *

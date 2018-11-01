@@ -98,4 +98,8 @@ public class CalificacionEntity extends BaseEntity implements Serializable{
     public void setVivienda(ViviendaEntity viv){
         this.vivienda = viv;
     }
+    
+    public String toString(){
+        return "Calificacion [id:"+this.getId()+", estudiante"+estudiante.getId()+", vivienda"+vivienda.getId()+"]";
+    }
 }

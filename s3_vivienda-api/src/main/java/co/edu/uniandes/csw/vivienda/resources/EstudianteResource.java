@@ -18,10 +18,13 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.CalificacionLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
+import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -43,11 +46,28 @@ public class EstudianteResource {
     private static final Logger LOGGER = Logger.getLogger(EstudianteResource.class.getName());
     
     @Inject
+    CalificacionLogic calificacionLogic;  // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    
+    @Inject
     EstudianteLogic estudianteLogic;  // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
     @Inject
     ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
+    @POST
+    @Path("generardatos")
+    public List<EstudianteDTO> generarDatos() {
+        estudianteLogic.generarDatos();
+        calificacionLogic.generarDatos();
+        List<EstudianteEntity> estudiantes = estudianteLogic.getEstudiantes();
+        ArrayList<EstudianteDTO> respuestas = new ArrayList<EstudianteDTO>();
+
+        for (EstudianteEntity ent: estudiantes){
+            EstudianteDTO estu = new EstudianteDTO(ent);
+            respuestas.add(estu);
+        }
+        return respuestas;
+    }
     /**
      * Crea un nuevo estudiante con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la

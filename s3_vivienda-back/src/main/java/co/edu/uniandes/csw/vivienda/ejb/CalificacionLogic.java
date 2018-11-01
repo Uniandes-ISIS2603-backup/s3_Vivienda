@@ -7,11 +7,13 @@ package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.CalificacionPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -33,6 +35,34 @@ public class CalificacionLogic {
     
     @Inject
     private ViviendaPersistence persistenceVivienda;
+    
+    public void generarDatos(){
+        Random rand = new Random();
+        
+        String [] descripciones = new String[]{"Muy buena experiencia", "Excelente!", "Recomendada", "Muy recomendada",
+            "Me siento afortunado de haber vivido ahí", "El arrendador es muy amable"};
+        Float [] puntajes = new Float[11];
+        for (int i = 0; i < 11; i ++)
+            puntajes[i] = new Float(0.5*i) ;
+        
+        List <EstudianteEntity>  estudinates = persistenceEstudiante.findAll();
+        List <ViviendaEntity>  viviendas = persistenceVivienda.findAll();
+        for (EstudianteEntity estudiante: estudinates){
+            int calificacionesDeEstudiante = rand.nextInt((viviendas.size() >= 3)? viviendas.size()/3+1:viviendas.size()+1);
+            int indiceVivienda = rand.nextInt(viviendas.size());
+            
+            for (int i = 0; i < calificacionesDeEstudiante; i ++){
+                CalificacionEntity calificacion = new CalificacionEntity();
+                calificacion.setDescripcion(descripciones[rand.nextInt(descripciones.length)]);
+                calificacion.setPuntaje(puntajes[rand.nextInt(puntajes.length)]);
+                calificacion.setEstudiante(estudiante);
+                int ind = Math.floorMod(indiceVivienda, viviendas.size());
+                calificacion.setVivienda(viviendas.get(ind));
+                persistence.create(calificacion);
+                indiceVivienda++;
+            }
+        }
+    }
     
     /**
      * Crea un calificacion en la persistencia.
