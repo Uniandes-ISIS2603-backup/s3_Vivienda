@@ -15,7 +15,6 @@ import java.util.logging.*;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 
-@Path("servicioAdicional")
 @Produces("application/json")
 @Consumes("application/json")
 

@@ -10,7 +10,10 @@
     <packaging>pom</packaging>
     <name>s3_univivienda</name>
  
-    <modules></modules>
+    <modules>
+        <module>s3_vivienda-back</module>
+        <module>s3_vivienda-api</module>
+    </modules>
     
     <repositories>
         <repository>
