@@ -13,7 +13,9 @@ import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -185,4 +187,37 @@ public class ViviendaContratosResource {
         }
         return list;
     }
+    
+//        public void generarDatos() 
+//    {
+//        List<ContratoEntity> contratosViejos = getContratos();
+//        
+//        for (ContratoEntity co : contratosViejos) 
+//        {
+//            try 
+//            {
+//                deleteContrato(co.getId());
+//            } 
+//            catch (Exception e) 
+//            {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//        Random rand = new Random();
+//        for (int i = 0; i < 10; i++) 
+//        {
+//            ContratoEntity c = new ContratoEntity();
+//            c.setMetodoPago("Metodo " + rand.nextInt(100));
+//            c.setFechaInicio(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
+//            c.setFechaFin(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
+//            try 
+//            {
+//                createContrato(c);
+//            } 
+//            catch (BusinessLogicException e)
+//            {
+//                e.printStackTrace();
+//            }
+//        }
 }
