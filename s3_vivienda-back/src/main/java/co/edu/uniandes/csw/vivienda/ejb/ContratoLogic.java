@@ -9,7 +9,9 @@ import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 //import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 //import java.util.logging.Level;
@@ -23,7 +25,7 @@ import javax.inject.Inject;
  */
 @Stateless
 public class ContratoLogic {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ContratoLogic.class.getName());
 
     @Inject
@@ -35,10 +37,11 @@ public class ContratoLogic {
     /**
      * Guardar un nuevo contrato
      *
-     * @param contratoEntity La entidad de tipo contrato del nuevo contrato a persistir.
+     * @param contratoEntity La entidad de tipo contrato del nuevo contrato a
+     * persistir.
      * @return La entidad luego de persistirla
-     * @throws BusinessLogicException Si el metodoPago es inválido o ya existe en la
-     * persistencia.
+     * @throws BusinessLogicException Si el metodoPago es inválido o ya existe
+     * en la persistencia.
      */
     public ContratoEntity createContrato(ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del contrato");
@@ -71,7 +74,7 @@ public class ContratoLogic {
      * @param contratoId El id del contrato a buscar
      * @return El contrato encontrado, null si no lo encuentra.
      */
-    public ContratoEntity getContrato(Long contratoId)  {
+    public ContratoEntity getContrato(Long contratoId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato con id = {0}", contratoId);
         ContratoEntity contratoEntity = persistence.find(contratoId);
         if (contratoEntity == null) {
@@ -80,7 +83,7 @@ public class ContratoLogic {
         LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato con id = {0}", contratoId);
         return contratoEntity;
     }
-    
+
 
     /**
      * Actualizar un contrato por ID
@@ -88,12 +91,12 @@ public class ContratoLogic {
      * @param contratoId El ID del contrato a actualizar
      * @param contratoEntity La entidad del contrato con los cambios deseados
      * @return La entidad del contrato luego de actualizarla
-     * @throws BusinessLogicException Si el metodoPago de la actualización es inválido
+     * @throws BusinessLogicException Si el metodoPago de la actualizacion es
+     * invalido
      */
     public ContratoEntity updateContrato(Long contratoId, ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el contrato con id = {0}", contratoId);
-        if (!validateMetodoPago(contratoEntity.getMetodoPago()))
-        {
+        if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
             throw new BusinessLogicException("El metodoPago es inválido");
         }
         ContratoEntity newEntity = persistence.update(contratoEntity);
@@ -118,19 +121,52 @@ public class ContratoLogic {
      * @param metodoPago a verificar
      * @return true si el metodoPago es valido.
      */
-    private boolean validateMetodoPago(String metodoPago)
-    {
+    private boolean validateMetodoPago(String metodoPago) {
         return !(metodoPago == null || metodoPago.isEmpty());
     }
-    
+
     /**
      * Verifica que el id no sea invalido.
      *
      * @param id a verificar
      * @return true si el metodoPago es valido.
      */
-    private boolean validateId(Long id)
+    private boolean validateId(Long id) {
+        return !(id == null || id < 0);
+    }
+
+    public void generarDatos() 
     {
-        return !(id == null || id <0);
+        List<ContratoEntity> contratosViejos = getContratos();
+        
+        for (ContratoEntity co : contratosViejos) 
+        {
+            try 
+            {
+                deleteContrato(co.getId());
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+
+        Random rand = new Random();
+        for (int i = 0; i < 10; i++) 
+        {
+            ContratoEntity c = new ContratoEntity();
+            c.setMetodoPago("Metodo " + rand.nextInt(100));
+            c.setFechaInicio(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
+            c.setFechaFin(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
+            try 
+            {
+                createContrato(c);
+            } 
+            catch (BusinessLogicException e)
+            {
+                e.printStackTrace();
+            }
+        }
+
     }
 }
