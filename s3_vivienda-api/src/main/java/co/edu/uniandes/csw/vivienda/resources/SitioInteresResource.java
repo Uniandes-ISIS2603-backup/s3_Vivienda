@@ -8,7 +8,9 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.dtos.SitioInteresDTO;
 import co.edu.uniandes.csw.vivienda.dtos.SitioInteresDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
+import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,11 +34,15 @@ import javax.ws.rs.WebApplicationException;
  */
 @Produces("application/json")
 @Consumes("application/json")
+@Path("sitiosInteres")
 public class SitioInteresResource {
     private static final Logger LOGGER = Logger.getLogger(SitioInteresResource.class.getName());
     
     @Inject 
     SitioInteresLogic sitioInteresLogic;
+    
+    @Inject
+    ViviendaLogic viviendaLogic;
     
        /**
      * Crea un nuevo sitioInteres con la informacion que se recibe en el cuerpo de la
@@ -59,6 +65,25 @@ public class SitioInteresResource {
         return sitioInteresDTO;
     }
     
+    @POST
+    @Path("generardatos")
+    public List<SitioInteresDTO> generarDatos() {
+        
+        List<ViviendaEntity> viviendas = viviendaLogic.getViviendas();
+        List<SitioInteresDTO> sitios = new ArrayList<SitioInteresDTO>();
+        for(ViviendaEntity vivienda: viviendas)
+        {
+        sitioInteresLogic.generarDatos(vivienda.getId());
+        List<SitioInteresEntity> sitiosInteres = sitioInteresLogic.getSitiosInteres(vivienda.getId());
+        for(SitioInteresEntity sitio: sitiosInteres)
+        {
+            SitioInteresDTO sitioDTO = new SitioInteresDTO(sitio);
+            sitios.add(sitioDTO);
+        }
+
+        }
+        return sitios;
+    }
     /**
      * Remplaza las instancias de SitioInteres asociadas a una instancia de Vivienda
      *

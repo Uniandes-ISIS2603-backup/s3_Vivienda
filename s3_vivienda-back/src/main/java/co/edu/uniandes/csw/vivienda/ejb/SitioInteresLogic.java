@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.SitioInteresPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -139,5 +140,32 @@ public class SitioInteresLogic
         ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar los sitioInteres asociados a la vivienda con id = {0}", viviendaId);
         return viviendaEntity.getSitiosDeInteres();
+    }
+    
+    public void generarDatos(Long viviendaId)
+    {
+        List<SitioInteresEntity> sitios = getSitiosInteres(viviendaId);
+        for (SitioInteresEntity sitio : sitios) {
+            try {
+                deleteSitioInteres(viviendaId,sitio.getId());
+            } catch (BusinessLogicException e) {
+                e.printStackTrace();
+            }
+        }
+        Random rand = new Random();
+        for (int i = 0; i < 3; i++) {
+            SitioInteresEntity sitio = new SitioInteresEntity();
+            sitio.setNombre("SitioInteres"+ (i+1));
+            sitio.setDescripcion("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+            sitio.setLatitud(rand.nextFloat());
+            sitio.setLongitud(rand.nextFloat());
+            sitio.setImg("assets/img/sitioInteres" + (i+1) + ".jpg");
+            
+            try {
+                createSitioInteres(viviendaId,sitio);
+            } catch (BusinessLogicException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

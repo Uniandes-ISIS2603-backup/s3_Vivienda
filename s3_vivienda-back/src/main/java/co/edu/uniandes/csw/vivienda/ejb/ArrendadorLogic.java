@@ -9,7 +9,10 @@ import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ArrendadorPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -25,6 +28,9 @@ public class ArrendadorLogic {
     private static final Logger LOGGER = Logger.getLogger(ArrendadorLogic.class.getName());
     @Inject
     private ArrendadorPersistence arrendadorPersistence;
+    
+    @Inject
+    private ViviendaPersistence viviendaPersistence;
     
         /**
      *
@@ -134,5 +140,31 @@ public class ArrendadorLogic {
         List<ArrendadorEntity> arrendadores = arrendadorPersistence.findAll();
         LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores");
         return arrendadores;
+    }
+    
+    public void generarDatos()
+    {
+        List<ArrendadorEntity> arrendadores = getArrendadores();
+        for(ArrendadorEntity arrendador: arrendadores)
+        {
+            arrendadorPersistence.delete(arrendador.getId());
+        }
+        
+        Random rand = new Random();
+        String[] nombres = new String[]{"Mateo", "Juan", "Pedro","Camilo", "Jesus"};
+        for (int i = 0; i < 10; i++) {
+            ArrendadorEntity arrendador = new ArrendadorEntity();
+            String nombre = nombres[rand.nextInt(nombres.length)];
+            arrendador.setNombre(nombre);
+            arrendador.setLogin(nombre + (i+1));
+            arrendador.setPassword("asdf" + i+1);
+            List<ViviendaEntity> viviendas = viviendaPersistence.findAll();
+            arrendador.setViviendas(viviendas);
+            try {
+                createArrendador(arrendador);
+            } catch (BusinessLogicException ex) {
+                Logger.getLogger(ArrendadorLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }
