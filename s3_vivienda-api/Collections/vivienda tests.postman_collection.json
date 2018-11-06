@@ -12,7 +12,6 @@
 					"listen": "test",
 					"script": {
 						"id": "4df6494e-998a-4a37-b838-d0bed0f14ca3",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"direccionExistente\", data.direccion)",
@@ -23,7 +22,8 @@
 							"",
 							"",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -37,17 +37,17 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
+					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"imgUrl\": \"url\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						""
@@ -64,11 +64,11 @@
 					"listen": "test",
 					"script": {
 						"id": "f27f7f64-032f-4fd7-8424-899463b0f088",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"No crea una vivienda con dirección igual a otra\"] = responseCode.code === 412;",
 							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"Ya existe una vivienda en la misma dirección\");"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -85,14 +85,14 @@
 					"raw": "{\r\n  \"direccion\":\"{{direccionExistente}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						""
@@ -109,31 +109,34 @@
 					"listen": "test",
 					"script": {
 						"id": "556e5454-1fa0-44d0-8f8c-3d534bb0e9fa",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"tests[\"Status code 200\"] = responseCode.code === 200;",
 							"tests[\"Devuelve la vivienda esperada\"] == data.id === pm.globals.get(\"viviendaId\")"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/124",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
-						"{{viviendaId}}"
+						"124"
 					]
 				},
 				"description": "Retorna la vivienda con el id dado si existe"
@@ -147,10 +150,10 @@
 					"listen": "test",
 					"script": {
 						"id": "f879aca9-eeb8-4a11-9fa8-e36a19a9d432",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"El post no genera error\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -159,14 +162,14 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas"
 					]
@@ -182,12 +185,12 @@
 					"listen": "test",
 					"script": {
 						"id": "03f0490c-ba7b-4b1a-838c-bbeed6264812",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"tests[\"El post no genera error\"] = responseCode.code === 200;",
 							"tests[\"El json recibido concuerda con el json enviado\"] = (data.nombre===\"Un nuevo nombre\")"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -204,14 +207,14 @@
 					"raw": "{\"nombre\": \"Un nuevo nombre\"}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}"
@@ -228,10 +231,10 @@
 					"listen": "test",
 					"script": {
 						"id": "95c548c5-8087-4cf4-be73-e31c7da92875",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"El delete no genera error\"] = responseCode.code === 204;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -240,20 +243,46 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}"
 					]
 				},
 				"description": "Elimina la vivienda con el id dado."
+			},
+			"response": []
+		},
+		{
+			"name": "Generar datos",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"generardatos"
+					]
+				}
 			},
 			"response": []
 		}
