@@ -66,6 +66,20 @@ public class ArrendadorResource {
         return nuevoArrendadorDTO;
     }
     
+    @POST
+    @Path("generardatos")
+    public List<ArrendadorDTO> generarDatos() {
+        arrendadorLogic.generarDatos();
+        List<ArrendadorEntity> arrendadores = arrendadorLogic.getArrendadores();
+        ArrayList<ArrendadorDTO> respuestas = new ArrayList<ArrendadorDTO>();
+
+        for (ArrendadorEntity ent: arrendadores){
+            ArrendadorDTO arrendador = new ArrendadorDTO(ent);
+            respuestas.add(arrendador);
+        }
+        return respuestas;
+    }
+    
         /**
      * Busca y devuelve todas los arrendadores que existen en la aplicacion.
      *
