@@ -153,7 +153,7 @@ public class CuartoLogicTest {
             viviendaLogic.createVivienda(viviendaEntity);
             List<CuartoEntity> cuartos = cuartoLogic.getCuartos(viviendaEntity.getId());
             Assert.assertEquals(cuartos.size(), 0);
-        } catch (BusinessLogicException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

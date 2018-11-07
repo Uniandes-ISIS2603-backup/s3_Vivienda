@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.WebApplicationException;
 
 /**
  *
@@ -25,10 +26,21 @@ public class ViviendaLogic {
     @Inject
     private ViviendaPersistence persistence;
     
-    public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException{
+    public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException, WebApplicationException {
+
+        if (viviendaEntity.getNombre() == null || viviendaEntity.getNombre().isEmpty()) {
+            throw new WebApplicationException("La vivienda debe tener un nombre");
+        }
+        if (viviendaEntity.getCiudad() == null || viviendaEntity.getCiudad().isEmpty()) {
+            throw new WebApplicationException("La vivienda debe tener una ciudad");
+        }
+        if (viviendaEntity.getDireccion() == null || viviendaEntity.getDireccion().isEmpty()) {
+            throw new WebApplicationException("La vivienda debe tener una dirección");
+        }
+
         String ciudad = viviendaEntity.getCiudad();
         String direccion = viviendaEntity.getDireccion();
-        
+
         ViviendaEntity direccionRepetida = persistence.buscarPorDireccion(ciudad, direccion);
 
         if (direccionRepetida == null){
@@ -97,7 +109,7 @@ public class ViviendaLogic {
             v.setServiciosIncluidos(serviciosIncluidos);
             try {
                 createVivienda(v);
-            } catch (BusinessLogicException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

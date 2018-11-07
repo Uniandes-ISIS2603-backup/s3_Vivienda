@@ -92,7 +92,7 @@ public class ViviendaLogicTest {
             logic.createVivienda(entity);
             ViviendaEntity busq = em.find(ViviendaEntity.class, entity.getId());
             Assert.assertEquals(busq.getNombre(), entity.getNombre());
-        } catch (BusinessLogicException e){
+        } catch (Exception e){
             Assert.fail("Se debería crear");
         }
 
@@ -101,7 +101,7 @@ public class ViviendaLogicTest {
         try {
             logic.createVivienda(direccionRepetida);
             Assert.fail("La dirección ya existía");
-        } catch (BusinessLogicException e){
+        } catch (Exception e){
         }
     }
 
