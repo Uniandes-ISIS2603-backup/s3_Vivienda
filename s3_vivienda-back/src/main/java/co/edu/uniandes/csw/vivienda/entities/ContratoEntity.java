@@ -17,7 +17,6 @@ import javax.persistence.*;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
- *
  * @author estudiante
  */
 @Entity
@@ -28,87 +27,64 @@ public class ContratoEntity extends BaseEntity implements Serializable {
 
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
-    
+
     private int metodoPago;
 
     @PodamExclude
-    @OneToOne(optional = false, fetch = javax.persistence.FetchType.LAZY)
+    @OneToOne(fetch = javax.persistence.FetchType.LAZY)
     private EstudianteEntity estudiante;
 
     @PodamExclude
-    @ManyToOne(optional = false, fetch = javax.persistence.FetchType.LAZY)
+    @ManyToOne(cascade=CascadeType.MERGE, fetch=javax.persistence.FetchType.LAZY)
     private ViviendaEntity vivienda;
 
     @PodamExclude
     @OneToMany(
             mappedBy = "contrato",
+            cascade = CascadeType.PERSIST, orphanRemoval = true,
             fetch = javax.persistence.FetchType.LAZY)
     private List<ServicioAdicionalEntity> serviciosAdicionalesAgregados;
 
-    
+
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() 
-    {
-        Date date = null;
-        try 
-        {
-            date= getDateWithoutTimeUsingFormat(fechaInicio);
-        } 
-        catch (ParseException ex) 
-        {
-            Logger.getLogger(ContratoEntity.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return date;
+    public Date getFechaInicio() {
+        return fechaInicio;
     }
 
     /**
      * @param fechaInicio the fechaInicio to set
      */
-    public void setFechaInicio(Date fechaInicio)
-    {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
      * @return the fechaFin
      */
-    public Date getFechaFin() 
-    {
-                Date date = null;
-        try 
-        {
-            date= getDateWithoutTimeUsingFormat(fechaFin);
-        } 
-        catch (ParseException ex) 
-        {
-            Logger.getLogger(ContratoEntity.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return date;
+    public Date getFechaFin() {
+        return fechaFin;
     }
 
     /**
      * @param fechaFin the fechaFin to set
      */
-    public void setFechaFin(Date fechaFin)
-    {
+    public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
 
     /**
      * @return the metodoPago
      */
-    public int getMetodoPago()
-    {
+    public int getMetodoPago() {
         return metodoPago;
     }
 
     /**
      * @param metodoPago the metodoPago to set
      */
-    public void setMetodoPago(int metodoPago)
-    {
+    public void setMetodoPago(int metodoPago) {
         this.metodoPago = metodoPago;
     }
 
@@ -117,8 +93,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      *
      * @return Una entidad de estudiante.
      */
-    public EstudianteEntity getEstudiante() 
-    {
+    public EstudianteEntity getEstudiante() {
         return estudiante;
     }
 
@@ -127,8 +102,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      *
      * @param estudianteEntity El nuevo estudiante.
      */
-    public void setEstudiante(EstudianteEntity estudianteEntity) 
-    {
+    public void setEstudiante(EstudianteEntity estudianteEntity) {
         this.estudiante = estudianteEntity;
     }
 
@@ -146,25 +120,21 @@ public class ContratoEntity extends BaseEntity implements Serializable {
      *
      * @param viviendaEntity La nueva vivienda.
      */
-    public void setVivienda(ViviendaEntity viviendaEntity)
-    {
+    public void setVivienda(ViviendaEntity viviendaEntity) {
         this.vivienda = viviendaEntity;
     }
 
-    public List<ServicioAdicionalEntity> getServiciosAdicionalesAgregados()
-    {
+    public List<ServicioAdicionalEntity> getServiciosAdicionalesAgregados() {
         return serviciosAdicionalesAgregados;
     }
 
-    public void setServiciosAdicionalesAgregados(List<ServicioAdicionalEntity> serviciosAdicionalesAgregados)
-    {
+    public void setServiciosAdicionalesAgregados(List<ServicioAdicionalEntity> serviciosAdicionalesAgregados) {
         this.serviciosAdicionalesAgregados = serviciosAdicionalesAgregados;
     }
 
-        public static Date getDateWithoutTimeUsingFormat(Date date) throws ParseException
-    {
+    public static Date getDateWithoutTimeUsingFormat(Date date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.parse(formatter.format(date));
-        
+
     }
 }

@@ -121,8 +121,8 @@ public class ContratoLogic {
      * @param metodoPago a verificar
      * @return true si el metodoPago es valido.
      */
-    private boolean validateMetodoPago(String metodoPago) {
-        return !(metodoPago == null || metodoPago.isEmpty());
+    private boolean validateMetodoPago(int metodoPago) {
+        return metodoPago < 0;
     }
 
     /**
@@ -155,7 +155,7 @@ public class ContratoLogic {
         for (int i = 0; i < 10; i++) 
         {
             ContratoEntity c = new ContratoEntity();
-            c.setMetodoPago("Metodo " + rand.nextInt(100));
+            c.setMetodoPago(rand.nextInt(100));
             c.setFechaInicio(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
             c.setFechaFin(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
             try 

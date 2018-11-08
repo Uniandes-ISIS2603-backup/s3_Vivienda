@@ -5,11 +5,15 @@
  */
 package co.edu.uniandes.csw.vivienda.dtos;
 
+import co.edu.uniandes.csw.vivienda.adapters.DateAdapter;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 
 /**
  *
@@ -17,9 +21,26 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ContratoDTO implements Serializable {
 
+    /**
+     * Identificador del contrato
+     */
     private Long id;
+
+    /**
+     * Fecha de inicio del contrato
+     */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaInicio;
+
+    /**
+     * Fecha de fin para el contrato
+     */
+    @XmlJavaTypeAdapter(DateAdapter.class)
     private Date fechaFin;
+
+    /**
+     * Metodo de pago del contrato
+     */
     private int metodoPago;
 
     /**
