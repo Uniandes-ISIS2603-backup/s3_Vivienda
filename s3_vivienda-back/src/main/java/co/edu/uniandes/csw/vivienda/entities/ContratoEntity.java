@@ -45,7 +45,6 @@ public class ContratoEntity extends BaseEntity implements Serializable {
             fetch = javax.persistence.FetchType.LAZY)
     private List<ServicioAdicionalEntity> serviciosAdicionalesAgregados;
 
-
     /**
      * @return the fechaInicio
      */
