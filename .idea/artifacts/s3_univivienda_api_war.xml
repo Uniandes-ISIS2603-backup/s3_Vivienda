@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="s3_univivienda-api:war">
-    <output-path>$PROJECT_DIR$/s3_vivienda-api/target</output-path>
-    <root id="archive" name="s3_univivienda-api-1.0.war">
-      <element id="artifact" artifact-name="s3_univivienda-api:war exploded" />
-    </root>
-  </artifact>
-</component>
