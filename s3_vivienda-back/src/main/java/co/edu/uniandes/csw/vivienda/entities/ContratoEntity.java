@@ -29,7 +29,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaFin;
     
-    private String metodoPago;
+    private int metodoPago;
 
     @PodamExclude
     @OneToOne(optional = false, fetch = javax.persistence.FetchType.LAZY)
@@ -99,7 +99,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     /**
      * @return the metodoPago
      */
-    public String getMetodoPago()
+    public int getMetodoPago()
     {
         return metodoPago;
     }
@@ -107,7 +107,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     /**
      * @param metodoPago the metodoPago to set
      */
-    public void setMetodoPago(String metodoPago)
+    public void setMetodoPago(int metodoPago)
     {
         this.metodoPago = metodoPago;
     }

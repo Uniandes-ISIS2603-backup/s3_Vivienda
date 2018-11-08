@@ -20,7 +20,7 @@ public class ContratoDTO implements Serializable {
     private Long id;
     private Date fechaInicio;
     private Date fechaFin;
-    private String metodoPago;
+    private int metodoPago;
 
     /**
      * Relación a una vivienda, dado que esta tiene cardinalidad 1.
@@ -131,14 +131,14 @@ public class ContratoDTO implements Serializable {
     /**
      * @return the MetodoPago
      */
-    public String getMetodoPago() {
+    public int getMetodoPago() {
         return metodoPago;
     }
 
     /**
      * @param metodoPago the MetodoPago to set
      */
-    public void setMetodoPago(String metodoPago) {
+    public void setMetodoPago(int metodoPago) {
         this.metodoPago = metodoPago;
     }
 

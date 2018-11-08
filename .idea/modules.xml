@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/s3_univivienda.iml" filepath="$PROJECT_DIR$/s3_univivienda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/s3_vivienda-api/s3_univivienda-api.iml" filepath="$PROJECT_DIR$/s3_vivienda-api/s3_univivienda-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/s3_vivienda-back/s3_univivienda-back.iml" filepath="$PROJECT_DIR$/s3_vivienda-back/s3_univivienda-back.iml" />
+    </modules>
+  </component>
+</project>

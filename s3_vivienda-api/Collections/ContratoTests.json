@@ -33,14 +33,14 @@
 					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						""
@@ -81,14 +81,14 @@
 					"raw": "{\n\t\"fechaInicio\":\"2016-11-22\",\n\t\"fechaFin\":\"2017-11-22\",\n\t\"metodoPago\": \"Efectivo\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}/contratos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
@@ -128,14 +128,14 @@
 					"raw": "{\n\t\"fechaInicio\":\"2016-11-22\",\n\t\"fechaFin\":\"2017-11-22\"}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}/contratos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
@@ -168,14 +168,14 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
@@ -217,14 +217,14 @@
 					"raw": "{\n\t\"metodoPago\": \"Efectivo\"\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
@@ -264,14 +264,14 @@
 					"raw": "{\n\t\"metodoPago\": 0\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
@@ -302,14 +302,14 @@
 				"header": [],
 				"body": {},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_univivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
 					],
 					"port": "{{puerto}}",
 					"path": [
-						"s3_univivienda-api",
+						"s3_vivienda-api",
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
