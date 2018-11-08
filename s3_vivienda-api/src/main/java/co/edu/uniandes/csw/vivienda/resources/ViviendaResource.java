@@ -42,12 +42,15 @@ public class ViviendaResource {
     private static final Logger LOGGER = Logger.getLogger(ViviendaResource.class.getName());
         
     @POST
-    public ViviendaDTO createVivienda(ViviendaDTO vivienda) throws BusinessLogicException{
+    public ViviendaDTO createVivienda(ViviendaDTO vivienda) throws BusinessLogicException, WebApplicationException {
         LOGGER.log(Level.INFO, "ViviendaResource.createVivienda: input:{0}", vivienda.toString());
         ViviendaEntity viviendaEntity = vivienda.toEntity();
-     
-        ViviendaEntity newViviendaEntity = logic.createVivienda(viviendaEntity);
-        
+
+
+        ViviendaEntity newViviendaEntity = null;
+        newViviendaEntity = logic.createVivienda(viviendaEntity);
+
+
         ViviendaDTO nuevoViviendaDTO = new ViviendaDTO(newViviendaEntity);
         return nuevoViviendaDTO;
     }
