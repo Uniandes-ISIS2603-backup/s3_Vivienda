@@ -24,6 +24,7 @@ public class UniversidadEntity extends BaseEntity implements Serializable
     private String nombre;
     private Float latitud;
     private Float longitud;
+    private String imgUrl;
     
     @PodamExclude
     @OneToMany(mappedBy = "universidad")
@@ -58,6 +59,14 @@ public class UniversidadEntity extends BaseEntity implements Serializable
     
     public void setEstudiantes(List<EstudianteEntity> est) {
         this.estudiantes = est;
+    }
+    
+      public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
     
 }
