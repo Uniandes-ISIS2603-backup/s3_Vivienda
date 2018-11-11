@@ -10,9 +10,10 @@ import uk.co.jemos.podam.common.PodamExclude;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-
+import javax.persistence.FetchType;
 /**
  *
  * @author msalcedo
@@ -25,9 +26,7 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
     private String password;
 
     @PodamExclude
-    @OneToMany(
-        mappedBy="arrendador",
-        fetch=javax.persistence.FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "arrendador", fetch=FetchType.LAZY)
     private List<ViviendaEntity> viviendas = new ArrayList<>();
     
     /**

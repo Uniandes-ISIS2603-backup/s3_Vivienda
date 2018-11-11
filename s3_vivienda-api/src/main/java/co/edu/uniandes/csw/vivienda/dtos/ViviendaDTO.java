@@ -8,6 +8,8 @@ package co.edu.uniandes.csw.vivienda.dtos;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import java.io.Serializable;
 import java.util.List;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 
 public class ViviendaDTO implements Serializable{
@@ -151,5 +153,10 @@ public class ViviendaDTO implements Serializable{
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+    
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }
