@@ -9,7 +9,8 @@ import co.edu.uniandes.csw.vivienda.dtos.UniversidadDTO;
 import co.edu.uniandes.csw.vivienda.dtos.UniversidadDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.UniversidadLogic;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
-import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.vivienda.exceptions.*;
+import co.edu.uniandes.csw.vivienda.mappers.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.*;
@@ -40,8 +41,8 @@ public class UniversidadResource {
      * la petición y se regresa un objeto identico con un id auto-generado por
      * la base de datos.
      *
-     * @param universidad {@link UniversdiadDTO} - La universidad que se desea guardar.
-     * @return JSON {@link UniversdiadDTO} - La universdiad guardada con el atributo id autogenerado.
+     * @param universidad {@link UniversidadDTO} - La universidad que se desea guardar.
+     * @return JSON {@link UniversidadDTO} - La universidad guardada con el atributo id autogenerado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
      * Error de lógica que se genera cuando ya existe la universidad.
      */
@@ -99,7 +100,7 @@ public class UniversidadResource {
      * Actualiza la universidad con el id recibido en la URL con la informacion
      * que se recibe en el cuerpo de la petición.
      *
-     * @param universidadId Identificador de la universdiad que se desea
+     * @param universidadId Identificador de la universidad que se desea
      * actualizar. Este debe ser una cadena de dígitos.
      * @param universidad {@link UniversidadDetailDTO} La editorial que se desea guardar.
      * @return JSON {@link UniversidadDetailDTO} - La universidad guardada.

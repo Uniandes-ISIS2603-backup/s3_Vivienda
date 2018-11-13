@@ -176,7 +176,7 @@ public class ContratoLogic {
         for (int i = 0; i < 10; i++) {
             ContratoEntity c = new ContratoEntity();
             c.setMetodoPago(rand.nextInt(100));
-            int anio = rand.nextInt(2018);
+            int anio = rand.nextInt(5) + 2011;
             int mes = rand.nextInt(12);
             int dia = rand.nextInt(28);
             c.setFechaInicio(anio + "-" + mes + "-" + dia + "");
