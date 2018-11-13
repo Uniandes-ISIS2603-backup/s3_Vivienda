@@ -59,6 +59,20 @@ public class ContratoResource {
         return nuevoBookDTO;
     }
 
+    @POST
+    @Path("generardatos")
+    public List<ContratoDTO> generarDatos() {
+        contratoLogic.generarDatos();
+        List<ContratoEntity> contratos = contratoLogic.getContratos();
+        ArrayList<ContratoDTO> respuestas = new ArrayList<ContratoDTO>();
+
+        for (ContratoEntity ent: contratos){
+            ContratoDTO contratodto = new ContratoDTO(ent);
+            respuestas.add(contratodto);
+        }
+        return respuestas;
+    }
+
     /**
      * Busca y devuelve todos los contratos que existen en la aplicacion.
      *

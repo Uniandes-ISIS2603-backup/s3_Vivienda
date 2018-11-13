@@ -29,14 +29,14 @@ public class ContratoDTO implements Serializable {
     /**
      * Fecha de inicio del contrato
      */
-    @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date fechaInicio;
+//    @XmlJavaTypeAdapter(DateAdapter.class)
+    private String fechaInicio;
 
     /**
      * Fecha de fin para el contrato
      */
-    @XmlJavaTypeAdapter(DateAdapter.class)
-    private Date fechaFin;
+//    @XmlJavaTypeAdapter(DateAdapter.class)
+    private String fechaFin;
 
     /**
      * Metodo de pago del contrato
@@ -124,28 +124,28 @@ public class ContratoDTO implements Serializable {
     /**
      * @return the FechaInicio
      */
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @param fechaInicio the FechaInicio to set
      */
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
      * @return the FechaFin
      */
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
     /**
      * @param fechaFin the FechaFin to set
      */
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 

@@ -22,11 +22,11 @@ import uk.co.jemos.podam.common.PodamExclude;
 @Entity
 public class ContratoEntity extends BaseEntity implements Serializable {
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+//    @Temporal(TemporalType.DATE)
+    private String fechaInicio;
 
-    @Temporal(TemporalType.DATE)
-    private Date fechaFin;
+//    @Temporal(TemporalType.DATE)
+    private String fechaFin;
 
     private int metodoPago;
 
@@ -48,28 +48,28 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     /**
      * @return the fechaInicio
      */
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @param fechaInicio the fechaInicio to set
      */
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
      * @return the fechaFin
      */
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
     /**
      * @param fechaFin the fechaFin to set
      */
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
@@ -134,6 +134,5 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     public static Date getDateWithoutTimeUsingFormat(Date date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.parse(formatter.format(date));
-
     }
 }

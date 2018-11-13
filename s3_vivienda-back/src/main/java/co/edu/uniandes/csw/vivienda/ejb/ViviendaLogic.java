@@ -17,15 +17,14 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *
  * @author DANIEL
  */
 @Stateless
 public class ViviendaLogic {
-    
+
     @Inject
     private ViviendaPersistence persistence;
-    
+
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException, WebApplicationException {
 
         if (viviendaEntity.getNombre() == null || viviendaEntity.getNombre().isEmpty()) {
@@ -43,36 +42,35 @@ public class ViviendaLogic {
 
         ViviendaEntity direccionRepetida = persistence.buscarPorDireccion(ciudad, direccion);
 
-        if (direccionRepetida == null){
+        if (direccionRepetida == null) {
             viviendaEntity = persistence.create(viviendaEntity);
-            return(viviendaEntity);
-        }
-        else {
+            return (viviendaEntity);
+        } else {
             throw new BusinessLogicException("Ya existe una vivienda en la misma dirección");
         }
     }
-    
-    public ViviendaEntity getVivienda(Long id){
+
+    public ViviendaEntity getVivienda(Long id) {
         ViviendaEntity viviendaEntity = persistence.find(id);
         return viviendaEntity;
     }
-    
-    public List<ViviendaEntity> getViviendas(){
+
+    public List<ViviendaEntity> getViviendas() {
         List<ViviendaEntity> viviendas = persistence.findAll();
         return viviendas;
     }
-    
-    public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity) throws BusinessLogicException{
-        if(persistence.find(id) == null){
+
+    public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity) throws BusinessLogicException {
+        if (persistence.find(id) == null) {
             throw new BusinessLogicException("La universidad con el id dado no existe");
         }
         viviendaEntity.setId(id);
         ViviendaEntity newVivienda = persistence.update(viviendaEntity);
         return newVivienda;
     }
-    
-    public void deleteVivienda(Long viviendaId) throws BusinessLogicException{
-        if(persistence.find(viviendaId)==null){
+
+    public void deleteVivienda(Long viviendaId) throws BusinessLogicException {
+        if (persistence.find(viviendaId) == null) {
             throw new BusinessLogicException("La vivienda no existe");
         }
         persistence.delete(viviendaId);
