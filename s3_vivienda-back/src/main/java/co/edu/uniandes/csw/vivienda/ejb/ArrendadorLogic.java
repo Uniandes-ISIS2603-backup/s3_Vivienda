@@ -80,7 +80,7 @@ public class ArrendadorLogic {
         if (arrendadorExiste == null){
             arrendadorEntity = arrendadorPersistence.create(arrendadorEntity);
             LOGGER.log(Level.INFO, "Termina proceso de creación del arrendador");
-            return(arrendadorEntity);
+            return arrendadorEntity;
         }
         else {
             throw new BusinessLogicException("Ya existe un arrendador con ese login");
@@ -146,17 +146,7 @@ public class ArrendadorLogic {
     }
     
     public List<ArrendadorEntity> generarDatos()
-    {
-         List<ViviendaEntity> viviendasViejas = viviendaLogic.getViviendas();
-        for (ViviendaEntity vi : viviendasViejas) {
-            try {
-                viviendaLogic.deleteVivienda(vi.getId());
-            } catch (BusinessLogicException e) {
-                e.printStackTrace();
-            }
-        }
-        viviendaLogic.generarDatos();
-        
+    {       
         List<ArrendadorEntity> arrendadores = getArrendadores();
         for(ArrendadorEntity arrendador: arrendadores)
         {
@@ -176,6 +166,11 @@ public class ArrendadorLogic {
             arrendador.setViviendas(viviendas);
             try {
                 ArrendadorEntity arrendador2 = createArrendador(arrendador);
+                if(i<viviendas.size()){
+                ViviendaEntity vivienda = viviendas.get(i);
+                vivienda.setArrendador(arrendador2);                
+                viviendaLogic.updateVivienda(vivienda.getId(), vivienda);
+                }
                 arrendadores.add(arrendador2);
             } catch (BusinessLogicException ex) {
                 Logger.getLogger(ArrendadorLogic.class.getName()).log(Level.SEVERE, null, ex);

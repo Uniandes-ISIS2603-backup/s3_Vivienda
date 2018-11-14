@@ -70,6 +70,7 @@ public class ArrendadorResource {
     @Path("generardatos")
     public List<ArrendadorDetailDTO> generarDatos() {
         List<ArrendadorEntity> arrendadores = arrendadorLogic.generarDatos();
+        
         ArrayList<ArrendadorDetailDTO> respuestas = new ArrayList<ArrendadorDetailDTO>();
         
         for (ArrendadorEntity ent: arrendadores){
