@@ -66,6 +66,8 @@ public class CuartoLogic {
         if(cuartoEntity.getCostoArriendo() != null && cuartoEntity.getCostoArriendo() <= 0){
             throw new BusinessLogicException("El cuarto debe tener un costo de arriendo");
         }
+        ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
+        cuartoEntity.setVivienda(vivienda);
         cuartoEntity.setId(cuartoId);
         cuartoPersistence.update(cuartoEntity);
         return cuartoEntity;
