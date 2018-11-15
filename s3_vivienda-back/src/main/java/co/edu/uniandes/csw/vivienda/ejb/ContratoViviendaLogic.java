@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
+
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -30,6 +32,24 @@ public class ContratoViviendaLogic {
 
     @Inject
     private ViviendaPersistence viviendaPersistence;
+
+    /**
+     * Obtiene una instancia de viviendaEntity asociada a una instancia de Book
+     *
+     * @param contratoId Identificador de la instancia de Book
+     * @param viviendaId Identificador de la instancia de Author
+     * @return La entidad del Autor asociada al libro
+     */
+    public ViviendaEntity getVivienda(Long contratoId, Long viviendaId) {
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar una vivienda del contrato con id = {0}", contratoId);
+        ViviendaEntity vivienda = contratoPersistence.find(contratoId).getVivienda();
+//        ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar una vivienda del contrato con id = {0}", contratoId);
+        if (vivienda != null) {
+            return vivienda;
+        }
+        return null;
+    }
 
     /**
      * Remplazar la vivienda de un contrato.

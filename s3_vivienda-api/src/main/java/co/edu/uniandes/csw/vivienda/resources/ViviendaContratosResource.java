@@ -66,7 +66,7 @@ public class ViviendaContratosResource {
             throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
         }
         ContratoDTO contratoDTO = new ContratoDTO(viviendaContratosLogic.addContrato(contratoId, viviendaId));
-        LOGGER.log(Level.INFO, "EditorialBooksResource addBook: output: {0}", contratoDTO.toString());
+        LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: output: {0}", contratoDTO.toString());
         return contratoDTO;
     }
     

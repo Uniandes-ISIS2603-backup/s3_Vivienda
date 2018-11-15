@@ -7,19 +7,17 @@ package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ViviendaDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper;
+
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -41,6 +39,24 @@ public class ContratoViviendaResource {
 
     @Inject
     private ViviendaLogic viviendaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+
+    /**
+     * Da la vivienda que esta asociada con el contrato
+     * @param contratoId - Identificador del contrato
+     * @param viviendaId - Identificador de la vivienda asociada con un contrato
+     * @return
+     */
+    @GET
+    @Path("{viviendaId: \\d+}")
+    public ViviendaDetailDTO getVivienda(@PathParam("contratoId") Long contratoId, @PathParam("viviendaId") Long viviendaId) {
+        LOGGER.log(Level.INFO, "ContratoViviendaResource getVivienda: input: contratoId {0} , viviendaId {1}", new Object[]{contratoId, viviendaId});
+        if (viviendaLogic.getVivienda(viviendaId) == null) {
+            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + " no existe.", 404);
+        }
+        ViviendaDetailDTO detailDTO = new ViviendaDetailDTO(contratoViviendaLogic.getVivienda(contratoId, viviendaId));
+        LOGGER.log(Level.INFO, "ContratoViviendaResource getVivienda: output: {0}", detailDTO.toString());
+        return detailDTO;
+    }
 
     /**
      * Remplaza la instancia de Vivienda asociada a un Contrato.

@@ -19,6 +19,7 @@ public class UniversidadDTO implements Serializable {
     private String nombre;
     private Float latitud;
     private Float longitud;
+    private String imgUrl;
 
     public UniversidadDTO(){
         
@@ -31,6 +32,7 @@ public class UniversidadDTO implements Serializable {
            this.nombre = universidadEntity.getNombre();
            this.latitud = universidadEntity.getLatitud();
            this.longitud = universidadEntity.getLongitud();
+           this.imgUrl = universidadEntity.getImgUrl();
            
         }
     }
@@ -41,6 +43,7 @@ public class UniversidadDTO implements Serializable {
         universidadEntity.setNombre(this.nombre);
         universidadEntity.setLatitud(this.latitud);
         universidadEntity.setLongitud(this.longitud);
+        universidadEntity.setImgUrl(imgUrl);
         return universidadEntity;
     }
     
@@ -74,5 +77,12 @@ public class UniversidadDTO implements Serializable {
 
     public void setLongitud(Float longitud) {
         this.longitud = longitud;
+    }
+    
+     public String getImgUrl() {
+        return imgUrl;
+    }
+     public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 }

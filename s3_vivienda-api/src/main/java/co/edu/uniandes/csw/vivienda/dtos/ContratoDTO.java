@@ -5,11 +5,15 @@
  */
 package co.edu.uniandes.csw.vivienda.dtos;
 
+import co.edu.uniandes.csw.vivienda.adapters.DateAdapter;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import java.io.Serializable;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 
 /**
  *
@@ -17,10 +21,27 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class ContratoDTO implements Serializable {
 
+    /**
+     * Identificador del contrato
+     */
     private Long id;
-    private Date fechaInicio;
-    private Date fechaFin;
-    private String metodoPago;
+
+    /**
+     * Fecha de inicio del contrato
+     */
+//    @XmlJavaTypeAdapter(DateAdapter.class)
+    private String fechaInicio;
+
+    /**
+     * Fecha de fin para el contrato
+     */
+//    @XmlJavaTypeAdapter(DateAdapter.class)
+    private String fechaFin;
+
+    /**
+     * Metodo de pago del contrato
+     */
+    private int metodoPago;
 
     /**
      * Relación a una vivienda, dado que esta tiene cardinalidad 1.
@@ -103,42 +124,42 @@ public class ContratoDTO implements Serializable {
     /**
      * @return the FechaInicio
      */
-    public Date getFechaInicio() {
+    public String getFechaInicio() {
         return fechaInicio;
     }
 
     /**
      * @param fechaInicio the FechaInicio to set
      */
-    public void setFechaInicio(Date fechaInicio) {
+    public void setFechaInicio(String fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
     /**
      * @return the FechaFin
      */
-    public Date getFechaFin() {
+    public String getFechaFin() {
         return fechaFin;
     }
 
     /**
      * @param fechaFin the FechaFin to set
      */
-    public void setFechaFin(Date fechaFin) {
+    public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
 
     /**
      * @return the MetodoPago
      */
-    public String getMetodoPago() {
+    public int getMetodoPago() {
         return metodoPago;
     }
 
     /**
      * @param metodoPago the MetodoPago to set
      */
-    public void setMetodoPago(String metodoPago) {
+    public void setMetodoPago(int metodoPago) {
         this.metodoPago = metodoPago;
     }
 

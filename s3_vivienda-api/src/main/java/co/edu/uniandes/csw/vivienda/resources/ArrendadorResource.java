@@ -68,13 +68,13 @@ public class ArrendadorResource {
     
     @POST
     @Path("generardatos")
-    public List<ArrendadorDTO> generarDatos() {
-        arrendadorLogic.generarDatos();
-        List<ArrendadorEntity> arrendadores = arrendadorLogic.getArrendadores();
-        ArrayList<ArrendadorDTO> respuestas = new ArrayList<ArrendadorDTO>();
-
+    public List<ArrendadorDetailDTO> generarDatos() {
+        List<ArrendadorEntity> arrendadores = arrendadorLogic.generarDatos();
+        
+        ArrayList<ArrendadorDetailDTO> respuestas = new ArrayList<ArrendadorDetailDTO>();
+        
         for (ArrendadorEntity ent: arrendadores){
-            ArrendadorDTO arrendador = new ArrendadorDTO(ent);
+            ArrendadorDetailDTO arrendador = new ArrendadorDetailDTO(ent);
             respuestas.add(arrendador);
         }
         return respuestas;

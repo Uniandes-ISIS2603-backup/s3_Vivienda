@@ -13,12 +13,14 @@ import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
  *
  * @author Paula Molina
  */
+@Stateless
 public class ServicioAdicionalLogic {
     
     private static final Logger LOGGER = Logger.getLogger(ServicioAdicionalLogic.class.getName());

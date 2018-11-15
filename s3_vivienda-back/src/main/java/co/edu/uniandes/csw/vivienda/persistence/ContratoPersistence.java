@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,12 +17,11 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
- *
  * @author estudiante
  */
 @Stateless
 public class ContratoPersistence {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ContratoPersistence.class.getName());
 
     @PersistenceContext(unitName = "UniviviendaPU")
@@ -68,7 +68,7 @@ public class ContratoPersistence {
      * Actualiza un contrato.
      *
      * @param contratoEntity: el contrato que viene con los nuevos cambios. Por ejemplo
-     * el nombre pudo cambiar. En ese caso, se haria uso del método update.
+     *                        el nombre pudo cambiar. En ese caso, se haria uso del método update.
      * @return un contrato con los cambios aplicados.
      */
     public ContratoEntity update(ContratoEntity contratoEntity) {
@@ -77,8 +77,8 @@ public class ContratoPersistence {
     }
 
     /**
-     *
      * Borra un contrato de la base de datos recibiendo como argumento el id del contrato
+     *
      * @param contratoId: id correspondiente al contrato a borrar.
      */
     public void delete(Long contratoId) {
@@ -101,36 +101,21 @@ public class ContratoPersistence {
         // Se remplaza el placeholder ":metodoPago" con el valor del argumento 
         query = query.setParameter("metodoPago", metodoPago);
         // Se invoca el query que obtiene la lista resultado
-        List<ContratoEntity> sameMetodoPago = query.getResultList();
-        ContratoEntity result;
-        if (sameMetodoPago == null) {
-            result = null;
-        } else if (sameMetodoPago.isEmpty()) {
-            result = null;
-        } else {
-            result = sameMetodoPago.get(0);
-        }
+        List<ContratoEntity> samePaymentMethod = query.getResultList();
+        ContratoEntity result = samePaymentMethod.get(0);
         LOGGER.log(Level.INFO, "Saliendo de consultar contratos por metodo de pago ", metodoPago);
         return result;
     }
-    
-    public ContratoEntity findById(Long id)
-    {
-                LOGGER.log(Level.INFO, "Consultando contratos por id", id);
+
+    public ContratoEntity findById(Long id) {
+        LOGGER.log(Level.INFO, "Consultando contratos por id", id);
         // Se crea un query para buscar contratos con el metodoPago que recibe el método como argumento. ":id" es un placeholder que debe ser reemplazado
         TypedQuery query = em.createQuery("Select e From ContratoEntity e where e.id = :id", ContratoEntity.class);
         // Se remplaza el placeholder ":id" con el valor del argumento 
         query = query.setParameter("id", id);
         // Se invoca el query que obtiene la lista resultado
         List<ContratoEntity> sameId = query.getResultList();
-        ContratoEntity result;
-        if (sameId == null) {
-            result = null;
-        } else if (sameId.isEmpty()) {
-            result = null;
-        } else {
-            result = sameId.get(0);
-        }
+        ContratoEntity result = sameId.get(0);
         LOGGER.log(Level.INFO, "Saliendo de consultar contratos por id", id);
         return result;
     }

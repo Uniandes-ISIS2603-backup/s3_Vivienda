@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -21,6 +22,7 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
+
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
@@ -33,12 +35,11 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- *
  * @author estudiante
  */
 @RunWith(Arquillian.class)
 public class ContratoLogicTest {
-    
+
     private PodamFactory factory = new PodamFactoryImpl();
 
     @Inject
@@ -74,21 +75,16 @@ public class ContratoLogicTest {
      */
     @Before
     public void configTest() {
-        try 
-        {
+        try {
             utx.begin();
             clearData();
             insertData();
             utx.commit();
-        } 
-        catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e)
-        {
+        } catch (IllegalStateException | SecurityException | HeuristicMixedException | HeuristicRollbackException | NotSupportedException | RollbackException | SystemException e) {
             e.getMessage();
-            try
-            {
+            try {
                 utx.rollback();
-            }
-            catch (IllegalStateException | SecurityException | SystemException e1) {
+            } catch (IllegalStateException | SecurityException | SystemException e1) {
                 e1.getMessage();
             }
         }
@@ -98,8 +94,8 @@ public class ContratoLogicTest {
      * Limpia las tablas que están implicadas en la prueba.
      */
     private void clearData() {
-        em.createQuery("delete from ContratoEntity").executeUpdate();
-        em.createQuery("delete from ViviendaEntity").executeUpdate();
+        em.createQuery("delete from " + "ContratoEntity").executeUpdate();
+        em.createQuery("delete from " + "ViviendaEntity").executeUpdate();
     }
 
     /**
@@ -107,14 +103,12 @@ public class ContratoLogicTest {
      * pruebas.
      */
     private void insertData() {
-        for (int i = 0; i < 3; i++)
-        {
+        for (int i = 0; i < 3; i++) {
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
             em.persist(vivienda);
             viviendaData.add(vivienda);
         }
-        for (int i = 0; i < 3; i++)
-        {
+        for (int i = 0; i < 3; i++) {
             ContratoEntity entity = factory.manufacturePojo(ContratoEntity.class);
             entity.setVivienda(viviendaData.get(0));
 
@@ -137,8 +131,8 @@ public class ContratoLogicTest {
         ContratoEntity entity = em.find(ContratoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getMetodoPago(), entity.getMetodoPago());
-        
-        
+
+
         Assert.assertEquals(newEntity.getFechaInicio(), entity.getFechaInicio());
         Assert.assertEquals(newEntity.getFechaFin(), entity.getFechaFin());
     }
@@ -152,7 +146,7 @@ public class ContratoLogicTest {
     public void createContratoTestConMetodoPagoInvalido() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setVivienda(viviendaData.get(0));
-        newEntity.setMetodoPago("");
+        newEntity.setMetodoPago(-1);
         contratoLogic.createContrato(newEntity);
     }
 
@@ -165,7 +159,7 @@ public class ContratoLogicTest {
     public void createContratoTestConMetodoPagoInvalido2() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setVivienda(viviendaData.get(0));
-        newEntity.setMetodoPago(null);
+        newEntity.setMetodoPago(-2);
         contratoLogic.createContrato(newEntity);
     }
 
@@ -202,13 +196,10 @@ public class ContratoLogicTest {
     public void getContratosTest() {
         List<ContratoEntity> list = contratoLogic.getContratos();
         Assert.assertEquals(data.size(), list.size());
-        for (ContratoEntity entity : list)
-        {
+        for (ContratoEntity entity : list) {
             boolean found = false;
-            for (ContratoEntity storedEntity : data)
-            {
-                if (entity.getId().equals(storedEntity.getId())) 
-                {
+            for (ContratoEntity storedEntity : data) {
+                if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
             }

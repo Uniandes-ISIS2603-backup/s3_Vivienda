@@ -48,7 +48,7 @@ private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicional
      * @param servicioAdicionalId El ID del servicio adicional que se va a asociar
      * @param viviendaId El ID de la vivienda que ofrece el servicio adicional 
      * @param contratoId El ID del contrato al cual se le va a asociar el servicio adicional
-     * @return JSON {@link AuthorDetailDTO} - El autor asociado.
+     * @return JSON {@link ServicioAdicionalDetailDTO} - El autor asociado.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el servicio adicional.
      */

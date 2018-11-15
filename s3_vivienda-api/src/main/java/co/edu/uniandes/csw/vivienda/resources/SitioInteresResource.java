@@ -116,12 +116,12 @@ public class SitioInteresResource {
      */
     @GET
     @Path("{sitioInteresId: \\d+}")
-    public SitioInteresDTO getSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId") Long sitioInteresId) throws BusinessLogicException {
+    public SitioInteresDetailDTO getSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId") Long sitioInteresId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "SitioInteresResource getSitioInteres: input: viviendaID: {0} , sitioInteresId: {1}", new Object[]{viviendaId, sitioInteresId});
         if (sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId) == null) {
             throw new WebApplicationException("El recurso /vivienda/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
         }
-        SitioInteresDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId));
+        SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId));
         LOGGER.log(Level.INFO, "SitioInteresResource getSitioInteres: output: {0}", sitioInteresDTO.toString());
         return sitioInteresDTO;
     }
@@ -144,13 +144,9 @@ public class SitioInteresResource {
     public SitioInteresDetailDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
     {
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , sitioInteres:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
-        if (sitioInteresId.equals(sitioInteres.getId())) {
-            throw new BusinessLogicException("Los ids del sitio no coinciden.");
-        }
         SitioInteresEntity entity = sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
-
         }
         sitioInteres.setId(sitioInteresId);
         SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));

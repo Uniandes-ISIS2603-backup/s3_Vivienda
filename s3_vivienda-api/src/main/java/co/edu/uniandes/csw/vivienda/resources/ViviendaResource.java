@@ -71,12 +71,12 @@ public class ViviendaResource {
     }
     
     @GET
-    public List<ViviendaDTO> getViviendas(){
+    public List<ViviendaDetailDTO> getViviendas(){
         List<ViviendaEntity> viviendas = logic.getViviendas();
-        ArrayList<ViviendaDTO> respuestas = new ArrayList<ViviendaDTO>();
+        ArrayList<ViviendaDetailDTO> respuestas = new ArrayList<>();
         
         for (ViviendaEntity ent: viviendas){
-            ViviendaDTO viviendaDto = new ViviendaDTO(ent);
+            ViviendaDetailDTO viviendaDto = new ViviendaDetailDTO(ent);
             respuestas.add(viviendaDto);
         }
         return respuestas;

@@ -6,9 +6,12 @@
 package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -20,7 +23,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 
 /**
- *
  * @author estudiante
  */
 @Stateless
@@ -38,10 +40,10 @@ public class ContratoLogic {
      * Guardar un nuevo contrato
      *
      * @param contratoEntity La entidad de tipo contrato del nuevo contrato a
-     * persistir.
+     *                       persistir.
      * @return La entidad luego de persistirla
      * @throws BusinessLogicException Si el metodoPago es inválido o ya existe
-     * en la persistencia.
+     *                                en la persistencia.
      */
     public ContratoEntity createContrato(ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del contrato");
@@ -88,11 +90,11 @@ public class ContratoLogic {
     /**
      * Actualizar un contrato por ID
      *
-     * @param contratoId El ID del contrato a actualizar
+     * @param contratoId     El ID del contrato a actualizar
      * @param contratoEntity La entidad del contrato con los cambios deseados
      * @return La entidad del contrato luego de actualizarla
      * @throws BusinessLogicException Si el metodoPago de la actualizacion es
-     * invalido
+     *                                invalido
      */
     public ContratoEntity updateContrato(Long contratoId, ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el contrato con id = {0}", contratoId);
@@ -121,8 +123,8 @@ public class ContratoLogic {
      * @param metodoPago a verificar
      * @return true si el metodoPago es valido.
      */
-    private boolean validateMetodoPago(String metodoPago) {
-        return !(metodoPago == null || metodoPago.isEmpty());
+    private boolean validateMetodoPago(int metodoPago) {
+        return metodoPago > 0;
     }
 
     /**
@@ -135,38 +137,59 @@ public class ContratoLogic {
         return !(id == null || id < 0);
     }
 
-    public void generarDatos() 
-    {
+    public void generarDatos() {
         List<ContratoEntity> contratosViejos = getContratos();
-        
-        for (ContratoEntity co : contratosViejos) 
-        {
-            try 
-            {
-                deleteContrato(co.getId());
-            } 
-            catch (Exception e) 
-            {
-                e.printStackTrace();
-            }
+
+        for (ContratoEntity co : contratosViejos) {
+            deleteContrato(co.getId());
         }
 
+        List<ViviendaEntity> viviendasViejas = viviendaPersistence.findAll();
+        for (ViviendaEntity vivienda : viviendasViejas) {
+            viviendaPersistence.delete(vivienda.getId());
+        }
+
+        String[] ciudades = new String[]{
+                "Bogotá", "Cali", "Medellín", "Barranquilla", "Cucuta", "Bucaramanga"
+        };
         Random rand = new Random();
-        for (int i = 0; i < 10; i++) 
-        {
+        for (int i = 0; i < 10; i++) {
+            ViviendaEntity v = new ViviendaEntity();
+            v.setNombre("Vivienda " + (i + 1));
+            v.setCiudad(ciudades[rand.nextInt(ciudades.length)]);
+            v.setDireccion(String.format("Calle %d #%d-%d apto %d0%d", rand.nextInt(100), rand.nextInt(100), rand.nextInt(80), rand.nextInt(10), rand.nextInt(5)));
+            v.setImgUrl("assets/img/vivienda" + (i + 1) + ".jpg");
+            v.setDescripcion("Una casa (del latín casa, choza) es una edificación destinada para ser habitada.");
+            v.setTipo("B");
+
+            List<String> includedServices = new ArrayList<>(5);
+            includedServices.add("Internet");
+            includedServices.add("Agua");
+            includedServices.add("Gas");
+            includedServices.add("Electricidad");
+            v.setServiciosIncluidos(includedServices);
+            viviendaPersistence.create(v);
+        }
+
+        List<ViviendaEntity> viviendas = viviendaPersistence.findAll();
+        rand = new Random();
+        for (int i = 0; i < 10; i++) {
             ContratoEntity c = new ContratoEntity();
-            c.setMetodoPago("Metodo " + rand.nextInt(100));
-            c.setFechaInicio(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
-            c.setFechaFin(new Date(rand.nextInt(31), rand.nextInt(12), rand.nextInt(2018)));
-            try 
-            {
+            c.setMetodoPago(rand.nextInt(100));
+            int anio = rand.nextInt(5) + 2011;
+            int mes = rand.nextInt(12);
+            int dia = rand.nextInt(28);
+            c.setFechaInicio(anio + "-" + mes + "-" + dia + "");
+            c.setFechaFin((anio + 2) + "-" + mes + "-" +  dia + "");
+            c.setVivienda(viviendas.get(rand.nextInt(viviendas.size())));
+            System.out.println(viviendas.size());
+            try {
                 createContrato(c);
-            } 
-            catch (BusinessLogicException e)
-            {
+            } catch (BusinessLogicException e) {
                 e.printStackTrace();
             }
         }
 
     }
+
 }

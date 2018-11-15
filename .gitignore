@@ -28,3 +28,4 @@ hs_err_pid*
 /vivienda-back/target/
 /s3_vivienda-back/target/
 /s3_vivienda-back/target/
+/s3_vivienda-api/nb-configuration.xml

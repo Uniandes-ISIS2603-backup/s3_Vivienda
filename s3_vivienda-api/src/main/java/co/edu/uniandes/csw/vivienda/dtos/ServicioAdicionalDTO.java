@@ -6,12 +6,13 @@
 package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
+import java.io.Serializable;
 
 /**
  *
- * @author estudiante
+ * @author Paula Molina
  */
-public class ServicioAdicionalDTO {
+public class ServicioAdicionalDTO implements Serializable {
     
     private Long id;
     private String nombre;
@@ -49,7 +50,7 @@ public class ServicioAdicionalDTO {
         servicioAdicionalEntity.setId(this.id);
         servicioAdicionalEntity.setNombre(this.nombre);
         servicioAdicionalEntity.setDescripcion(this.descripcion);
-        servicioAdicionalEntity.setDescripcion(this.descripcion);
+        servicioAdicionalEntity.setCosto(this.costo);
          if (this.vivienda != null) {
             servicioAdicionalEntity.setVivienda(this.vivienda.toEntity());
         }

@@ -32,6 +32,9 @@ public class ArrendadorLogic {
     @Inject
     private ViviendaPersistence viviendaPersistence;
     
+    @Inject
+    private ViviendaLogic viviendaLogic;
+    
         /**
      *
      * Obtener una arrendador por medio de su id.
@@ -77,7 +80,7 @@ public class ArrendadorLogic {
         if (arrendadorExiste == null){
             arrendadorEntity = arrendadorPersistence.create(arrendadorEntity);
             LOGGER.log(Level.INFO, "Termina proceso de creación del arrendador");
-            return(arrendadorEntity);
+            return arrendadorEntity;
         }
         else {
             throw new BusinessLogicException("Ya existe un arrendador con ese login");
@@ -138,17 +141,19 @@ public class ArrendadorLogic {
     {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los arrendadores");
         List<ArrendadorEntity> arrendadores = arrendadorPersistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores");
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores" + arrendadores);
         return arrendadores;
     }
     
-    public void generarDatos()
-    {
+    public List<ArrendadorEntity> generarDatos()
+    {       
         List<ArrendadorEntity> arrendadores = getArrendadores();
         for(ArrendadorEntity arrendador: arrendadores)
         {
             arrendadorPersistence.delete(arrendador.getId());
         }
+        
+        List<ViviendaEntity> viviendas = viviendaPersistence.findAll();
         
         Random rand = new Random();
         String[] nombres = new String[]{"Mateo", "Juan", "Pedro","Camilo", "Jesus"};
@@ -158,13 +163,20 @@ public class ArrendadorLogic {
             arrendador.setNombre(nombre);
             arrendador.setLogin(nombre + (i+1));
             arrendador.setPassword("asdf" + i+1);
-            List<ViviendaEntity> viviendas = viviendaPersistence.findAll();
             arrendador.setViviendas(viviendas);
             try {
-                createArrendador(arrendador);
+                ArrendadorEntity arrendador2 = createArrendador(arrendador);
+                if(i<viviendas.size()){
+                ViviendaEntity vivienda = viviendas.get(i);
+                vivienda.setArrendador(arrendador2);                
+                viviendaLogic.updateVivienda(vivienda.getId(), vivienda);
+                }
+                arrendadores.add(arrendador2);
             } catch (BusinessLogicException ex) {
                 Logger.getLogger(ArrendadorLogic.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        return arrendadores;
     }
 }
