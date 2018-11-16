@@ -127,6 +127,7 @@ public class ContratoLogicTest {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setVivienda(viviendaData.get(0));
         ContratoEntity result = contratoLogic.createContrato(newEntity);
+        result.setMetodoPago(Math.abs(result.getMetodoPago()));
         Assert.assertNotNull(result);
         ContratoEntity entity = em.find(ContratoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
@@ -230,6 +231,7 @@ public class ContratoLogicTest {
     public void updateContratoTest() throws BusinessLogicException {
         ContratoEntity entity = data.get(0);
         ContratoEntity pojoEntity = factory.manufacturePojo(ContratoEntity.class);
+        pojoEntity.setMetodoPago(Math.abs(pojoEntity.getMetodoPago()));
         pojoEntity.setId(entity.getId());
         contratoLogic.updateContrato(pojoEntity.getId(), pojoEntity);
         ContratoEntity resp = em.find(ContratoEntity.class, entity.getId());
