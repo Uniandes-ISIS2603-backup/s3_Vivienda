@@ -41,7 +41,7 @@ public class ContratoDTO implements Serializable {
     /**
      * Metodo de pago del contrato
      */
-    private int metodoPago;
+    private Integer metodoPago;
 
     /**
      * Relación a una vivienda, dado que esta tiene cardinalidad 1.

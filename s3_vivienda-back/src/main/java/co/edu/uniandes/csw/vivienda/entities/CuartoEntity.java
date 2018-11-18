@@ -21,6 +21,7 @@ public class CuartoEntity extends BaseEntity implements Serializable{
       @PodamExclude
       @ManyToOne
       private ViviendaEntity vivienda;
+      
       private String nombre;
       private String descripcion;
       private Integer costoArriendo;

@@ -120,7 +120,7 @@ public class ViviendaResource {
     }
     
     @Path("{viviendaId: \\d+}/arrendadores")
-    public Class<ViviendaArrendadorResource> getViviendaArrendadorResource(@PathParam("viviendaId") Long viviendaId){
+    public Class<ViviendaArrendadorResource> getViviendaArrendadoresResource(@PathParam("viviendaId") Long viviendaId){
         if( logic.getVivienda(viviendaId) != null)
             return ViviendaArrendadorResource.class;
         else
