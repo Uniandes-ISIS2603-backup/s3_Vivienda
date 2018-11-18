@@ -58,7 +58,7 @@ public class ViviendaArrendadorResource {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/arrendadores/" + arrendadorId + " no existe.", 404);
         }
         ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(viviendaArrendadorLogic.getArrendador(viviendaId));
-        LOGGER.log(Level.INFO, "ViviendaArrendadorResource getArrendador: output: {0}", arrendadorDetailDTO.toString());
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource getArrendador: output: {0}", arrendadorDetailDTO);
         return arrendadorDetailDTO;
     }
     
@@ -74,7 +74,7 @@ public class ViviendaArrendadorResource {
      */
     @PUT
     public ViviendaDetailDTO replaceArrendador(@PathParam("viviendaId") Long viviendaId, ArrendadorDTO arrendador) {
-        LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: input: viviendaId{0} , Arrendador:{1}", new Object[]{viviendaId, arrendador.toString()});
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: input: viviendaId{0} , Arrendador:{1}", new Object[]{viviendaId, arrendador});
         if (viviendasLogic.getVivienda(viviendaId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + " no existe.", 404);
         }
@@ -82,7 +82,7 @@ public class ViviendaArrendadorResource {
             throw new WebApplicationException("El recurso /arrendadores/" + arrendador.getId() + " no existe.", 404);
         }
         ViviendaDetailDTO viviendaDetailDTO = new ViviendaDetailDTO(viviendaArrendadorLogic.replaceArrendador(viviendaId, arrendador.getId()));
-        LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: output: {0}", viviendaDetailDTO.toString());
+        LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: output: {0}", viviendaDetailDTO);
         return viviendaDetailDTO;
     }
 }

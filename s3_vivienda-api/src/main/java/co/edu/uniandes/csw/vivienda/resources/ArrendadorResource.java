@@ -55,14 +55,14 @@ public class ArrendadorResource {
     @POST
     public ArrendadorDTO createArrendador(ArrendadorDTO arrendador) throws BusinessLogicException {
          
-        LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: input: {0}", arrendador.toString());
+        LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: input: {0}", arrendador);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         ArrendadorEntity arrendadorEntity = arrendador.toEntity();
         
         ArrendadorEntity nuevoArrendadorEntity = arrendadorLogic.createArrendador(arrendadorEntity);
  
         ArrendadorDTO nuevoArrendadorDTO = new ArrendadorDTO(nuevoArrendadorEntity);
-        LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: output: {0}", nuevoArrendadorDTO.toString());
+        LOGGER.log(Level.INFO, "ArrendadorResource createArrendador: output: {0}", nuevoArrendadorDTO);
         return nuevoArrendadorDTO;
     }
     
@@ -71,7 +71,7 @@ public class ArrendadorResource {
     public List<ArrendadorDetailDTO> generarDatos() {
         List<ArrendadorEntity> arrendadores = arrendadorLogic.generarDatos();
         
-        ArrayList<ArrendadorDetailDTO> respuestas = new ArrayList<ArrendadorDetailDTO>();
+        ArrayList<ArrendadorDetailDTO> respuestas = new ArrayList<>();
         
         for (ArrendadorEntity ent: arrendadores){
             ArrendadorDetailDTO arrendador = new ArrendadorDetailDTO(ent);
@@ -90,7 +90,7 @@ public class ArrendadorResource {
     public List<ArrendadorDetailDTO> getArrendadores() {
         LOGGER.info("ArrendadorResource getArrendadores: input: void");
         List<ArrendadorDetailDTO> listaArrendadores = listEntity2DetailDTO(arrendadorLogic.getArrendadores());
-        LOGGER.log(Level.INFO, "ArrendadorResource getArrendadores: output: {0}", listaArrendadores.toString());
+        LOGGER.log(Level.INFO, "ArrendadorResource getArrendadores: output: {0}", listaArrendadores);
         return listaArrendadores;
     }
     
@@ -123,7 +123,7 @@ public class ArrendadorResource {
      */
     @GET
     @Path("{arrendadorId:\\d+}")
-    public ArrendadorDetailDTO getArrendador(@PathParam("arrendadorId")Long arrendadorId)throws WebApplicationException
+    public ArrendadorDetailDTO getArrendador(@PathParam("arrendadorId")Long arrendadorId) 
     {   LOGGER.log(Level.INFO, "ArrendadorResource getArrendador: input: {0}", arrendadorId);
         ArrendadorEntity arrendadorEntity = arrendadorLogic.getArrendador(arrendadorId);
         if(arrendadorEntity == null)
@@ -131,7 +131,7 @@ public class ArrendadorResource {
             throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
         }
         ArrendadorDetailDTO detailDTO = new ArrendadorDetailDTO(arrendadorEntity);
-        LOGGER.log(Level.INFO, "ArrendadorResource getArrendador: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ArrendadorResource getArrendador: output: {0}", detailDTO);
         return detailDTO;
     }
     
@@ -150,7 +150,7 @@ public class ArrendadorResource {
      */
     @PUT
     @Path("{arrendadorId:\\d+}")
-    public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)throws BusinessLogicException
+    public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)
     {    
         LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: input: id:{0} , arrendador: {1}", new Object[]{arrendadorId, arrendador.toString()});
         arrendador.setId(arrendadorId);
@@ -160,7 +160,7 @@ public class ArrendadorResource {
         }
         arrendador.setId(arrendadorId);
         ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(arrendadorLogic.updateArrendador(arrendadorId, arrendador.toEntity()));
-        LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: output: {0}", arrendadorDetailDTO.toString());
+        LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: output: {0}", arrendadorDetailDTO);
         return arrendadorDetailDTO;
         
     }

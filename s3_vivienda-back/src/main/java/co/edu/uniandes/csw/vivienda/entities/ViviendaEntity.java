@@ -75,9 +75,7 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     private List<CalificacionEntity> calificaciones = new ArrayList<>();
     
     @PodamExclude
-    @ManyToOne(
-        cascade = CascadeType.ALL
-    )
+    @ManyToOne
     private ArrendadorEntity arrendador;
 
     public String getNombre() {

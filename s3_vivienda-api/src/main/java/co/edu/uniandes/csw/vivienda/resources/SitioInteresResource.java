@@ -58,10 +58,10 @@ public class SitioInteresResource {
      */
     @POST
     public SitioInteresDTO createSitioInteres(@PathParam("viviendaId") Long viviendaId, SitioInteresDTO sitioInteres) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: input: {0}", sitioInteres.toString());
+        LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: input: {0}", sitioInteres);
         SitioInteresEntity entity = sitioInteres.toEntity();
         SitioInteresDTO sitioInteresDTO = new SitioInteresDTO(sitioInteresLogic.createSitioInteres(viviendaId, entity));
-        LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: output: {0}", sitioInteresDTO.toString());
+        LOGGER.log(Level.INFO, "SitioInteresResource createSitioInteres: output: {0}", sitioInteresDTO);
         return sitioInteresDTO;
     }
     
@@ -70,7 +70,7 @@ public class SitioInteresResource {
     public List<SitioInteresDTO> generarDatos() {
         
         List<ViviendaEntity> viviendas = viviendaLogic.getViviendas();
-        List<SitioInteresDTO> sitios = new ArrayList<SitioInteresDTO>();
+        List<SitioInteresDTO> sitios = new ArrayList<>();
         for(ViviendaEntity vivienda: viviendas)
         {
         sitioInteresLogic.generarDatos(vivienda.getId());
@@ -96,7 +96,7 @@ public class SitioInteresResource {
     public List<SitioInteresDetailDTO> getSitiosInteres(@PathParam("viviendaId") Long viviendaId) {
         LOGGER.log(Level.INFO, "SitioInteresResource getSitiosInteres: input: {0}", viviendaId);
         List<SitioInteresDetailDTO> listaDetailDTOs = sitioInteresListEntity2DTO(sitioInteresLogic.getSitiosInteres(viviendaId));
-        LOGGER.log(Level.INFO, "SitioInteresResource getSitiosInteres: output: {0}", listaDetailDTOs.toString());
+        LOGGER.log(Level.INFO, "SitioInteresResource getSitiosInteres: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
     
@@ -122,7 +122,7 @@ public class SitioInteresResource {
             throw new WebApplicationException("El recurso /vivienda/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);
         }
         SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId));
-        LOGGER.log(Level.INFO, "SitioInteresResource getSitioInteres: output: {0}", sitioInteresDTO.toString());
+        LOGGER.log(Level.INFO, "SitioInteresResource getSitioInteres: output: {0}", sitioInteresDTO);
         return sitioInteresDTO;
     }
     
@@ -141,7 +141,7 @@ public class SitioInteresResource {
      */
     @PUT
     @Path("{sitioInteresId: \\d+}")
-    public SitioInteresDetailDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws WebApplicationException, BusinessLogicException
+    public SitioInteresDetailDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws BusinessLogicException
     {
         LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , sitioInteres:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
         SitioInteresEntity entity = sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId);
@@ -150,7 +150,7 @@ public class SitioInteresResource {
         }
         sitioInteres.setId(sitioInteresId);
         SitioInteresDetailDTO sitioInteresDTO = new SitioInteresDetailDTO(sitioInteresLogic.updateSitioInteres(viviendaId, sitioInteres.toEntity()));
-        LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: output:{0}", sitioInteresDTO.toString());
+        LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: output:{0}", sitioInteresDTO);
         return sitioInteresDTO;
     }
     

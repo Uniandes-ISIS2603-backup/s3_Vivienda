@@ -78,7 +78,7 @@ public class SitioInteresPersistence {
         SitioInteresEntity result = null;
         if(busc != null && !busc.isEmpty())
         {
-            result = busc.get(0);;
+            result = busc.get(0);
         }
         return result;
     }

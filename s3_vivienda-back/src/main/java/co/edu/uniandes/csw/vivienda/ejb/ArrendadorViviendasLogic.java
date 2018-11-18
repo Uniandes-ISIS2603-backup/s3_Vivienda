@@ -68,7 +68,7 @@ public class ArrendadorViviendasLogic {
      * @throws BusinessLogicException Si la vivienda no se encuentra en el arrendador
      */
     public ViviendaEntity getVivienda(Long arrendadorId, Long viviendaId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar la vivienda con id = {0} del arrendador con id = " + arrendadorId, viviendaId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar la vivienda con id = {0} del arrendador con id = %s" + arrendadorId, viviendaId);
         List<ViviendaEntity> viviendas = arrendadorPersistence.find(arrendadorId).getViviendas();
         ViviendaEntity viviendaEntity = viviendasPersistence.find(viviendaId);
         int index = viviendas.indexOf(viviendaEntity);

@@ -44,16 +44,14 @@ public class ArrendadorDetailDTO extends ArrendadorDTO implements Serializable{
     public ArrendadorDetailDTO(ArrendadorEntity arrendadorEntity)
     {
         super(arrendadorEntity);
-        if(arrendadorEntity !=null)
+        if(arrendadorEntity !=null && arrendadorEntity.getViviendas()!=null)
         {
-            if(arrendadorEntity.getViviendas()!=null)
-            {
             viviendas = new ArrayList<>();
             for (ViviendaEntity entityViviendas : arrendadorEntity.getViviendas()) {
                 ViviendaDTO asd= new ViviendaDTO(entityViviendas);
                 viviendas.add(asd);             
             }  
-            }
+            
         }
     }
     

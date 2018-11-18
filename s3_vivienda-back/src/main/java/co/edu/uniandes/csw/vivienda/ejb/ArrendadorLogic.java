@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ArrendadorPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -97,7 +96,7 @@ public class ArrendadorLogic {
      * por ejemplo el nombre.
      * @return el arrendador con los cambios actualizados en la base de datos.
      */
-    public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity) throws BusinessLogicException
+    public ArrendadorEntity updateArrendador(Long arrendadorId, ArrendadorEntity arrendadorEntity)
     {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el arrendador con id = {0}", arrendadorId);
         ArrendadorEntity newArrendador = null;
@@ -141,7 +140,7 @@ public class ArrendadorLogic {
     {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los arrendadores");
         List<ArrendadorEntity> arrendadores = arrendadorPersistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores" + arrendadores);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores" , arrendadores);
         return arrendadores;
     }
     
