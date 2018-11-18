@@ -21,6 +21,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
+import co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper;
 
 /**
  * Implementa el recurso /viviendas/{id}/arrendadores

@@ -64,6 +64,9 @@ public class ContratoResource {
     public List<ContratoDTO> generarDatos() {
         contratoLogic.generarDatos();
         List<ContratoEntity> contratos = contratoLogic.getContratos();
+        if (contratos == null) {
+            throw new WebApplicationException("El recurso " + contratos + " no existe.", 404);
+        }
         ArrayList<ContratoDTO> respuestas = new ArrayList<ContratoDTO>();
 
         for (ContratoEntity ent: contratos){

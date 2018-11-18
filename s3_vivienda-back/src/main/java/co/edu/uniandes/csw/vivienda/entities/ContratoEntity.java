@@ -28,7 +28,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
 //    @Temporal(TemporalType.DATE)
     private String fechaFin;
 
-    private int metodoPago;
+    private Integer metodoPago;
 
     @PodamExclude
     @OneToOne(fetch = javax.persistence.FetchType.LAZY)

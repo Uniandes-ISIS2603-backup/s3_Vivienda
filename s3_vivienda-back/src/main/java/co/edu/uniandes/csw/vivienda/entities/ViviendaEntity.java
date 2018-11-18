@@ -76,7 +76,7 @@ public class ViviendaEntity extends BaseEntity implements Serializable{
     
     @PodamExclude
     @ManyToOne(
-        cascade = CascadeType.ALL
+        cascade = CascadeType.PERSIST
     )
     private ArrendadorEntity arrendador;
 
