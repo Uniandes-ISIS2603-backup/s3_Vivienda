@@ -110,9 +110,9 @@ public class SitioInteresEntity extends BaseEntity implements Serializable{
         this.img = img;
     }
     
-    public boolean equals(SitioInteresEntity o)
-    {
-        return (this.latitud==o.latitud) && (this.longitud==o.longitud);
-    }
+//    public boolean equals(SitioInteresEntity o)
+//    {
+//        return (this.latitud==o.latitud) && (this.longitud==o.longitud);
+//    }
     
 }

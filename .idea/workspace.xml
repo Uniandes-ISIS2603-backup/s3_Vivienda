@@ -6,21 +6,18 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9a70c71f-e003-4fd5-a3a5-2b4075bd2fe9" name="Default Changelist" comment="">
+    <list default="true" id="799fec99-f200-475b-afd3-5048336f4b11" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s3_univivienda.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/s3_vivienda-api/s3_univivienda-api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/dtos/ContratoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/dtos/ContratoDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ContratoResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ContratoResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaArrendadorResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaArrendadorResource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaResource.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaResource.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/s3_vivienda-back/s3_univivienda-back.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ContratoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ContratoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/CuartoEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/CuartoEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ViviendaEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ViviendaEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ArrendadorEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ArrendadorEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/BaseEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/BaseEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/SitioInteresEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/SitioInteresEntity.java" afterDir="false" />
     </list>
-    <ignored path="$PROJECT_DIR$/s3_vivienda-back/target/" />
-    <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="$PROJECT_DIR$/s3_vivienda-api/target/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <ignored path="$PROJECT_DIR$/s3_vivienda-back/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,58 +52,50 @@
     <session id="1344682492">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.22" value="1" />
-          <entry key="project.open.time.7" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="23" />
+          <entry key="java" value="5" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="23" />
+          <entry key="JAVA" value="5" />
           <entry key="Scratch" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="79" />
+          <entry key="java" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="79" />
+          <entry key="JAVA" value="17" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ViviendaEntity.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/CalificacionEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="78" column="37" selection-start-line="78" selection-start-column="37" selection-end-line="78" selection-end-column="37" />
-              <folding>
-                <element signature="e#2342#2343#0" expanded="true" />
-                <element signature="e#2371#2372#0" expanded="true" />
-                <element signature="e#2415#2416#0" expanded="true" />
-                <element signature="e#2451#2452#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="254">
+              <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ArrendadorEntity.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/SitioInteresEntity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+            <state relative-caret-position="233">
+              <caret line="116" column="4" lean-forward="true" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -119,14 +108,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ContratoResource.java" />
-        <option value="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/dtos/ContratoDTO.java" />
-        <option value="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaResource.java" />
-        <option value="$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaArrendadorResource.java" />
-        <option value="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/CuartoEntity.java" />
-        <option value="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ContratoEntity.java" />
+        <option value="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/BaseEntity.java" />
         <option value="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ArrendadorEntity.java" />
-        <option value="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ViviendaEntity.java" />
+        <option value="$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/SitioInteresEntity.java" />
       </list>
     </option>
   </component>
@@ -154,35 +138,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="s3_univivienda" type="58d84e3e:PackageViewProjectNode" />
-              <item name="s3_univivienda-back" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="s3_univivienda" type="58d84e3e:PackageViewProjectNode" />
-              <item name="s3_univivienda-back" type="616d4139:PackageViewModuleNode" />
-              <item name="co.edu.uniandes.csw.vivienda" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="s3_univivienda" type="58d84e3e:PackageViewProjectNode" />
-              <item name="s3_univivienda-back" type="616d4139:PackageViewModuleNode" />
-              <item name="co.edu.uniandes.csw.vivienda" type="1f31426a:PackageElementNode" />
-              <item name="ejb" type="1f31426a:PackageElementNode" />
-            </path>
-            <path>
-              <item name="s3_univivienda" type="58d84e3e:PackageViewProjectNode" />
-              <item name="s3_univivienda-back" type="616d4139:PackageViewModuleNode" />
-              <item name="co.edu.uniandes.csw.vivienda" type="1f31426a:PackageElementNode" />
-              <item name="entities" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -190,20 +145,101 @@
               <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
               <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-api" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-api" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="vivienda" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-back" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="vivienda" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="s3_univivienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="s3_Vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="s3_vivienda-back" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="vivienda" type="462c0819:PsiDirectoryNode" />
+              <item name="entities" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="derby" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542579407440" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542588921149" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -217,7 +253,26 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="GlassFish Server.Unnamed">
+    <configuration name="ContratoLogicTest" type="ArquillianJUnit" factoryName="" temporary="true" nameIsGenerated="true">
+      <module name="s3_univivienda-back" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="co.edu.uniandes.csw.vivienda.test.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="PACKAGE_NAME" value="co.edu.uniandes.csw.vivienda.test.logic" />
+      <option name="MAIN_CLASS_NAME" value="co.edu.uniandes.csw.vivienda.test.logic.ContratoLogicTest" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Unnamed" type="GlassfishConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="GlassFish 5.182.0" ALTERNATIVE_JRE_ENABLED="false">
       <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/s3_vivienda-api/" />
       <option name="UPDATING_POLICY" value="restart-server" />
@@ -293,72 +348,72 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="GlassFish Server.Unnamed" />
+      <item itemvalue="Arquillian JUnit.ContratoLogicTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Arquillian JUnit.ContratoLogicTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9a70c71f-e003-4fd5-a3a5-2b4075bd2fe9" name="Default Changelist" comment="" />
-      <created>1542571457956</created>
+      <changelist id="799fec99-f200-475b-afd3-5048336f4b11" name="Default Changelist" comment="" />
+      <created>1542581389966</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1542571457956</updated>
-      <workItem from="1542571462644" duration="65000" />
-      <workItem from="1542571662416" duration="3987000" />
+      <updated>1542581389966</updated>
+      <workItem from="1542581392704" duration="1555000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4052000" />
-  </component>
-  <component name="TodoView">
-    <todo-panel id="selected-file">
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
-    <todo-panel id="all">
-      <are-packages-shown value="true" />
-      <is-autoscroll-to-source value="true" />
-    </todo-panel>
+    <option name="totallyTimeSpent" value="1555000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="827" extended-state="6" />
+    <frame x="0" y="23" width="1440" height="827" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49930266" visible="true" weight="0.2532189" />
-      <window_info id="Structure" order="1" sideWeight="0.5006974" side_tool="true" weight="0.2532189" />
-      <window_info id="Designer" order="2" />
-      <window_info id="Image Layers" order="3" />
-      <window_info id="UI Designer" order="4" />
-      <window_info id="Favorites" order="5" side_tool="true" />
-      <window_info id="Capture Tool" order="6" />
-      <window_info id="Web" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Application Servers" weight="0.32914925" />
-      <window_info anchor="bottom" id="Messages" weight="0.32914925" />
+      <window_info id="Designer" />
+      <window_info id="Image Layers" />
+      <window_info id="UI Designer" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info id="Capture Tool" />
+      <window_info id="Web" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24964234" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Application Servers" weight="0.32962447" />
+      <window_info anchor="bottom" id="Spring" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" />
+      <window_info anchor="bottom" id="Java Enterprise" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32823366" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32962447" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32914925" />
-      <window_info anchor="bottom" id="Spring" order="7" weight="0.32914925" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32914925" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Java Enterprise" order="10" weight="0.32914925" />
-      <window_info anchor="bottom" id="Database Changes" order="11" weight="0.32914925" />
-      <window_info anchor="bottom" id="Version Control" order="12" show_stripe_button="false" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="JSF" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="CDI" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="right" id="Database" weight="0.3297568" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Bean Validation" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="right" id="JSF" order="5" />
-      <window_info anchor="right" id="Maven Projects" order="6" />
-      <window_info anchor="right" id="Database" order="7" weight="0.3297568" />
-      <window_info anchor="right" id="Palette&#9;" order="8" />
-      <window_info anchor="right" id="Theme Preview" order="9" />
-      <window_info anchor="right" id="CDI" order="10" />
-      <window_info anchor="right" id="Bean Validation" order="11" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -368,127 +423,34 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/c1ed2c10-be3d-400b-877d-457735213fad/console.sql">
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/dd8c6df0-1530-49c7-ac23-5de1f38554d5/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ContratoServiciosAdicionalesResource.java">
+    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/BaseEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="70" column="35" lean-forward="true" selection-start-line="70" selection-start-column="35" selection-end-line="70" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/dtos/ContratoDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1395">
-          <caret line="94" lean-forward="true" selection-start-line="94" selection-end-line="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2760">
-          <caret line="144" column="4" lean-forward="true" selection-start-line="144" selection-start-column="4" selection-end-line="144" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ArrendadorViviendasResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ViviendaArrendadorResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="35" column="11" lean-forward="true" selection-start-line="35" selection-start-column="11" selection-end-line="35" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ArrendadorResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="36" column="13" selection-start-line="36" selection-start-column="13" selection-end-line="36" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/test/java/co/edu/uniandes/csw/vivienda/tests/postman/ViviendaIT.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-703">
-          <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/ejb/ViviendaLogic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="26" lean-forward="true" selection-start-line="26" selection-end-line="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/dtos/CuartoDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2">
-          <caret line="15" column="13" selection-start-line="15" selection-start-column="13" selection-end-line="15" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-api/src/main/java/co/edu/uniandes/csw/vivienda/resources/ContratoResource.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="299">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/persistence/CuartoPersistence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/persistence/ContratoPersistence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/CuartoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ContratoEntity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="155">
-          <caret line="34" column="40" lean-forward="true" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+        <state relative-caret-position="277">
+          <caret line="82" column="4" selection-start-line="82" selection-start-column="4" selection-end-line="82" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ArrendadorEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        <state relative-caret-position="247">
+          <caret line="89" column="7" lean-forward="true" selection-start-line="89" selection-start-column="7" selection-end-line="89" selection-end-column="7" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/ViviendaEntity.java">
+    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/CalificacionEntity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="78" column="37" selection-start-line="78" selection-start-column="37" selection-end-line="78" selection-end-column="37" />
-          <folding>
-            <element signature="e#2342#2343#0" expanded="true" />
-            <element signature="e#2371#2372#0" expanded="true" />
-            <element signature="e#2415#2416#0" expanded="true" />
-            <element signature="e#2451#2452#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="254">
+          <caret line="102" column="33" selection-start-line="102" selection-start-column="33" selection-end-line="102" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/s3_vivienda-back/src/main/java/co/edu/uniandes/csw/vivienda/entities/SitioInteresEntity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="116" column="4" lean-forward="true" selection-start-line="116" selection-start-column="4" selection-end-line="116" selection-end-column="4" />
         </state>
       </provider>
     </entry>
