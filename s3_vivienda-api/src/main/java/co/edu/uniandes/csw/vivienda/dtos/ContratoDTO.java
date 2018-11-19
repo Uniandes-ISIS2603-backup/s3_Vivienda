@@ -1,3 +1,8 @@
+/*
+* To change this license header, choose License Headersn Project Properties.
+* To change this template file, hoose Tools | Templates
+* and open the template in the editor.
+*/
 package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
