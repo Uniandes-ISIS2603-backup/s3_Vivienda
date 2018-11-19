@@ -123,7 +123,7 @@ public class ContratoLogic {
      * @param metodoPago a verificar
      * @return true si el metodoPago es valido.
      */
-    private boolean validateMetodoPago(int metodoPago) {
+    private boolean validateMetodoPago(Integer metodoPago) {
         return metodoPago > 0;
     }
 

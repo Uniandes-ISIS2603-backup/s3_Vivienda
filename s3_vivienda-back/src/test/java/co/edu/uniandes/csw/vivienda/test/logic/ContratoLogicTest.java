@@ -127,7 +127,7 @@ public class ContratoLogicTest {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setVivienda(viviendaData.get(0));
         ContratoEntity result = contratoLogic.createContrato(newEntity);
-        result.setMetodoPago(Math.abs(result.getMetodoPago()));
+//        result.setMetodoPago(result.getMetodoPago());
         Assert.assertNotNull(result);
         ContratoEntity entity = em.find(ContratoEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
