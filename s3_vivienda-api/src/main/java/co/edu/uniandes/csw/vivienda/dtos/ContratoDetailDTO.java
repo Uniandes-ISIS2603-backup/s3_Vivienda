@@ -10,10 +10,14 @@ import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+//import co.edu.uniandes.csw.vivienda.adapters.DateAdapter;
+//import java.util.Date;
+//import org.apache.commons.lang3.builder.*;
+//import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  *
- * @author estudiante
+ * @author Carlos Infante
  */
 public class ContratoDetailDTO extends ContratoDTO implements Serializable {
     
