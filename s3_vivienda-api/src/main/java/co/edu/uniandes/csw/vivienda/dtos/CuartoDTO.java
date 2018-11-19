@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
-
 import java.io.Serializable;
 
 /**
