@@ -1,14 +1,13 @@
 /*
-* To change this license header, choose License Headersn Project Properties.
-* To change this template file, hoose Tools | Templates
-* and open the template in the editor.
-*/
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import java.io.Serializable;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.builder.*;
 
 /**
  *
@@ -175,17 +174,19 @@ public class ContratoDTO implements Serializable {
     public void setVivienda(ViviendaDTO vivienda) {
         this.vivienda = vivienda;
     }
+
     /**
      * Da el estudiante que esta en el contrato
+     *
      * @return Estudiante que posee el contrato.
      */
-    public EstudianteDTO getEstudiante() 
-    {
+    public EstudianteDTO getEstudiante() {
         return estudiante;
     }
-    
+
     /**
      * Modifica el estudiante del contrato.
+     *
      * @param estudiante Estudiante que ser quiere modificar.
      */
     public void setEstudiante(EstudianteDTO estudiante) {
