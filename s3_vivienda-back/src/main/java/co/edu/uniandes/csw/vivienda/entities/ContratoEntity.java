@@ -124,6 +124,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
         this.serviciosAdicionalesAgregados = serviciosAdicionalesAgregados;
     }
 
+    
     public static Date getDateWithoutTimeUsingFormat(Date date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.parse(formatter.format(date));
