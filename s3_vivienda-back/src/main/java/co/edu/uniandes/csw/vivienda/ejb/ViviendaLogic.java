@@ -25,7 +25,7 @@ public class ViviendaLogic {
     @Inject
     private ViviendaPersistence persistence;
 
-    public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException, WebApplicationException {
+    public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException {
 
         if (viviendaEntity.getNombre() == null || viviendaEntity.getNombre().isEmpty()) {
             throw new WebApplicationException("La vivienda debe tener un nombre");
@@ -51,13 +51,11 @@ public class ViviendaLogic {
     }
 
     public ViviendaEntity getVivienda(Long id) {
-        ViviendaEntity viviendaEntity = persistence.find(id);
-        return viviendaEntity;
+        return persistence.find(id);
     }
 
     public List<ViviendaEntity> getViviendas() {
-        List<ViviendaEntity> viviendas = persistence.findAll();
-        return viviendas;
+        return persistence.findAll();
     }
 
     public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity) throws BusinessLogicException {
@@ -65,8 +63,7 @@ public class ViviendaLogic {
             throw new BusinessLogicException("La universidad con el id dado no existe");
         }
         viviendaEntity.setId(id);
-        ViviendaEntity newVivienda = persistence.update(viviendaEntity);
-        return newVivienda;
+        return persistence.update(viviendaEntity);
     }
 
     public void deleteVivienda(Long viviendaId) throws BusinessLogicException {

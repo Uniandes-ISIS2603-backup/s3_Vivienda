@@ -8,7 +8,6 @@ import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
 import java.util.List;
 import java.util.Random;
 
@@ -38,10 +37,11 @@ public class CuartoLogic {
 
     public List<CuartoEntity> getCuartos(Long viviendaId){
         ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
-        if (viviendaEntity == null){
-            return null;
+        List<CuartoEntity> cuartos = null;
+        if (viviendaEntity != null){
+            cuartos = viviendaEntity.getCuartos();
         }
-        return viviendaEntity.getCuartos();
+        return cuartos;
     }
 
     public CuartoEntity getCuarto(Long viviendaId, Long cuartoId) throws BusinessLogicException{

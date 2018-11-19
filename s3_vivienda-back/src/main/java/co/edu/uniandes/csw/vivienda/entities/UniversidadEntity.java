@@ -28,7 +28,7 @@ public class UniversidadEntity extends BaseEntity implements Serializable
     
     @PodamExclude
     @OneToMany(mappedBy = "universidad")
-    private List<EstudianteEntity> estudiantes = new ArrayList<EstudianteEntity>();
+    private List<EstudianteEntity> estudiantes = new ArrayList<>();
     
      public String getNombre() {
         return nombre;

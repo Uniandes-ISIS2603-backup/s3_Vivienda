@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.vivienda.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
@@ -20,11 +15,11 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class CalificacionPersistence {
     
-    private final static Logger LOGGER = Logger.getLogger(CalificacionPersistence.class.getName());
-    
     @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
     
+    private static final String VIVIENDA_ID = "viviendaId";
+    private static final String ESTUDIANTE_ID = "estudianteId";
     /**
      * Método para persisitir la entidad en la base de datos.
      *
@@ -58,7 +53,7 @@ public class CalificacionPersistence {
      */
     public List<CalificacionEntity> findAllByVivienda(Long viviendaId){
         TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.vivienda.id = :viviendaId)", CalificacionEntity.class);
-        query.setParameter("viviendaId", viviendaId);
+        query.setParameter(VIVIENDA_ID, viviendaId);
         return query.getResultList();
     }
     
@@ -72,7 +67,7 @@ public class CalificacionPersistence {
      */
     public List<CalificacionEntity> findAllByEstudiante(Long estudianteId){
         TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId)", CalificacionEntity.class);
-        query.setParameter("estudianteId", estudianteId);
+        query.setParameter(ESTUDIANTE_ID, estudianteId);
         return query.getResultList();
     }
     
@@ -95,7 +90,7 @@ public class CalificacionPersistence {
      */
     public CalificacionEntity findByVivienda(Long viviendaId, Long calificacionId){
         TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.vivienda.id = :viviendaId) and (u.id = :calificacionId)", CalificacionEntity.class);
-        query.setParameter("viviendaId", viviendaId);
+        query.setParameter(VIVIENDA_ID , viviendaId);
         query.setParameter("calificacionId", calificacionId);
         
         List <CalificacionEntity> resultList = query.getResultList();
@@ -116,7 +111,7 @@ public class CalificacionPersistence {
      */
     public CalificacionEntity findByEstudiante(Long estudianteId, Long calificacionId){
         TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.id = :calificacionId)", CalificacionEntity.class);
-        query.setParameter("estudianteId", estudianteId);
+        query.setParameter(ESTUDIANTE_ID, estudianteId);
         query.setParameter("calificacionId", calificacionId);
         
         List <CalificacionEntity> resultList = query.getResultList();
@@ -137,8 +132,8 @@ public class CalificacionPersistence {
      */
     public CalificacionEntity findByViviendaEstudiante(Long viviendaId, Long estudianteId) {
         TypedQuery query = em.createQuery("select u from CalificacionEntity u where (u.estudiante.id = :estudianteId) and (u.vivienda.id = :viviendaId)", CalificacionEntity.class);
-        query.setParameter("estudianteId", estudianteId);
-        query.setParameter("viviendaId", viviendaId);
+        query.setParameter(ESTUDIANTE_ID, estudianteId);
+        query.setParameter(VIVIENDA_ID, viviendaId);
         
         List <CalificacionEntity> resultList = query.getResultList();
         CalificacionEntity result;
@@ -171,7 +166,6 @@ public class CalificacionPersistence {
     public void delete(Long calificacionId){
         CalificacionEntity entity = em.find(CalificacionEntity.class, calificacionId);
         em.remove(entity);
-        entity = em.find(CalificacionEntity.class, calificacionId);
     }
     
     public void deleteAll(){

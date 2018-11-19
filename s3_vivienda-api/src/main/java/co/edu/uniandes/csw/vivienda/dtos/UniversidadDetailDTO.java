@@ -37,12 +37,10 @@ public class UniversidadDetailDTO extends UniversidadDTO implements Serializable
      */
     public UniversidadDetailDTO(UniversidadEntity universdiadEntity) {
         super(universdiadEntity);
-        if (universdiadEntity != null) {
-            if (universdiadEntity.getEstudiantes() != null) {
-                estudiantes = new ArrayList<>();
-                for (EstudianteEntity entityEstudiante : universdiadEntity.getEstudiantes()) {
-                    estudiantes.add(new EstudianteDTO(entityEstudiante));
-                }
+        if (universdiadEntity != null && universdiadEntity.getEstudiantes() != null) {
+            estudiantes = new ArrayList<>();
+            for (EstudianteEntity entityEstudiante : universdiadEntity.getEstudiantes()) {
+                estudiantes.add(new EstudianteDTO(entityEstudiante));
             }
         }
     }

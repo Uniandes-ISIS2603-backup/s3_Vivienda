@@ -5,7 +5,6 @@ import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 /**
  * @author: Daniel Giraldo

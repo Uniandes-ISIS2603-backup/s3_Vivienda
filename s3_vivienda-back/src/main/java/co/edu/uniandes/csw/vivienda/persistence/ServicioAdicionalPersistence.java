@@ -21,7 +21,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class ServicioAdicionalPersistence 
 {
-    private final static Logger LOGGER = Logger.getLogger(ServicioAdicionalPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ServicioAdicionalPersistence.class.getName());
     
     @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
@@ -79,7 +79,7 @@ public class ServicioAdicionalPersistence
      * devuelve siempre el primero que encuentra
      */
     public ServicioAdicionalEntity find(Long viviendaId, Long servicioAdicionalId) {
-        LOGGER.log(Level.INFO, "Consultando el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
+        LOGGER.log(Level.INFO, "Consultando el servicio adicional con id = {1} de la vivienda con id = {0} " , new Object[]{ viviendaId, servicioAdicionalId});
         TypedQuery<ServicioAdicionalEntity> q = em.createQuery("select p from ServicioAdicionalEntity p where (p.vivienda.id = :viviendaId) and (p.id = :servicioAdicionalId)", ServicioAdicionalEntity.class);
         q.setParameter("viviendaId", viviendaId);
         q.setParameter("servicioAdicionalId", servicioAdicionalId);
@@ -92,7 +92,7 @@ public class ServicioAdicionalPersistence
         } else if (results.size() >= 1) {
             servicioAdicional = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el servicio adiconal con id = {0} de la vivienda con id =" + viviendaId, servicioAdicionalId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar el servicio adiconal con id = {1} de la vivienda con id = {0}" , new Object[]{ viviendaId, servicioAdicionalId});
         return servicioAdicional;
     }
 }

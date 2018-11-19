@@ -80,7 +80,7 @@ public class SitioInteresLogic
      */
     public SitioInteresEntity getSitioInteres(Long viviendaId, Long sitioInteresId)
     {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el sitioIntere con id = {0} de la vivienda con id = " + viviendaId, sitioInteresId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el sitioIntere con id = {1} de la vivienda con id = {0}" , new Object[]{viviendaId, sitioInteresId});
         SitioInteresEntity sitioInteresEntity = sitioInteresPersistence.find(viviendaId, sitioInteresId);
         if (sitioInteresEntity == null) {
             LOGGER.log(Level.SEVERE, "El sitioInteres con el id = {0} no existe", sitioInteresId);
@@ -101,11 +101,11 @@ public class SitioInteresLogic
     public SitioInteresEntity updateSitioInteres(Long viviendaId, SitioInteresEntity sitioInteresEntity)
     {
         
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el sitioInteres con id = {1} de la vivienda con id ={0} " , new Object[]{viviendaId, sitioInteresEntity.getId()});
         ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
         sitioInteresEntity.setVivienda(vivienda);
         sitioInteresPersistence.update(sitioInteresEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el sitioInteres con id = {1} de la vivienda con id = {0} " , new Object[]{viviendaId, sitioInteresEntity.getId()});
         return sitioInteresEntity;
     }
 

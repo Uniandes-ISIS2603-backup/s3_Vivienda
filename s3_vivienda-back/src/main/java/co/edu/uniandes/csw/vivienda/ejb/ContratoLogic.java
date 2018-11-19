@@ -12,12 +12,9 @@ import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
-//import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
-//import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -182,7 +179,6 @@ public class ContratoLogic {
             c.setFechaInicio(anio + "-" + mes + "-" + dia + "");
             c.setFechaFin((anio + 2) + "-" + mes + "-" +  dia + "");
             c.setVivienda(viviendas.get(rand.nextInt(viviendas.size())));
-            System.out.println(viviendas.size());
             try {
                 createContrato(c);
             } catch (BusinessLogicException e) {

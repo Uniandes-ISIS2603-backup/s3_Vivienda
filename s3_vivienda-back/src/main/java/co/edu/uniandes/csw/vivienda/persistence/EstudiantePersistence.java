@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.vivienda.persistence;
 
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,7 +18,6 @@ import javax.persistence.TypedQuery;
  */
 @Stateless
 public class EstudiantePersistence {
-    private final static Logger LOGGER = Logger.getLogger(EstudiantePersistence.class.getName());
     
     @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
@@ -69,7 +67,7 @@ public class EstudiantePersistence {
         
         List <EstudianteEntity> resultList = query.getResultList();
         if (resultList.isEmpty())
-            return null;
+            resultList = null;
         return resultList;
     }
     

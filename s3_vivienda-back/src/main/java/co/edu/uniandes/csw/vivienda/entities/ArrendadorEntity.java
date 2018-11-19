@@ -83,10 +83,5 @@ public class ArrendadorEntity extends BaseEntity implements Serializable{
     public void setViviendas(List<ViviendaEntity> viviendas) {
         this.viviendas = viviendas;
     }
-
-//    public boolean equals(ArrendadorEntity o)
-//    {
-//        return this.login.equals(o.login);
-//    }
     
 }

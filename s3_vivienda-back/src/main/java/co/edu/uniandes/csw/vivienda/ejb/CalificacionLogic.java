@@ -36,6 +36,9 @@ public class CalificacionLogic {
     @Inject
     private ViviendaPersistence persistenceVivienda;
     
+    private static final String INICIA_PROCESO_CONSULTA = "Inicia proceso de consultar todas las calificaciones";
+    private static final String TERMINA_PROCESO_CONSULTA = "Termina proceso de consultar todas las calificaciones";
+    
     public void generarDatos(){
         Random rand = new Random();
         
@@ -104,9 +107,9 @@ public class CalificacionLogic {
      * @return una lista de calificaciones.
      */
     public List<CalificacionEntity> getCalificaciones(){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        LOGGER.log(Level.INFO, INICIA_PROCESO_CONSULTA);
         List<CalificacionEntity> calificaciones = persistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        LOGGER.log(Level.INFO, TERMINA_PROCESO_CONSULTA);
         return calificaciones;
     }
     
@@ -118,9 +121,9 @@ public class CalificacionLogic {
      * @return una lista de calificaciones.
      */
     public List<CalificacionEntity> getCalificacionesEstudiante(Long estudianteId){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        LOGGER.log(Level.INFO, INICIA_PROCESO_CONSULTA);
         List<CalificacionEntity> calificaciones = persistence.findAllByEstudiante(estudianteId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        LOGGER.log(Level.INFO, TERMINA_PROCESO_CONSULTA);
         return calificaciones;
     }
     
@@ -132,9 +135,9 @@ public class CalificacionLogic {
      * @return una lista de calificaciones.
      */
     public List<CalificacionEntity> getCalificacionesVivienda(Long viviendaId){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todas las calificaciones");
+        LOGGER.log(Level.INFO, INICIA_PROCESO_CONSULTA);
         List<CalificacionEntity> calificaciones = persistence.findAllByVivienda(viviendaId);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todas las calificaciones");
+        LOGGER.log(Level.INFO, TERMINA_PROCESO_CONSULTA);
         return calificaciones;
     }
     
@@ -146,12 +149,12 @@ public class CalificacionLogic {
      * @return la calificacion solicitada por medio de su id.
      */
     public CalificacionEntity getCalificacion(Long id){
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los calificacions");
+        LOGGER.log(Level.INFO, INICIA_PROCESO_CONSULTA);
         CalificacionEntity calificacion = persistence.find(id);
         if (calificacion == null) {
             LOGGER.log(Level.SEVERE, "El calificacions con el id = {0} no existe", id);
         }
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los calificacions");
+        LOGGER.log(Level.INFO, TERMINA_PROCESO_CONSULTA);
         return calificacion;
     }
     
@@ -242,7 +245,6 @@ public class CalificacionLogic {
      *
      * Actualizar una calificacion de un estudiante .
      *
-     * @param estudianteId: id del estudiante
      * @param calificacionId: id de la calificacion para buscarla en la base de
      * datos.
      * @param calificacionEntity: calificacion con los cambios para ser actualizada,
@@ -250,7 +252,7 @@ public class CalificacionLogic {
      * @return la calificacion con los cambios actualizados en la base de datos.
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
-    public CalificacionEntity updateCalificacionEstudiante(Long estudianteId, Long calificacionId, CalificacionEntity calificacionEntity)throws BusinessLogicException{
+    public CalificacionEntity updateCalificacionEstudiante( Long calificacionId, CalificacionEntity calificacionEntity)throws BusinessLogicException{
         return updateCalificacion(calificacionId, calificacionEntity);
     }
     
@@ -258,7 +260,6 @@ public class CalificacionLogic {
      *
      * Actualizar una calificacion de una vivienda.
      *
-     * @param viviendaId: id de la vivienda
      * @param calificacionId: id de la calificacion para buscarla en la base de
      * datos.
      * @param calificacionEntity: calificacion con los cambios para ser actualizada,
@@ -266,7 +267,7 @@ public class CalificacionLogic {
      * @return la calificacion con los cambios actualizados en la base de datos.
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
-    public CalificacionEntity updateCalificacionVivienda(Long viviendaId, Long calificacionId, CalificacionEntity calificacionEntity)throws BusinessLogicException{
+    public CalificacionEntity updateCalificacionVivienda(Long calificacionId, CalificacionEntity calificacionEntity)throws BusinessLogicException{
         return updateCalificacion(calificacionId, calificacionEntity);
     }
 

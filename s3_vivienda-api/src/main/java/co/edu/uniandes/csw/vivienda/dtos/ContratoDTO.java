@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.vivienda.dtos;
 
-import co.edu.uniandes.csw.vivienda.adapters.DateAdapter;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import java.io.Serializable;
-import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 /**

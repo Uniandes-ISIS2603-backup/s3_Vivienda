@@ -1,14 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.vivienda.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.persistence.*;
 
 import uk.co.jemos.podam.common.PodamExclude;
@@ -21,8 +15,6 @@ import uk.co.jemos.podam.common.PodamExclude;
 
 @Entity
 public class ViviendaEntity extends BaseEntity implements Serializable{
-
-    private static final Logger LOGGER = Logger.getLogger(ViviendaEntity.class.getName());
 
     private String direccion;
     private String ciudad;

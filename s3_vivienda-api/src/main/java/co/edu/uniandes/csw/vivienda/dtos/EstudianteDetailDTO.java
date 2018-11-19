@@ -37,12 +37,11 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
      */
     public EstudianteDetailDTO(EstudianteEntity entity){
         super(entity);
-        if (entity != null){
-            if (entity.getCalificaciones() != null){
-                calificaciones = new ArrayList<>();
-                for (CalificacionEntity e: entity.getCalificaciones())
-                    calificaciones.add(new CalificacionDTO(e));
-            }
+        if (entity != null && entity.getCalificaciones() != null){
+            calificaciones = new ArrayList<>();
+            for (CalificacionEntity e: entity.getCalificaciones())
+                calificaciones.add(new CalificacionDTO(e));
+
         }
     }
     

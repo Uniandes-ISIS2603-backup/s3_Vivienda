@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -43,7 +42,6 @@ public class ContratoViviendaLogic {
     public ViviendaEntity getVivienda(Long contratoId, Long viviendaId) {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar una vivienda del contrato con id = {0}", contratoId);
         ViviendaEntity vivienda = contratoPersistence.find(contratoId).getVivienda();
-//        ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
         LOGGER.log(Level.INFO, "Termina proceso de consultar una vivienda del contrato con id = {0}", contratoId);
         if (vivienda != null) {
             return vivienda;

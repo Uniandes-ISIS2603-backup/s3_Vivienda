@@ -71,7 +71,7 @@ public class ServicioAdicionalLogic {
      *
      */
     public ServicioAdicionalEntity getServicioAdicional(Long viviendaId, Long servicioAdicionalId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el servicio adicional con id = {1} de la vivienda con id = {0}" , new Object[]{ viviendaId, servicioAdicionalId});
         return persistence.find(viviendaId, servicioAdicionalId);
     }
 
@@ -84,11 +84,11 @@ public class ServicioAdicionalLogic {
      *
      */
     public ServicioAdicionalEntity updateServicioAdicional(Long viviendaId, ServicioAdicionalEntity servicioAdicionalEntity) {
-        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalEntity.getId());
+        LOGGER.log(Level.INFO, "Inicia proceso de actualizar el servicio adicional con id = {1} de la vivienda con id = {0}" , new Object[]{ viviendaId, servicioAdicionalEntity.getId()});
         ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
         servicioAdicionalEntity.setVivienda(viviendaEntity);
         persistence.update(servicioAdicionalEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalEntity.getId());
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el servicio adicional con id = {1} de la vivienda con id = {0} " , new Object[]{ viviendaId, servicioAdicionalEntity.getId()});
         return servicioAdicionalEntity;
     }
 
@@ -101,12 +101,12 @@ public class ServicioAdicionalLogic {
      *
      */
     public void deleteServicioAdicional(Long viviendaId, Long servicioAdicionalId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de borrar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
+        LOGGER.log(Level.INFO, "Inicia proceso de borrar el servicio adicional con id = {1} de la vivienda con id = {0} " , new Object[]{ viviendaId, servicioAdicionalId});
         ServicioAdicionalEntity old = getServicioAdicional(viviendaId, servicioAdicionalId);
         if (old == null) {
             throw new BusinessLogicException("El servicio adicional con id = " + servicioAdicionalId + " no esta asociado a la vivienda con id = " + viviendaId);
         }
         persistence.delete(old.getId());
-        LOGGER.log(Level.INFO, "Termina proceso de borrar el servicio adicional con id = {0} de la vivienda con id = " + viviendaId, servicioAdicionalId);
+        LOGGER.log(Level.INFO, "Termina proceso de borrar el servicio adicional con id = {1} de la vivienda con id = {0} " , new Object[]{ viviendaId, servicioAdicionalId});
     }
 }

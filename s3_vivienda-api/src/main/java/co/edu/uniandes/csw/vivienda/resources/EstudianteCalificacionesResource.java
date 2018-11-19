@@ -133,7 +133,7 @@ public class EstudianteCalificacionesResource{
         catch(BusinessLogicException e){
             throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
         }
-        CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(estudianteId, calificacionId, calificacion.toEntity());
+        CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(calificacionId, calificacion.toEntity());
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());
         return calificacionDTO;

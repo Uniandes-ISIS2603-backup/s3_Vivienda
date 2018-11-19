@@ -69,11 +69,11 @@ public class ViviendaContratosLogic {
      * vivienda
      */
     public ContratoEntity getContrato(Long viendaId, Long contratoId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato con id = {0} de la vivienda con id = " + viendaId, contratoId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el contrato con id = {1} de la vivienda con id = {0} " , new Object[]{ viendaId, contratoId});
         List<ContratoEntity> contratos = viviendaPersistence.find(viendaId).getContratos();
         ContratoEntity contratoEntity = contratoPersistence.find(contratoId);
         int index = contratos.indexOf(contratoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato con id = {0} de la vivienda con id = " + viendaId, contratoId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el contrato con id = {1} de la vivienda con id = {0} " , new Object[]{ viendaId, contratoId});
         if (index >= 0) {
             return contratos.get(index);
         }
