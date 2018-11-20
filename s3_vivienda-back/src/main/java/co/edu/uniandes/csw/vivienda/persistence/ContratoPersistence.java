@@ -82,9 +82,10 @@ public class ContratoPersistence {
      * @param contratoId: id correspondiente al contrato a borrar.
      */
     public void delete(Long contratoId) {
-        LOGGER.log(Level.INFO, "Borrando el contrato con id={0}", contratoId);
-        ContratoEntity bookEntity = em.find(ContratoEntity.class, contratoId);
-        em.remove(bookEntity);
+        ContratoEntity contratoEntity = em.find(ContratoEntity.class, contratoId);
+        if(contratoEntity != null){
+            em.remove(contratoEntity);
+        }
     }
 
     /**

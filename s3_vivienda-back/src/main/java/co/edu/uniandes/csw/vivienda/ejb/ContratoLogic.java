@@ -97,9 +97,23 @@ public class ContratoLogic {
         if (!validateMetodoPago(contratoEntity.getMetodoPago())) {
             throw new BusinessLogicException("El metodoPago es inválido");
         }
-        ContratoEntity newEntity = persistence.update(contratoEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de actualizar el libro con id = {0}", contratoEntity.getId());
-        return newEntity;
+        ContratoEntity newContrato = null;
+        if (getContrato(contratoId) != null) {
+            newContrato = persistence.update(contratoEntity);
+        }
+        LOGGER.log(Level.INFO, "Termina proceso de actualizar el contrato con id = {0}", contratoEntity.getId());
+        return newContrato;
+    }
+    
+        public ContratoEntity actualizarContrato(Long viviendaId, Long contratoId, ContratoEntity contratoEntity) throws BusinessLogicException {
+        if (contratoEntity.getMetodoPago() != null && contratoEntity.getMetodoPago() <= 0) {
+            throw new BusinessLogicException("El metodoPago debe ser mayor a 0");
+        }
+        ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
+        contratoEntity.setVivienda(vivienda);
+        contratoEntity.setId(contratoId);
+        persistence.update(contratoEntity);
+        return contratoEntity;
     }
 
     /**
@@ -107,8 +121,11 @@ public class ContratoLogic {
      *
      * @param contratoId El ID del contrato a eliminar
      */
-    public void deleteContrato(Long contratoId) {
+    public void deleteContrato(Long contratoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el contrato con id = {0}", contratoId);
+        if (persistence.find(contratoId) == null) {
+            throw new BusinessLogicException("El contrato no existe");
+        }
         persistence.delete(contratoId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el contrato con id = {0}", contratoId);
     }
@@ -137,7 +154,11 @@ public class ContratoLogic {
         List<ContratoEntity> contratosViejos = getContratos();
 
         for (ContratoEntity co : contratosViejos) {
-            deleteContrato(co.getId());
+            try {
+                deleteContrato(co.getId());
+            } catch (BusinessLogicException e) {
+                LOGGER.log(Level.INFO, "Error en el proceso de borrar el contrato de la vivienda con id = {0}", co.getId());
+            }
         }
 
         List<ViviendaEntity> viviendasViejas = viviendaPersistence.findAll();

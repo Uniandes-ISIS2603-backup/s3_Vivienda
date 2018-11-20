@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -184,5 +185,26 @@ public class ViviendaContratosResource {
             list.add(dto.toEntity());
         }
         return list;
+    }
+    
+    /**
+     * Actualiza un contrato dentro de una vivienda
+     * @param viviendaId - Identificador de la vivienda
+     * @param contratoId - Identificador del contrato de la vivienda
+     * @param contratoDTO - DTO del contrato a actualizar
+     * @return Contrato actualizado
+     * @throws BusinessLogicException En el caso que no pueda actualizar
+     */
+    @PUT
+    @Path("{contratoId:\\d+}")
+    public ContratoDTO updateContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId, ContratoDTO contratoDTO) throws BusinessLogicException{
+        ContratoEntity contratoEntity = contratoLogic.actualizarContrato(viviendaId, contratoId, contratoDTO.toEntity());
+        return new ContratoDTO(contratoEntity);
+    }
+
+    @DELETE
+    @Path("{contratoId:\\d+}")
+    public void deleteContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException{
+        contratoLogic.deleteContrato(contratoId);
     }
 }

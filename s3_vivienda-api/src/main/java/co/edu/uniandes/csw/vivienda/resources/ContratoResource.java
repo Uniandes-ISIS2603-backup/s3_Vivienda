@@ -3,6 +3,7 @@ package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDetailDTO;
+import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
@@ -88,6 +89,33 @@ public class ContratoResource {
         List<ContratoDetailDTO> listaContratos = listEntity2DetailDTO(contratoLogic.getContratos());
         LOGGER.log(Level.INFO, "ContratoResource getContratos: output: {0}", listaContratos.toString());
         return listaContratos;
+    }
+    
+        /**
+     * Actualiza el contrato con el id recibido en la URL con la información que se
+     * recibe en el cuerpo de la petición.
+     *
+     * @param contratoId Identificador del contrato que se desea actualizar. Este debe
+     * ser una cadena de dígitos.
+     * @param contrato {@link ContratoDTO} El contrato que se desea guardar.
+     * @return JSON {@link EstudianteDetailDTO} - El contrato guardado.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra el contrato a
+     * actualizar.
+     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
+     * Error de lógica que se genera cuando no se puede actualizar el contrato.
+     */
+    @PUT
+    @Path("{contratoId:\\d+}")
+    public ContratoDetailDTO updateContrato(@PathParam("contratoId") Long contratoId, ContratoDTO contrato) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ContratoResource updateContrato: input: id: {0} , estudiante: {1}", new Object[]{contratoId, contrato.toString()});
+        contrato.setId(contratoId);
+        if (contratoLogic.getContrato(contratoId) == null) {
+            throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
+        }
+        ContratoDetailDTO detailDTO = new ContratoDetailDTO(contratoLogic.updateContrato(contratoId, contrato.toEntity()));
+        LOGGER.log(Level.INFO, "ContratoResource updateContrato: output: {0}", detailDTO.toString());
+        return detailDTO;
     }
 
     /**

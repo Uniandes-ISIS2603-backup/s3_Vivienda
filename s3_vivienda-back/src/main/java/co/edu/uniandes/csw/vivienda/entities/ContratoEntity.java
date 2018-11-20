@@ -69,7 +69,7 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     /**
      * @return the metodoPago
      */
-    public int getMetodoPago() {
+    public Integer getMetodoPago() {
         return metodoPago;
     }
 
