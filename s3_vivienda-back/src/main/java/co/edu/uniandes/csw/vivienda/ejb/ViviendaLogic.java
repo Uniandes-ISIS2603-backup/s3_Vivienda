@@ -12,6 +12,8 @@ import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
@@ -22,6 +24,8 @@ import javax.ws.rs.WebApplicationException;
 @Stateless
 public class ViviendaLogic {
 
+    private static final Logger LOGGER = Logger.getLogger(ViviendaLogic.class.getName());
+    
     @Inject
     private ViviendaPersistence persistence;
 
@@ -79,7 +83,7 @@ public class ViviendaLogic {
             try {
                 deleteVivienda(vi.getId());
             } catch (BusinessLogicException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.INFO, "Error en el proceso de borrar la vivienda con id = {0}", vi.getId());
             }
         }
 
@@ -105,7 +109,7 @@ public class ViviendaLogic {
             try {
                 createVivienda(v);
             } catch (Exception e) {
-                e.printStackTrace();
+                LOGGER.log(Level.INFO, "Error en el proceso de crear la vivienda");
             }
         }
 

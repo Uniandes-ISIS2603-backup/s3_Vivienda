@@ -149,7 +149,7 @@ public class SitioInteresLogic
             try {
                 deleteSitioInteres(viviendaId,sitio.getId());
             } catch (BusinessLogicException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.INFO, "Inicia proceso de borrar el sitio de interes de la vivienda con id = {0}", viviendaId);
             }
         }
         Random rand = new Random();
@@ -164,7 +164,7 @@ public class SitioInteresLogic
             try {
                 createSitioInteres(viviendaId,sitio);
             } catch (BusinessLogicException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.INFO, "Inicia proceso de agregar el sitio de interes de la vivienda con id = {0}", viviendaId);
             }
         }
     }

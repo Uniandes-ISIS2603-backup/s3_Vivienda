@@ -37,10 +37,10 @@ public class ContratoLogic {
      * Guardar un nuevo contrato
      *
      * @param contratoEntity La entidad de tipo contrato del nuevo contrato a
-     *                       persistir.
+     * persistir.
      * @return La entidad luego de persistirla
      * @throws BusinessLogicException Si el metodoPago es inválido o ya existe
-     *                                en la persistencia.
+     * en la persistencia.
      */
     public ContratoEntity createContrato(ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación del contrato");
@@ -83,15 +83,14 @@ public class ContratoLogic {
         return contratoEntity;
     }
 
-
     /**
      * Actualizar un contrato por ID
      *
-     * @param contratoId     El ID del contrato a actualizar
+     * @param contratoId El ID del contrato a actualizar
      * @param contratoEntity La entidad del contrato con los cambios deseados
      * @return La entidad del contrato luego de actualizarla
      * @throws BusinessLogicException Si el metodoPago de la actualizacion es
-     *                                invalido
+     * invalido
      */
     public ContratoEntity updateContrato(Long contratoId, ContratoEntity contratoEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de actualizar el contrato con id = {0}", contratoId);
@@ -147,7 +146,7 @@ public class ContratoLogic {
         }
 
         String[] ciudades = new String[]{
-                "Bogotá", "Cali", "Medellín", "Barranquilla", "Cucuta", "Bucaramanga"
+            "Bogotá", "Cali", "Medellín", "Barranquilla", "Cucuta", "Bucaramanga"
         };
         Random rand = new Random();
         for (int i = 0; i < 10; i++) {
@@ -177,12 +176,12 @@ public class ContratoLogic {
             int mes = rand.nextInt(12);
             int dia = rand.nextInt(28);
             c.setFechaInicio(anio + "-" + mes + "-" + dia + "");
-            c.setFechaFin((anio + 2) + "-" + mes + "-" +  dia + "");
+            c.setFechaFin((anio + 2) + "-" + mes + "-" + dia + "");
             c.setVivienda(viviendas.get(rand.nextInt(viviendas.size())));
             try {
                 createContrato(c);
             } catch (BusinessLogicException e) {
-                e.printStackTrace();
+                LOGGER.log(Level.INFO, "Hubo un error creando el contrato");
             }
         }
 
