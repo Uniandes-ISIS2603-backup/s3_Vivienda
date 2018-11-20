@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.UniversidadLogic;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
@@ -45,6 +46,8 @@ public class UniversidadLogicTest {
     private UserTransaction utx;
 
     private List<UniversidadEntity> data = new ArrayList<UniversidadEntity>();
+    
+    private List<EstudianteEntity> dataEstudiante = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -102,6 +105,12 @@ public class UniversidadLogicTest {
             em.persist(entity);
             data.add(entity);
         }
+        for (int i = 0; i < 3; i++) {
+            EstudianteEntity entity = factory.manufacturePojo(EstudianteEntity.class);
+
+            em.persist(entity);
+            dataEstudiante.add(entity);
+        }
     }
 
     /**
@@ -112,11 +121,13 @@ public class UniversidadLogicTest {
     @Test
     public void createUniversidadTest() throws BusinessLogicException {
         UniversidadEntity newEntity = factory.manufacturePojo(UniversidadEntity.class);
+        newEntity.setEstudiantes(dataEstudiante);
         UniversidadEntity result = universidadLogic.createUniversidad(newEntity);
         Assert.assertNotNull(result);
         UniversidadEntity entity = em.find(UniversidadEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getImgUrl(), entity.getImgUrl());
     }
     
      /**

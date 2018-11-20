@@ -59,6 +59,8 @@ public class EstudianteLogicTest {
     private List<ContratoEntity> dataContrato = new ArrayList<>();
     
     private List<ViviendaEntity> dataVivienda = new ArrayList<>();
+    
+    private List<CalificacionEntity> dataCalificacion = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -117,6 +119,7 @@ public class EstudianteLogicTest {
             UniversidadEntity universidad = factory.manufacturePojo(UniversidadEntity.class);
             EstudianteEntity entity = factory.manufacturePojo(EstudianteEntity.class);
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
+            CalificacionEntity calificacion = factory.manufacturePojo(CalificacionEntity.class);
             
             //entity.setContrato(contrato);
             contrato.setEstudiante(entity);
@@ -126,14 +129,17 @@ public class EstudianteLogicTest {
             em.persist(universidad);
             em.persist(entity);
             em.persist(vivienda);
+            em.persist(calificacion);
             
             dataUniversidad.add(universidad); 
             dataContrato.add(contrato);
             dataVivienda.add(vivienda);
             data.add(entity);
+            dataCalificacion.add(calificacion);
             
             
             entity.setUniversidad(dataUniversidad.get(0));
+            entity.setContrato(contrato);
             dataUniversidad.get(0).getEstudiantes().add(entity);
         }
 
@@ -191,8 +197,8 @@ public class EstudianteLogicTest {
         EstudianteEntity result = estudianteLogic.createEstudiante(newEntity);
         Assert.assertNotNull(result);
         EstudianteEntity entity = em.find(EstudianteEntity.class, result.getId());
-        
         esIgual(entity, newEntity);
+        newEntity.setCalificaciones(dataCalificacion);
     }
 
     @Test(expected = BusinessLogicException.class)
@@ -319,5 +325,11 @@ public class EstudianteLogicTest {
         EstudianteEntity entity = data.get(0);
         UniversidadEntity universidad = factory.manufacturePojo(UniversidadEntity.class);
         estudianteLogic.replaceUniversidad(entity.getId(), universidad.getId());
+    }
+    
+    @Test
+    public void generarDatos() throws BusinessLogicException {
+        estudianteLogic.generarDatos();
+        Assert.assertEquals(10,estudianteLogic.getEstudiantes().size());
     }
 }

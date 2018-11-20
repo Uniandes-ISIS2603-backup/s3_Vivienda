@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.SitioInteresLogic;
-import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.SitioInteresEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -39,9 +38,6 @@ public class SitioInteresLogicTest {
 
     @Inject
     private SitioInteresLogic sitioInteresLogic;
-    
-    @Inject
-    private ViviendaLogic viviendaLogic;
     
     @PersistenceContext
     private EntityManager em;
@@ -136,6 +132,41 @@ public class SitioInteresLogicTest {
         Assert.assertEquals(newEntity.getLatitud(), entity.getLatitud());
         Assert.assertEquals(newEntity.getLongitud(), entity.getLongitud());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        Assert.assertEquals(newEntity.getVivienda(), entity.getVivienda());
+        Assert.assertEquals(newEntity.getImg(), entity.getImg());
+        
+        SitioInteresEntity newEntity2 = factory.manufacturePojo(SitioInteresEntity.class);
+        
+        newEntity2.setLatitud(null);
+        SitioInteresEntity result1 = null;
+        try{
+            result1 = sitioInteresLogic.createSitioInteres(viviendaData.get(2).getId(),newEntity2);
+        }catch( BusinessLogicException e)
+        {
+            Assert.assertNull(result1);
+            Assert.assertEquals("latitud y/o longitud invalida", e.getMessage());
+        }
+        
+        newEntity2 = factory.manufacturePojo(SitioInteresEntity.class);
+        newEntity2.setNombre(null);
+        try{
+            result1 = sitioInteresLogic.createSitioInteres(viviendaData.get(2).getId(),newEntity2);
+        }catch( BusinessLogicException e)
+        {
+            Assert.assertNull(result1);
+            Assert.assertEquals("nombre invalido",e.getMessage());
+        }
+        
+        newEntity2 = factory.manufacturePojo(SitioInteresEntity.class);
+        newEntity2.setLatitud(newEntity.getLatitud());
+        newEntity2.setLongitud(newEntity.getLongitud());
+        try{
+            result1 = sitioInteresLogic.createSitioInteres(viviendaData.get(2).getId(),newEntity2);
+        }catch( BusinessLogicException e)
+        {
+            Assert.assertNull(result1);
+            Assert.assertEquals("Ya existe un sitioInteres con esa latitud y longitud ", e.getMessage());
+        }
     }
     
     /**
@@ -215,5 +246,14 @@ public class SitioInteresLogicTest {
         sitioInteresLogic.deleteSitioInteres(viviendaData.get(1).getId(), entity.getId());
         SitioInteresEntity deleted = em.find(SitioInteresEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+     /**
+     * Prueba para generarDatos de un SitioInteres.
+     *
+     */
+    @Test
+    public void generarDatosSitioInteresTest() throws BusinessLogicException {
+        sitioInteresLogic.generarDatos(viviendaData.get(2).getId());
     }
 }

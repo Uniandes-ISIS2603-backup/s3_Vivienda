@@ -55,7 +55,7 @@ public class SitioInteresPersistence {
      * @return un sitioInteres.
      */
     public SitioInteresEntity find(Long viviendaId, Long sitioInteresId) {
-        LOGGER.log(Level.INFO, "Consultando el sitioInteres con id = {0} de la vivienda con id = " + viviendaId, sitioInteresId);
+        LOGGER.log(Level.INFO, "Consultando el sitioInteres con id = {1} de la vivienda con id ={0} " , new Object[]{ viviendaId, sitioInteresId});
         TypedQuery<SitioInteresEntity> q = em.createQuery("select p from SitioInteresEntity p where (p.vivienda.id = :viviendaId) and (p.id = :sitioInteresId)", SitioInteresEntity.class);
         q.setParameter("viviendaId", viviendaId);
         q.setParameter("sitioInteresId", sitioInteresId);
@@ -64,7 +64,7 @@ public class SitioInteresPersistence {
         if (!results.isEmpty()) {
             sitioInteres = results.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar el sitioInteres con id = {0} de la vivienda con id =" + viviendaId, sitioInteresId);
+        LOGGER.log(Level.INFO, "Saliendo de consultar el sitioInteres con id = {1} de la vivienda con id = {0}" , new Object[]{ viviendaId, sitioInteresId});
         return sitioInteres;
     }
     

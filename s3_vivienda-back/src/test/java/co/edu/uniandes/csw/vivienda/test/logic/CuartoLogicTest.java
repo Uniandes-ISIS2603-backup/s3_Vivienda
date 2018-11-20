@@ -111,7 +111,9 @@ public class CuartoLogicTest {
             try {
                 CuartoEntity cuartoNuevo = cuartoLogic.addCuarto(vivienda.getId(), cuarto);
                 List<CuartoEntity> cuartos = viviendaLogic.getVivienda(vivienda.getId()).getCuartos();
+                Assert.assertEquals(cuartos.get(0).getDescripcion(), cuartoNuevo.getDescripcion());
                 Assert.assertEquals(cuartos.get(0).getId(), cuartoNuevo.getId());
+                Assert.assertEquals(cuartos.get(0).getVivienda(), cuartoNuevo.getVivienda());
             } catch (BusinessLogicException e) {
                 e.printStackTrace();
                 Assert.fail("Debería añadirse el cuarto");

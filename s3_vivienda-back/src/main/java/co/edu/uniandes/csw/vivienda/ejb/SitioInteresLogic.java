@@ -46,13 +46,9 @@ public class SitioInteresLogic
         Float latitud = sitioInteresEntity.getLatitud();
         Float longitud = sitioInteresEntity.getLongitud();
         String nombre = sitioInteresEntity.getNombre();
-        if(latitud==null)
+        if(latitud==null || longitud == null)
         {
-            throw new BusinessLogicException("latitud invalida");
-        }
-        else if(longitud==null)
-        {
-            throw new BusinessLogicException("longitud invalida");
+            throw new BusinessLogicException("latitud y/o longitud invalida");
         }
         else if(nombre==null || nombre.equals(" "))
         {

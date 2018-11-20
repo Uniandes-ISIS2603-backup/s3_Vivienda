@@ -5,6 +5,8 @@
  */
 package co.edu.uniandes.csw.vivienda.test.persistence;
 
+import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.ArrayList;
@@ -40,6 +42,10 @@ public class ViviendaPersistenceTest {
     UserTransaction utx;
     
     private List<ViviendaEntity> data = new ArrayList<ViviendaEntity>();
+    
+    private List<CuartoEntity> dataCuarto = new ArrayList<>();
+    
+    private List<ContratoEntity> dataContrato = new ArrayList<>();
     
         @Deployment
         public static JavaArchive createDeployement(){
@@ -79,16 +85,35 @@ public class ViviendaPersistenceTest {
             em.persist(entity);
             data.add(entity);
         }
+        
+        for(int i = 0; i<2;i++)
+        {
+            CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
+            em.persist(cuarto);
+            dataCuarto.add(cuarto);
+        }
+        for(int i = 0; i<2;i++)
+        {
+            ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
+            em.persist(contrato);
+            dataContrato.add(contrato);
+        }
     }
 
     @Test
     public void createViviendaTest(){
         PodamFactory factory = new PodamFactoryImpl();
         ViviendaEntity ent = factory.manufacturePojo(ViviendaEntity.class);
+        ent.setCuartos(dataCuarto);
+        ent.setContratos(dataContrato);
         ViviendaEntity result = persistence.create(ent);
         Assert.assertNotNull(result);
         ViviendaEntity entity = em.find(ViviendaEntity.class, result.getId());
         Assert.assertEquals(entity.getNombre(), result.getNombre());
+        Assert.assertEquals(entity.getServiciosIncluidos(), result.getServiciosIncluidos());
+        Assert.assertEquals(entity.getImgUrl(), result.getImgUrl());
+        Assert.assertEquals(entity.getArrendador(), result.getArrendador());
+        Assert.assertEquals(ent.getContratos().size(), result.getContratos().size());
     }
 
     @Test
@@ -156,5 +181,20 @@ public class ViviendaPersistenceTest {
         String ciudadNoExistente = "293jfaenj89jawr90j2330";
         String direccionNoExistente = "2930jai0 j09j23 ewj02  2390j23 2340j23 23oij4p2'1 mepom 23";
         Assert.assertNull(persistence.buscarPorDireccion(ciudadNoExistente, direccionNoExistente));
+    }
+    
+    @Test
+    public void deleteAllTest(){
+        PodamFactory factory = new PodamFactoryImpl();
+        for(int i=0;i<3;i++)
+        {
+            ViviendaEntity ent = factory.manufacturePojo(ViviendaEntity.class);
+            ViviendaEntity result = persistence.create(ent);
+            Assert.assertNotNull(result);
+        }
+        
+        Assert.assertEquals(8,persistence.findAll().size());
+        persistence.deleteAll();
+        Assert.assertEquals(0,persistence.findAll().size());
     }
 }

@@ -118,6 +118,7 @@ public class ArrendadorLogicTest {
     @Test
     public void createArrendadorTest() throws BusinessLogicException {
         ArrendadorEntity newEntity = factory.manufacturePojo(ArrendadorEntity.class);
+        newEntity.setViviendas(viviendasData);
         ArrendadorEntity result = arrendadorLogic.createArrendador(newEntity);
         Assert.assertNotNull(result);
         ArrendadorEntity entity = em.find(ArrendadorEntity.class, result.getId());
