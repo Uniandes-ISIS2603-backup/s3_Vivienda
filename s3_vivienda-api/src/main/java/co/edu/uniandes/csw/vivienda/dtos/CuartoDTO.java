@@ -33,7 +33,8 @@ public class CuartoDTO implements Serializable {
         }
     }
 
-    public CuartoEntity toEntity(){
+    public CuartoEntity toEntity()
+    {
         CuartoEntity cuartoEntity = new CuartoEntity();
         cuartoEntity.setNombre(nombre);
         cuartoEntity.setDescripcion(descripcion);
