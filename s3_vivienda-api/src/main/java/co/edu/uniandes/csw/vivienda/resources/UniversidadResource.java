@@ -57,6 +57,20 @@ public class UniversidadResource {
         return nuevaUniversidadDTO;
     }
     
+    @POST
+    @Path("generardatos")
+    public List<UniversidadDetailDTO> generarDatos() {
+        List<UniversidadEntity> universidades = universidadLogic.generarDatos();
+        
+        ArrayList<UniversidadDetailDTO> respuestas = new ArrayList<>();
+        
+        for (UniversidadEntity ent: universidades){
+            UniversidadDetailDTO universidad = new UniversidadDetailDTO(ent);
+            respuestas.add(universidad);
+        }
+        return respuestas;
+    }
+    
     /**
      * Busca y devuelve todas las universidades que existen en la aplicacion.
      *

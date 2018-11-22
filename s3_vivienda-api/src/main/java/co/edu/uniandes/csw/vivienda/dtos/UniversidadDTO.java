@@ -43,7 +43,7 @@ public class UniversidadDTO implements Serializable {
         universidadEntity.setNombre(this.nombre);
         universidadEntity.setLatitud(this.latitud);
         universidadEntity.setLongitud(this.longitud);
-        universidadEntity.setImgUrl(imgUrl);
+        universidadEntity.setImgUrl(this.imgUrl);
         return universidadEntity;
     }
     
