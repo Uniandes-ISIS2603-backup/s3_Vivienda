@@ -1,22 +1,23 @@
 {
 	"info": {
-		"_postman_id": "b36fae09-ed3b-4e4b-92b0-63012a1d66df",
-		"name": "CuartoTests",
+		"_postman_id": "2071ae00-a1cd-46fd-a202-552c1e488f61",
+		"name": "Servicio Adicional Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Crea vivienda",
+			"name": "Crear Vivienda",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "4f2ac0ac-1bb4-4840-879f-9f920f432fb4",
+						"id": "18eb81fa-2236-4071-a5bd-ea43c49fb6df",
+						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"viviendaId\", data.id)"
-						],
-						"type": "text/javascript"
+							"postman.setGlobalVariable(\"new_id_v\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
 					}
 				}
 			],
@@ -33,7 +34,7 @@
 					"raw": "{\r\n  \"direccion\":\"calle {{$randomInt}} #{{$randomInt}}-26 apto {{$randomInt}}\",\r\n  \"ciudad\": \"Bogotá\",\r\n  \"nombre\": \"Apartamento en la Candelaria numero {{$randomInt}}\",\r\n  \"descripcion\": \"Amplio apartamento con cocina a 10 cuadras de la Universidad de los Andes\",\r\n  \"tipo\": \"B\",\r\n  \"serviciosIncluidos\":[\r\n    \"lavadora\",\r\n    \"internet\"\r\n    ],\r\n  \"latitud\": 4.5965,\r\n  \"longitud\": -74.0715\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -42,29 +43,25 @@
 					"path": [
 						"s3_vivienda-api",
 						"api",
-						"viviendas",
-						""
+						"viviendas"
 					]
-				},
-				"description": "Crea una vivienda sobre la cual van a correr los tests de cuarto"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Crear cuarto",
+			"name": "Crear Servicio Adicional",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "afb4e165-e23a-4dc6-b0ac-6fb9ec229ceb",
+						"id": "4c0fde6d-b48d-47c1-9937-21b502cee139",
+						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"cuartoId\", data.id)",
-							"tests[\"El post no genera error\"] = responseCode.code === 200;",
-							"",
-							""
-						],
-						"type": "text/javascript"
+							"postman.setGlobalVariable(\"new_id_v2\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						]
 					}
 				}
 			],
@@ -78,10 +75,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"nombre\":\"cuarto1\",\n\t\"descripcion\":\"Un cuarto\",\n\t\"costoArriendo\": \"1000000\"\n}"
+					"raw": "{\r\n\t\"nombre\": \"Lavanderia\",       \r\n\t\"descripción\": \"Servicio de lavado y planchado de ropa un dia a la semana\",   \r\n\t\"costo\": 25.000\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -91,26 +88,66 @@
 						"s3_vivienda-api",
 						"api",
 						"viviendas",
-						"{{viviendaId}}",
-						"cuartos"
+						"{{new_id_v}}",
+						"servicioAdicional"
 					]
-				},
-				"description": "Crea un cuarto"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET cuarto",
+			"name": "Get Servicios Adicionales",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
+						"id": "4367f5a7-24b5-474a-ba2e-3077afb33483",
+						"type": "text/javascript",
 						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] = responseCode.code === 200;",
-							"tests[\"Devuelve el cuarto esperado\"] = data.id == pm.globals.get(\"cuartoId\");",
-							"tests[\"El cuarto esta asociado con la vivienda esperada\"] = data.vivienda.id == pm.globals.get(\"viviendaId\");"
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}",
+						"servicioAdicional"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Servicio Adicional",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4367f5a7-24b5-474a-ba2e-3077afb33483",
+						"exec": [
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -118,10 +155,18 @@
 			],
 			"request": {
 				"method": "GET",
-				"header": [],
-				"body": {},
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional/{{new_id_v2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -131,27 +176,23 @@
 						"s3_vivienda-api",
 						"api",
 						"viviendas",
-						"{{viviendaId}}",
-						"cuartos",
-						"{{cuartoId}}"
+						"{{new_id_v}}",
+						"servicioAdicional",
+						"{{new_id_v2}}"
 					]
-				},
-				"description": "Obtiene el cuarto creado anteriormente\n"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "Actualizar cuarto",
+			"name": "Actualizar Servicio Adicional",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "348ad66a-c554-4985-a197-c9f2d14ea61f",
+						"id": "4367f5a7-24b5-474a-ba2e-3077afb33483",
 						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] = responseCode.code === 200;",
-							"tests[\"El cuarto se actualiza\"] = data.costoArriendo === 1200000",
-							""
+							"tests[\"No genera error en el Get\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -167,10 +208,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"costoArriendo\": 1200000\n}"
+					"raw": "{\r\n\t\"costo\": 30.000\r\n\r\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional/{{new_id_v2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -180,118 +221,23 @@
 						"s3_vivienda-api",
 						"api",
 						"viviendas",
-						"{{viviendaId}}",
-						"cuartos",
-						"{{cuartoId}}"
+						"{{new_id_v}}",
+						"servicioAdicional",
+						"{{new_id_v2}}"
 					]
-				},
-				"description": "Actualiza el costo del cuarto"
-			},
-			"response": []
-		},
-		{
-			"name": "Crear cuarto error",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "00e659cc-b554-429c-a573-c7dd731abf85",
-						"exec": [
-							"tests[\"El post genera error\"] = responseCode.code === 412;",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
 				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"nombre\":\"cuarto1\",\n\t\"descripcion\":\"Un cuarto\"\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{viviendaId}}",
-						"cuartos"
-					]
-				},
-				"description": "Crea un cuarto sin costo de arrendamiento, debe generar un error"
 			},
 			"response": []
 		},
 		{
-			"name": "Actualizar cuarto error",
+			"name": "Borrar Servicio Adicional",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "95382fc9-9a79-48d0-bbd4-a7d88999a3af",
+						"id": "131cf528-66f0-42d6-813d-dceb1a6ce1d3",
 						"exec": [
-							"tests[\"Genera error\"] = responseCode.code === 412;",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"costoArriendo\": 0\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{viviendaId}}",
-						"cuartos",
-						"{{cuartoId}}"
-					]
-				},
-				"description": "Actualiza el costo del cuarto a un valor invalido, debe generar error"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE cuarto",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "929631d4-669a-4c8c-a3e0-ddabc5ac3d74",
-						"exec": [
-							"tests[\"El delete no genera error\"] = responseCode.code === 204;"
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
 						],
 						"type": "text/javascript"
 					}
@@ -300,9 +246,12 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional/{{new_id_v2}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -312,14 +261,74 @@
 						"s3_vivienda-api",
 						"api",
 						"viviendas",
-						"{{viviendaId}}",
-						"cuartos",
-						"{{cuartoId}}"
+						"{{new_id_v}}",
+						"servicioAdicional",
+						"{{new_id_v2}}"
 					]
-				},
-				"description": "Elimina un cuarto"
+				}
 			},
 			"response": []
+		},
+		{
+			"name": "Eliminar una vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05c968b2-6436-4bb4-89e6-dbe0280abf7a",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_v}}"
+					]
+				},
+				"description": "Borra una vivienda. Se envia el id creado anteriormente.\nCódigo http esperado: 204\n"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ab7bd170-6d38-4667-b8d5-a68317fc3dc9",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8144def1-fea2-4c89-ab67-33f10c2e4788",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

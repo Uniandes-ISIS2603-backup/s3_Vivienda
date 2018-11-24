@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3395e1aa-d920-4a61-88ad-0be30f1b991d",
+		"_postman_id": "b7075a02-196b-4c58-81d1-0b75b2083710",
 		"name": "ContratoTests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -424,6 +424,139 @@
 					]
 				},
 				"description": "Elimina un contrato"
+			},
+			"response": []
+		},
+		{
+			"name": "delete estudiante",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "bbc00918-eb4e-4807-a3c3-bc9f4eed31d0",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 204;",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE universidad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "929631d4-669a-4c8c-a3e0-ddabc5ac3d74",
+						"exec": [
+							"tests[\"El delete no genera error\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{id_uni}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"universidades",
+						"{{id_uni}}"
+					]
+				},
+				"description": "Elimina un contrato"
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar una vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "05c968b2-6436-4bb4-89e6-dbe0280abf7a",
+						"exec": [
+							"tests[\"No genera error en el Delete\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}"
+					]
+				},
+				"description": "Borra una vivienda. Se envia el id creado anteriormente.\nCódigo http esperado: 204\n"
 			},
 			"response": []
 		}

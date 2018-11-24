@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2bed922f-79e8-4456-bb4a-34c123a740d0",
+		"_postman_id": "e5d1845a-1e5d-4e9c-8f1e-3b9ebe823929",
 		"name": "pruebas_postman_estudiante_y_calificacion",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -259,7 +259,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
 					"protocol": "http",
@@ -534,7 +537,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}",
 					"protocol": "http",
@@ -700,7 +706,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
@@ -1005,7 +1011,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones/{{id_cal}}",
@@ -1069,7 +1075,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones/{{id_cal}}",
@@ -1300,7 +1306,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/calificaciones",
@@ -1376,7 +1382,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jUCas35\",\n    \"nombre\": \"juan ca\",\n    \"password\": \"banano_con_fresa\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/calificaciones",
