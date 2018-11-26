@@ -76,4 +76,8 @@ public class UniversidadPersistence
         LOGGER.log(Level.INFO, "Saliendo de consultar universidad por nombre ", nombre);
         return result;
     }
+    
+        public void deleteAll(){
+        em.createQuery("Delete from UniversidadEntity").executeUpdate();
+    }
 }

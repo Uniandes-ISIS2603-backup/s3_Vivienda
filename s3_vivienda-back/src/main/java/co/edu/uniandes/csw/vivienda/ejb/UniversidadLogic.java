@@ -28,11 +28,7 @@ public class UniversidadLogic
     @Inject
     private UniversidadPersistence universidadPersistence; // Variable para acceder a la persistencia de la aplicación. Es una inyección de dependencias.
 
-    @Inject
-    private EstudiantePersistence estudiantePersistence;
-    
-    @Inject
-    private EstudianteLogic estudianteLogic;
+
     
     public UniversidadEntity createUniversidad(UniversidadEntity universidadEntity) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de creación de la universdiad");
@@ -96,41 +92,30 @@ public class UniversidadLogic
         LOGGER.log(Level.INFO, "Termina proceso de borrar la universidad con id = {0}", universidadId);
     }
     
-     public List<UniversidadEntity> generarDatos()
+     public void generarDatos()
     {       
-        List<UniversidadEntity> universidades = getUniversidades();
-        for(UniversidadEntity universidad: universidades)
+        List<UniversidadEntity> universidadesViejas = getUniversidades();
+        for(UniversidadEntity universidad: universidadesViejas)
         {
-            universidadPersistence.delete(universidad.getId());
+            deleteUniversidad(universidad.getId());
         }
-        
-        List<EstudianteEntity> estudiantes = estudiantePersistence.findAll();
         
         Random rand = new Random();
         String[] nombresUniversidades = new String[]{"Universidad de Los Andes", "Universidad Javeriana", "Universidad Nacional", "Universidad del Rosario", "Universidad Externado", "Universidad del Bosque", "Universidad de La Sabana", "CESA"};
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < nombresUniversidades.length; i++) {
             UniversidadEntity universidad = new UniversidadEntity();
             String nombreUniversidad = nombresUniversidades[i];
             universidad.setNombre(nombreUniversidad);
             universidad.setLongitud(rand.nextFloat());
             universidad.setLatitud(rand.nextFloat());
             universidad.setImgUrl("assets/img/universidad" + (i + 1) + ".png");
-            universidad.setEstudiantes(estudiantes);
-            
+
             try {
-                UniversidadEntity universidad2 = createUniversidad(universidad);
-                if(i<estudiantes.size()){
-                EstudianteEntity estudiante = estudiantes.get(i);
-                estudiante.setUniversidad(universidad2);                
-                estudianteLogic.updateEstudiante(estudiante.getId(), estudiante);
-                }
-                universidades.add(universidad);
-            } catch (BusinessLogicException ex) {
-                Logger.getLogger(ArrendadorLogic.class.getName()).log(Level.SEVERE, null, ex);
+                createUniversidad(universidad);
+            } catch (Exception e) {
+                LOGGER.log(Level.INFO, "Error en el proceso de crear la universidad");
             }
         }
-        
-        return universidades;
     }
 }
 

@@ -59,13 +59,13 @@ public class UniversidadResource {
     
     @POST
     @Path("generardatos")
-    public List<UniversidadDetailDTO> generarDatos() {
-        List<UniversidadEntity> universidades = universidadLogic.generarDatos();
-        
-        ArrayList<UniversidadDetailDTO> respuestas = new ArrayList<>();
-        
-        for (UniversidadEntity ent: universidades){
-            UniversidadDetailDTO universidad = new UniversidadDetailDTO(ent);
+    public List<UniversidadDTO> generarDatos() {
+        universidadLogic.generarDatos();
+        List<UniversidadEntity> universidades = universidadLogic.getUniversidades();
+        ArrayList<UniversidadDTO> respuestas = new ArrayList<>();
+
+        for (UniversidadEntity ent : universidades) {
+            UniversidadDTO universidad = new UniversidadDTO(ent);
             respuestas.add(universidad);
         }
         return respuestas;

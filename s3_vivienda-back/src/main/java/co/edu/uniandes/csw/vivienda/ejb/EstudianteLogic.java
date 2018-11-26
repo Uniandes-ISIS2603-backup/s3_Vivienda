@@ -39,8 +39,7 @@ public class EstudianteLogic {
     
     public void generarDatos(){
         persistenceCalificacion.deleteAll();
-
-        List<EstudianteEntity> estudiantesViejos = persistence.findAll();
+         List<EstudianteEntity> estudiantesViejos = persistence.findAll();
         for (EstudianteEntity estudiante: estudiantesViejos){
             persistence.delete(estudiante.getId());
         }
@@ -53,7 +52,7 @@ public class EstudianteLogic {
         
         String [] nombres = new String[]{"Juan David", "Carlos Andrés", "Julián Felipe", "Oscar", "Carolina", "Daniela", "Jimena Sofía"};
         String [] apellidos = new String[]{"Cardoso", "Meneses", "Rojas", "García", "Gómez", "Vargas", "Quintero", "González"};
-        String [] universidadesString = new String[]{"Universidad de Los Andes", "Universidad Javeriana", "Universidad de La Sabana"};
+        String [] universidadesString = new String[]{"Universidad de Los Andes", "Universidad Javeriana", "Universidad Nacional", "Universidad del Rosario", "Universidad Externado", "Universidad del Bosque", "Universidad de La Sabana", "CESA"};
         
         Random rand = new Random();
         
@@ -62,6 +61,7 @@ public class EstudianteLogic {
             universidad.setLatitud(rand.nextFloat()*40);
             universidad.setLongitud(rand.nextFloat()*40);
             universidad.setNombre(universidadesString[i]);
+            universidad.setImgUrl("assets/img/universidad" + (i + 1) + ".png");
             persistenceUniversidad.create(universidad);
         }
         
