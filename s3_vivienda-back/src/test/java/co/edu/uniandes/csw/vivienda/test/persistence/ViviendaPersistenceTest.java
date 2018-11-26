@@ -148,8 +148,8 @@ public class ViviendaPersistenceTest {
             ViviendaEntity deleted = em.find(ViviendaEntity.class, entity.getId());
             Assert.assertNull(deleted);
         }
-        Assert.assertEquals(em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
-                .getResultList().size(), 0);
+        Assert.assertEquals( 0, em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
+                .getResultList().size());
     }
 
     @Test

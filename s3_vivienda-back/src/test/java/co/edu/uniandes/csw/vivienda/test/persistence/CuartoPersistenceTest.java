@@ -109,6 +109,6 @@ public class CuartoPersistenceTest {
         CuartoEntity entity = data.get(0);
         boolean deleted = persistence.delete(entity.getId());
         Assert.assertFalse(deleted);
-        Assert.assertEquals(em.createQuery("select u from CuartoEntity u", CuartoEntity.class).getResultList().size(), 0);
+        Assert.assertEquals( 0, em.createQuery("select u from CuartoEntity u", CuartoEntity.class).getResultList().size());
     }
 }

@@ -36,11 +36,12 @@ public class ViviendaCalificacionesResource{
     
     private static final Logger LOGGER = Logger.getLogger(ViviendaCalificacionesResource.class.getName());
     
-    @Inject
-    private CalificacionLogic calificacionLogic;
+    private static final String RECURSO_VIVIENDAS = "El recurso /viviendas/";
+    private static final String CALIFICACIONES = "/calificaciones/";
+    private static final String NO_EXISTE = " no existe.";
     
     @Inject
-    private ViviendaLogic viviendaLogic;
+    private CalificacionLogic calificacionLogic;
 
     /**
      * Crea una nueva calificacion con la informacion que se recibe en el cuerpo de
@@ -106,7 +107,7 @@ public class ViviendaCalificacionesResource{
             return calificacionDTO;
         }
         catch(BusinessLogicException e){
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
     }
     
@@ -134,7 +135,7 @@ public class ViviendaCalificacionesResource{
             calificacionLogic.getCalificacionVivienda(viviendaId, calificacionId);
         }
         catch(BusinessLogicException e){
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
         
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionVivienda(calificacionId, calificacion.toEntity());

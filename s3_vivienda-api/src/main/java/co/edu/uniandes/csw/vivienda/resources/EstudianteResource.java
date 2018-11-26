@@ -42,6 +42,9 @@ import javax.ws.rs.WebApplicationException;
 public class EstudianteResource {
 
     private static final Logger LOGGER = Logger.getLogger(EstudianteResource.class.getName());
+    
+    private static final String RECURSO_ESTUDIANTES = "El recurso /estudiantes/";
+    private static final String NO_EXISTE = " no existe.";
 
     @Inject
     CalificacionLogic calificacionLogic;  // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -116,7 +119,7 @@ public class EstudianteResource {
         LOGGER.log(Level.INFO, "EstudianteResource getEstudiante: input: {0}", estudiantesId);
         EstudianteEntity estudianteEntity = estudianteLogic.getEstudiante(estudiantesId);
         if (estudianteEntity == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudiantesId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudiantesId + NO_EXISTE, 404);
         }
         EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteEntity);
         LOGGER.log(Level.INFO, "EstudianteResource getEstudiante: output: {0}", estudianteDetailDTO);
@@ -145,7 +148,7 @@ public class EstudianteResource {
         LOGGER.log(Level.INFO, "EstudianteResource updateEstudiante: input: id: {0} , estudiante: {1}", new Object[]{estudiantesId, estudiante});
         estudiante.setId(estudiantesId);
         if (estudianteLogic.getEstudiante(estudiantesId) == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudiantesId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudiantesId + NO_EXISTE, 404);
         }
         EstudianteDetailDTO detailDTO = new EstudianteDetailDTO(estudianteLogic.updateEstudiante(estudiantesId, estudiante.toEntity()));
         LOGGER.log(Level.INFO, "EstudianteResource updateEstudiante: output: {0}", detailDTO);
@@ -166,7 +169,7 @@ public class EstudianteResource {
         LOGGER.log(Level.INFO, "EstudianteResource deleteEstudiante: input: {0}", estudiantesId);
         EstudianteEntity entity = estudianteLogic.getEstudiante(estudiantesId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudiantesId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudiantesId + NO_EXISTE, 404);
         }
         estudianteLogic.deleteEstudiante(estudiantesId);
         LOGGER.info("EstudianteResource deleteEstudiante: output: void");
@@ -189,7 +192,7 @@ public class EstudianteResource {
     @Path("{estudianteId:\\d+}/universidad")
     public Class<EstudianteUniversidadResource> getEstudianteUniversidadResource(@PathParam("estudianteId") Long estudianteId) {
         if (estudianteLogic.getEstudiante(estudianteId) == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "  no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + NO_EXISTE, 404);
         }
         return EstudianteUniversidadResource.class;
     }
@@ -211,7 +214,7 @@ public class EstudianteResource {
     @Path("{estudianteId:\\d+}/calificaciones")
     public Class<EstudianteCalificacionesResource> getEstudianteCalificacionesResource(@PathParam("estudianteId") Long estudianteId) {
         if (estudianteLogic.getEstudiante(estudianteId) == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + NO_EXISTE, 404);
         }
         return EstudianteCalificacionesResource.class;
     }
@@ -231,7 +234,7 @@ public class EstudianteResource {
         LOGGER.log(Level.INFO, "EstudianteResource getContrato: input: {0}", estudianteId);
         EstudianteEntity estudiante = estudianteLogic.getEstudiante(estudianteId);
         if (estudiante == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + NO_EXISTE, 404);
         }
         ContratoEntity contratoEntity = estudiante.getContrato();
         if (contratoEntity != null) {
@@ -239,7 +242,7 @@ public class EstudianteResource {
             LOGGER.log(Level.INFO, "EstudianteResource getContrato: output: {0}", contratoDTO);
             return contratoDTO;
         } else {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/contrato no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + "/contrato no existe.", 404);
         }
     }
 
@@ -257,7 +260,7 @@ public class EstudianteResource {
         LOGGER.log(Level.INFO, "EstudianteResource deleteContrato: input: {0}", estudianteId);
         EstudianteEntity estudiante = estudianteLogic.getEstudiante(estudianteId);
         if (estudiante == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + NO_EXISTE, 404);
         }
         ContratoEntity contratoEntity = estudiante.getContrato();
         if (contratoEntity != null) {
@@ -268,7 +271,7 @@ public class EstudianteResource {
             }
             LOGGER.info("EstudianteResource deleteContrato: output: void");
         } else {
-            throw new WebApplicationException("El recurso estudiantes/" + estudianteId + "/contrato no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + "/contrato no existe.", 404);
         }
 
     }

@@ -5,11 +5,9 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
-import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
-import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.*;

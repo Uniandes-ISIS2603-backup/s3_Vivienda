@@ -142,8 +142,8 @@ public class ViviendaLogicTest {
                 Assert.fail("Vivienda existe");
             }
         }
-        Assert.assertEquals(em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
-                .getResultList().size(), 0);
+        Assert.assertEquals( 0,em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
+                .getResultList().size());
     }
 
     @Test

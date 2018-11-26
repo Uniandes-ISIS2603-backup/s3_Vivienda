@@ -39,8 +39,7 @@ public class ViviendaCuartoResource {
     @Path("{cuartoId:\\d+}")
     public CuartoDTO getCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId) throws BusinessLogicException{
         CuartoEntity cuartoEntity = logic.getCuarto(viviendaId, cuartoId);
-        CuartoDTO cuarto = new CuartoDTO(cuartoEntity);
-        return cuarto;
+        return new CuartoDTO(cuartoEntity);
     }
 
     @POST

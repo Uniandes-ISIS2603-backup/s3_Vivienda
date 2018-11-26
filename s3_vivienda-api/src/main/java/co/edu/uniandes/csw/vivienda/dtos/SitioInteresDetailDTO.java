@@ -16,7 +16,10 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class SitioInteresDetailDTO extends SitioInteresDTO implements Serializable{
     
-    // relación  cero o muchos vivienda
+     /*
+    * Relación a una vivienda
+    * dado que esta tiene cardinalidad 1.
+     */
     private ViviendaDTO vivienda;
     
     public SitioInteresDetailDTO()

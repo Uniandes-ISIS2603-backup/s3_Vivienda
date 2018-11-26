@@ -33,6 +33,9 @@ import javax.ws.rs.core.MediaType;
 public class EstudianteCalificacionesResource{
     private static final Logger LOGGER = Logger.getLogger(EstudianteCalificacionesResource.class.getName());
     
+    private static final String RECURSO_ESTUDIANTES= "El recurso /estudiantes/";
+    private static final String CALIFICACIONES = "/calificaciones/";
+    private static final String NO_EXISTE = " no existe.";
    
     @Inject
     private CalificacionLogic calificacionLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -77,7 +80,7 @@ public class EstudianteCalificacionesResource{
     public List<CalificacionDTO> getCalificaciones(@PathParam("estudianteId") Long estudianteId) {
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificaciones: input: {0}", estudianteId);
         List<CalificacionDTO> listaDTOs = calificacionListEntity2DTO(calificacionLogic.getCalificacionesEstudiante(estudianteId));
-        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificaciones: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificaciones: output: {0}", listaDTOs);
         return listaDTOs;
     }
     
@@ -98,7 +101,7 @@ public class EstudianteCalificacionesResource{
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: input: estudianteID: {0} , calificacionId: {1}", new Object[]{estudianteId, calificacionId});
         if(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId)==null)
         {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId));
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: output: {0}", calificacionDTO);
@@ -127,7 +130,7 @@ public class EstudianteCalificacionesResource{
         calificacion.setId(calificacionId);
         if(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId)==null)
         {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(calificacionId, calificacion.toEntity());
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
@@ -151,7 +154,7 @@ public class EstudianteCalificacionesResource{
         LOGGER.log(Level.INFO, "EstudianteCalificacionResource deleteCalificacion: input: {0}", calificacionId);
         if(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId)==null)
         {
-              throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/calificaciones/" + calificacionId + " no existe.", 404);
+              throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
         calificacionLogic.deleteCalificacionEstudiante(estudianteId, calificacionId);
         LOGGER.info("EstudianteCalificacionResource deleteCalificacion: output: void");

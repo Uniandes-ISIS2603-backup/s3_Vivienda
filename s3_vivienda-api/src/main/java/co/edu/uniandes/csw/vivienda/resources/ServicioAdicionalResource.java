@@ -22,6 +22,9 @@ import javax.ws.rs.*;
 public class ServicioAdicionalResource {
     
     private static final Logger LOGGER = Logger.getLogger(ServicioAdicionalResource.class.getName());
+    
+    private static final String RECURSO_VIVIENDAS = "El recurso /viviendas/";
+    private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ServicioAdicionalLogic servicioAdicionalLogic;
@@ -79,7 +82,7 @@ public class ServicioAdicionalResource {
         LOGGER.log(Level.INFO, "ServicioAdicionalResource getReview: input: {0}", servicioAdicionalId);
         ServicioAdicionalEntity entity = servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/servicio/" + servicioAdicionalId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + "/servicio/" + servicioAdicionalId + NO_EXISTE, 404);
         }
         ServicioAdicionalDetailDTO servicioAdicionalDTO = new ServicioAdicionalDetailDTO(entity);
         LOGGER.log(Level.INFO, "SerivicoAdicionalResource getServicioAdicional: output: {0}", servicioAdicionalDTO);
@@ -108,7 +111,7 @@ public class ServicioAdicionalResource {
         }
         ServicioAdicionalEntity entity = servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/serviciosadicionales/" + servicioAdicionalId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + "/serviciosadicionales/" + servicioAdicionalId + NO_EXISTE, 404);
 
         }
         servicio.setId(servicioAdicionalId);
@@ -133,7 +136,7 @@ public class ServicioAdicionalResource {
     public void deleteReview(@PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId) throws BusinessLogicException {
         ServicioAdicionalEntity entity = servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId);
         if (entity == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/serviciosadicionales/" + servicioAdicionalId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + "/serviciosadicionales/" + servicioAdicionalId + NO_EXISTE, 404);
         }
         servicioAdicionalLogic.deleteServicioAdicional(viviendaId, servicioAdicionalId);
     }

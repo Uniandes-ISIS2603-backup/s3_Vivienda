@@ -32,6 +32,7 @@ import co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper;
 public class ViviendaArrendadorResource {
     
     private static final Logger LOGGER = Logger.getLogger(ViviendaArrendadorResource.class.getName());
+    private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ViviendaLogic viviendasLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -56,7 +57,7 @@ public class ViviendaArrendadorResource {
     public ArrendadorDetailDTO getArrendador(@PathParam("viviendaId") Long viviendaId, @PathParam("arrendadorId") Long arrendadorId)  {
         LOGGER.log(Level.INFO, "ViviendaArrendadorResource getArrendador: input: viviendaId {0} , arrendadorId {1}", new Object[]{viviendaId, arrendadorId});
         if (arrendadorLogic.getArrendador(arrendadorId) == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/arrendadores/" + arrendadorId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/arrendadores/" + arrendadorId + NO_EXISTE, 404);
         }
         ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(viviendaArrendadorLogic.getArrendador(viviendaId));
         LOGGER.log(Level.INFO, "ViviendaArrendadorResource getArrendador: output: {0}", arrendadorDetailDTO);
@@ -77,10 +78,10 @@ public class ViviendaArrendadorResource {
     public ViviendaDetailDTO replaceArrendador(@PathParam("viviendaId") Long viviendaId, ArrendadorDTO arrendador) {
         LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: input: viviendaId{0} , Arrendador:{1}", new Object[]{viviendaId, arrendador});
         if (viviendasLogic.getVivienda(viviendaId) == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + NO_EXISTE, 404);
         }
         if (arrendadorLogic.getArrendador(arrendador.getId()) == null) {
-            throw new WebApplicationException("El recurso /arrendadores/" + arrendador.getId() + " no existe.", 404);
+            throw new WebApplicationException("El recurso /arrendadores/" + arrendador.getId() + NO_EXISTE, 404);
         }
         ViviendaDetailDTO viviendaDetailDTO = new ViviendaDetailDTO(viviendaArrendadorLogic.replaceArrendador(viviendaId, arrendador.getId()));
         LOGGER.log(Level.INFO, "ViviendaArrendadorResource replaceArrendador: output: {0}", viviendaDetailDTO);

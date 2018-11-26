@@ -38,6 +38,8 @@ import javax.ws.rs.core.MediaType;
 public class ViviendaContratosResource {
     
     private static final Logger LOGGER = Logger.getLogger(ViviendaContratosResource.class.getName());
+    
+    private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ViviendaContratosLogic viviendaContratosLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -65,7 +67,7 @@ public class ViviendaContratosResource {
     public ContratoDTO addContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) {
         LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: input: contratoID: {0} , viviendaId: {1}", new Object[]{viviendaId, contratoId});
         if (contratoLogic.getContrato(contratoId) == null) {
-            throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /contratos/" + contratoId + NO_EXISTE, 404);
         }
         ContratoDTO contratoDTO = new ContratoDTO(viviendaContratosLogic.addContrato(contratoId, viviendaId));
         LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: output: {0}", contratoDTO);
@@ -80,14 +82,15 @@ public class ViviendaContratosResource {
      * actualizando. Este debe ser una cadena de dígitos.
      * @param contrato
      * @return JSON {@link BookDTO} - El contrato guardado en la vivienda.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @POST
     public ContratoDTO createContrato(@PathParam("viviendaId") Long viviendaId, ContratoDTO contrato) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: input: {0}", contrato.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: input: {0}", contrato);
         ContratoDTO nuevoContrato = new ContratoDTO(contratoLogic.createContrato(contrato.toEntity()));
-        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: output: {0}", nuevoContrato.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: output: {0}", nuevoContrato);
         return nuevoContrato;
     }
 
@@ -126,7 +129,7 @@ public class ViviendaContratosResource {
     public ContratoDetailDTO getContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ViviendaContratosResource getContrato: input: viviendaID: {0} , contratoId: {1}", new Object[]{viviendaId, contratoId});
         if (contratoLogic.getContrato(contratoId) == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/contratos/" + contratoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/contratos/" + contratoId + NO_EXISTE, 404);
         }
         ContratoDetailDTO contratoDTO = new ContratoDetailDTO(viviendaContratosLogic.getContrato(viviendaId, contratoId));
         LOGGER.log(Level.INFO, "ViviendaContratosResource getContrato: output: {0}", contratoDTO);
@@ -150,7 +153,7 @@ public class ViviendaContratosResource {
         LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: input: viviendaId: {0} , contratos: {1}", new Object[]{viviendaId, contratos});
         for (ContratoDTO contrato : contratos) {
             if (contratoLogic.getContrato(contrato.getId()) == null) {
-                throw new WebApplicationException("El recurso /contratos/" + contrato.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /contratos/" + contrato.getId() + NO_EXISTE, 404);
             }
         }
         List<ContratoDetailDTO> listaDetailDTOs = contratosListEntity2DTO(viviendaContratosLogic.replaceContratos(viviendaId, contratosListDTO2Entity(contratos)));

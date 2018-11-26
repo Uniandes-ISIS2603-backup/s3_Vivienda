@@ -25,11 +25,7 @@ public class SitioInteresDTO implements Serializable{
     private Float longitud;
     private String img;
     
-       /*
-    * Relación a una vivienda
-    * dado que esta tiene cardinalidad 1.
-     */
-    private ViviendaDTO vivienda;
+
     
      /**
      * Constructor por defecto
@@ -164,17 +160,4 @@ public class SitioInteresDTO implements Serializable{
         this.img = img;
     }
     
-    /**
-     * @return the vivienda
-     */
-    public ViviendaDTO getVivienda() {
-        return vivienda;
-    }
-
-    /**
-     * @param vivienda the vivienda to set
-     */
-    public void setVivienda(ViviendaDTO vivienda) {
-        this.vivienda = vivienda;
-    }
 }

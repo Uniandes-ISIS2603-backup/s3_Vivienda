@@ -138,7 +138,7 @@ public class CuartoLogicTest {
         insertarCuartos();
         for(ViviendaEntity vivienda : viviendasData){
             List<CuartoEntity> listaCuartos = cuartoLogic.getCuartos(vivienda.getId());
-            Assert.assertEquals(listaCuartos.size(), 3);
+            Assert.assertEquals(3, listaCuartos.size());
         }
     }
 
@@ -154,7 +154,7 @@ public class CuartoLogicTest {
         try {
             viviendaLogic.createVivienda(viviendaEntity);
             List<CuartoEntity> cuartos = cuartoLogic.getCuartos(viviendaEntity.getId());
-            Assert.assertEquals(cuartos.size(), 0);
+            Assert.assertEquals(0, cuartos.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
