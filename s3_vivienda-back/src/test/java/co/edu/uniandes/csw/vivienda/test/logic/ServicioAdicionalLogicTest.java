@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ServicioAdicionalLogic;
+import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -46,9 +47,11 @@ public class ServicioAdicionalLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ServicioAdicionalEntity> data = new ArrayList<>();
+    private final List<ServicioAdicionalEntity> data = new ArrayList<>();
 
-    private List<ViviendaEntity> dataVivienda = new ArrayList<>();
+    private final List<ViviendaEntity> dataVivienda = new ArrayList<>();
+    
+    private final List<ContratoEntity> dataContrato = new ArrayList<>();
 
 
     /**
@@ -92,6 +95,7 @@ public class ServicioAdicionalLogicTest {
     private void clearData() {
         em.createQuery("delete from ServicioAdicionalEntity").executeUpdate();
         em.createQuery("delete from ViviendaEntity").executeUpdate();
+         em.createQuery("delete from ContratoEntity").executeUpdate();
     }
 
     /**
@@ -102,7 +106,10 @@ public class ServicioAdicionalLogicTest {
         
         for (int i = 0; i < 3; i++) {
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
+            ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
             em.persist(vivienda);
+            em.persist(contrato);
+            dataContrato.add(contrato);
             dataVivienda.add(vivienda);
         }
 
@@ -123,6 +130,7 @@ public class ServicioAdicionalLogicTest {
     public void createServicioAdicionalTest() throws BusinessLogicException {
         ServicioAdicionalEntity newEntity = factory.manufacturePojo(ServicioAdicionalEntity.class);
         newEntity.setVivienda(dataVivienda.get(1));
+        newEntity.setContrato(dataContrato.get(1));
         ServicioAdicionalEntity result = reviewLogic.createServicioAdicional(dataVivienda.get(1).getId(), newEntity);
         Assert.assertNotNull(result);
         ServicioAdicionalEntity entity = em.find(ServicioAdicionalEntity.class, result.getId());
@@ -130,6 +138,8 @@ public class ServicioAdicionalLogicTest {
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
         Assert.assertEquals(newEntity.getCosto(), entity.getCosto());
         Assert.assertEquals(newEntity.getDescripcion(), entity.getDescripcion());
+        Assert.assertEquals(newEntity.getVivienda(), entity.getVivienda());
+        Assert.assertEquals(newEntity.getContrato(), entity.getContrato());
     }
 
     /**

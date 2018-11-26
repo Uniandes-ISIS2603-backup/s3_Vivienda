@@ -1,0 +1,199 @@
+{
+	"info": {
+		"_postman_id": "54158ccd-9f49-4315-a9a2-e4cc6f5f1ee1",
+		"name": "ZGenerarDatos test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GenerarDatos Viviendas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa06a94e-f6fc-4ae2-8862-f892da79b131",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerarDatos Contrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2677756-d62f-470c-b17b-22550dbdd94c",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"contratos",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerarDatos Estudiantes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa06a94e-f6fc-4ae2-8862-f892da79b131",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerarDatos SitiosInteres",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa06a94e-f6fc-4ae2-8862-f892da79b131",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/sitiosInteres/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"sitiosInteres",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerarDatos Arrendador",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ddc860a6-12ca-4adf-ad08-7123daa3d0bd",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"arrendadores",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

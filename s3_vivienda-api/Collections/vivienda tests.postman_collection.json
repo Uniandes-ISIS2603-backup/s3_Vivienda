@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "5166e953-30a8-47c6-bea5-c73a0dccf240",
+		"_postman_id": "ee65d7a1-874c-4a50-b593-6f44a3187d95",
 		"name": "vivienda tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -126,7 +126,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/124",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -136,7 +136,7 @@
 						"s3_vivienda-api",
 						"api",
 						"viviendas",
-						"124"
+						"{{viviendaId}}"
 					]
 				},
 				"description": "Retorna la vivienda con el id dado si existe"
@@ -160,7 +160,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas",
 					"protocol": "http",
@@ -241,7 +244,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}",
 					"protocol": "http",

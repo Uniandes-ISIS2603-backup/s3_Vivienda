@@ -111,6 +111,7 @@ public class ServicioAdicionalResource {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/serviciosadicionales/" + servicioAdicionalId + " no existe.", 404);
 
         }
+        servicio.setId(servicioAdicionalId);
         ServicioAdicionalDTO reviewDTO = new ServicioAdicionalDTO(servicioAdicionalLogic.updateServicioAdicional(viviendaId, servicio.toEntity()));
         LOGGER.log(Level.INFO, "servicioAdicionalResource updateReview: output:{0}", reviewDTO);
         return reviewDTO;

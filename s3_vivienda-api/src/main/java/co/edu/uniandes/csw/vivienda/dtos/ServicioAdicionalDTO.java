@@ -19,12 +19,6 @@ public class ServicioAdicionalDTO implements Serializable {
     private String descripcion;
     private Float costo;
     
-    /*
-    * Relación a una vivienda
-    * dado que esta tiene cardinalidad 1.
-    */
-    private ViviendaDTO vivienda;
-    
     public ServicioAdicionalDTO(){
         
     }
@@ -35,13 +29,7 @@ public class ServicioAdicionalDTO implements Serializable {
             this.id = servicioAdicionalEntity.getId();
             this.nombre = servicioAdicionalEntity.getNombre();
             this.descripcion = servicioAdicionalEntity.getDescripcion();
-            this.costo = servicioAdicionalEntity.getCosto();
-            if (servicioAdicionalEntity.getVivienda() != null) {
-                this.vivienda = new ViviendaDTO(servicioAdicionalEntity.getVivienda());
-            } else {
-                this.vivienda = null;
-            }
-            
+            this.costo = servicioAdicionalEntity.getCosto();           
         }
     } 
         public ServicioAdicionalEntity toEntity(){
@@ -51,9 +39,6 @@ public class ServicioAdicionalDTO implements Serializable {
         servicioAdicionalEntity.setNombre(this.nombre);
         servicioAdicionalEntity.setDescripcion(this.descripcion);
         servicioAdicionalEntity.setCosto(this.costo);
-         if (this.vivienda != null) {
-            servicioAdicionalEntity.setVivienda(this.vivienda.toEntity());
-        }
 
         return servicioAdicionalEntity;
     }
@@ -99,22 +84,5 @@ public class ServicioAdicionalDTO implements Serializable {
     public void setCosto(Float costo) {
         this.costo = costo;
     }      
-
-    /**
-     * Devuelve la vivienda asociada a este servicio.
-     *
-     * @return the vivienda
-     */
-    public ViviendaDTO getVivienda() {
-        return vivienda;
-    }
-
-    /**
-     * Modifica la vivienda asociada a este servicio.
-     *
-     * @param vivienda the book to set
-     */
-    public void setVivienda(ViviendaDTO vivienda) {
-        this.vivienda = vivienda;
-    }    
+ 
 }
