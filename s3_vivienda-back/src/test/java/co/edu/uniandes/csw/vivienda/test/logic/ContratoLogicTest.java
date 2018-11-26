@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
@@ -51,9 +52,11 @@ public class ContratoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ContratoEntity> data = new ArrayList<ContratoEntity>();
+    private final List<ContratoEntity> data = new ArrayList<>();
 
-    private List<ViviendaEntity> viviendaData = new ArrayList();
+    private final List<ViviendaEntity> viviendaData = new ArrayList();
+    
+    private final List<EstudianteEntity> estudianteData = new ArrayList();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -96,6 +99,7 @@ public class ContratoLogicTest {
     private void clearData() {
         em.createQuery("delete from " + "ContratoEntity").executeUpdate();
         em.createQuery("delete from " + "ViviendaEntity").executeUpdate();
+        em.createQuery("delete from " + "EstudianteEntity").executeUpdate();
     }
 
     /**
@@ -105,7 +109,10 @@ public class ContratoLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
+            EstudianteEntity estudiante = factory.manufacturePojo(EstudianteEntity.class);
             em.persist(vivienda);
+            em.persist(estudiante);
+            estudianteData.add(estudiante);
             viviendaData.add(vivienda);
         }
         for (int i = 0; i < 3; i++) {
@@ -127,6 +134,7 @@ public class ContratoLogicTest {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setVivienda(viviendaData.get(0));
         newEntity.setMetodoPago(1);
+        newEntity.setEstudiante(estudianteData.get(1));
         ContratoEntity result = contratoLogic.createContrato(newEntity);
 //        result.setMetodoPago(result.getMetodoPago());
         Assert.assertNotNull(result);
@@ -137,6 +145,7 @@ public class ContratoLogicTest {
 
         Assert.assertEquals(newEntity.getFechaInicio(), entity.getFechaInicio());
         Assert.assertEquals(newEntity.getFechaFin(), entity.getFechaFin());
+        Assert.assertEquals(newEntity.getEstudiante(), entity.getEstudiante());
     }
 
     /**

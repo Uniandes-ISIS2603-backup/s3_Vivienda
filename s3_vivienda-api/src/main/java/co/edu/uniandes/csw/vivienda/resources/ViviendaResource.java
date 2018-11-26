@@ -33,6 +33,9 @@ import javax.ws.rs.WebApplicationException;
 @RequestScoped
 public class ViviendaResource {
     
+    private static final String RECURSO_VIVIENDAS = "El recurso /viviendas/";
+    private static final String NO_EXISTE = " no existe.";
+    
     @Inject 
     private ViviendaLogic logic;
 
@@ -46,7 +49,6 @@ public class ViviendaResource {
         LOGGER.log(Level.INFO, "ViviendaResource.createVivienda: input:{0}", vivienda);
         ViviendaEntity viviendaEntity = vivienda.toEntity();
 
-
         ViviendaEntity newViviendaEntity = null;
         newViviendaEntity = logic.createVivienda(viviendaEntity);
         return new ViviendaDTO(newViviendaEntity);
@@ -56,12 +58,19 @@ public class ViviendaResource {
     @Path("{viviendaId: \\d+}")
     public void deleteVivienda(@PathParam("viviendaId") Long viviendaId) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ViviendaResource.deleteVivienda: input:{0}", viviendaId);
+        if (logic.getVivienda(viviendaId) == null) {
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + NO_EXISTE, 404);
+        }
         logic.deleteVivienda(viviendaId);
     }
     
     @GET
     @Path("{viviendaId: \\d+}")
     public ViviendaDetailDTO getVivienda(@PathParam("viviendaId") Long viviendaId){
+        if(logic.getVivienda(viviendaId)==null)
+        {
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + NO_EXISTE, 404);  
+        }
         ViviendaEntity vivienda = logic.getVivienda(viviendaId);
         return new ViviendaDetailDTO(vivienda);
     }
@@ -80,15 +89,15 @@ public class ViviendaResource {
     
     @PUT
     @Path("{viviendaId: \\d+}")
-    public ViviendaDTO updateVivienda(@PathParam("viviendaId") Long viviendaId, ViviendaDTO vivienda){
-        ViviendaEntity old = vivienda.toEntity();
-        try {
-            ViviendaEntity newVivienda = logic.updateVivienda(viviendaId, old);
-            return new ViviendaDTO(newVivienda);
-        } catch (BusinessLogicException e) {
-            e.getMessage();
-            return null;
+    public ViviendaDTO updateVivienda(@PathParam("viviendaId") Long viviendaId, ViviendaDTO vivienda) throws BusinessLogicException{
+        if(logic.getVivienda(viviendaId)==null)
+        {
+               throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + NO_EXISTE, 404);
         }
+        vivienda.setId(viviendaId);
+        ViviendaEntity old = vivienda.toEntity();
+        ViviendaDetailDTO viviendaDetail = new ViviendaDetailDTO(logic.updateVivienda(viviendaId, old));
+        return viviendaDetail;
     }
 
     @POST
@@ -108,47 +117,51 @@ public class ViviendaResource {
 
     @Path("{viviendaId: \\d+}/cuartos")
     public Class<ViviendaCuartoResource> getViviendaCuartoResource(@PathParam("viviendaId") Long viviendaId){
-        if( logic.getVivienda(viviendaId) != null)
-            return ViviendaCuartoResource.class;
+        if( logic.getVivienda(viviendaId) == null)
+            throw new WebApplicationException(RECURSO_VIVIENDAS+viviendaId+ NO_EXISTE, 404);  
         else
-            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
+            return ViviendaCuartoResource.class;
+ 
     }
     
     @Path("{viviendaId: \\d+}/arrendadores")
     public Class<ViviendaArrendadorResource> getViviendaArrendadoresResource(@PathParam("viviendaId") Long viviendaId){
-        if( logic.getVivienda(viviendaId) != null)
+        if( logic.getVivienda(viviendaId) == null)
+            throw new WebApplicationException(RECURSO_VIVIENDAS+viviendaId+ NO_EXISTE, 404);
+        else 
             return ViviendaArrendadorResource.class;
-        else
-            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
     }
     
     @Path("{viviendaId: \\d+}/calificaciones")
     public Class<ViviendaCalificacionesResource> getViviendaCalificacionesResource(@PathParam("viviendaId") Long viviendaId){
-        if( logic.getVivienda(viviendaId) != null)
-            return ViviendaCalificacionesResource.class;
+        if( logic.getVivienda(viviendaId) == null)
+            throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + NO_EXISTE, 404);            
         else
-            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
+            return ViviendaCalificacionesResource.class;
     }
     
     @Path("{viviendaId: \\d+}/contratos")
     public Class<ViviendaContratosResource> getViviendaContratoResource(@PathParam("viviendaId") Long viviendaId){
-        if( logic.getVivienda(viviendaId) != null)
-            return ViviendaContratosResource.class;
+        if( logic.getVivienda(viviendaId) == null)
+            throw new WebApplicationException(RECURSO_VIVIENDAS+viviendaId+ NO_EXISTE, 404);            
         else
-            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
+            return ViviendaContratosResource.class;
     }
     
     @Path("{viviendaId: \\d+}/sitioInteres")
     public Class<SitioInteresResource> getViviendaSitioInteresResource(@PathParam("viviendaId") Long viviendaId){
-        if( logic.getVivienda(viviendaId) != null)
-            return SitioInteresResource.class;
+        if( logic.getVivienda(viviendaId) == null)
+            throw new WebApplicationException(RECURSO_VIVIENDAS+ viviendaId + NO_EXISTE, 404);            
         else
-            throw new WebApplicationException("El recurso viviendas/"+viviendaId+" no existe", 404);
+            return SitioInteresResource.class;
     }
     
     @Path("{viviendaId: \\d+}/servicioAdicional")
     public Class<ServicioAdicionalResource> getServicioAdicionalResource(@PathParam("viviendaId") Long viviendaId) {
-        return ServicioAdicionalResource.class;
+        if(logic.getVivienda(viviendaId) == null)
+           throw new WebApplicationException(RECURSO_VIVIENDAS + viviendaId + NO_EXISTE, 404);            
+        else
+            return ServicioAdicionalResource.class;
     }
             
 }

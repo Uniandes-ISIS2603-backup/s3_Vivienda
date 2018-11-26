@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.dtos.CalificacionDTO;
 import co.edu.uniandes.csw.vivienda.ejb.CalificacionLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.logging.Logger;
@@ -36,7 +37,10 @@ public class ViviendaCalificacionesResource{
     private static final Logger LOGGER = Logger.getLogger(ViviendaCalificacionesResource.class.getName());
     
     @Inject
-    private CalificacionLogic calificacionLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    private CalificacionLogic calificacionLogic;
+    
+    @Inject
+    private ViviendaLogic viviendaLogic;
 
     /**
      * Crea una nueva calificacion con la informacion que se recibe en el cuerpo de
@@ -150,15 +154,14 @@ public class ViviendaCalificacionesResource{
      */
     @Path("{calificacionId:\\d+}")
     @DELETE
-    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId){
+    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ViviendaCalificacionResource deleteCalificacion: input: {0}", calificacionId);
-        try{
+        if(calificacionLogic.getCalificacionVivienda(viviendaId, calificacionId)!=null)
+        {
             calificacionLogic.deleteCalificacionVivienda(viviendaId, calificacionId);
             LOGGER.info("ViviendaCalificacionResource deleteCalificacion: output: void");
         }
-        catch (BusinessLogicException e){
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/calificaciones/" + calificacionId + " no existe.", 404);
-        }
+
     }
     
     /**

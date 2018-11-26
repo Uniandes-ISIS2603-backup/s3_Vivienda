@@ -32,6 +32,8 @@ import javax.ws.rs.*;
 public class UniversidadResource {
     
     private static final Logger LOGGER = Logger.getLogger(UniversidadResource.class.getName());
+    private static final String RECURSO_UNIVERSIDADES = "El recurso /universidades/";
+    private static final String NO_EXISTE = " no existe.";
     
    @Inject
    UniversidadLogic universidadLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -103,7 +105,7 @@ public class UniversidadResource {
        LOGGER.log(Level.INFO, "UniversidadResource getUniversidadl: input: {0}", universidadId);
         UniversidadEntity universidadEntity = universidadLogic.getUniversidad(universidadId);
         if (universidadEntity == null) {
-            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_UNIVERSIDADES + universidadId + NO_EXISTE, 404);
         }
         UniversidadDetailDTO detailDTO = new UniversidadDetailDTO(universidadEntity);
         LOGGER.log(Level.INFO, "UniversidadResource getUniversidad: output: {0}", detailDTO);
@@ -128,7 +130,7 @@ public class UniversidadResource {
         LOGGER.log(Level.INFO, "UniversidadResource updateUniversidad: input: id:{0} , universidad: {1}", new Object[]{universidadId, universidad});
         universidad.setId(universidadId);
         if (universidadLogic.getUniversidad(universidadId) == null) {
-            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_UNIVERSIDADES + universidadId + NO_EXISTE, 404);
         }
         UniversidadDetailDTO detailDTO = new UniversidadDetailDTO(universidadLogic.updateUniversidad(universidadId, universidad.toEntity()));
         LOGGER.log(Level.INFO, "UniversidadResource updateUniversidad: output: {0}", detailDTO);
@@ -152,7 +154,7 @@ public class UniversidadResource {
     {
         LOGGER.log(Level.INFO, "UniversidadResource deleteUniversidad: input: {0}", universidadId);
         if (universidadLogic.getUniversidad(universidadId) == null) {
-            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_UNIVERSIDADES + universidadId + NO_EXISTE, 404);
         }
         universidadLogic.deleteUniversidad(universidadId);
         LOGGER.info("UniversidadResource deleteUniversidad: output: void");

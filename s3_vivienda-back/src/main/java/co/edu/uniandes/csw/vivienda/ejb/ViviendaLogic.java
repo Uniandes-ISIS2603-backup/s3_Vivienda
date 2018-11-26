@@ -64,9 +64,8 @@ public class ViviendaLogic {
 
     public ViviendaEntity updateVivienda(Long id, ViviendaEntity viviendaEntity) throws BusinessLogicException {
         if (persistence.find(id) == null) {
-            throw new BusinessLogicException("La universidad con el id dado no existe");
+            throw new BusinessLogicException("La vivienda con el id dado no existe");
         }
-        viviendaEntity.setId(id);
         return persistence.update(viviendaEntity);
     }
 

@@ -883,13 +883,13 @@
 					"listen": "test",
 					"script": {
 						"id": "42b07877-a26b-49f5-a5d0-707880628bad",
-						"type": "text/javascript",
 						"exec": [
-							"tests[\"Genera el monsaje correcto\"] = responseBody.has(\"El recurso viviendas/\" + pm.globals.get(\"id_viv_not\") + \" no existe\");",
+							"tests[\"Genera el mensaje correcto\"] = responseBody.has(\"El recurso /viviendas/\" + pm.globals.get(\"id_viv_not\") + \" no existe.\");",
 							"tests[\"Genera el código correcto\"] = responseCode.code === 404;",
 							"",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],

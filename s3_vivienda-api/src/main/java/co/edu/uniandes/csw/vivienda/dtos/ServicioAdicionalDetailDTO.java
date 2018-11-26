@@ -18,6 +18,12 @@ public class ServicioAdicionalDetailDTO extends ServicioAdicionalDTO implements 
 {
     private ContratoDTO contrato;
     
+        /*
+    * Relación a una vivienda
+    * dado que esta tiene cardinalidad 1.
+    */
+    private ViviendaDTO vivienda;
+    
     /**
      * Constructor por defecto
      */
@@ -37,7 +43,8 @@ public class ServicioAdicionalDetailDTO extends ServicioAdicionalDTO implements 
         super(servicioAdicionalEntity);
         if (servicioAdicionalEntity.getContrato() != null) {
             this.contrato = new ContratoDTO(servicioAdicionalEntity.getContrato());
-        }
+        }else if (servicioAdicionalEntity.getVivienda()!=null)
+            this.vivienda = new ViviendaDTO(servicioAdicionalEntity.getVivienda());
     }
 
     /**
@@ -73,6 +80,25 @@ public class ServicioAdicionalDetailDTO extends ServicioAdicionalDTO implements 
     public ContratoDTO getContrato() {
         return contrato;
     }
+    
+    
+    /**
+     * Devuelve la vivienda asociada a este servicio.
+     *
+     * @return the vivienda
+     */
+    public ViviendaDTO getVivienda() {
+        return vivienda;
+    }
+
+    /**
+     * Modifica la vivienda asociada a este servicio.
+     *
+     * @param vivienda the book to set
+     */
+    public void setVivienda(ViviendaDTO vivienda) {
+        this.vivienda = vivienda;
+    }   
 
     @Override
     public String toString() {

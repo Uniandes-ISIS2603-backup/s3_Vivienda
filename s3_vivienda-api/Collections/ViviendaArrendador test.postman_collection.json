@@ -195,11 +195,11 @@
 					"listen": "test",
 					"script": {
 						"id": "587dde4a-4fad-4b0a-845f-c46e329bbad8",
-						"type": "text/javascript",
 						"exec": [
 							"tests[\"No actualiza con una vivienda que no existe\"] = responseCode.code === 404;",
-							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso viviendas/0 no existe\");"
-						]
+							"tests[\"Mensaje correcto de error\"] = responseBody.has(\"El recurso /viviendas/0 no existe\");"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
