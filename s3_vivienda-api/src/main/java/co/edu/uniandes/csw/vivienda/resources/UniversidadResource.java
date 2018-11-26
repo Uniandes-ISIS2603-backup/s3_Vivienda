@@ -158,6 +158,28 @@ public class UniversidadResource {
         LOGGER.info("UniversidadResource deleteUniversidad: output: void");
     }   
     
+     /**
+     * Conexión con el servicio de estudiantes para una Universidad.
+     * {@link UniversidadEstudiantesResource}
+     *
+     * Este método conecta la ruta de /universidades con las rutas de /estudiantes que
+     * dependen de la universidad, es una redirección al servicio que maneja el
+     * segmento de la URL que se encarga de los estudiantes de una universidad.
+     *
+     * @param universidadId El ID de la universidad con respecto a la cual se
+     * accede al servicio.
+     * @return El servicio de libros para esta editorial en paricular.
+     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
+     * Error de lógica que se genera cuando no se encuentra la editorial.
+     */
+    @Path("{universidadId: \\d+}/estudiantes")
+    public Class<UniversidadEstudiantesResource> getUniversidadEstudiantesResource(@PathParam("universidadId") Long universidadId) {
+        if (universidadLogic.getUniversidad(universidadId) == null) {
+            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
+        }
+        return UniversidadEstudiantesResource.class;
+    }
+    
     /**
      * Convierte una lista de entidades a DTO.
      *

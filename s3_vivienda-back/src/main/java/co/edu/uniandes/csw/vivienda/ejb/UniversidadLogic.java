@@ -101,7 +101,7 @@ public class UniversidadLogic
         }
         
         Random rand = new Random();
-        String[] nombresUniversidades = new String[]{"Universidad de Los Andes", "Universidad Javeriana", "Universidad Nacional", "Universidad del Rosario", "Universidad Externado", "Universidad del Bosque", "Universidad de La Sabana", "CESA"};
+        String[] nombresUniversidades = new String[]{"Universidad de Los Andes", "Universidad Javeriana", "Universidad Nacional", "Universidad del Rosario", "Universidad Externado", "Universidad de La Sabana", "Universidad del Bosque", "CESA"};
         for (int i = 0; i < nombresUniversidades.length; i++) {
             UniversidadEntity universidad = new UniversidadEntity();
             String nombreUniversidad = nombresUniversidades[i];

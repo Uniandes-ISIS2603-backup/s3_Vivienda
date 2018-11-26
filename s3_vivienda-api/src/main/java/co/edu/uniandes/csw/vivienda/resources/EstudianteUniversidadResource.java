@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.dtos.UniversidadDTO;
 import co.edu.uniandes.csw.vivienda.dtos.UniversidadDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
+import co.edu.uniandes.csw.vivienda.ejb.EstudianteUniversidadLogic;
 import co.edu.uniandes.csw.vivienda.ejb.UniversidadLogic;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.logging.Level;
@@ -32,6 +33,9 @@ public class EstudianteUniversidadResource {
     @Inject
     UniversidadLogic universidadLogic;  // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
     
+    @Inject
+    private EstudianteUniversidadLogic estudianteUniversidadLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+
     /**
      * Remplaza la instancia de Universidad asociada a un Estudiante.
      *
@@ -45,18 +49,21 @@ public class EstudianteUniversidadResource {
      */
     @PUT
     @Path("{universidadId:\\d+}")
-    public EstudianteDetailDTO replaceUniversidad(@PathParam("estudianteId") Long estudianteId, @PathParam("universidadId") Long universidadId) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: input: estudianteId{0} , Universidad:{1}", new Object[]{estudianteId, universidadId});
-        if (universidadLogic.getUniversidad(universidadId) == null) {
-            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
+    public EstudianteDetailDTO replaceUniversidad(@PathParam("estudianteId") Long estudianteId, UniversidadDTO universidad) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: input: estudianteId{0} , Universidad:{1}", new Object[]{estudianteId, universidad});
+        if (estudianteLogic.getEstudiante(estudianteId) == null) {
+            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
         }
-        EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteLogic.replaceUniversidad(estudianteId, universidadId));
+        if (universidadLogic.getUniversidad(universidad.getId()) == null) {
+            throw new WebApplicationException("El recurso /universidades/" + universidad.getId() + " no existe.", 404);
+        }
+        EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteUniversidadLogic.replaceUniversidad(estudianteId, universidad.getId()));
         LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: output: {0}", estudianteDetailDTO);
         return estudianteDetailDTO;
     }
     
     /**
-     * Busca la universidad con dentro del estudiante con id asociado.
+     * Busca la universidad dentro del estudiante con id asociado.
      *
      * @param estudianteId Identificador del estudinate con la universidad que se está buscando.
      * @return JSON {@link UniversidadDTO} - La universidad buscada
