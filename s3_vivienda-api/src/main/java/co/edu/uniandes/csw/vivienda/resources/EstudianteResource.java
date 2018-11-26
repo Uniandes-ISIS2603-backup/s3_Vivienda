@@ -21,6 +21,7 @@ import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.CalificacionLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
+import co.edu.uniandes.csw.vivienda.ejb.EstudianteUniversidadLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -54,6 +55,10 @@ public class EstudianteResource {
 
     @Inject
     ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+    
+    @Inject
+    private EstudianteUniversidadLogic estudianteUniversidadLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
+
 
     @POST
     @Path("generardatos")
@@ -171,6 +176,7 @@ public class EstudianteResource {
         if (entity == null) {
             throw new WebApplicationException(RECURSO_ESTUDIANTES + estudiantesId + NO_EXISTE, 404);
         }
+        estudianteUniversidadLogic.removeUniversidad(estudiantesId);
         estudianteLogic.deleteEstudiante(estudiantesId);
         LOGGER.info("EstudianteResource deleteEstudiante: output: void");
     }
