@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.dtos.UniversidadDTO;
+import co.edu.uniandes.csw.vivienda.dtos.UniversidadDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.ejb.UniversidadLogic;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -50,7 +51,7 @@ public class EstudianteUniversidadResource {
             throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
         }
         EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteLogic.replaceUniversidad(estudianteId, universidadId));
-        LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: output: {0}", estudianteDetailDTO.toString());
+        LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: output: {0}", estudianteDetailDTO);
         return estudianteDetailDTO;
     }
     
@@ -61,10 +62,10 @@ public class EstudianteUniversidadResource {
      * @return JSON {@link UniversidadDTO} - La universidad buscada
      */
     @GET
-    public UniversidadDTO getUniversidad(@PathParam("estudianteId") Long estudianteId){
+    public UniversidadDetailDTO getUniversidad(@PathParam("estudianteId") Long estudianteId){
         LOGGER.log(Level.INFO, "EstudianteUniversidadResource getUniversidad: input: estudianteID: {0}", new Object[]{estudianteId});
-        UniversidadDTO universidadDTO = new UniversidadDTO(estudianteLogic.getEstudiante(estudianteId).getUniversidad());
-        LOGGER.log(Level.INFO, "EstudianteUniversidadResource getUniversidad: output: {0}", universidadDTO.toString());
+        UniversidadDetailDTO universidadDTO = new UniversidadDetailDTO(estudianteLogic.getEstudiante(estudianteId).getUniversidad());
+        LOGGER.log(Level.INFO, "EstudianteUniversidadResource getUniversidad: output: {0}", universidadDTO);
         return universidadDTO;
     }
 }

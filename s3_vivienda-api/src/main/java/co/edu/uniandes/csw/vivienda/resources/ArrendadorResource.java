@@ -38,6 +38,9 @@ public class ArrendadorResource {
     
     private static final Logger LOGGER = Logger.getLogger(ArrendadorResource.class.getName());
     
+    private static final String RECURSO_ARRENDADORES = "El recurso /arrendadores/";
+    private static final String NO_EXISTE = " no existe.";
+    
     @Inject
     private ArrendadorLogic arrendadorLogic;
     
@@ -128,7 +131,7 @@ public class ArrendadorResource {
         ArrendadorEntity arrendadorEntity = arrendadorLogic.getArrendador(arrendadorId);
         if(arrendadorEntity == null)
         {
-            throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
+            throw new WebApplicationException(RECURSO_ARRENDADORES + arrendadorId + NO_EXISTE, 404);
         }
         ArrendadorDetailDTO detailDTO = new ArrendadorDetailDTO(arrendadorEntity);
         LOGGER.log(Level.INFO, "ArrendadorResource getArrendador: output: {0}", detailDTO);
@@ -152,11 +155,11 @@ public class ArrendadorResource {
     @Path("{arrendadorId:\\d+}")
     public ArrendadorDetailDTO updateArrendador(@PathParam("arrendadorId")Long arrendadorId, ArrendadorDTO arrendador)
     {    
-        LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: input: id:{0} , arrendador: {1}", new Object[]{arrendadorId, arrendador.toString()});
+        LOGGER.log(Level.INFO, "ArrendadorResource updateArrendador: input: id:{0} , arrendador: {1}", new Object[]{arrendadorId, arrendador});
         arrendador.setId(arrendadorId);
         if(arrendadorLogic.getArrendador(arrendadorId)==null)
         {
-            throw new WebApplicationException("El recurso /arrendadores/"+ arrendadorId +" no existe.", 404);
+            throw new WebApplicationException(RECURSO_ARRENDADORES + arrendadorId + NO_EXISTE, 404);
         }
         arrendador.setId(arrendadorId);
         ArrendadorDetailDTO arrendadorDetailDTO = new ArrendadorDetailDTO(arrendadorLogic.updateArrendador(arrendadorId, arrendador.toEntity()));
@@ -181,7 +184,7 @@ public class ArrendadorResource {
     {
         LOGGER.log(Level.INFO, "ArrendadorResource.deleteArrendador: input:{0}", arrendadorId);
         if (arrendadorLogic.getArrendador(arrendadorId) == null) {
-            throw new WebApplicationException("El recurso /arrendadores/" + arrendadorId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_ARRENDADORES + arrendadorId + NO_EXISTE, 404);
         }
         arrendadorLogic.deleteArrendador(arrendadorId);
         LOGGER.info("ArrendadorResource deleteArrendador: output: void");
@@ -206,7 +209,7 @@ public class ArrendadorResource {
     {
         if(arrendadorLogic.getArrendador(arrendadorId)==null)
         {
-            throw new WebApplicationException("El recurso /arrendadores/ "+ arrendadorId + "no existe", 404);
+            throw new WebApplicationException(RECURSO_ARRENDADORES + arrendadorId + NO_EXISTE, 404);
         }
         return ArrendadorViviendasResource.class;
     }

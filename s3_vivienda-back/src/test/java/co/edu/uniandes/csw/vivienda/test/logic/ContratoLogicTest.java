@@ -126,6 +126,7 @@ public class ContratoLogicTest {
     public void createContratoTest() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setVivienda(viviendaData.get(0));
+        newEntity.setMetodoPago(1);
         ContratoEntity result = contratoLogic.createContrato(newEntity);
 //        result.setMetodoPago(result.getMetodoPago());
         Assert.assertNotNull(result);

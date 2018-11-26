@@ -42,17 +42,14 @@ public class ViviendaResource {
     private static final Logger LOGGER = Logger.getLogger(ViviendaResource.class.getName());
         
     @POST
-    public ViviendaDTO createVivienda(ViviendaDTO vivienda) throws BusinessLogicException, WebApplicationException {
-        LOGGER.log(Level.INFO, "ViviendaResource.createVivienda: input:{0}", vivienda.toString());
+    public ViviendaDTO createVivienda(ViviendaDTO vivienda) throws BusinessLogicException {
+        LOGGER.log(Level.INFO, "ViviendaResource.createVivienda: input:{0}", vivienda);
         ViviendaEntity viviendaEntity = vivienda.toEntity();
 
 
         ViviendaEntity newViviendaEntity = null;
         newViviendaEntity = logic.createVivienda(viviendaEntity);
-
-
-        ViviendaDTO nuevoViviendaDTO = new ViviendaDTO(newViviendaEntity);
-        return nuevoViviendaDTO;
+        return new ViviendaDTO(newViviendaEntity);
     }
     
     @DELETE
@@ -64,10 +61,9 @@ public class ViviendaResource {
     
     @GET
     @Path("{viviendaId: \\d+}")
-    public ViviendaDetailDTO getVivienda(@PathParam("viviendaId") Long viviendaId) throws WebApplicationException{
+    public ViviendaDetailDTO getVivienda(@PathParam("viviendaId") Long viviendaId){
         ViviendaEntity vivienda = logic.getVivienda(viviendaId);
-        ViviendaDetailDTO viviendaDTO = new ViviendaDetailDTO(vivienda);
-        return viviendaDTO;
+        return new ViviendaDetailDTO(vivienda);
     }
     
     @GET
@@ -88,8 +84,7 @@ public class ViviendaResource {
         ViviendaEntity old = vivienda.toEntity();
         try {
             ViviendaEntity newVivienda = logic.updateVivienda(viviendaId, old);
-            ViviendaDTO newDTO = new ViviendaDTO(newVivienda);
-            return newDTO;
+            return new ViviendaDTO(newVivienda);
         } catch (BusinessLogicException e) {
             e.getMessage();
             return null;
@@ -101,7 +96,7 @@ public class ViviendaResource {
     public List<ViviendaDTO> generarDatos() {
         logic.generarDatos();
         List<ViviendaEntity> viviendas = logic.getViviendas();
-        ArrayList<ViviendaDTO> respuestas = new ArrayList<ViviendaDTO>();
+        ArrayList<ViviendaDTO> respuestas = new ArrayList<>();
 
         for (ViviendaEntity ent: viviendas){
             cuartoLogic.generarCuartos(ent.getId());

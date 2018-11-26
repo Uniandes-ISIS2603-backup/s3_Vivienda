@@ -6,18 +6,12 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.CuartoDTO;
-import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
 import co.edu.uniandes.csw.vivienda.ejb.CuartoLogic;
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
-import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
-import sun.misc.CEFormatException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 

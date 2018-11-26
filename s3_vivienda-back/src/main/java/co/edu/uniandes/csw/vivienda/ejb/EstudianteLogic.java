@@ -7,7 +7,6 @@ package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
-import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.UniversidadPersistence;
@@ -43,12 +42,10 @@ public class EstudianteLogic {
         for (EstudianteEntity estudiante: estudiantesViejos){
             persistence.delete(estudiante.getId());
         }
-        estudiantesViejos = persistence.findAll();
         List<UniversidadEntity> universidadesViejas = persistenceUniversidad.findAll();
         for (UniversidadEntity universidad: universidadesViejas){
             persistenceUniversidad.delete(universidad.getId());
         }
-        universidadesViejas =  persistenceUniversidad.findAll();
         
         String [] nombres = new String[]{"Juan David", "Carlos Andrés", "Julián Felipe", "Oscar", "Carolina", "Daniela", "Jimena Sofía"};
         String [] apellidos = new String[]{"Cardoso", "Meneses", "Rojas", "García", "Gómez", "Vargas", "Quintero", "González"};

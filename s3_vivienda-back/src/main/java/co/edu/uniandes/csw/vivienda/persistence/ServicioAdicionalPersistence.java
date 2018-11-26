@@ -85,11 +85,7 @@ public class ServicioAdicionalPersistence
         q.setParameter("servicioAdicionalId", servicioAdicionalId);
         List<ServicioAdicionalEntity> results = q.getResultList();
         ServicioAdicionalEntity servicioAdicional = null;
-        if (results == null) {
-            servicioAdicional = null;
-        } else if (results.isEmpty()) {
-            servicioAdicional = null;
-        } else if (results.size() >= 1) {
+        if (results != null && !results.isEmpty()) {
             servicioAdicional = results.get(0);
         }
         LOGGER.log(Level.INFO, "Saliendo de consultar el servicio adiconal con id = {1} de la vivienda con id = {0}" , new Object[]{ viviendaId, servicioAdicionalId});

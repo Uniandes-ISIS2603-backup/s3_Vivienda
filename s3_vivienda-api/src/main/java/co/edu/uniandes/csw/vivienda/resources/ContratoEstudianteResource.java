@@ -56,7 +56,7 @@ public class ContratoEstudianteResource {
      */
     @PUT
     public ContratoDTO replaceEstudiante(@PathParam("estudianteId") Long estudianteId, ViviendaDTO contrato) {
-        LOGGER.log(Level.INFO, "ContratoEstudianteResource replaceEstudiante: input: contratoId{0} , estudiante:{1}", new Object[]{estudianteId, contrato.toString()});
+        LOGGER.log(Level.INFO, "ContratoEstudianteResource replaceEstudiante: input: contratoId{0} , estudiante:{1}", new Object[]{estudianteId, contrato});
         if (contratoLogic.getContrato(estudianteId) == null)
         {
             throw new WebApplicationException("El recurso /contratos/" + estudianteId + " no existe.", 404);
@@ -65,7 +65,7 @@ public class ContratoEstudianteResource {
             throw new WebApplicationException("El recurso /estudiante/" + contrato.getId() + " no existe.", 404);
         }
         ContratoDTO contratoDTO = new ContratoDTO(contratoEstudianteLogic.replaceEstudiante(estudianteId, contrato.getId()));
-        LOGGER.log(Level.INFO, "ContratoEstudianteResource replaceEstudiante: output: {0}", contratoDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoEstudianteResource replaceEstudiante: output: {0}", contratoDTO);
         return contratoDTO;
     }
 }

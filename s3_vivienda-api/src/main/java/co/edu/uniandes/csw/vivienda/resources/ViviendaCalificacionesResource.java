@@ -53,14 +53,14 @@ public class ViviendaCalificacionesResource{
      */
     @POST
     public CalificacionDTO createCalificacion(@PathParam("viviendaId") Long viviendaId, CalificacionDTO calificacion) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: input: {0}", calificacion.toString());
+        LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: input: {0}", calificacion);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         CalificacionEntity calificacionEntity = calificacion.toEntity();
         // Invoca la lógica para crear la calificacion nueva
         CalificacionEntity nuevoCalificacionEntity = calificacionLogic.createCalificacion(viviendaId, calificacionEntity);
         // Como debe retornar un DTO (json) se invoca el constructor del DTO con argumento el entity nuevo
         CalificacionDTO nuevoCalificacionDTO = new CalificacionDTO(nuevoCalificacionEntity);
-        LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: output: {0}", nuevoCalificacionDTO.toString());
+        LOGGER.log(Level.INFO, "ViviendaCalificacionResource createCalificacion: output: {0}", nuevoCalificacionDTO);
         return nuevoCalificacionDTO;
     }
     
@@ -76,7 +76,7 @@ public class ViviendaCalificacionesResource{
     public List<CalificacionDTO> getCalificaciones(@PathParam("viviendaId") Long viviendaId) {
         LOGGER.log(Level.INFO, "ViviendaCalificacionesResource getCalificaciones: input: {0}", viviendaId);
         List<CalificacionDTO> listaDTOs = calificacionListEntity2DTO(calificacionLogic.getCalificacionesVivienda(viviendaId));
-        LOGGER.log(Level.INFO, "ViviendaCalificacionesResource getCalificaciones: output: {0}", listaDTOs.toString());
+        LOGGER.log(Level.INFO, "ViviendaCalificacionesResource getCalificaciones: output: {0}", listaDTOs);
         return listaDTOs;
     }
     
@@ -98,7 +98,7 @@ public class ViviendaCalificacionesResource{
         try{
             CalificacionEntity calificacion = calificacionLogic.getCalificacionVivienda(viviendaId, calificacionId);
             CalificacionDTO calificacionDTO = new CalificacionDTO(calificacion);
-            LOGGER.log(Level.INFO, "ViviendaCalificacionesResource getCalificacion: output: {0}", calificacionDTO.toString());
+            LOGGER.log(Level.INFO, "ViviendaCalificacionesResource getCalificacion: output: {0}", calificacionDTO);
             return calificacionDTO;
         }
         catch(BusinessLogicException e){
@@ -124,7 +124,7 @@ public class ViviendaCalificacionesResource{
     @PUT
     @Path("{calificacionId:\\d+}")
     public CalificacionDTO updateCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "ViviendaCalificacionesResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionId, calificacion.toString()});
+        LOGGER.log(Level.INFO, "ViviendaCalificacionesResource updateCalificacion: input: id:{0} , calificacion: {1}", new Object[]{calificacionId, calificacion});
         calificacion.setId(calificacionId);
         try{
             calificacionLogic.getCalificacionVivienda(viviendaId, calificacionId);
@@ -135,7 +135,7 @@ public class ViviendaCalificacionesResource{
         
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionVivienda(calificacionId, calificacion.toEntity());
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
-        LOGGER.log(Level.INFO, "ViviendaCalificacionesResource updateCalificacion: output: {0}", calificacionDTO.toString());
+        LOGGER.log(Level.INFO, "ViviendaCalificacionesResource updateCalificacion: output: {0}", calificacionDTO);
         return calificacionDTO;
     }
     
@@ -171,20 +171,6 @@ public class ViviendaCalificacionesResource{
         List<CalificacionDTO> list = new ArrayList();
         for (CalificacionEntity entity : entityList) {
             list.add(new CalificacionDTO(entity));
-        }
-        return list;
-    }
-
-    /**
-     * Convierte una lista de CalificacionDTO a una lista de CalificacionEntity.
-     *
-     * @param dtos Lista de CalificacionDTO a convertir.
-     * @return Lista de CalificacionEntity convertida.
-     */
-    private List<CalificacionEntity> calificacionListDTO2Entity(List<CalificacionDTO> dtos) {
-        List<CalificacionEntity> list = new ArrayList<>();
-        for (CalificacionDTO dto : dtos) {
-            list.add(dto.toEntity());
         }
         return list;
     }

@@ -30,11 +30,13 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Paula Molina Ruiz
  */
+@Path("contratoServiciosAdicionales")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ContratoServiciosAdicionalesResource {
     
 private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicionalesResource.class.getName());
+private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ContratoServiciosAdicionalesLogic contratoServiciosAdicionalesLogic;
@@ -55,12 +57,12 @@ private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicional
     @POST
     @Path("{servicioAdicionalId: \\d+}")
     public ServicioAdicionalDetailDTO addServicioAdicional(@PathParam("contratoId") Long contratoId, @PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId) {
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource addServicioAdicional: input: contratoId {0} , viviendaId: {0} , servicioAdicionalId {1}", new Object[]{contratoId, servicioAdicionalId});
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource addServicioAdicional: input: contratoId {0} , viviendaId: {1} , servicioAdicionalId {2}", new Object[]{contratoId, viviendaId, servicioAdicionalId});
         if (servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId) == null) {
-            throw new WebApplicationException("El recurso /serviciosAdicionales/" + servicioAdicionalId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /serviciosAdicionales/" + servicioAdicionalId + NO_EXISTE, 404);
         }
         ServicioAdicionalDetailDTO detailDTO = new ServicioAdicionalDetailDTO(contratoServiciosAdicionalesLogic.addServicioAdicional(contratoId, servicioAdicionalId, viviendaId));
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource addServicioAdicional: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource addServicioAdicional: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -75,7 +77,7 @@ private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicional
     public List<ServicioAdicionalDetailDTO> getServiciosAdicionales(@PathParam("contratoId") Long contratoId) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServiciosAdicionales: input: {0}", contratoId);
         List<ServicioAdicionalDetailDTO> lista = serviciosAdicionalesListEntity2DTO(contratoServiciosAdicionalesLogic.getServiciosAdicionales(contratoId));
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServiciosAdicionales: output: {0}", lista.toString());
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServiciosAdicionales: output: {0}", lista);
         return lista;
     }
 
@@ -95,10 +97,10 @@ private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicional
     public ServicioAdicionalDetailDTO getServicioAdicional(@PathParam("contratoId") Long contratoId, @PathParam("servicioAdicionalId") Long servicioAdicionalId, @PathParam("viviendaId") Long viviendaId ) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServicioAdicional: input: booksId {0} , viviendaId: {0} , authorsId {1}", new Object[]{contratoId, servicioAdicionalId});
         if (servicioAdicionalLogic.getServicioAdicional( viviendaId ,servicioAdicionalId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + servicioAdicionalId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /authors/" + servicioAdicionalId + NO_EXISTE, 404);
         }
         ServicioAdicionalDetailDTO detailDTO = new ServicioAdicionalDetailDTO(contratoServiciosAdicionalesLogic.getServicioAdicional(contratoId, servicioAdicionalId, viviendaId));
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServicioAdicional: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServicioAdicional: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -116,14 +118,14 @@ private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicional
      */
     @PUT
     public List<ServicioAdicionalDetailDTO> replaceServiciosAdicionales(@PathParam("contratoId") Long contratoId, @PathParam("viviendaId") Long viviendaId, List<ServicioAdicionalDetailDTO> serviciosAdicionales) {
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource replaceServiciosAdicionales: input: booksId {0} , viviendaId {0} , authors {1}", new Object[]{contratoId, serviciosAdicionales.toString()});
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource replaceServiciosAdicionales: input: contratoId {0} , viviendaId {1} , servicios {2}", new Object[]{contratoId, viviendaId, serviciosAdicionales});
         for (ServicioAdicionalDetailDTO servicioAdicional : serviciosAdicionales) {
             if (servicioAdicionalLogic.getServicioAdicional( servicioAdicional.getVivienda().getId(), servicioAdicional.getId()) == null) {
-                throw new WebApplicationException("El recurso /serviciosAdicionales/" + servicioAdicional.getId() + " no existe.", 404);
+                throw new WebApplicationException("El recurso /serviciosAdicionales/" + servicioAdicional.getId() + NO_EXISTE, 404);
             }
         }
         List<ServicioAdicionalDetailDTO> lista = serviciosAdicionalesListEntity2DTO(contratoServiciosAdicionalesLogic.replaceServiciosAdicionales(contratoId, serviciosAdicionalesListDTO2Entity(serviciosAdicionales)));
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource replaceServiciosAdicionales: output:{0}", lista.toString());
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource replaceServiciosAdicionales: output:{0}", lista);
         return lista;
     }
 
@@ -139,9 +141,9 @@ private static final Logger LOGGER = Logger.getLogger(ContratoServiciosAdicional
     @DELETE
     @Path("{servicioAdicionalId: \\d+}")
     public void removeServicioAdicional(@PathParam("contratoId") Long contratoId, @PathParam("servicioAdicionalId") Long servicioAdicionalId, @PathParam("viviendaId") Long viviendaId) {
-        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource removeServicioAdicional: input: contratoId {0} , viviendaId {0} , servicioAdicionalId {1}", new Object[]{contratoId, servicioAdicionalId});
+        LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource removeServicioAdicional: input: contratoId {0} , viviendaId {1} , servicioAdicionalId {2}", new Object[]{contratoId, viviendaId, servicioAdicionalId});
         if (servicioAdicionalLogic.getServicioAdicional(viviendaId ,servicioAdicionalId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + servicioAdicionalId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /authors/" + servicioAdicionalId + NO_EXISTE, 404);
         }
         contratoServiciosAdicionalesLogic.removeServicioAdicional(contratoId, servicioAdicionalId, viviendaId);
         LOGGER.info("ContratoServiciosAdicionalesResource removeServicioAdicional: output: void");

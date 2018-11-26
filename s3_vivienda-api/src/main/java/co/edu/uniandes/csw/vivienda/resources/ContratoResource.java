@@ -30,6 +30,8 @@ import java.util.logging.Logger;
 public class ContratoResource {
 
     private static final Logger LOGGER = Logger.getLogger(ContratoResource.class.getName());
+    
+    private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -54,9 +56,9 @@ public class ContratoResource {
      */
     @POST
     public ContratoDTO createContrato(ContratoDTO contrato) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "BookResource createBook: input: {0}", contrato.toString());
+        LOGGER.log(Level.INFO, "BookResource createBook: input: {0}", contrato);
         ContratoDTO nuevoBookDTO = new ContratoDTO(contratoLogic.createContrato(contrato.toEntity()));
-        LOGGER.log(Level.INFO, "BookResource createBook: output: {0}", nuevoBookDTO.toString());
+        LOGGER.log(Level.INFO, "BookResource createBook: output: {0}", nuevoBookDTO);
         return nuevoBookDTO;
     }
 
@@ -66,9 +68,9 @@ public class ContratoResource {
         contratoLogic.generarDatos();
         List<ContratoEntity> contratos = contratoLogic.getContratos();
         if (contratos == null) {
-            throw new WebApplicationException("El recurso " + contratos + " no existe.", 404);
+            throw new WebApplicationException("El recurso " + contratos + NO_EXISTE, 404);
         }
-        ArrayList<ContratoDTO> respuestas = new ArrayList<ContratoDTO>();
+        ArrayList<ContratoDTO> respuestas = new ArrayList<>();
 
         for (ContratoEntity ent: contratos){
             ContratoDTO contratodto = new ContratoDTO(ent);
@@ -87,7 +89,7 @@ public class ContratoResource {
     public List<ContratoDetailDTO> getContratos() {
         LOGGER.info("ContratoResource getContratos: input: void");
         List<ContratoDetailDTO> listaContratos = listEntity2DetailDTO(contratoLogic.getContratos());
-        LOGGER.log(Level.INFO, "ContratoResource getContratos: output: {0}", listaContratos.toString());
+        LOGGER.log(Level.INFO, "ContratoResource getContratos: output: {0}", listaContratos);
         return listaContratos;
     }
     
@@ -108,13 +110,13 @@ public class ContratoResource {
     @PUT
     @Path("{contratoId:\\d+}")
     public ContratoDetailDTO updateContrato(@PathParam("contratoId") Long contratoId, ContratoDTO contrato) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ContratoResource updateContrato: input: id: {0} , estudiante: {1}", new Object[]{contratoId, contrato.toString()});
+        LOGGER.log(Level.INFO, "ContratoResource updateContrato: input: id: {0} , estudiante: {1}", new Object[]{contratoId, contrato});
         contrato.setId(contratoId);
         if (contratoLogic.getContrato(contratoId) == null) {
-            throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /contratos/" + contratoId + NO_EXISTE, 404);
         }
         ContratoDetailDTO detailDTO = new ContratoDetailDTO(contratoLogic.updateContrato(contratoId, contrato.toEntity()));
-        LOGGER.log(Level.INFO, "ContratoResource updateContrato: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoResource updateContrato: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -133,10 +135,10 @@ public class ContratoResource {
         LOGGER.log(Level.INFO, "ContratoResource getContrato: input: {0}", contratoId);
         ContratoEntity contratoEntity = contratoLogic.getContrato(contratoId);
         if (contratoEntity == null) {
-            throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /contratos/" + contratoId + NO_EXISTE, 404);
         }
         ContratoDetailDTO contratoDetailDTO = new ContratoDetailDTO(contratoEntity);
-        LOGGER.log(Level.INFO, "ContratoResource getContrato: output: {0}", contratoDetailDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoResource getContrato: output: {0}", contratoDetailDTO);
         return contratoDetailDTO;
     }
 

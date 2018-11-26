@@ -143,7 +143,7 @@ public class SitioInteresResource {
     @Path("{sitioInteresId: \\d+}")
     public SitioInteresDetailDTO updateSitioInteres(@PathParam("viviendaId") Long viviendaId, @PathParam("sitioInteresId")Long sitioInteresId, SitioInteresDTO sitioInteres)throws BusinessLogicException
     {
-        LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , sitioInteres:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres.toString()});
+        LOGGER.log(Level.INFO, "SitioInteresResource updateSitioInteres: input: viviendaId: {0} , sitioInteresId: {1} , sitioInteres:{2}", new Object[]{viviendaId, sitioInteresId, sitioInteres});
         SitioInteresEntity entity = sitioInteresLogic.getSitioInteres(viviendaId, sitioInteresId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/sitioInteres/" + sitioInteresId + " no existe.", 404);

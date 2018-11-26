@@ -70,7 +70,7 @@ public class SitioInteresPersistence {
     
     public SitioInteresEntity findByLatLong(Float sitioInteresLat, Float sitioInteresLong) {
         
-        TypedQuery query = em.createQuery("Select v from SitioInteresEntity v where v.latitud = :latitud and "+ "v.longitud = :longitud", SitioInteresEntity.class);
+        TypedQuery query = em.createQuery("Select v from SitioInteresEntity v where v.latitud = :latitud and " + "v.longitud = :longitud", SitioInteresEntity.class);
         query.setParameter("latitud", sitioInteresLat);
         query.setParameter("longitud", sitioInteresLong);
         

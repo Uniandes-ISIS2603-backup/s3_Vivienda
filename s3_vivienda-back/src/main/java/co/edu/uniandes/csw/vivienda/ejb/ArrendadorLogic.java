@@ -140,7 +140,7 @@ public class ArrendadorLogic {
     {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar todos los arrendadores");
         List<ArrendadorEntity> arrendadores = arrendadorPersistence.findAll();
-        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores" , arrendadores.toString());
+        LOGGER.log(Level.INFO, "Termina proceso de consultar todos los arrendadores");
         return arrendadores;
     }
     

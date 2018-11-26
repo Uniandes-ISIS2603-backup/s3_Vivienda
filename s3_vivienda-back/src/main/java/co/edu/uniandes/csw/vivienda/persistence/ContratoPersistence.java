@@ -96,7 +96,7 @@ public class ContratoPersistence {
      * existe alguno devuelve el primero.
      */
     public ContratoEntity findByMetodoPago(String metodoPago) {
-        LOGGER.log(Level.INFO, "Consultando contratos por metodo de pago ", metodoPago);
+        LOGGER.log(Level.INFO, "Consultando contratos por metodo de pago {0}", metodoPago);
         // Se crea un query para buscar contratos con el metodoPago que recibe el método como argumento. ":metodoPago" es un placeholder que debe ser reemplazado
         TypedQuery query = em.createQuery("Select e From ContratoEntity e where e.metodoPago = :metodoPago", ContratoEntity.class);
         // Se remplaza el placeholder ":metodoPago" con el valor del argumento 
@@ -104,12 +104,12 @@ public class ContratoPersistence {
         // Se invoca el query que obtiene la lista resultado
         List<ContratoEntity> samePaymentMethod = query.getResultList();
         ContratoEntity result = samePaymentMethod.get(0);
-        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por metodo de pago ", metodoPago);
+        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por metodo de pago {0}", metodoPago);
         return result;
     }
 
     public ContratoEntity findById(Long id) {
-        LOGGER.log(Level.INFO, "Consultando contratos por id", id);
+        LOGGER.log(Level.INFO, "Consultando contratos por id = {0}", id);
         // Se crea un query para buscar contratos con el metodoPago que recibe el método como argumento. ":id" es un placeholder que debe ser reemplazado
         TypedQuery query = em.createQuery("Select e From ContratoEntity e where e.id = :id", ContratoEntity.class);
         // Se remplaza el placeholder ":id" con el valor del argumento 
@@ -117,7 +117,7 @@ public class ContratoPersistence {
         // Se invoca el query que obtiene la lista resultado
         List<ContratoEntity> sameId = query.getResultList();
         ContratoEntity result = sameId.get(0);
-        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por id", id);
+        LOGGER.log(Level.INFO, "Saliendo de consultar contratos por id 0 {0}", id);
         return result;
     }
 }

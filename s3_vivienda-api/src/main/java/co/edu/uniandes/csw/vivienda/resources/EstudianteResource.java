@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.resources;
 
-import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ContratoDetailDTO;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -18,13 +18,11 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
-import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.CalificacionLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
-import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -60,7 +58,7 @@ public class EstudianteResource {
         estudianteLogic.generarDatos();
         calificacionLogic.generarDatos();
         List<EstudianteEntity> estudiantes = estudianteLogic.getEstudiantes();
-        ArrayList<EstudianteDTO> respuestas = new ArrayList<EstudianteDTO>();
+        ArrayList<EstudianteDTO> respuestas = new ArrayList<>();
 
         for (EstudianteEntity ent : estudiantes) {
             EstudianteDTO estu = new EstudianteDTO(ent);
@@ -83,9 +81,9 @@ public class EstudianteResource {
      */
     @POST
     public EstudianteDTO createEstudiante(EstudianteDTO estudiante) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: input: {0}", estudiante.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: input: {0}", estudiante);
         EstudianteDTO nuevoEstudianteDTO = new EstudianteDTO(estudianteLogic.createEstudiante(estudiante.toEntity()));
-        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: output: {0}", nuevoEstudianteDTO.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource createEstudiante: output: {0}", nuevoEstudianteDTO);
         return nuevoEstudianteDTO;
     }
 
@@ -99,7 +97,7 @@ public class EstudianteResource {
     public Collection<EstudianteDetailDTO> getEstudiantes() {
         LOGGER.info("EstudianteResource getEstudiantes: input: void");
         List<EstudianteDetailDTO> listaEstudiantes = listEntity2DetailDTO(estudianteLogic.getEstudiantes());
-        LOGGER.log(Level.INFO, "EstudianteResource getEstudiantes: output: {0}", listaEstudiantes.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource getEstudiantes: output: {0}", listaEstudiantes);
         return listaEstudiantes;
     }
 
@@ -121,7 +119,7 @@ public class EstudianteResource {
             throw new WebApplicationException("El recurso /estudiantes/" + estudiantesId + " no existe.", 404);
         }
         EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteEntity);
-        LOGGER.log(Level.INFO, "EstudianteResource getEstudiante: output: {0}", estudianteDetailDTO.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource getEstudiante: output: {0}", estudianteDetailDTO);
         return estudianteDetailDTO;
     }
 
@@ -144,13 +142,13 @@ public class EstudianteResource {
     @PUT
     @Path("{estudianteId:\\d+}")
     public EstudianteDetailDTO updateEstudiante(@PathParam("estudianteId") Long estudiantesId, EstudianteDTO estudiante) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "EstudianteResource updateEstudiante: input: id: {0} , estudiante: {1}", new Object[]{estudiantesId, estudiante.toString()});
+        LOGGER.log(Level.INFO, "EstudianteResource updateEstudiante: input: id: {0} , estudiante: {1}", new Object[]{estudiantesId, estudiante});
         estudiante.setId(estudiantesId);
         if (estudianteLogic.getEstudiante(estudiantesId) == null) {
             throw new WebApplicationException("El recurso /estudiantes/" + estudiantesId + " no existe.", 404);
         }
         EstudianteDetailDTO detailDTO = new EstudianteDetailDTO(estudianteLogic.updateEstudiante(estudiantesId, estudiante.toEntity()));
-        LOGGER.log(Level.INFO, "EstudianteResource updateEstudiante: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "EstudianteResource updateEstudiante: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -229,7 +227,7 @@ public class EstudianteResource {
      */
     @GET
     @Path("{estudianteId:\\d+}/contrato")
-    public ContratoDTO getContrato(@PathParam("estudianteId") Long estudianteId) {
+    public ContratoDetailDTO getContrato(@PathParam("estudianteId") Long estudianteId) {
         LOGGER.log(Level.INFO, "EstudianteResource getContrato: input: {0}", estudianteId);
         EstudianteEntity estudiante = estudianteLogic.getEstudiante(estudianteId);
         if (estudiante == null) {
@@ -237,8 +235,8 @@ public class EstudianteResource {
         }
         ContratoEntity contratoEntity = estudiante.getContrato();
         if (contratoEntity != null) {
-            ContratoDTO contratoDTO = new ContratoDTO(contratoEntity);
-            LOGGER.log(Level.INFO, "EstudianteResource getContrato: output: {0}", contratoDTO.toString());
+            ContratoDetailDTO contratoDTO = new ContratoDetailDTO(contratoEntity);
+            LOGGER.log(Level.INFO, "EstudianteResource getContrato: output: {0}", contratoDTO);
             return contratoDTO;
         } else {
             throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + "/contrato no existe.", 404);

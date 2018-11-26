@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ContratoDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaContratosLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
@@ -67,7 +68,7 @@ public class ViviendaContratosResource {
             throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
         }
         ContratoDTO contratoDTO = new ContratoDTO(viviendaContratosLogic.addContrato(contratoId, viviendaId));
-        LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: output: {0}", contratoDTO.toString());
+        LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: output: {0}", contratoDTO);
         return contratoDTO;
     }
     
@@ -99,10 +100,10 @@ public class ViviendaContratosResource {
      * vivienda. Si no hay ninguno retorna una lista vacía.
      */
     @GET
-    public List<ContratoDTO> getContratos(@PathParam("viviendaId") Long viviendaId) {
+    public List<ContratoDetailDTO> getContratos(@PathParam("viviendaId") Long viviendaId) {
         LOGGER.log(Level.INFO, "ViviendaContratosResource getContratos: input: {0}", viviendaId);
-        List<ContratoDTO> listaDetailDTOs = contratosListEntity2DTO(viviendaContratosLogic.getContratos(viviendaId));
-        LOGGER.log(Level.INFO, "ViviendaContratosResource getContratos: output: {0}", listaDetailDTOs.toString());
+        List<ContratoDetailDTO> listaDetailDTOs = contratosListEntity2DTO(viviendaContratosLogic.getContratos(viviendaId));
+        LOGGER.log(Level.INFO, "ViviendaContratosResource getContratos: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
 
@@ -122,13 +123,13 @@ public class ViviendaContratosResource {
      */
     @GET
     @Path("{contratoId: \\d+}")
-    public ContratoDTO getContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException {
+    public ContratoDetailDTO getContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ViviendaContratosResource getContrato: input: viviendaID: {0} , contratoId: {1}", new Object[]{viviendaId, contratoId});
         if (contratoLogic.getContrato(contratoId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/contratos/" + contratoId + " no existe.", 404);
         }
-        ContratoDTO contratoDTO = new ContratoDTO(viviendaContratosLogic.getContrato(viviendaId, contratoId));
-        LOGGER.log(Level.INFO, "ViviendaContratosResource getContrato: output: {0}", contratoDTO.toString());
+        ContratoDetailDTO contratoDTO = new ContratoDetailDTO(viviendaContratosLogic.getContrato(viviendaId, contratoId));
+        LOGGER.log(Level.INFO, "ViviendaContratosResource getContrato: output: {0}", contratoDTO);
         return contratoDTO;
     }
 
@@ -145,15 +146,15 @@ public class ViviendaContratosResource {
      * Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @PUT
-    public List<ContratoDTO> replaceContratos(@PathParam("viviendaId") Long viviendaId, List<ContratoDTO> contratos) {
-        LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: input: viviendaId: {0} , contratos: {1}", new Object[]{viviendaId, contratos.toString()});
+    public List<ContratoDetailDTO> replaceContratos(@PathParam("viviendaId") Long viviendaId, List<ContratoDTO> contratos) {
+        LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: input: viviendaId: {0} , contratos: {1}", new Object[]{viviendaId, contratos});
         for (ContratoDTO contrato : contratos) {
             if (contratoLogic.getContrato(contrato.getId()) == null) {
                 throw new WebApplicationException("El recurso /contratos/" + contrato.getId() + " no existe.", 404);
             }
         }
-        List<ContratoDTO> listaDetailDTOs = contratosListEntity2DTO(viviendaContratosLogic.replaceContratos(viviendaId, contratosListDTO2Entity(contratos)));
-        LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: output: {0}", listaDetailDTOs.toString());
+        List<ContratoDetailDTO> listaDetailDTOs = contratosListEntity2DTO(viviendaContratosLogic.replaceContratos(viviendaId, contratosListDTO2Entity(contratos)));
+        LOGGER.log(Level.INFO, "ViviendaContratosResource replaceContratos: output: {0}", listaDetailDTOs);
         return listaDetailDTOs;
     }
 
@@ -163,12 +164,12 @@ public class ViviendaContratosResource {
      * @param entityList Lista de ContratoEntity a convertir.
      * @return Lista de ContratoDTO convertida.
      */
-    private List<ContratoDTO> contratosListEntity2DTO(List<ContratoEntity> entityList) 
+    private List<ContratoDetailDTO> contratosListEntity2DTO(List<ContratoEntity> entityList) 
     {
-        List<ContratoDTO> list = new ArrayList();
+        List<ContratoDetailDTO> list = new ArrayList();
         for (ContratoEntity entity : entityList)
         {
-            list.add(new ContratoDTO(entity));
+            list.add(new ContratoDetailDTO(entity));
         }
         return list;
     }

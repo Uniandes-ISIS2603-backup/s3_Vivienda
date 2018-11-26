@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDTO;
+import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ServicioAdicionalLogic;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -39,9 +40,9 @@ public class ServicioAdicionalResource {
      */
     @POST
     public ServicioAdicionalDTO createServicioAdicional(@PathParam("viviendaId") Long viviendaId, ServicioAdicionalDTO servicio) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: input: {0}", servicio.toString());
+        LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: input: {0}", servicio);
         ServicioAdicionalDTO nuevoReviewDTO = new ServicioAdicionalDTO(servicioAdicionalLogic.createServicioAdicional(viviendaId, servicio.toEntity()));
-        LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: output: {0}", nuevoReviewDTO.toString());
+        LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: output: {0}", nuevoReviewDTO);
         return nuevoReviewDTO;
     }
 
@@ -53,10 +54,10 @@ public class ServicioAdicionalResource {
      * libro. Si no hay ninguna retorna una lista vacía.
      */
     @GET
-    public List<ServicioAdicionalDTO> getServiciosAdicionales(@PathParam("viviendaId") Long viviendaId) {
+    public List<ServicioAdicionalDetailDTO> getServiciosAdicionales(@PathParam("viviendaId") Long viviendaId) {
         LOGGER.log(Level.INFO, "ServicioAdicionalResource getSericiosAdicionales: input: {0}", viviendaId);
-        List<ServicioAdicionalDTO> listaDTOs = listEntity2DTO(servicioAdicionalLogic.getServiciosAdicionales(viviendaId));
-        LOGGER.log(Level.INFO, "ViviendaResource getViviendas: output: {0}", listaDTOs.toString());
+        List<ServicioAdicionalDetailDTO> listaDTOs = listEntity2DTO(servicioAdicionalLogic.getServiciosAdicionales(viviendaId));
+        LOGGER.log(Level.INFO, "ViviendaResource getViviendas: output: {0}", listaDTOs);
         return listaDTOs;
     }
 
@@ -74,14 +75,14 @@ public class ServicioAdicionalResource {
      */
     @GET
     @Path("{servicioAdicionalId: \\d+}")
-    public ServicioAdicionalDTO getServicioAdicional(@PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId) throws BusinessLogicException {
+    public ServicioAdicionalDetailDTO getServicioAdicional(@PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "ServicioAdicionalResource getReview: input: {0}", servicioAdicionalId);
         ServicioAdicionalEntity entity = servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId);
         if (entity == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/servicio/" + servicioAdicionalId + " no existe.", 404);
         }
-        ServicioAdicionalDTO servicioAdicionalDTO = new ServicioAdicionalDTO(entity);
-        LOGGER.log(Level.INFO, "SerivicoAdicionalResource getServicioAdicional: output: {0}", servicioAdicionalDTO.toString());
+        ServicioAdicionalDetailDTO servicioAdicionalDTO = new ServicioAdicionalDetailDTO(entity);
+        LOGGER.log(Level.INFO, "SerivicoAdicionalResource getServicioAdicional: output: {0}", servicioAdicionalDTO);
         return servicioAdicionalDTO;
     }
 
@@ -101,7 +102,7 @@ public class ServicioAdicionalResource {
     @PUT
     @Path("{servicioAdicionalId: \\d+}")
     public ServicioAdicionalDTO updateServicioAdicional(@PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId, ServicioAdicionalDTO servicio) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "ServicioAdicionalResource updateServicioAdicional: input: viviendaId: {0} , servicioAdicionalId: {1} , servicio:{2}", new Object[]{viviendaId, servicioAdicionalId, servicio.toString()});
+        LOGGER.log(Level.INFO, "ServicioAdicionalResource updateServicioAdicional: input: viviendaId: {0} , servicioAdicionalId: {1} , servicio:{2}", new Object[]{viviendaId, servicioAdicionalId, servicio});
         if (servicioAdicionalId.equals(servicio.getId())) {
             throw new BusinessLogicException("Los ids del ServicioAdicional no coinciden.");
         }
@@ -111,7 +112,7 @@ public class ServicioAdicionalResource {
 
         }
         ServicioAdicionalDTO reviewDTO = new ServicioAdicionalDTO(servicioAdicionalLogic.updateServicioAdicional(viviendaId, servicio.toEntity()));
-        LOGGER.log(Level.INFO, "servicioAdicionalResource updateReview: output:{0}", reviewDTO.toString());
+        LOGGER.log(Level.INFO, "servicioAdicionalResource updateReview: output:{0}", reviewDTO);
         return reviewDTO;
 
     }
@@ -146,10 +147,10 @@ public class ServicioAdicionalResource {
      * vamos a convertir a DTO.
      * @return la lista de servicios adicinales en forma DTO (json)
      */
-    private List<ServicioAdicionalDTO> listEntity2DTO(List<ServicioAdicionalEntity> entityList) {
-        List<ServicioAdicionalDTO> list = new ArrayList<>();
+    private List<ServicioAdicionalDetailDTO> listEntity2DTO(List<ServicioAdicionalEntity> entityList) {
+        List<ServicioAdicionalDetailDTO> list = new ArrayList<>();
         for (ServicioAdicionalEntity entity : entityList) {
-            list.add(new ServicioAdicionalDTO(entity));
+            list.add(new ServicioAdicionalDetailDTO(entity));
         }
         return list;
     }

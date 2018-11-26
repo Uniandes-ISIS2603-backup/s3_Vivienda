@@ -22,7 +22,7 @@ import javax.persistence.TypedQuery;
 @Stateless
 public class UniversidadPersistence 
 {
-    private final static Logger LOGGER = Logger.getLogger(UniversidadPersistence.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UniversidadPersistence.class.getName());
     
     @PersistenceContext(unitName = "UniviviendaPU")
     protected EntityManager em;
@@ -58,7 +58,7 @@ public class UniversidadPersistence
     }   
     
     public UniversidadEntity findByName(String nombre) {
-        LOGGER.log(Level.INFO, "Consultando universidad por nombre ", nombre);
+        LOGGER.log(Level.INFO, "Consultando universidad por nombre = {0}", nombre);
         // Se crea un query para buscar universidades con el nombre que recibe el método como argumento. ":name" es un placeholder que debe ser remplazado
         TypedQuery query = em.createQuery("Select u From UniversidadEntity u where u.nombre = :nombre", UniversidadEntity.class);
         // Se remplaza el placeholder ":name" con el valor del argumento 
@@ -73,7 +73,7 @@ public class UniversidadPersistence
         } else {
             result = sameName.get(0);
         }
-        LOGGER.log(Level.INFO, "Saliendo de consultar universidad por nombre ", nombre);
+        LOGGER.log(Level.INFO, "Saliendo de consultar universidad por nombre = {0} ", nombre);
         return result;
     }
     

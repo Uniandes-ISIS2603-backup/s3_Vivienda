@@ -120,6 +120,7 @@ public class ContratoLogic {
      * Eliminar un contrato por ID
      *
      * @param contratoId El ID del contrato a eliminar
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     public void deleteContrato(Long contratoId) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "Inicia proceso de borrar el contrato con id = {0}", contratoId);

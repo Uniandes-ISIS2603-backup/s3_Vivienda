@@ -164,5 +164,17 @@ public class SitioInteresDTO implements Serializable{
         this.img = img;
     }
     
-    
+    /**
+     * @return the vivienda
+     */
+    public ViviendaDTO getVivienda() {
+        return vivienda;
+    }
+
+    /**
+     * @param vivienda the vivienda to set
+     */
+    public void setVivienda(ViviendaDTO vivienda) {
+        this.vivienda = vivienda;
+    }
 }

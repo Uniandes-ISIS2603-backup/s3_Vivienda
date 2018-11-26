@@ -13,7 +13,6 @@ import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper;
 
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.inject.Inject;
@@ -30,6 +29,7 @@ import javax.ws.rs.core.MediaType;
 public class ContratoViviendaResource {
     
     private static final Logger LOGGER = Logger.getLogger(ContratoViviendaResource.class.getName());
+    private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
@@ -51,10 +51,10 @@ public class ContratoViviendaResource {
     public ViviendaDetailDTO getVivienda(@PathParam("contratoId") Long contratoId, @PathParam("viviendaId") Long viviendaId) {
         LOGGER.log(Level.INFO, "ContratoViviendaResource getVivienda: input: contratoId {0} , viviendaId {1}", new Object[]{contratoId, viviendaId});
         if (viviendaLogic.getVivienda(viviendaId) == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /viviendas/" + viviendaId + NO_EXISTE, 404);
         }
         ViviendaDetailDTO detailDTO = new ViviendaDetailDTO(contratoViviendaLogic.getVivienda(contratoId, viviendaId));
-        LOGGER.log(Level.INFO, "ContratoViviendaResource getVivienda: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoViviendaResource getVivienda: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -72,15 +72,15 @@ public class ContratoViviendaResource {
      */
     @PUT
     public ContratoDTO replaceVivienda(@PathParam("contratoId") Long contratoId, ViviendaDTO vivienda) {
-        LOGGER.log(Level.INFO, "ContratoViviendaResource replaceVivienda: input: contratoId{0} , vivienda:{1}", new Object[]{contratoId, vivienda.toString()});
+        LOGGER.log(Level.INFO, "ContratoViviendaResource replaceVivienda: input: contratoId{0} , vivienda:{1}", new Object[]{contratoId, vivienda});
         if (contratoLogic.getContrato(contratoId) == null) {
-            throw new WebApplicationException("El recurso /contratos/" + contratoId + " no existe.", 404);
+            throw new WebApplicationException("El recurso /contratos/" + contratoId + NO_EXISTE, 404);
         }
         if (viviendaLogic.getVivienda(vivienda.getId()) == null) {
-            throw new WebApplicationException("El recurso /viviendas/" + vivienda.getId() + " no existe.", 404);
+            throw new WebApplicationException("El recurso /viviendas/" + vivienda.getId() + NO_EXISTE, 404);
         }
         ContratoDTO contratoDTO = new ContratoDTO(contratoViviendaLogic.replaceVivienda(contratoId, vivienda.getId()));
-        LOGGER.log(Level.INFO, "ContratoViviendaResource replaceVivienda: output: {0}", contratoDTO.toString());
+        LOGGER.log(Level.INFO, "ContratoViviendaResource replaceVivienda: output: {0}", contratoDTO);
         return contratoDTO;
     }
 }

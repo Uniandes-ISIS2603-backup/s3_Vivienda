@@ -48,12 +48,12 @@ public class UniversidadResource {
      */
     @POST
     public UniversidadDTO createUniversidad(UniversidadDTO universidad) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "UniversidadResource createUniversidad: input: {0}", universidad.toString());
+        LOGGER.log(Level.INFO, "UniversidadResource createUniversidad: input: {0}", universidad);
         // Convierte el DTO (json) en un objeto Entity para ser manejado por la lógica.
         UniversidadEntity universidadEntity = universidad.toEntity();
         UniversidadEntity nuevaUniversidadEntity = universidadLogic.createUniversidad(universidadEntity);
         UniversidadDTO nuevaUniversidadDTO = new UniversidadDTO(nuevaUniversidadEntity);
-        LOGGER.log(Level.INFO, "UniversidadResource createUniversidad: output: {0}", nuevaUniversidadDTO.toString());
+        LOGGER.log(Level.INFO, "UniversidadResource createUniversidad: output: {0}", nuevaUniversidadDTO);
         return nuevaUniversidadDTO;
     }
     
@@ -83,7 +83,7 @@ public class UniversidadResource {
          
         LOGGER.info("UniversdiadResource getUniversidades: input: void");
         List<UniversidadDetailDTO> listaUniversidades = listEntity2DetailDTO(universidadLogic.getUniversidades());
-        LOGGER.log(Level.INFO, "UniversdiadResource getUniversidades: output: {0}", listaUniversidades.toString());
+        LOGGER.log(Level.INFO, "UniversdiadResource getUniversidades: output: {0}", listaUniversidades);
         return listaUniversidades;
     }
 
@@ -98,7 +98,7 @@ public class UniversidadResource {
      */
     @GET
     @Path("{universidadId: \\d+}")
-    public UniversidadDetailDTO getUniversidad(@PathParam("universidadId") Long universidadId) throws WebApplicationException {
+    public UniversidadDetailDTO getUniversidad(@PathParam("universidadId") Long universidadId){
         
        LOGGER.log(Level.INFO, "UniversidadResource getUniversidadl: input: {0}", universidadId);
         UniversidadEntity universidadEntity = universidadLogic.getUniversidad(universidadId);
@@ -106,7 +106,7 @@ public class UniversidadResource {
             throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
         }
         UniversidadDetailDTO detailDTO = new UniversidadDetailDTO(universidadEntity);
-        LOGGER.log(Level.INFO, "UniversidadResource getUniversidad: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "UniversidadResource getUniversidad: output: {0}", detailDTO);
         return detailDTO;
     }
 
@@ -123,15 +123,15 @@ public class UniversidadResource {
      */
     @PUT
     @Path("{universidadId: \\d+}")
-    public UniversidadDetailDTO updateuniversidad(@PathParam("universidadId") Long universidadId, UniversidadDetailDTO universidad) throws WebApplicationException {
+    public UniversidadDetailDTO updateuniversidad(@PathParam("universidadId") Long universidadId, UniversidadDetailDTO universidad){
         
-        LOGGER.log(Level.INFO, "UniversidadResource updateUniversidad: input: id:{0} , universidad: {1}", new Object[]{universidadId, universidad.toString()});
+        LOGGER.log(Level.INFO, "UniversidadResource updateUniversidad: input: id:{0} , universidad: {1}", new Object[]{universidadId, universidad});
         universidad.setId(universidadId);
         if (universidadLogic.getUniversidad(universidadId) == null) {
             throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
         }
         UniversidadDetailDTO detailDTO = new UniversidadDetailDTO(universidadLogic.updateUniversidad(universidadId, universidad.toEntity()));
-        LOGGER.log(Level.INFO, "UniversidadResource updateUniversidad: output: {0}", detailDTO.toString());
+        LOGGER.log(Level.INFO, "UniversidadResource updateUniversidad: output: {0}", detailDTO);
         return detailDTO;
 
     }
