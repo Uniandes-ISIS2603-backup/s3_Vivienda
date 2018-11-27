@@ -7,20 +7,21 @@ package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- *
  * @author Paula Molina
  */
-public class UniversidadDetailDTO extends UniversidadDTO implements Serializable{
-    
+public class UniversidadDetailDTO extends UniversidadDTO implements Serializable {
+
     /*
-    * Esta lista de tipo EstudianteDTO contiene los estudiantes que estan asociados a una universidad
+     * Esta lista de tipo EstudianteDTO contiene los estudiantes que estan asociados a una universidad
      */
     private List<EstudianteDTO> estudiantes;
 
@@ -28,18 +29,19 @@ public class UniversidadDetailDTO extends UniversidadDTO implements Serializable
      * Constructor por defecto
      */
     public UniversidadDetailDTO() {
+        super();
     }
 
     /**
      * Constructor para transformar un Entity a un DTO
      *
-     * @param universdiadEntity La entidad de la universidad para transformar a DTO.
+     * @param universidadEntity La entidad de la universidad para transformar a DTO.
      */
-    public UniversidadDetailDTO(UniversidadEntity universdiadEntity) {
-        super(universdiadEntity);
-        if (universdiadEntity != null && universdiadEntity.getEstudiantes() != null) {
+    public UniversidadDetailDTO(UniversidadEntity universidadEntity) {
+        super(universidadEntity);
+        if (universidadEntity != null && universidadEntity.getEstudiantes() != null) {
             estudiantes = new ArrayList<>();
-            for (EstudianteEntity entityEstudiante : universdiadEntity.getEstudiantes()) {
+            for (EstudianteEntity entityEstudiante : universidadEntity.getEstudiantes()) {
                 estudiantes.add(new EstudianteDTO(entityEstudiante));
             }
         }

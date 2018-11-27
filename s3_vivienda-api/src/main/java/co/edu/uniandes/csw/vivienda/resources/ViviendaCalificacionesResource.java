@@ -7,8 +7,8 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
 import co.edu.uniandes.csw.vivienda.dtos.CalificacionDTO;
 import co.edu.uniandes.csw.vivienda.ejb.CalificacionLogic;
-import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.vivienda.mappers.*;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
@@ -118,9 +118,9 @@ public class ViviendaCalificacionesResource{
      * @param viviendaId Id de la vivienda
      * @param calificacionId Identificador de la calificacion que se desea
      * actualizar. Este debe ser una cadena de dígitos.
-     * @param calificacion {@link CalificacionDetailDTO} La calificacion que se desea
+     * @param calificacion {@link CalificacionDTO} La calificacion que se desea
      * guardar.
-     * @return JSON {@link CalificacionDetailDTO} - La calificacion guardada.
+     * @return JSON {@link CalificacionDTO} - La calificacion guardada.
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException - 
      * Error de lógica que se genera cuando no se encuentra la calificacion a actualizar.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
@@ -155,7 +155,7 @@ public class ViviendaCalificacionesResource{
      */
     @Path("{calificacionId:\\d+}")
     @DELETE
-    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException{
+    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException, WebApplicationException{
         LOGGER.log(Level.INFO, "ViviendaCalificacionResource deleteCalificacion: input: {0}", calificacionId);
         if(calificacionLogic.getCalificacionVivienda(viviendaId, calificacionId)!=null)
         {
