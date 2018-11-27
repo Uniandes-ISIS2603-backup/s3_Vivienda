@@ -51,19 +51,66 @@
 			"response": []
 		},
 		{
+			"name": "Crear cuarto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a74541d-5d86-444a-87e4-e08fa66bf4ed",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cuartoId\", data.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"cuarto1\",\n\t\"descripcion\":\"Un cuarto\",\n\t\"costoArriendo\": \"1000000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Crear universidad",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"id": "5e2f452d-03e1-4908-879f-c723ab2965b1",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"id_uni\", data.id);",
 							"postman.setGlobalVariable(\"id_uni_not\", data.id+5);",
 							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -77,7 +124,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de Los Andes\"\n}"
+					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de los Andes\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
@@ -102,24 +149,24 @@
 					"listen": "prerequest",
 					"script": {
 						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
-						"type": "text/javascript",
 						"exec": [
 							"",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
 						"id": "1219bd91-e598-449f-b3ee-33f3d65381e5",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"login_est\", data.login);",
 							"postman.setGlobalVariable(\"id_est\", data.id);",
 							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -179,10 +226,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"vivienda\": {\"id\": {{viviendaId}}},\n\t\"estudiante\": {\"id\": {{id_est}}},\n\t\"fechaInicio\":\"2016-11-22\",\n\t\"fechaFin\":\"2017-11-22\",\n\t\"metodoPago\": 2\n}"
+					"raw": "{\n\t\"fechaInicio\":\"2016-11-22\",\n\t\"fechaFin\":\"2017-11-22\",\n\t\"metodoPago\": 2\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/cuartos/{{cuartoId}}/estudiantes/{{id_est}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -193,57 +240,14 @@
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
-						"contratos"
+						"contratos",
+						"cuartos",
+						"{{cuartoId}}",
+						"estudiantes",
+						"{{id_est}}"
 					]
 				},
 				"description": "Crea un contrato"
-			},
-			"response": []
-		},
-		{
-			"name": "Crear contrato error",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "00e659cc-b554-429c-a573-c7dd731abf85",
-						"exec": [
-							"tests[\"El post genera error\"] = responseCode.code === 412;",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"metodoPago\" : 2,\n\t\"fechaInicio\":\"2016-11-22\",\n\t\"fechaFin\":\"2017-11-22\",\n\t\"estudiante\": {\"id\": {{id_est}}}\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{viviendaId}}",
-						"contratos"
-					]
-				},
-				"description": "Crea un contrato sin metodoPago, debe generar un error"
 			},
 			"response": []
 		},
@@ -515,6 +519,47 @@
 						"api",
 						"universidades",
 						"{{id_uni}}"
+					]
+				},
+				"description": "Elimina un contrato"
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Cuarto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "929631d4-669a-4c8c-a3e0-ddabc5ac3d74",
+						"exec": [
+							"tests[\"El delete no genera error\"] = responseCode.code === 204;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos/{{cuartoId}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos",
+						"{{cuartoId}}"
 					]
 				},
 				"description": "Elimina un contrato"

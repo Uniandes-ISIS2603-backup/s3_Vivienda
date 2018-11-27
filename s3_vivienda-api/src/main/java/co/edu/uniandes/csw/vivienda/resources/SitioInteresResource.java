@@ -70,6 +70,11 @@ public class SitioInteresResource {
         return sitioInteresDTO;
     }
 
+    /**
+     * Metodo para generar los datos de SitioInteres
+     * @return Lista con los elementos creados de SitioInteres
+     * @throws WebApplicationException Excepcion en caso de no poder generar los datos
+     */
     @POST
     @Path("generardatos")
     public List<SitioInteresDTO> generarDatos() throws WebApplicationException {
@@ -85,6 +90,10 @@ public class SitioInteresResource {
                     sitios.add(sitioDTO);
                 }
             }
+        }
+        else
+        {
+            throw new WebApplicationException(SITIO_INTERES + viviendas + NO_EXISTE, 404);
         }
         return sitios;
     }

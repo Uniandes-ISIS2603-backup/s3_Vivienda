@@ -17,15 +17,36 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author msalcedo
  */
 public class SitioInteresDTO implements Serializable{
-    
-    private Long id;
-    private String nombre;
-    private String descripccion;
-    private Float latitud;
-    private Float longitud;
-    private String img;
-    
 
+    /**
+     * Identificador de SitioInteres
+     */
+    private Long id;
+
+    /**
+     * Nombre del sitio interes
+     */
+    private String nombre;
+
+    /**
+     * Descripcion del sitio de interes
+     */
+    private String descripcion;
+
+    /**
+     * Latitud del sitio de interes
+     */
+    private Float latitud;
+
+    /**
+     * Longitud del sitio de interes
+     */
+    private Float longitud;
+
+    /**
+     * Imagen del sitio de interes
+     */
+    private String img;
     
      /**
      * Constructor por defecto
@@ -43,7 +64,7 @@ public class SitioInteresDTO implements Serializable{
         if (sitioInteresEntity != null) {
             this.id = sitioInteresEntity.getId();
             this.nombre = sitioInteresEntity.getNombre();
-            this.descripccion = sitioInteresEntity.getDescripcion();
+            this.descripcion = sitioInteresEntity.getDescripcion();
             this.latitud = sitioInteresEntity.getLatitud();
             this.longitud = sitioInteresEntity.getLongitud();
             this.img = sitioInteresEntity.getImg();
@@ -78,7 +99,7 @@ public class SitioInteresDTO implements Serializable{
         
         sitioInteresEntity.setId(this.id);
         sitioInteresEntity.setNombre(this.getNombre());
-        sitioInteresEntity.setDescripcion(this.getDescripccion());
+        sitioInteresEntity.setDescripcion(this.getDescripcion());
         sitioInteresEntity.setLatitud(this.getLatitud());
         sitioInteresEntity.setLongitud(this.getLongitud());
         sitioInteresEntity.setImg(this.getImg());
@@ -107,15 +128,15 @@ public class SitioInteresDTO implements Serializable{
     /**
      * @return the descripcion
      */
-    public String getDescripccion() {
-        return descripccion;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     /**
      * @param descripcion the descripcion to set
      */
-    public void setDescripccion(String descripcion) {
-        this.descripccion = descripcion;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     /**
