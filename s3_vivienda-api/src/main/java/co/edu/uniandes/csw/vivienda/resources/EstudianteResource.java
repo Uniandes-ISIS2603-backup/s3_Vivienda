@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.resources;
 
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDetailDTO;
+
 import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.Consumes;
@@ -16,6 +17,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDTO;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
@@ -25,6 +27,8 @@ import co.edu.uniandes.csw.vivienda.ejb.EstudianteUniversidadLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
+import co.edu.uniandes.csw.vivienda.mappers.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +37,6 @@ import javax.inject.Inject;
 import javax.ws.rs.WebApplicationException;
 
 /**
- *
  * @author Juan Manuel Castillo
  */
 @Path("estudiantes")
@@ -43,7 +46,7 @@ import javax.ws.rs.WebApplicationException;
 public class EstudianteResource {
 
     private static final Logger LOGGER = Logger.getLogger(EstudianteResource.class.getName());
-    
+
     private static final String RECURSO_ESTUDIANTES = "El recurso /estudiantes/";
     private static final String NO_EXISTE = " no existe.";
 
@@ -55,7 +58,7 @@ public class EstudianteResource {
 
     @Inject
     ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-    
+
     @Inject
     private EstudianteUniversidadLogic estudianteUniversidadLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
@@ -81,11 +84,11 @@ public class EstudianteResource {
      * la base de datos.
      *
      * @param estudiante {@link EstudianteDTO} - EL estudiante que se desea
-     * guardar.
+     *                   guardar.
      * @return JSON {@link EstudianteDTO} - El estudiante guardado con el
      * atributo id autogenerado.
      * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se puede crear el estudiante.
+     *                                Error de lógica que se genera cuando no se puede crear el estudiante.
      */
     @POST
     public EstudianteDTO createEstudiante(EstudianteDTO estudiante) throws BusinessLogicException {
@@ -113,10 +116,10 @@ public class EstudianteResource {
      * Busca el estudiante con el id asociado recibido en la URL y lo devuelve.
      *
      * @param estudiantesId Identificador del estudiante que se esta buscando.
-     * Este debe ser una cadena de dígitos.
+     *                      Este debe ser una cadena de dígitos.
      * @return JSON {@link EstudianteDetailDTO} - El estudiante buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante.
+     *                                 Error de lógica que se genera cuando no se encuentra el estudiante.
      */
     @GET
     @Path("{estudianteId:\\d+}")
@@ -136,16 +139,16 @@ public class EstudianteResource {
      * que se recibe en el cuerpo de la petición.
      *
      * @param estudiantesId Identificador del estudiante que se desea
-     * actualizar. Este debe ser una cadena de dígitos.
-     * @param estudiante {@link EstudianteDTO} El estudiante que se desea
-     * guardar.
+     *                      actualizar. Este debe ser una cadena de dígitos.
+     * @param estudiante    {@link EstudianteDTO} El estudiante que se desea
+     *                      guardar.
      * @return JSON {@link EstudianteDetailDTO} - El estudiante guardada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante a
-     * actualizar.
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se puede actualizar el
-     * estudiante.
+     *                                 Error de lógica que se genera cuando no se encuentra el estudiante a
+     *                                 actualizar.
+     * @throws BusinessLogicException  {@link BusinessLogicExceptionMapper} -
+     *                                 Error de lógica que se genera cuando no se puede actualizar el
+     *                                 estudiante.
      */
     @PUT
     @Path("{estudianteId:\\d+}")
@@ -164,9 +167,9 @@ public class EstudianteResource {
      * Borra el estudiante con el id asociado recibido en la URL.
      *
      * @param estudiantesId Identificador del estudiante que se desea borrar.
-     * Este debe ser una cadena de dígitos.
+     *                      Este debe ser una cadena de dígitos.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante.
+     *                                 Error de lógica que se genera cuando no se encuentra el estudiante.
      */
     @DELETE
     @Path("{estudianteId:\\d+}")
@@ -183,17 +186,17 @@ public class EstudianteResource {
 
     /**
      * Conexión con el servicio de autores para un estudiante.
-     * {@link EstudianteAuthorsResource}
-     *
+     * {@link EstudianteUniversidadResource}
+     * <p>
      * Este método conecta la ruta de /estudiantes con las rutas de /authors que
      * dependen del estudiante, es una redirección al servicio que maneja el
      * segmento de la URL que se encarga de las reseñas.
      *
      * @param estudianteId El ID del estudiante con respecto al cual se accede
-     * al servicio.
+     *                     al servicio.
      * @return El servicio de autores para ese estudiante en paricular.\
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante.
+     *                                 Error de lógica que se genera cuando no se encuentra el estudiante.
      */
     @Path("{estudianteId:\\d+}/universidad")
     public Class<EstudianteUniversidadResource> getEstudianteUniversidadResource(@PathParam("estudianteId") Long estudianteId) {
@@ -205,17 +208,17 @@ public class EstudianteResource {
 
     /**
      * Conexión con el servicio de autores para un estudiante.
-     * {@link EstudianteAuthorsResource}
-     *
+     * {@link EstudianteCalificacionesResource}
+     * <p>
      * Este método conecta la ruta de /estudiantes con las rutas de /authors que
      * dependen del estudiante, es una redirección al servicio que maneja el
      * segmento de la URL que se encarga de las reseñas.
      *
      * @param estudianteId El ID del estudiante con respecto al cual se accede
-     * al servicio.
+     *                     al servicio.
      * @return El servicio de autores para ese estudiante en paricular.\
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el estudiante.
+     *                                 Error de lógica que se genera cuando no se encuentra el estudiante.
      */
     @Path("{estudianteId:\\d+}/calificaciones")
     public Class<EstudianteCalificacionesResource> getEstudianteCalificacionesResource(@PathParam("estudianteId") Long estudianteId) {
@@ -229,10 +232,10 @@ public class EstudianteResource {
      * Busca el autor dentro de el premio con id asociado.
      *
      * @param estudianteId Identificador de el premio que se esta buscando. Este
-     * debe ser una cadena de dígitos.
+     *                     debe ser una cadena de dígitos.
      * @return JSON {@link ContratoDetailDTO} - El contrato buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * cuando el estudinate no existe o cuando el estudiante no tiene contrato.
+     *                                 cuando el estudinate no existe o cuando el estudiante no tiene contrato.
      */
     @GET
     @Path("{estudianteId:\\d+}/contrato")
@@ -256,9 +259,9 @@ public class EstudianteResource {
      * Elimina el contrato.
      *
      * @param estudianteId El ID del estudinate del cual se va a eliminar el
-     * contrato
+     *                     contrato
      * @throws WebApplicationException cuando el estudinate no existe o cuando
-     * el estudiante no tiene contrato.
+     *                                 el estudiante no tiene contrato.
      */
     @DELETE
     @Path("{estudianteId:\\d+}/contrato")
@@ -284,12 +287,12 @@ public class EstudianteResource {
 
     /**
      * Convierte una lista de entidades a DTO.
-     *
+     * <p>
      * Este método convierte una lista de objetos EstudianteEntity a una lista
      * de objetos EstudianteDetailDTO (json)
      *
      * @param entityList corresponde a la lista de estudiantes de tipo Entity
-     * que vamos a convertir a DTO.
+     *                   que vamos a convertir a DTO.
      * @return la lista de estudiantes en forma DTO (json)
      */
     private List<EstudianteDetailDTO> listEntity2DetailDTO(List<EstudianteEntity> entityList) {

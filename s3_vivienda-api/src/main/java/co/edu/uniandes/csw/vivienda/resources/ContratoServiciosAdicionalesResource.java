@@ -10,6 +10,7 @@ import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoServiciosAdicionalesLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ServicioAdicionalLogic;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
+import co.edu.uniandes.csw.vivienda.mappers.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -70,7 +71,7 @@ private static final String NO_EXISTE = " no existe.";
      * Busca y devuelve todos los servicios adicionales que existen en un contrato.
      *
      * @param contratoId El ID del libro del cual se buscan los autores
-     * @return JSONArray {@link AuthorDetailDTO} - Los servicios adicoinales encontrados en el
+     * @return JSONArray {@link ServicioAdicionalDetailDTO} - Los servicios adicoinales encontrados en el
      * contrato. Si no hay ninguno retorna una lista vacía.
      */
     @GET
@@ -88,7 +89,7 @@ private static final String NO_EXISTE = " no existe.";
      * @param servicioAdicionalId El ID del servicio adicional que se busca
      * @param viviendaId El ID de la vivienda que ofrece el servicio adicional 
      * @param contratoId El ID del libro del cual se busca el autor
-     * @return {@link AuthorDetailDTO} - El autor encontrado en el libro.
+     * @return {@link ServicioAdicionalDetailDTO} - El autor encontrado en el libro.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper}
      * Error de lógica que se genera cuando no se encuentra el autor.
      */
@@ -110,7 +111,7 @@ private static final String NO_EXISTE = " no existe.";
      *
      * @param contratoId El ID del contrato al cual se le va a asociar la lista de servicios adicionales
      * @param viviendaId El ID de la vivienda que ofrece el servicio adicional 
-     * @param serviciosAdicionales JSONArray {@link AuthorDetailDTO} - La lista de servicios adicionales
+     * @param serviciosAdicionales JSONArray {@link ServicioAdicionalDetailDTO} - La lista de servicios adicionales
      * que se desea guardar.
      * @return JSONArray {@link ServicioAdicionalDetailDTO} - La lista actualizada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper}

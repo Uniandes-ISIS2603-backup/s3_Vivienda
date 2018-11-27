@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="univiviendaDB">
+  <database-model serializer="dbm" rdbms="DERBY" format-version="4.11">
+    <root id="1">
+      <ServerVersion>10.13</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="APP">
+      <Current>1</Current>
+      <Visible>1</Visible>
+    </schema>
+    <schema id="3" parent="1" name="NULLID"/>
+    <schema id="4" parent="1" name="SQLJ"/>
+    <schema id="5" parent="1" name="SYS"/>
+    <schema id="6" parent="1" name="SYSCAT"/>
+    <schema id="7" parent="1" name="SYSCS_DIAG"/>
+    <schema id="8" parent="1" name="SYSCS_UTIL"/>
+    <schema id="9" parent="1" name="SYSFUN"/>
+    <schema id="10" parent="1" name="SYSIBM"/>
+    <schema id="11" parent="1" name="SYSPROC"/>
+    <schema id="12" parent="1" name="SYSSTAT"/>
+    <table id="13" parent="2" name="ARRENDADORENTITY"/>
+    <table id="14" parent="2" name="CALIFICACIONENTITY"/>
+    <table id="15" parent="2" name="CONTRATOENTITY"/>
+    <table id="16" parent="2" name="CUARTOENTITY"/>
+    <table id="17" parent="2" name="ESTUDIANTEENTITY"/>
+    <table id="18" parent="2" name="SERVICIOADICIONALENTITY"/>
+    <table id="19" parent="2" name="SITIOINTERESENTITY"/>
+    <table id="20" parent="2" name="UNIVERSIDADENTITY"/>
+    <table id="21" parent="2" name="VIVIENDAENTITY"/>
+    <table id="22" parent="2" name="VIVIENDAENTITY_SERVICIOSINCLUIDOS"/>
+    <column id="23" parent="13" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="24" parent="13" name="LOGIN">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="25" parent="13" name="NOMBRE">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="26" parent="13" name="PASSWORD">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="27" parent="13" name="SQL181112195829750">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="28" parent="13" name="SQL181112195829750">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="29" parent="14" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="30" parent="14" name="DESCRIPCION">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="31" parent="14" name="PUNTAJE">
+      <Position>3</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="32" parent="14" name="ESTUDIANTE_ID">
+      <Position>4</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="33" parent="14" name="VIVIENDA_ID">
+      <Position>5</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="34" parent="14" name="SQL181112195829770">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="35" parent="14" name="SQL181112195829900">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ESTUDIANTE_ID</ColNames>
+    </index>
+    <index id="36" parent="14" name="SQL181112195829910">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>VIVIENDA_ID</ColNames>
+    </index>
+    <key id="37" parent="14" name="SQL181112195829770">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="38" parent="14" name="CLFCCNENTITYSTDNTD">
+      <ColNames>ESTUDIANTE_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>ESTUDIANTEENTITY</RefTableName>
+      <RefKeyName>SQL181112195829810</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="39" parent="14" name="CLFCCONENTITYVVNDD">
+      <ColNames>VIVIENDA_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>VIVIENDAENTITY</RefTableName>
+      <RefKeyName>SQL181112195829720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="40" parent="15" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="41" parent="15" name="METODOPAGO">
+      <Position>2</Position>
+      <DataType>INTEGER|4s</DataType>
+    </column>
+    <column id="42" parent="15" name="VIVIENDA_ID">
+      <Position>3</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="43" parent="15" name="ESTUDIANTE_ID">
+      <Position>4</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="44" parent="15" name="FECHAFIN">
+      <Position>5</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="45" parent="15" name="FECHAINICIO">
+      <Position>6</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="46" parent="15" name="SQL181112195829710">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="47" parent="15" name="SQL181112195829850">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>VIVIENDA_ID</ColNames>
+    </index>
+    <index id="48" parent="15" name="SQL181112195829860">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ESTUDIANTE_ID</ColNames>
+    </index>
+    <key id="49" parent="15" name="SQL181112195829710">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="50" parent="15" name="CNTRTENTITYVVNDAID">
+      <ColNames>VIVIENDA_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>VIVIENDAENTITY</RefTableName>
+      <RefKeyName>SQL181112195829720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="51" parent="15" name="CNTRTNTITYSTDNTEID">
+      <ColNames>ESTUDIANTE_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>ESTUDIANTEENTITY</RefTableName>
+      <RefKeyName>SQL181112195829810</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="52" parent="16" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="53" parent="16" name="COSTOARRIENDO">
+      <Position>2</Position>
+      <DataType>INTEGER|4s</DataType>
+    </column>
+    <column id="54" parent="16" name="DESCRIPCION">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="55" parent="16" name="NOMBRE">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="56" parent="16" name="VIVIENDA_ID">
+      <Position>5</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="57" parent="16" name="SQL181112195829670">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="58" parent="16" name="SQL181112195829840">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>VIVIENDA_ID</ColNames>
+    </index>
+    <key id="59" parent="16" name="SQL181112195829670">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="60" parent="16" name="CRTOENTITYVVENDAID">
+      <ColNames>VIVIENDA_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>VIVIENDAENTITY</RefTableName>
+      <RefKeyName>SQL181112195829720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="61" parent="17" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="62" parent="17" name="LOGIN">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="63" parent="17" name="NOMBRE">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="64" parent="17" name="PASSWORD">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="65" parent="17" name="UNIVERSIDAD_ID">
+      <Position>5</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="66" parent="17" name="SQL181112195829810">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="67" parent="17" name="SQL181112195829940">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>UNIVERSIDAD_ID</ColNames>
+    </index>
+    <key id="68" parent="17" name="SQL181112195829810">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="69" parent="17" name="STDNTNTITYNVRSDDID">
+      <ColNames>UNIVERSIDAD_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>UNIVERSIDADENTITY</RefTableName>
+      <RefKeyName>SQL181112195829800</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="70" parent="18" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="71" parent="18" name="COSTO">
+      <Position>2</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="72" parent="18" name="DESCRIPCION">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="73" parent="18" name="NOMBRE">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="74" parent="18" name="CONTRATO_ID">
+      <Position>5</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="75" parent="18" name="VIVIENDA_ID">
+      <Position>6</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="76" parent="18" name="SQL181112195829780">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="77" parent="18" name="SQL181112195829920">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>CONTRATO_ID</ColNames>
+    </index>
+    <index id="78" parent="18" name="SQL181112195829930">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>VIVIENDA_ID</ColNames>
+    </index>
+    <key id="79" parent="18" name="SQL181112195829780">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="80" parent="18" name="SRVCDCNLNTTYCNTRTD">
+      <ColNames>CONTRATO_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>CONTRATOENTITY</RefTableName>
+      <RefKeyName>SQL181112195829710</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <foreign-key id="81" parent="18" name="SRVCDCNLNTITYVVNDD">
+      <ColNames>VIVIENDA_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>VIVIENDAENTITY</RefTableName>
+      <RefKeyName>SQL181112195829720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="82" parent="19" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="83" parent="19" name="DESCRIPCION">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="84" parent="19" name="IMG">
+      <Position>3</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="85" parent="19" name="LATITUD">
+      <Position>4</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="86" parent="19" name="LONGITUD">
+      <Position>5</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="87" parent="19" name="NOMBRE">
+      <Position>6</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="88" parent="19" name="VIVIENDA_ID">
+      <Position>7</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="89" parent="19" name="SQL181112195829740">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="90" parent="19" name="SQL181112195829890">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>VIVIENDA_ID</ColNames>
+    </index>
+    <key id="91" parent="19" name="SQL181112195829740">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="92" parent="19" name="STNTRESENTITYVVNDD">
+      <ColNames>VIVIENDA_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>VIVIENDAENTITY</RefTableName>
+      <RefKeyName>SQL181112195829720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="93" parent="20" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="94" parent="20" name="IMGURL">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="95" parent="20" name="LATITUD">
+      <Position>3</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="96" parent="20" name="LONGITUD">
+      <Position>4</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="97" parent="20" name="NOMBRE">
+      <Position>5</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="98" parent="20" name="SQL181112195829800">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="99" parent="20" name="SQL181112195829800">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="100" parent="21" name="ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
+      <DefaultExpression>GENERATED_BY_DEFAULT</DefaultExpression>
+    </column>
+    <column id="101" parent="21" name="CIUDAD">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="102" parent="21" name="DESCRIPCION">
+      <Position>3</Position>
+      <DataType>CLOB(5000)|2005s</DataType>
+    </column>
+    <column id="103" parent="21" name="DIRECCION">
+      <Position>4</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="104" parent="21" name="IMGURL">
+      <Position>5</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="105" parent="21" name="LATITUD">
+      <Position>6</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="106" parent="21" name="LONGITUD">
+      <Position>7</Position>
+      <DataType>DOUBLE|8s</DataType>
+    </column>
+    <column id="107" parent="21" name="NOMBRE">
+      <Position>8</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="108" parent="21" name="TIPO">
+      <Position>9</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <column id="109" parent="21" name="ARRENDADOR_ID">
+      <Position>10</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <index id="110" parent="21" name="SQL181112195829720">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="111" parent="21" name="SQL181112195829870">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ARRENDADOR_ID</ColNames>
+    </index>
+    <key id="112" parent="21" name="SQL181112195829720">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>ID</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <foreign-key id="113" parent="21" name="VVNDNTITYRRNDDORID">
+      <ColNames>ARRENDADOR_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>ARRENDADORENTITY</RefTableName>
+      <RefKeyName>SQL181112195829750</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+    <column id="114" parent="22" name="VIVIENDAENTITY_ID">
+      <Position>1</Position>
+      <DataType>BIGINT|-5s</DataType>
+    </column>
+    <column id="115" parent="22" name="SERVICIOSINCLUIDOS">
+      <Position>2</Position>
+      <DataType>VARCHAR(255)|12s</DataType>
+    </column>
+    <index id="116" parent="22" name="SQL181112195829950">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>VIVIENDAENTITY_ID</ColNames>
+    </index>
+    <foreign-key id="117" parent="22" name="VVNDNTTYSVVNDNTTYD">
+      <ColNames>VIVIENDAENTITY_ID</ColNames>
+      <RefSchemaName>APP</RefSchemaName>
+      <RefTableName>VIVIENDAENTITY</RefTableName>
+      <RefKeyName>SQL181112195829720</RefKeyName>
+      <RefColNames>ID</RefColNames>
+    </foreign-key>
+  </database-model>
+</dataSource>

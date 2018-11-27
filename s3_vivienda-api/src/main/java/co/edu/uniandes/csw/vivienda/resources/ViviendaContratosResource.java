@@ -13,6 +13,7 @@ import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.mappers.BusinessLogicExceptionMapper;
 import co.edu.uniandes.csw.vivienda.mappers.WebApplicationExceptionMapper;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -31,14 +32,15 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Implementa el recurso viviendas/{id}/contratos
+ *
  * @author estudiante
  */
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ViviendaContratosResource {
-    
+
     private static final Logger LOGGER = Logger.getLogger(ViviendaContratosResource.class.getName());
-    
+
     private static final String NO_EXISTE = " no existe.";
 
     @Inject
@@ -47,20 +49,18 @@ public class ViviendaContratosResource {
     @Inject
     private ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
-    
-    
-    
+
     /**
      * Guarda un contrato dentro de una vivienda con la informacion que recibe el
      * la URL. Se devuelve el contrato que se guarda en la vivienda.
      *
      * @param viviendaId Identificador de la vivienda que se esta
-     * actualizando. Este debe ser una cadena de dígitos.
+     *                   actualizando. Este debe ser una cadena de dígitos.
      * @param contratoId Identificador del contrato que se desea guardar. Este debe
-     * ser una cadena de dígitos.
-     * @return JSON {@link BookDTO} - El contrato guardado en la vivienda.
+     *                   ser una cadena de dígitos.
+     * @return JSON {@link ContratoDTO} - El contrato guardado en la vivienda.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el contrato.
+     *                                 Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @POST
     @Path("{contratoId: \\d+}")
@@ -73,18 +73,18 @@ public class ViviendaContratosResource {
         LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: output: {0}", contratoDTO);
         return contratoDTO;
     }
-    
+
     /**
      * Guarda un contrato dentro de una vivienda con la informacion que recibe el
      * la URL. Se devuelve el contrato que se guarda en la vivienda.
      *
      * @param viviendaId Identificador de la vivienda que se esta
-     * actualizando. Este debe ser una cadena de dígitos.
+     *                   actualizando. Este debe ser una cadena de dígitos.
      * @param contrato
-     * @return JSON {@link BookDTO} - El contrato guardado en la vivienda.
+     * @return JSON {@link ContratoDTO} - El contrato guardado en la vivienda.
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
-     * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el contrato.
+     * @throws WebApplicationException                                        {@link WebApplicationExceptionMapper} -
+     *                                                                        Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @POST
     public ContratoDTO createContrato(@PathParam("viviendaId") Long viviendaId, ContratoDTO contrato) throws BusinessLogicException {
@@ -98,7 +98,7 @@ public class ViviendaContratosResource {
      * Busca y devuelve todos los contratos que existen en la vivienda.
      *
      * @param viviendaId Identificador de la vivienda que se esta buscando.
-     * Este debe ser una cadena de dígitos.
+     *                   Este debe ser una cadena de dígitos.
      * @return JSONArray {@link ContratoDTO} - Los contratos encontrados en la
      * vivienda. Si no hay ninguno retorna una lista vacía.
      */
@@ -114,15 +114,15 @@ public class ViviendaContratosResource {
      * Busca el contrato con el id asociado dentro de la vivienda con id asociado.
      *
      * @param viviendaId Identificador de la vivienda que se esta buscando.
-     * Este debe ser una cadena de dígitos.
+     *                   Este debe ser una cadena de dígitos.
      * @param contratoId Identificador del contrato que se esta buscando. Este debe
-     * ser una cadena de dígitos.
+     *                   ser una cadena de dígitos.
      * @return JSON {@link ContratoDTO} - El contrato buscado
-     * @throws BusinessLogicException {@link BusinessLogicExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el contrato en la
-     * vivienda.
+     * @throws BusinessLogicException  {@link BusinessLogicExceptionMapper} -
+     *                                 Error de lógica que se genera cuando no se encuentra el contrato en la
+     *                                 vivienda.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el contrato.
+     *                                 Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @GET
     @Path("{contratoId: \\d+}")
@@ -140,13 +140,13 @@ public class ViviendaContratosResource {
      * Remplaza las instancias de Contrato asociadas a una instancia de Vivienda
      *
      * @param viviendaId Identificador de la vivienda que se esta
-     * remplazando. Este debe ser una cadena de dígitos.
-     * @param contratos JSONArray {@link ContratoDTO} El arreglo de contratos nuevo para la
-     * vivienda.
+     *                   remplazando. Este debe ser una cadena de dígitos.
+     * @param contratos  JSONArray {@link ContratoDTO} El arreglo de contratos nuevo para la
+     *                   vivienda.
      * @return JSON {@link ContratoDTO} - El arreglo de contratos guardado en la
      * vivienda.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
-     * Error de lógica que se genera cuando no se encuentra el contrato.
+     *                                 Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @PUT
     public List<ContratoDetailDTO> replaceContratos(@PathParam("viviendaId") Long viviendaId, List<ContratoDTO> contratos) {
@@ -167,11 +167,9 @@ public class ViviendaContratosResource {
      * @param entityList Lista de ContratoEntity a convertir.
      * @return Lista de ContratoDTO convertida.
      */
-    private List<ContratoDetailDTO> contratosListEntity2DTO(List<ContratoEntity> entityList) 
-    {
+    private List<ContratoDetailDTO> contratosListEntity2DTO(List<ContratoEntity> entityList) {
         List<ContratoDetailDTO> list = new ArrayList();
-        for (ContratoEntity entity : entityList)
-        {
+        for (ContratoEntity entity : entityList) {
             list.add(new ContratoDetailDTO(entity));
         }
         return list;
@@ -179,7 +177,7 @@ public class ViviendaContratosResource {
 
     /**
      * Convierte una lista de ContratoDTO a una lista de ContratoEntity.
-     * 
+     *
      * @param dtos Lista de ContratoDTO a convertir.
      * @return Lista de ContratoEntity convertida.
      */
@@ -190,25 +188,31 @@ public class ViviendaContratosResource {
         }
         return list;
     }
-    
+
     /**
      * Actualiza un contrato dentro de una vivienda
-     * @param viviendaId - Identificador de la vivienda
-     * @param contratoId - Identificador del contrato de la vivienda
+     *
+     * @param viviendaId  - Identificador de la vivienda
+     * @param contratoId  - Identificador del contrato de la vivienda
      * @param contratoDTO - DTO del contrato a actualizar
      * @return Contrato actualizado
      * @throws BusinessLogicException En el caso que no pueda actualizar
      */
     @PUT
     @Path("{contratoId:\\d+}")
-    public ContratoDTO updateContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId, ContratoDTO contratoDTO) throws BusinessLogicException{
-        ContratoEntity contratoEntity = contratoLogic.actualizarContrato(viviendaId, contratoId, contratoDTO.toEntity());
+    public ContratoDTO updateContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId, ContratoDTO contratoDTO) throws BusinessLogicException {
+        ContratoEntity contratoEntity = null;
+        if (contratoLogic != null) {
+            contratoEntity = contratoLogic.actualizarContrato(viviendaId, contratoId, contratoDTO.toEntity());
+        }
         return new ContratoDTO(contratoEntity);
     }
 
     @DELETE
     @Path("{contratoId:\\d+}")
-    public void deleteContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException{
-        contratoLogic.deleteContrato(contratoId);
+    public void deleteContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException, WebApplicationException {
+        if (contratoLogic != null) {
+            contratoLogic.deleteContrato(contratoId);
+        }
     }
 }
