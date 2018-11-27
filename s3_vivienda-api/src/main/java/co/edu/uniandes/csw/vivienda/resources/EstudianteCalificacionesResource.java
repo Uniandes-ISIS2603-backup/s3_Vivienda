@@ -99,11 +99,13 @@ public class EstudianteCalificacionesResource{
     @Path("{calificacionId: \\d+}")
     public CalificacionDTO getCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId)throws BusinessLogicException{
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: input: estudianteID: {0} , calificacionId: {1}", new Object[]{estudianteId, calificacionId});
-        if(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId)==null)
-        {
+        CalificacionEntity cal;
+        try{
+            cal = calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId);
+        }catch(BusinessLogicException e){
             throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
-        CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId));
+        CalificacionDTO calificacionDTO = new CalificacionDTO(cal);
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource getCalificacion: output: {0}", calificacionDTO);
         return calificacionDTO;
     }
@@ -128,8 +130,9 @@ public class EstudianteCalificacionesResource{
     public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: estudianteId:{0}, calificacionId:{1} , calificacion: {2}", new Object[]{estudianteId, calificacionId, calificacion});
         calificacion.setId(calificacionId);
-        if(calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId)==null)
-        {
+        try{
+            calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId);
+        }catch(BusinessLogicException e){
             throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
         }
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(calificacionId, calificacion.toEntity());

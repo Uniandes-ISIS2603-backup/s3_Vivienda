@@ -516,6 +516,62 @@
 			"response": []
 		},
 		{
+			"name": "crear contrato",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad14acf3-c448-4967-962c-c5e11f310434",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b118c2d6-c167-4f2e-97cd-b1372d5f6be3",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"id_con\", data.id);",
+							"tests[\"No genera errores en el post contrato\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"fechaInicio\":\"1948-12-11\",\n\t\"fechaFin\":\"1948-12-31\",\n\t\"metodoPago\":1,\n\t\"vivienda\":{\"id\":{{id_viv}}},\n\t\"estudiante\":{\"id\":{{id_est}}}\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/contratos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"contratos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "dar estudiante Copy",
 			"event": [
 				{
@@ -553,6 +609,188 @@
 						"api",
 						"estudiantes",
 						"{{id_est}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estudiante get contrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6fbe2e41-2dc9-4484-9cda-75590a53babe",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"tests[\"Adiciona el contrato correcto\"] = pm.globals.get(\"id_con\") == data.id",
+							"tests[\"No genera errores en el get contrato\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/contrato",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"contrato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estudinate delete contrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cbdc830d-bffe-46a8-80ea-0fe9f57a2f81",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 204;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/contrato",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"contrato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "estudinate delete contrato inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34493ca2-7781-42f0-a863-86a3ba7289d4",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código correcto\"] = responseCode.code === 404;",
+							"tests[\"Genera el mensaje correcto en el delete contrato inexistente de estudiante\"] = responseBody.has(\"El recurso /estudiantes/\" + pm.globals.get(\"id_est\") + \"/contrato no existe.\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/contrato",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"contrato"
+					]
+				}
+			},
+			"response": []
+                },
+		{
+			"name": "estudinate get contrato 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a6a59025-adb3-40de-838a-90016e68b01b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el código correcto en el get contrato estudiante\"] = responseCode.code === 404;",
+							"tests[\"Genera el mensaje correcto en el get contrato estudiante\"] = responseBody.has(\"El recurso /estudiantes/\" + pm.globals.get(\"id_est\") + \"/contrato no existe.\");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/contrato",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"contrato"
 					]
 				}
 			},
@@ -776,6 +1014,244 @@
 						"api",
 						"estudiantes",
 						"{{id_est_not}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update estudiante inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "68e67070-1bb8-452f-9986-b558cca5a07b",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\": \"nombre_cambiado\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar estudiante inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c88d2240-c0fc-46e7-ac15-c7076bb5dcae",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar calificaciones estudiante inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c88d2240-c0fc-46e7-ac15-c7076bb5dcae",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/calificaciones",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}",
+						"calificaciones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar universidad estudiante inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c88d2240-c0fc-46e7-ac15-c7076bb5dcae",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/universidad",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}",
+						"universidad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "dar contrato estudiante inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c88d2240-c0fc-46e7-ac15-c7076bb5dcae",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/contrato",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}",
+						"contrato"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete contrato estudiante inexistente",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c88d2240-c0fc-46e7-ac15-c7076bb5dcae",
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"Genera el mensaje adecuado\"] = responseBody.has(\"El recurso /estudiantes/\"+ pm.globals.get(\"id_est_not\") +\" no existe.\");",
+							"tests[\"Genera el código adecuado\"] = responseCode.code === 404;",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/contrato",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est_not}}",
+						"contrato"
 					]
 				}
 			},
@@ -1502,8 +1978,8 @@
 					"script": {
 						"id": "f6bd00f9-ff9f-43d3-8b81-3e794193bca4",
 						"exec": [
-							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"La calificación no está asociada con el estudiante\");",
-							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 412;"
+							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"El recurso /estudiantes/\" + pm.variables.get(\"id_est\") + \"/calificaciones/\"+ pm.variables.get(\"id_cal_not\")+ \" no existe.\");",
+							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 404;"
 						],
 						"type": "text/javascript"
 					}
@@ -1581,6 +2057,71 @@
 						"{{id_est}}",
 						"calificaciones",
 						"{{id_cal}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get estudiantes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
+						"type": "text/javascript",
+						"exec": [
+							"",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "86b25316-21da-4dd8-a42b-7321b722c877",
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"",
+							"tests[\"el número de estudinates es correcto\"] = data.length === 2;",
+							"for (var i =0; i< data.length; i++){",
+							"    if (data[i].id == pm.globals.get(\"id_est\")){",
+							"        tests[\"Se encuentra el estudiante con login adecuado\"] = data[i].login === pm.globals.get(\"login_est\");",
+							"    }",
+							"    else{",
+							"        tests[\"Se encuentra el estudiante adecuado\"] = data[i].id == pm.globals.get(\"id_est_2\");",
+							"        tests[\"Se encuentra el estudiante con login adecuado\"] = data[i].login === pm.globals.get(\"login_est_2\");",
+							"    }",
+							"}",
+							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes"
 					]
 				}
 			},
