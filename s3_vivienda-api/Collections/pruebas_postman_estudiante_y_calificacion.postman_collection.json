@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "e5d1845a-1e5d-4e9c-8f1e-3b9ebe823929",
+		"_postman_id": "578d46fe-dff3-4765-bf45-a48bdbe2aec5",
 		"name": "pruebas_postman_estudiante_y_calificacion",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -516,28 +516,83 @@
 			"response": []
 		},
 		{
+			"name": "crear Cuarto",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ad14acf3-c448-4967-962c-c5e11f310434",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "052e186b-2fbd-467e-927e-56fef357611b",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"cuartoId\", data.id)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nombre\":\"cuarto1\",\n\t\"descripcion\":\"Un cuarto\",\n\t\"costoArriendo\": \"1000000\"\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/cuartos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{id_viv}}",
+						"cuartos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "crear contrato",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"id": "ad14acf3-c448-4967-962c-c5e11f310434",
-						"type": "text/javascript",
 						"exec": [
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
 						"id": "b118c2d6-c167-4f2e-97cd-b1372d5f6be3",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"id_con\", data.id);",
 							"tests[\"No genera errores en el post contrato\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -554,7 +609,7 @@
 					"raw": "{\n\t\"fechaInicio\":\"1948-12-11\",\n\t\"fechaFin\":\"1948-12-31\",\n\t\"metodoPago\":1,\n\t\"vivienda\":{\"id\":{{id_viv}}},\n\t\"estudiante\":{\"id\":{{id_est}}}\n}"
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/contratos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{id_viv}}/contratos/cuartos/{{cuartoId}}/estudiantes/{{id_est}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -565,7 +620,11 @@
 						"api",
 						"viviendas",
 						"{{id_viv}}",
-						"contratos"
+						"contratos",
+						"cuartos",
+						"{{cuartoId}}",
+						"estudiantes",
+						"{{id_est}}"
 					]
 				}
 			},
@@ -748,7 +807,7 @@
 				}
 			},
 			"response": []
-                },
+		},
 		{
 			"name": "estudinate get contrato 2",
 			"event": [
@@ -1083,7 +1142,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}",
 					"protocol": "http",
@@ -1121,7 +1183,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/calificaciones",
 					"protocol": "http",
@@ -1160,7 +1225,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/universidad",
 					"protocol": "http",
@@ -1199,7 +1267,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/contrato",
 					"protocol": "http",
@@ -1238,7 +1309,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est_not}}/contrato",
 					"protocol": "http",

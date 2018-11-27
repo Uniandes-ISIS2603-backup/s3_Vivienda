@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
@@ -61,10 +62,13 @@ public class ViviendaContratosLogic {
         }
         ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
         contrato.setVivienda(vivienda);
-        contrato.setEstudiante(estudiantePersistence.find(estudianteId));
+        EstudianteEntity estu = estudiantePersistence.find(estudianteId);
+        contrato.setEstudiante(estu);
         contrato.setArrendador(vivienda.getArrendador());
         contrato.setCuarto(cuartoPersistence.find(cuartoId));
         ContratoEntity contratoEntity = contratoLogic.createContrato(contrato);
+        estu.setContrato(contratoEntity);
+        estudiantePersistence.update(estu);
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un contrato al cuarto con id = {0}", cuartoId);
         return contratoEntity;
     }
