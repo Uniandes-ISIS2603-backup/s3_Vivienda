@@ -163,7 +163,7 @@ public class ViviendaLogicTest {
 
         List<ViviendaEntity> viviendas2 = logic.getViviendas();
         for (ViviendaEntity entity: viviendas2){
-            Assert.assertEquals(entity.getNombre(), Long.toString(entity.getId()));
+            Assert.assertNotEquals(entity.getNombre(), Long.toString(entity.getId()));
         }
     }
 }

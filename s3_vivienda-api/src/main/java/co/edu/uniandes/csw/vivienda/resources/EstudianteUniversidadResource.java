@@ -49,15 +49,12 @@ public class EstudianteUniversidadResource {
      */
     @PUT
     @Path("{universidadId:\\d+}")
-    public EstudianteDetailDTO replaceUniversidad(@PathParam("estudianteId") Long estudianteId, UniversidadDTO universidad) throws BusinessLogicException{
-        LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: input: estudianteId{0} , Universidad:{1}", new Object[]{estudianteId, universidad});
-        if (estudianteLogic.getEstudiante(estudianteId) == null) {
-            throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + " no existe.", 404);
+    public EstudianteDetailDTO replaceUniversidad(@PathParam("estudianteId") Long estudianteId, @PathParam("universidadId") Long universidadId) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: input: estudianteId{0} , Universidad:{1}", new Object[]{estudianteId, universidadId});
+        if (universidadLogic.getUniversidad(universidadId) == null) {
+            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
         }
-        if (universidadLogic.getUniversidad(universidad.getId()) == null) {
-            throw new WebApplicationException("El recurso /universidades/" + universidad.getId() + " no existe.", 404);
-        }
-        EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteUniversidadLogic.replaceUniversidad(estudianteId, universidad.getId()));
+        EstudianteDetailDTO estudianteDetailDTO = new EstudianteDetailDTO(estudianteUniversidadLogic.replaceUniversidad(estudianteId, universidadId));
         LOGGER.log(Level.INFO, "EstudianteUniversidadResource replaceUniversidad: output: {0}", estudianteDetailDTO);
         return estudianteDetailDTO;
     }
