@@ -37,11 +37,14 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
      */
     public EstudianteDetailDTO(EstudianteEntity entity){
         super(entity);
-        if (entity != null && entity.getCalificaciones() != null){
-            calificaciones = new ArrayList<>();
-            for (CalificacionEntity e: entity.getCalificaciones())
-                calificaciones.add(new CalificacionDTO(e));
-
+        if (entity != null){
+            if (entity.getCalificaciones() != null){
+                calificaciones = new ArrayList<>();
+                for (CalificacionEntity e: entity.getCalificaciones())
+                    calificaciones.add(new CalificacionDTO(e));
+            }
+            if (entity.getContrato() != null)
+                contrato = new ContratoDTO(entity.getContrato());
         }
     }
     
@@ -59,6 +62,8 @@ public class EstudianteDetailDTO extends EstudianteDTO implements Serializable{
                 cal.add(e.toEntity());
             entity.setCalificaciones(cal);
         }
+        if (contrato != null)
+            entity.setContrato(contrato.toEntity());
         return entity;
     }
     
