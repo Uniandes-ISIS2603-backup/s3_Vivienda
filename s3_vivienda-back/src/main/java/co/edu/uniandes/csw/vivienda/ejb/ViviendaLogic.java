@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
+import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
@@ -28,6 +29,9 @@ public class ViviendaLogic {
     
     @Inject
     private ViviendaPersistence persistence;
+    
+    @Inject
+    private CuartoLogic cuartoLogic;
 
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException {
 
