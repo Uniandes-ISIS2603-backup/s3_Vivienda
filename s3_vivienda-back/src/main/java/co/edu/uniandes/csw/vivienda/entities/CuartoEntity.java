@@ -20,6 +20,7 @@ public class CuartoEntity extends BaseEntity implements Serializable{
       private String nombre;
       private String descripcion;
       private Integer costoArriendo;
+      private boolean ocupado;
 
       public ViviendaEntity getVivienda() {
             return vivienda;
@@ -52,4 +53,20 @@ public class CuartoEntity extends BaseEntity implements Serializable{
       public void setCostoArriendo(Integer costoArriendo) {
             this.costoArriendo = costoArriendo;
       }
+
+    /**
+     * @return the ocupado
+     */
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    /**
+     * @param ocupado the ocupado to set
+     */
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+      
+      
 }

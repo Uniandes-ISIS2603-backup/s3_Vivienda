@@ -163,6 +163,7 @@ public class ArrendadorLogic {
             arrendador.setLogin(nombre + (i+1));
             arrendador.setPassword("asdf" + i+1);
             arrendador.setViviendas(viviendas);
+            
             try {
                 ArrendadorEntity arrendador2 = createArrendador(arrendador);
                 if(i<viviendas.size()){

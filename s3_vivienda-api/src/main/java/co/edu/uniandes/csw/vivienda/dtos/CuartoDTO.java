@@ -17,6 +17,7 @@ public class CuartoDTO implements Serializable {
     private String nombre;
     private String descripcion;
     private Integer costoArriendo;
+    private boolean ocupado;
 
     private ViviendaDTO vivienda;
 
@@ -30,6 +31,7 @@ public class CuartoDTO implements Serializable {
             this.descripcion = cuartoEntity.getDescripcion();
             this.costoArriendo = cuartoEntity.getCostoArriendo();
             this.vivienda = new ViviendaDTO(cuartoEntity.getVivienda());
+            this.ocupado = cuartoEntity.isOcupado();
         }
     }
 
@@ -39,6 +41,7 @@ public class CuartoDTO implements Serializable {
         cuartoEntity.setNombre(nombre);
         cuartoEntity.setDescripcion(descripcion);
         cuartoEntity.setCostoArriendo(costoArriendo);
+        cuartoEntity.setOcupado(ocupado);
         return cuartoEntity;
     }
 
@@ -81,4 +84,20 @@ public class CuartoDTO implements Serializable {
     public void setVivienda(ViviendaDTO vivienda) {
         this.vivienda = vivienda;
     }
+
+    /**
+     * @return the ocupado
+     */
+    public boolean isOcupado() {
+        return ocupado;
+    }
+
+    /**
+     * @param ocupado the ocupado to set
+     */
+    public void setOcupado(boolean ocupado) {
+        this.ocupado = ocupado;
+    }
+    
+    
 }

@@ -6,12 +6,17 @@
 package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
+import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.CuartoPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -33,6 +38,12 @@ public class ContratoLogic {
     @Inject
     private ViviendaPersistence viviendaPersistence;
 
+    @Inject
+    private EstudiantePersistence estudiantePersistence;
+
+    @Inject
+    private CuartoPersistence cuartoPersistence;
+    
     /**
      * Guardar un nuevo contrato
      *
@@ -162,36 +173,10 @@ public class ContratoLogic {
             }
         }
 
-        List<ViviendaEntity> viviendasViejas = viviendaPersistence.findAll();
-        for (ViviendaEntity vivienda : viviendasViejas) {
-            viviendaPersistence.delete(vivienda.getId());
-        }
-
-        String[] ciudades = new String[]{
-            "Bogotá", "Cali", "Medellín", "Barranquilla", "Cucuta", "Bucaramanga"
-        };
-        Random rand = new Random();
-        for (int i = 0; i < 10; i++) {
-            ViviendaEntity v = new ViviendaEntity();
-            v.setNombre("Vivienda " + (i + 1));
-            v.setCiudad(ciudades[rand.nextInt(ciudades.length)]);
-            v.setDireccion(String.format("Calle %d #%d-%d apto %d0%d", rand.nextInt(100), rand.nextInt(100), rand.nextInt(80), rand.nextInt(10), rand.nextInt(5)));
-            v.setImgUrl("assets/img/vivienda" + (i + 1) + ".jpg");
-            v.setDescripcion("Una casa (del latín casa, choza) es una edificación destinada para ser habitada.");
-            v.setTipo("B");
-
-            List<String> includedServices = new ArrayList<>(5);
-            includedServices.add("Internet");
-            includedServices.add("Agua");
-            includedServices.add("Gas");
-            includedServices.add("Electricidad");
-            v.setServiciosIncluidos(includedServices);
-            viviendaPersistence.create(v);
-        }
-
         List<ViviendaEntity> viviendas = viviendaPersistence.findAll();
-        rand = new Random();
-        for (int i = 0; i < 10; i++) {
+        List<EstudianteEntity> estudiantes = estudiantePersistence.findAll();
+        Random rand = new Random();
+        for (int i = 0; i < estudiantes.size(); i++) {
             ContratoEntity c = new ContratoEntity();
             c.setMetodoPago(rand.nextInt(100));
             int anio = rand.nextInt(5) + 2011;
@@ -199,9 +184,34 @@ public class ContratoLogic {
             int dia = rand.nextInt(28);
             c.setFechaInicio(anio + "-" + mes + "-" + dia + "");
             c.setFechaFin((anio + 2) + "-" + mes + "-" + dia + "");
-            c.setVivienda(viviendas.get(rand.nextInt(viviendas.size())));
+            
+            ViviendaEntity vivienda = viviendas.get(rand.nextInt(viviendas.size()));
+            c.setVivienda(vivienda);
+            c.setArrendador(vivienda.getArrendador());
+            
+            List<CuartoEntity> cuartos = vivienda.getCuartos();
+            Iterator iter = cuartos.iterator();
+            boolean agrego = false;
+            while(iter.hasNext() && !agrego)
+            {
+                CuartoEntity cuarto = (CuartoEntity) iter.next();
+                if(cuarto.isOcupado())
+                {
+                    c.setCuarto(cuarto);
+                    cuarto.setOcupado(true);
+                    cuartoPersistence.update(cuarto);
+                    agrego = true;
+                }
+            }
+            
+            EstudianteEntity estudiante = estudiantes.get(i);
+            c.setEstudiante(estudiante);
+            
             try {
-                createContrato(c);
+                ContratoEntity contrato = createContrato(c);
+                estudiante.setContrato(contrato);
+                estudiantePersistence.update(estudiante);
+                
             } catch (BusinessLogicException e) {
                 LOGGER.log(Level.INFO, "Hubo un error creando el contrato");
             }
