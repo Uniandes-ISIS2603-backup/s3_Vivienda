@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.CuartoPersistence;
+import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
 import java.util.logging.Level;
@@ -27,24 +29,43 @@ public class ViviendaContratosLogic {
 
     @Inject
     private ContratoPersistence contratoPersistence;
-
+    
+    @Inject
+    private CuartoPersistence cuartoPersistence;
+    
     @Inject
     private ViviendaPersistence viviendaPersistence;
+    
+    @Inject
+    private EstudiantePersistence estudiantePersistence;
+    
+    @Inject
+    private ContratoLogic contratoLogic;
 
     /**
      * Agregar un contrato a la vivienda
      *
      * @param contratoId El id contrato a guardar
+     * @param cuartoId
      * @param viviendaId El id de la vivienda en la cual se va a guardar el
      * contrato.
      * @return El contrato creado.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
-    public ContratoEntity addContrato(Long contratoId, Long viviendaId) {
-        LOGGER.log(Level.INFO, "Inicia proceso de agregarle un contrato a la vivienda con id = {0}", viviendaId);
-        ViviendaEntity viviendaEntity = viviendaPersistence.find(viviendaId);
-        ContratoEntity contratoEntity = contratoPersistence.find(contratoId);
-        contratoEntity.setVivienda(viviendaEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de agregarle un contrato a la vivienda con id = {0}", viviendaId);
+    public ContratoEntity addContrato(Long viviendaId, Long cuartoId, Long estudianteId, ContratoEntity contrato) throws BusinessLogicException{
+        LOGGER.log(Level.INFO, "Inicia proceso de agregarle un contrato al cuarto con id = {0}", cuartoId);
+        List<ContratoEntity> contratos = contratoPersistence.findAll();
+        for (ContratoEntity contratoAux : contratos) {
+            if(contratoAux.getCuarto().getId()==cuartoId)
+                throw new BusinessLogicException("El cuarto ya se encuentra arrendado");
+        }
+        ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
+        contrato.setVivienda(vivienda);
+        contrato.setEstudiante(estudiantePersistence.find(estudianteId));
+        contrato.setArrendador(vivienda.getArrendador());
+        contrato.setCuarto(cuartoPersistence.find(cuartoId));
+        ContratoEntity contratoEntity = contratoLogic.createContrato(contrato);
+        LOGGER.log(Level.INFO, "Termina proceso de agregarle un contrato al cuarto con id = {0}", cuartoId);
         return contratoEntity;
     }
 

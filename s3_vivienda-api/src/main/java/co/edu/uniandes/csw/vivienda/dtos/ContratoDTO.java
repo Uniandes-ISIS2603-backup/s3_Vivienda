@@ -46,6 +46,10 @@ public class ContratoDTO implements Serializable {
      * Relación a un estudiante, dado que esta tiene cardinalidad 1.
      */
     private EstudianteDTO estudiante;
+    
+    private ArrendadorDTO arrendador;
+    
+    private CuartoDTO cuarto;
 
     /**
      * Constructor por defecto
@@ -76,6 +80,16 @@ public class ContratoDTO implements Serializable {
             } else {
                 this.estudiante = null;
             }
+            if (contratoEntity.getArrendador() != null) {
+                this.arrendador = new ArrendadorDTO(contratoEntity.getArrendador());
+            } else {
+                this.arrendador = null;
+            }
+            if (contratoEntity.getCuarto() != null) {
+                this.cuarto = new CuartoDTO(contratoEntity.getCuarto());
+            } else {
+                this.cuarto = null;
+            }
         }
     }
 
@@ -96,6 +110,13 @@ public class ContratoDTO implements Serializable {
         }
         if (this.estudiante != null) {
             contratoEntity.setEstudiante(this.estudiante.toEntity());
+        }
+        
+        if (this.getArrendador() != null) {
+            contratoEntity.setArrendador(this.getArrendador().toEntity());
+        }
+        if (this.getCuarto() != null) {
+            contratoEntity.setCuarto(this.getCuarto().toEntity());
         }
 
         return contratoEntity;
@@ -192,9 +213,38 @@ public class ContratoDTO implements Serializable {
     public void setEstudiante(EstudianteDTO estudiante) {
         this.estudiante = estudiante;
     }
+    
 
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    /**
+     * @return the arrendador
+     */
+    public ArrendadorDTO getArrendador() {
+        return arrendador;
+    }
+
+    /**
+     * @param arrendador the arrendador to set
+     */
+    public void setArrendador(ArrendadorDTO arrendador) {
+        this.arrendador = arrendador;
+    }
+
+    /**
+     * @return the cuarto
+     */
+    public CuartoDTO getCuarto() {
+        return cuarto;
+    }
+
+    /**
+     * @param cuarto the cuarto to set
+     */
+    public void setCuarto(CuartoDTO cuarto) {
+        this.cuarto = cuarto;
     }
 }

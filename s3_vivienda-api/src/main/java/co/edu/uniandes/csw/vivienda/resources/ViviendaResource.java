@@ -51,7 +51,9 @@ public class ViviendaResource {
 
         ViviendaEntity newViviendaEntity = null;
         newViviendaEntity = logic.createVivienda(viviendaEntity);
-        return new ViviendaDTO(newViviendaEntity);
+        ViviendaDTO viviendaDTO = new ViviendaDTO(newViviendaEntity);
+        LOGGER.log(Level.INFO, "Saliendo de crear ViviendaResource.createVivienda: input:{0}", viviendaDTO);
+        return viviendaDTO;
     }
     
     @DELETE

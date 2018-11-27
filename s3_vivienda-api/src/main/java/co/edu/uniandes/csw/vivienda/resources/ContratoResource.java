@@ -36,12 +36,6 @@ public class ContratoResource {
     @Inject
     private ContratoLogic contratoLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
 
-    @Inject
-    private ViviendaLogic viviendaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-
-    @Inject
-    private ContratoViviendaLogic contratoViviendaLogic; // Variable para acceder a la lógica de la aplicación. Es una inyección de dependencias.
-
     /**
      * Crea un nuevo contrato con la informacion que se recibe en el cuerpo de la
      * petición y se regresa un objeto identico con un id auto-generado por la

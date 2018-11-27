@@ -26,6 +26,14 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @OneToOne(fetch = javax.persistence.FetchType.LAZY)
     private EstudianteEntity estudiante;
+    
+    @PodamExclude
+    @OneToOne(fetch = javax.persistence.FetchType.LAZY)
+    private ArrendadorEntity arrendador;
+        
+    @PodamExclude
+    @OneToOne(fetch = javax.persistence.FetchType.LAZY)
+    private CuartoEntity cuarto;
 
     @PodamExclude
     @ManyToOne(cascade=CascadeType.MERGE, fetch=javax.persistence.FetchType.LAZY)
@@ -128,5 +136,33 @@ public class ContratoEntity extends BaseEntity implements Serializable {
     public static Date getDateWithoutTimeUsingFormat(Date date) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         return formatter.parse(formatter.format(date));
+    }
+
+    /**
+     * @return the arrendador
+     */
+    public ArrendadorEntity getArrendador() {
+        return arrendador;
+    }
+
+    /**
+     * @param arrendador the arrendador to set
+     */
+    public void setArrendador(ArrendadorEntity arrendador) {
+        this.arrendador = arrendador;
+    }
+
+    /**
+     * @return the cuarto
+     */
+    public CuartoEntity getCuarto() {
+        return cuarto;
+    }
+
+    /**
+     * @param cuarto the cuarto to set
+     */
+    public void setCuarto(CuartoEntity cuarto) {
+        this.cuarto = cuarto;
     }
 }
