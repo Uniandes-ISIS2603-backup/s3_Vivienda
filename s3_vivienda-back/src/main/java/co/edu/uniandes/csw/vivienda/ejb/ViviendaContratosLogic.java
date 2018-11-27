@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.ejb;
 
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -42,7 +43,7 @@ public class ViviendaContratosLogic {
     
     @Inject
     private ContratoLogic contratoLogic;
-
+    
     /**
      * Agregar un contrato a la vivienda
      *
@@ -55,17 +56,21 @@ public class ViviendaContratosLogic {
      */
     public ContratoEntity addContrato(Long viviendaId, Long cuartoId, Long estudianteId, ContratoEntity contrato) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "Inicia proceso de agregarle un contrato al cuarto con id = {0}", cuartoId);
-        List<ContratoEntity> contratos = contratoPersistence.findAll();
-        for (ContratoEntity contratoAux : contratos) {
-            if(contratoAux.getCuarto().getId()==cuartoId)
-                throw new BusinessLogicException("El cuarto ya se encuentra arrendado");
+        CuartoEntity cuarto = cuartoPersistence.find(cuartoId);
+        if(cuarto.isOcupado())
+        {
+            throw new BusinessLogicException("El cuarto ya se encuentra arrendado");
         }
         ViviendaEntity vivienda = viviendaPersistence.find(viviendaId);
         contrato.setVivienda(vivienda);
         EstudianteEntity estu = estudiantePersistence.find(estudianteId);
         contrato.setEstudiante(estu);
         contrato.setArrendador(vivienda.getArrendador());
-        contrato.setCuarto(cuartoPersistence.find(cuartoId));
+        
+        cuarto.setOcupado(true);
+        cuartoPersistence.update(cuarto);
+        contrato.setCuarto(cuarto);
+        
         ContratoEntity contratoEntity = contratoLogic.createContrato(contrato);
         estu.setContrato(contratoEntity);
         estudiantePersistence.update(estu);

@@ -6,7 +6,9 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaContratosLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
+import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -45,6 +47,9 @@ public class ContratoLogicTest {
 
     @Inject
     private ContratoLogic contratoLogic;
+
+    @Inject
+    private ViviendaContratosLogic viviendaContratoLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -100,6 +105,7 @@ public class ContratoLogicTest {
         em.createQuery("delete from " + "ContratoEntity").executeUpdate();
         em.createQuery("delete from " + "ViviendaEntity").executeUpdate();
         em.createQuery("delete from " + "EstudianteEntity").executeUpdate();
+        em.createQuery("delete from " + "CuartoEntity").executeUpdate();
     }
 
     /**
@@ -107,9 +113,19 @@ public class ContratoLogicTest {
      * pruebas.
      */
     private void insertData() {
+
         for (int i = 0; i < 3; i++) {
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
             EstudianteEntity estudiante = factory.manufacturePojo(EstudianteEntity.class);
+        List<CuartoEntity> cuartosData = new ArrayList<>();
+        for(int j=0;j<3;j++)
+        {
+            CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
+            cuarto.setOcupado(false);
+            em.persist(cuarto);
+            cuartosData.add(cuarto);
+        }           
+            vivienda.setCuartos(cuartosData);
             em.persist(vivienda);
             em.persist(estudiante);
             estudianteData.add(estudiante);
@@ -117,8 +133,6 @@ public class ContratoLogicTest {
         }
         for (int i = 0; i < 3; i++) {
             ContratoEntity entity = factory.manufacturePojo(ContratoEntity.class);
-            entity.setVivienda(viviendaData.get(0));
-
             em.persist(entity);
             data.add(entity);
         }
@@ -132,9 +146,12 @@ public class ContratoLogicTest {
     @Test
     public void createContratoTest() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
-        newEntity.setVivienda(viviendaData.get(0));
         newEntity.setMetodoPago(1);
-        newEntity.setEstudiante(estudianteData.get(1));
+        ViviendaEntity vivienda = viviendaData.get(0);
+        newEntity.setVivienda(vivienda);
+        newEntity.setEstudiante(estudianteData.get(0));
+        newEntity.setCuarto(vivienda.getCuartos().get(0));
+        
         ContratoEntity result = contratoLogic.createContrato(newEntity);
 //        result.setMetodoPago(result.getMetodoPago());
         Assert.assertNotNull(result);
@@ -146,6 +163,31 @@ public class ContratoLogicTest {
         Assert.assertEquals(newEntity.getFechaInicio(), entity.getFechaInicio());
         Assert.assertEquals(newEntity.getFechaFin(), entity.getFechaFin());
         Assert.assertEquals(newEntity.getEstudiante(), entity.getEstudiante());
+        Assert.assertEquals(newEntity.getCuarto(), entity.getCuarto());
+        Assert.assertEquals(newEntity.getVivienda(), entity.getVivienda());
+    }
+    
+     /**
+     * Prueba para crear un Contrato
+     *
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void createViviendaContratoTest() throws BusinessLogicException {
+        ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
+        newEntity.setMetodoPago(1);
+        ViviendaEntity vivienda = viviendaData.get(1);
+        EstudianteEntity estudiante = estudianteData.get(1);
+        CuartoEntity cuarto = vivienda.getCuartos().get(0);
+        ContratoEntity result = viviendaContratoLogic.addContrato(vivienda.getId(), cuarto.getId(), estudiante.getId(), newEntity);
+        Assert.assertNotNull(result);
+        ContratoEntity entity = em.find(ContratoEntity.class, result.getId());
+        Assert.assertEquals(newEntity.getId(), entity.getId());
+
+        Assert.assertEquals(newEntity.getEstudiante(), entity.getEstudiante());
+        Assert.assertEquals(newEntity.getCuarto(), entity.getCuarto());
+        Assert.assertEquals(newEntity.getVivienda(), entity.getVivienda());
+        Assert.assertEquals(em.find(CuartoEntity.class, cuarto.getId()).isOcupado(), entity.getCuarto().isOcupado());
     }
 
     /**
