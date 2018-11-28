@@ -5,12 +5,14 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
+import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ServicioAdicionalPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
@@ -108,5 +110,35 @@ public class ServicioAdicionalLogic {
         }
         persistence.delete(old.getId());
         LOGGER.log(Level.INFO, "Termina proceso de borrar el servicio adicional con id = {1} de la vivienda con id = {0} " , new Object[]{ viviendaId, servicioAdicionalId});
+    }
+    
+    public void generarSetviciosAdicionales(Long viviendaId) {
+
+        List<ServicioAdicionalEntity> serviciosViejos = getServiciosAdicionales(viviendaId);
+        for (ServicioAdicionalEntity c : serviciosViejos) {
+            try {
+                deleteServicioAdicional(viviendaId, c.getId());
+            } catch (BusinessLogicException e) {
+                LOGGER.log(Level.INFO, "Error en el proceso de borrar el servicio de la vivienda con id = {0}", viviendaId);
+            }
+        }
+
+        String[] nombresServiciosAdiconales = new String[]{"Lavandería", "Parqueadero", "Limpieza"};
+        String[] descripcionServiciosAdiconales = new String[]{"Servicio de lavandería un día a la semana.", "Servicio de parquéo para un vehiculo.", "Servicio de limpieza dos dias a la semana. "};
+        
+        for (int i = 0; i < nombresServiciosAdiconales.length; i++) {
+            ServicioAdicionalEntity servicioAdicional = new ServicioAdicionalEntity();
+            float costo = (800 + new Random().nextInt(1000)) * 1000;
+
+            servicioAdicional.setNombre(nombresServiciosAdiconales[i]);
+            servicioAdicional.setCosto(costo);
+            servicioAdicional.setDescripcion(descripcionServiciosAdiconales[i]);
+
+            try {
+                createServicioAdicional(viviendaId, servicioAdicional);
+            } catch (BusinessLogicException e) {
+                LOGGER.log(Level.INFO, "Error en proceso de agregar el servicio adicional de la vivienda con id = {0}", viviendaId);
+            }
+        }
     }
 }
