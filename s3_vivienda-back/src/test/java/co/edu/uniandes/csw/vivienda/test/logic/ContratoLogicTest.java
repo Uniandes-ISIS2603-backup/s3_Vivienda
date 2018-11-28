@@ -7,7 +7,7 @@ package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
-import co.edu.uniandes.csw.vivienda.ejb.CuartoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaContratosLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
@@ -51,6 +51,9 @@ public class ContratoLogicTest {
 
     @Inject
     private ContratoLogic contratoLogic;
+    
+    @Inject
+    private ContratoViviendaLogic contratoViviendaLogic;
 
     @Inject
     private ViviendaContratosLogic viviendaContratoLogic;
@@ -378,6 +381,26 @@ public class ContratoLogicTest {
         contratoLogic.deleteContrato(entity.getId());
         ContratoEntity deleted = em.find(ContratoEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+     /**
+     * Prueba para eliminar un Contrato.
+     *
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void getViviendaTest() throws BusinessLogicException {
+        ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
+        newEntity.setMetodoPago(1);
+        ViviendaEntity vivienda = viviendaData.get(1);
+        EstudianteEntity estudiante = estudianteData.get(1);
+        CuartoEntity cuarto = vivienda.getCuartos().get(0);
+        ContratoEntity contrato = viviendaContratoLogic.addContrato(vivienda.getId(), cuarto.getId(), estudiante.getId(), newEntity);
+        
+        ViviendaEntity viviendaAux = contratoViviendaLogic.getVivienda(contrato.getId(), vivienda.getId());
+        Assert.assertNotNull(viviendaAux);
+        
+
     }
 
 }

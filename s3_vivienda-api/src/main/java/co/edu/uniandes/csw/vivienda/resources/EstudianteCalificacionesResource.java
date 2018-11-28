@@ -130,12 +130,10 @@ public class EstudianteCalificacionesResource {
     public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException, WebApplicationException {
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: estudianteId:{0}, calificacionId:{1} , calificacion: {2}", new Object[]{estudianteId, calificacionId, calificacion});
         calificacion.setId(calificacionId);
-        try {
-            if (calificacionLogic != null)
-                calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId);
-        } catch (BusinessLogicException e) {
-            throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
-        }
+         
+        if (calificacionLogic.getCalificacionEstudiante(estudianteId, calificacionId) == null)
+                throw new WebApplicationException(RECURSO_ESTUDIANTES + estudianteId + CALIFICACIONES + calificacionId + NO_EXISTE, 404);
+        
         CalificacionEntity calificacionEnt = calificacionLogic.updateCalificacionEstudiante(calificacionId, calificacion.toEntity());
         CalificacionDTO calificacionDTO = new CalificacionDTO(calificacionEnt);
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: output: {0}", calificacionDTO);

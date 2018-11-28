@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.test.logic;
 
+import co.edu.uniandes.csw.vivienda.ejb.ContratoServiciosAdicionalesLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ServicioAdicionalLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
@@ -40,6 +41,9 @@ public class ServicioAdicionalLogicTest {
 
     @Inject
     private ServicioAdicionalLogic reviewLogic;
+    
+    @Inject
+    private ContratoServiciosAdicionalesLogic contratoServiciosLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -218,6 +222,27 @@ public class ServicioAdicionalLogicTest {
     public void deleteReviewConBookNoAsociadoTest() throws BusinessLogicException {
         ServicioAdicionalEntity entity = data.get(0);
         reviewLogic.deleteServicioAdicional(dataVivienda.get(0).getId(), entity.getId());
+    }
+    
+        /**
+     * Prueba para eliminar un Contrato.
+     *
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void addServicioAdicionalTest() throws BusinessLogicException {
+        ContratoEntity entity = dataContrato.get(0);
+        ViviendaEntity vivienda = dataVivienda.get(0);
+        ServicioAdicionalEntity servicio = data.get(0);
+        
+        contratoServiciosLogic.addServicioAdicional(entity.getId(), servicio.getId(), vivienda.getId());
+        Assert.assertEquals(0,contratoServiciosLogic.getServiciosAdicionales(entity.getId()).size());
+        
+        Assert.assertNull(contratoServiciosLogic.getServicioAdicional(entity.getId(), servicio.getId(), vivienda.getId()));
+        contratoServiciosLogic.replaceServiciosAdicionales(entity.getId(), data);
+        contratoServiciosLogic.removeServicioAdicional(entity.getId(), servicio.getId(), vivienda.getId());
+        
+        Assert.assertNull(contratoServiciosLogic.getServicioAdicional(entity.getId(), servicio.getId(), vivienda.getId()));
     }
     
 }
