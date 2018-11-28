@@ -5,8 +5,12 @@
  */
 package co.edu.uniandes.csw.vivienda.test.logic;
 
+import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.CuartoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaContratosLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
@@ -50,7 +54,19 @@ public class ContratoLogicTest {
 
     @Inject
     private ViviendaContratosLogic viviendaContratoLogic;
+    
+    @Inject
+    private EstudianteLogic estudianteLogic;
 
+    @Inject
+    private CuartoLogic cuartoLogic;
+
+    @Inject
+    private ViviendaLogic viviendaLogic;
+
+    @Inject
+    private ArrendadorLogic arrendadorLogic;
+    
     @PersistenceContext
     private EntityManager em;
 
@@ -62,6 +78,7 @@ public class ContratoLogicTest {
     private final List<ViviendaEntity> viviendaData = new ArrayList();
     
     private final List<EstudianteEntity> estudianteData = new ArrayList();
+    
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -106,6 +123,7 @@ public class ContratoLogicTest {
         em.createQuery("delete from " + "ViviendaEntity").executeUpdate();
         em.createQuery("delete from " + "EstudianteEntity").executeUpdate();
         em.createQuery("delete from " + "CuartoEntity").executeUpdate();
+        em.createQuery("delete from " + "ArrendadorEntity").executeUpdate();
     }
 
     /**
@@ -113,7 +131,6 @@ public class ContratoLogicTest {
      * pruebas.
      */
     private void insertData() {
-
         for (int i = 0; i < 3; i++) {
             ViviendaEntity vivienda = factory.manufacturePojo(ViviendaEntity.class);
             EstudianteEntity estudiante = factory.manufacturePojo(EstudianteEntity.class);
@@ -130,9 +147,9 @@ public class ContratoLogicTest {
             em.persist(estudiante);
             estudianteData.add(estudiante);
             viviendaData.add(vivienda);
-        }
-        for (int i = 0; i < 3; i++) {
+            
             ContratoEntity entity = factory.manufacturePojo(ContratoEntity.class);
+            entity.setVivienda(vivienda);
             em.persist(entity);
             data.add(entity);
         }
@@ -188,6 +205,23 @@ public class ContratoLogicTest {
         Assert.assertEquals(newEntity.getCuarto(), entity.getCuarto());
         Assert.assertEquals(newEntity.getVivienda(), entity.getVivienda());
         Assert.assertEquals(em.find(CuartoEntity.class, cuarto.getId()).isOcupado(), entity.getCuarto().isOcupado());
+    }
+    
+         /**
+     * Prueba para crear un Contrato
+     *
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void generarDatos() throws BusinessLogicException {
+        estudianteLogic.generarDatos();
+        viviendaLogic.generarDatos();
+        arrendadorLogic.generarDatos();
+        contratoLogic.generarDatos();
+        Assert.assertEquals(10, estudianteLogic.getEstudiantes().size());
+        Assert.assertEquals(10, arrendadorLogic.getArrendadores().size());
+        Assert.assertEquals(10, viviendaLogic.getViviendas().size());
+        
     }
 
     /**
@@ -272,6 +306,8 @@ public class ContratoLogicTest {
         Assert.assertEquals(entity.getFechaInicio(), resultEntity.getFechaInicio());
         Assert.assertEquals(entity.getFechaFin(), resultEntity.getFechaFin());
         Assert.assertEquals(entity.getMetodoPago(), resultEntity.getMetodoPago());
+        
+        contratoLogic.getContrato(Long.MAX_VALUE);
     }
 
     /**
@@ -291,6 +327,47 @@ public class ContratoLogicTest {
         Assert.assertEquals(pojoEntity.getFechaInicio(), resp.getFechaInicio());
         Assert.assertEquals(pojoEntity.getFechaFin(), resp.getFechaFin());
         Assert.assertEquals(pojoEntity.getMetodoPago(), resp.getMetodoPago());
+        
+        try
+        {
+            entity = data.get(1);
+            pojoEntity = factory.manufacturePojo(ContratoEntity.class);
+            pojoEntity.setMetodoPago(-1);
+            contratoLogic.updateContrato(pojoEntity.getId(), pojoEntity);
+            Assert.fail("Deberia haber lanzado una excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNotEquals(pojoEntity.getId(), em.find(ContratoEntity.class, entity.getId()).getId());
+        }
+    }
+    
+        /**
+     * Prueba para actualizar un Contrato.
+     *
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void actualizarContratoTest() throws BusinessLogicException {
+        ContratoEntity entity = data.get(0);
+        ContratoEntity pojoEntity = factory.manufacturePojo(ContratoEntity.class);
+        pojoEntity.setMetodoPago(Math.abs(pojoEntity.getMetodoPago()));
+        contratoLogic.actualizarContrato(entity.getVivienda().getId(), entity.getId(), pojoEntity);
+        ContratoEntity resp = em.find(ContratoEntity.class, entity.getId());
+        Assert.assertEquals(pojoEntity.getId(), resp.getId());
+        Assert.assertEquals(pojoEntity.getFechaInicio(), resp.getFechaInicio());
+        Assert.assertEquals(pojoEntity.getFechaFin(), resp.getFechaFin());
+        Assert.assertEquals(pojoEntity.getMetodoPago(), resp.getMetodoPago());
+        
+        try{    
+            entity = data.get(1);
+            pojoEntity = factory.manufacturePojo(ContratoEntity.class);
+            pojoEntity.setMetodoPago(-1);
+            contratoLogic.actualizarContrato(entity.getVivienda().getId(), entity.getId(), pojoEntity);
+            Assert.fail("Debio haber lanzado una excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNotEquals(pojoEntity.getId(), em.find(ContratoEntity.class, entity.getId()).getId());
+        }
     }
 
     /**

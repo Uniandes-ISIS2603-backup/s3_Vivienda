@@ -29,9 +29,6 @@ public class ViviendaLogic {
     
     @Inject
     private ViviendaPersistence persistence;
-    
-    @Inject
-    private CuartoLogic cuartoLogic;
 
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException {
 

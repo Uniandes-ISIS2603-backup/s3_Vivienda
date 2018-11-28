@@ -117,13 +117,13 @@ public class ArrendadorLogic {
     public void deleteArrendador(Long arrendadorId) throws BusinessLogicException 
     {
          LOGGER.log(Level.INFO, "Inicia proceso de borrar el arrendador con id = {0}", arrendadorId);
+        if(getArrendador(arrendadorId)==null)
+        {
+            throw new BusinessLogicException("El recurso /arrendadores/" + arrendadorId +" no existe");
+        }
         List<ViviendaEntity> viviendas = getArrendador(arrendadorId).getViviendas();
         if (viviendas != null && !viviendas.isEmpty()) {
             throw new BusinessLogicException("No se puede borrar el arrendador con id = " + arrendadorId + " porque tiene viviendas asociadas");
-        }
-        else if(getArrendador(arrendadorId)==null)
-        {
-            throw new BusinessLogicException("El recurso /arrendadores/" + arrendadorId +" no existe");
         }
         arrendadorPersistence.delete(arrendadorId);
         LOGGER.log(Level.INFO, "Termina proceso de borrar el arrendador con id = {0}", arrendadorId);

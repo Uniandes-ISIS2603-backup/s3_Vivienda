@@ -45,9 +45,9 @@ public class ArrendadorLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ArrendadorEntity> data = new ArrayList<ArrendadorEntity>();
+    private final List<ArrendadorEntity> data = new ArrayList<ArrendadorEntity>();
 
-    private List<ViviendaEntity> viviendasData = new ArrayList();
+    private final List<ViviendaEntity> viviendasData = new ArrayList();
     
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -124,6 +124,28 @@ public class ArrendadorLogicTest {
         ArrendadorEntity entity = em.find(ArrendadorEntity.class, result.getId());
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
+        
+        try
+        {
+            newEntity = factory.manufacturePojo(ArrendadorEntity.class);
+            newEntity.setPassword(" ");
+            arrendadorLogic.createArrendador(newEntity);
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia encontrar al arrendador", arrendadorLogic.getArrendador(newEntity.getId()));
+        }
+        
+        try
+        {
+            newEntity = factory.manufacturePojo(ArrendadorEntity.class);
+            newEntity.setLogin(" ");
+            arrendadorLogic.createArrendador(newEntity);
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia encontrar al arrendador", arrendadorLogic.getArrendador(newEntity.getId()));
+        }
     }
     
     /**
@@ -167,6 +189,9 @@ public class ArrendadorLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getNombre(), resultEntity.getNombre());
+ 
+        resultEntity = arrendadorLogic.getArrendador(Long.MAX_VALUE);
+        Assert.assertNull(resultEntity);
     }
 
     /**
@@ -196,6 +221,7 @@ public class ArrendadorLogicTest {
         arrendadorLogic.deleteArrendador(entity.getId());
         ArrendadorEntity deleted = em.find(ArrendadorEntity.class, entity.getId());
         Assert.assertNull(deleted);
+       
     }
 
     /**

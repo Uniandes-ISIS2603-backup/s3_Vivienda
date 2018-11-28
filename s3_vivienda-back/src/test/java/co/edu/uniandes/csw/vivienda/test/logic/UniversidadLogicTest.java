@@ -128,6 +128,8 @@ public class UniversidadLogicTest {
         Assert.assertEquals(newEntity.getId(), entity.getId());
         Assert.assertEquals(newEntity.getNombre(), entity.getNombre());
         Assert.assertEquals(newEntity.getImgUrl(), entity.getImgUrl());
+        universidadLogic.generarDatos();
+        Assert.assertEquals(8, universidadLogic.getUniversidades().size());
     }
     
      /**

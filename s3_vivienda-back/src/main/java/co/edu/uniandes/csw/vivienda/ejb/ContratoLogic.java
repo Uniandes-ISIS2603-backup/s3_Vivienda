@@ -152,16 +152,6 @@ public class ContratoLogic {
         return metodoPago > 0;
     }
 
-    /**
-     * Verifica que el id no sea invalido.
-     *
-     * @param id a verificar
-     * @return true si el metodoPago es valido.
-     */
-    private boolean validateId(Long id) {
-        return !(id == null || id < 0);
-    }
-
     public void generarDatos() {
         List<ContratoEntity> contratosViejos = getContratos();
 
@@ -195,11 +185,11 @@ public class ContratoLogic {
             while(iter.hasNext() && !agrego)
             {
                 CuartoEntity cuarto = (CuartoEntity) iter.next();
-                if(cuarto.isOcupado())
+                if(!cuarto.isOcupado())
                 {
                     c.setCuarto(cuarto);
                     cuarto.setOcupado(true);
-                    cuartoPersistence.update(cuarto);
+                    cuartoPersistence.update(cuarto);   
                     agrego = true;
                 }
             }
@@ -208,9 +198,10 @@ public class ContratoLogic {
             c.setEstudiante(estudiante);
             
             try {
-                ContratoEntity contrato = createContrato(c);
-                estudiante.setContrato(contrato);
-                estudiantePersistence.update(estudiante);
+
+                    ContratoEntity contrato = createContrato(c);
+                    estudiante.setContrato(contrato);
+                    estudiantePersistence.update(estudiante);
                 
             } catch (BusinessLogicException e) {
                 LOGGER.log(Level.INFO, "Hubo un error creando el contrato");
