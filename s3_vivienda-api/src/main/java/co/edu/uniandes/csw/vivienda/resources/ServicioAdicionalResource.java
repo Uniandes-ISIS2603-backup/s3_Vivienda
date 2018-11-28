@@ -8,7 +8,9 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ServicioAdicionalDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ServicioAdicionalLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
+import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.mappers.*;
 
@@ -26,10 +28,14 @@ public class ServicioAdicionalResource {
     private static final Logger LOGGER = Logger.getLogger(ServicioAdicionalResource.class.getName());
 
     private static final String RECURSO_VIVIENDAS = "El recurso /viviendas/";
+    private static final String SERVICIO_ADICIONAL = "/servicio-adicional/";
     private static final String NO_EXISTE = " no existe.";
 
     @Inject
     private ServicioAdicionalLogic servicioAdicionalLogic;
+    
+    @Inject
+    ViviendaLogic viviendaLogic;
 
     /**
      * Crea un nuevo servicio adicional con la informacion que se recibe en el cuerpo de la
@@ -49,6 +55,34 @@ public class ServicioAdicionalResource {
         ServicioAdicionalDTO nuevoReviewDTO = new ServicioAdicionalDTO(servicioAdicionalLogic.createServicioAdicional(viviendaId, servicio.toEntity()));
         LOGGER.log(Level.INFO, "ServicioAdicionalResource createServicioAdicional: output: {0}", nuevoReviewDTO);
         return nuevoReviewDTO;
+    }
+    
+     /**
+     * Metodo para generar los datos de SitioInteres
+     * @return Lista con los elementos creados de SitioInteres
+     * @throws WebApplicationException Excepcion en caso de no poder generar los datos
+     */
+    @POST
+    @Path("generardatos")
+    public List<ServicioAdicionalDTO> generarDatos() throws WebApplicationException {
+
+        List<ViviendaEntity> viviendas = viviendaLogic.getViviendas();
+        List<ServicioAdicionalDTO> servicios = new ArrayList<>();
+        if (viviendas != null) {
+            for (ViviendaEntity vivienda : viviendas) {
+                servicioAdicionalLogic.generarServiciosAdicionales(vivienda.getId());
+                List<ServicioAdicionalEntity> serviciosAdicionales = servicioAdicionalLogic.getServiciosAdicionales(vivienda.getId());
+                for (ServicioAdicionalEntity servicio : serviciosAdicionales) {
+                    ServicioAdicionalDTO servicioDTO = new ServicioAdicionalDTO(servicio);
+                    servicios.add(servicioDTO);
+                }
+            }
+        }
+        else
+        {
+            throw new WebApplicationException(SERVICIO_ADICIONAL + viviendas + NO_EXISTE, 404);
+        }
+        return servicios;
     }
 
     /**
