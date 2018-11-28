@@ -5,7 +5,6 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
-import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
@@ -33,13 +32,13 @@ public class ViviendaLogic {
     public ViviendaEntity createVivienda(ViviendaEntity viviendaEntity) throws BusinessLogicException {
 
         if (viviendaEntity.getNombre() == null || viviendaEntity.getNombre().isEmpty()) {
-            throw new WebApplicationException("La vivienda debe tener un nombre");
+            throw new BusinessLogicException("La vivienda debe tener un nombre");
         }
         if (viviendaEntity.getCiudad() == null || viviendaEntity.getCiudad().isEmpty()) {
-            throw new WebApplicationException("La vivienda debe tener una ciudad");
+            throw new BusinessLogicException("La vivienda debe tener una ciudad");
         }
         if (viviendaEntity.getDireccion() == null || viviendaEntity.getDireccion().isEmpty()) {
-            throw new WebApplicationException("La vivienda debe tener una dirección");
+            throw new BusinessLogicException("La vivienda debe tener una dirección");
         }
 
         String ciudad = viviendaEntity.getCiudad();

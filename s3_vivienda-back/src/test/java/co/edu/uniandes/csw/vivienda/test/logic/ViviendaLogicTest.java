@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
+import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
@@ -103,6 +104,39 @@ public class ViviendaLogicTest {
             Assert.fail("La dirección ya existía");
         } catch (Exception e){
         }
+        
+        try
+        {
+            entity = factory.manufacturePojo(ViviendaEntity.class);
+            entity.setNombre(null);
+            logic.createVivienda(entity);
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia encontrar la vivienda", logic.getVivienda(entity.getId()));
+        }
+        
+        try
+        {
+            entity = factory.manufacturePojo(ViviendaEntity.class);
+            entity.setCiudad(null);
+            logic.createVivienda(entity);
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia encontrar la vivienda", logic.getVivienda(entity.getId()));
+        }
+                
+        try
+        {
+            entity = factory.manufacturePojo(ViviendaEntity.class);
+            entity.setDireccion(null);
+            logic.createVivienda(entity);
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia encontrar la vivienda", logic.getVivienda(entity.getId()));
+        }
     }
 
     @Test
@@ -144,6 +178,17 @@ public class ViviendaLogicTest {
         }
         Assert.assertEquals( 0,em.createQuery("select u from ViviendaEntity u", ViviendaEntity.class)
                 .getResultList().size());
+   
+        ViviendaEntity entity = data.get(0);
+        try
+        {
+            entity.setId(Long.MIN_VALUE);
+            logic.deleteVivienda(entity.getId());
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia encontrar la vivienda", logic.getVivienda(entity.getId()));
+        }
     }
 
     @Test
@@ -165,5 +210,19 @@ public class ViviendaLogicTest {
         for (ViviendaEntity entity: viviendas2){
             Assert.assertNotEquals(entity.getNombre(), Long.toString(entity.getId()));
         }
+        ViviendaEntity entity = data.get(0);
+        try
+        {
+            entity.setId(Long.MIN_VALUE);
+            logic.updateVivienda(entity.getId(), entity);
+            Assert.fail("Deberia haber lanzada excepción");
+        }catch(BusinessLogicException e)
+        {
+            if(entity!=null)
+                Assert.assertNull("No deberia encontrar la vivienda", logic.getVivienda(entity.getId()));
+        }
+        
+        logic.generarDatos();
+        Assert.assertEquals(10, logic.getViviendas().size());
     }
 }

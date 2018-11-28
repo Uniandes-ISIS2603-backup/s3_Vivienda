@@ -8,11 +8,13 @@ package co.edu.uniandes.csw.vivienda.ejb;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
+import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ContratoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.CuartoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
+import co.edu.uniandes.csw.vivienda.persistence.ServicioAdicionalPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,6 +42,9 @@ public class ViviendaContratosLogic {
     
     @Inject
     private EstudiantePersistence estudiantePersistence;
+  
+    @Inject
+    private ServicioAdicionalPersistence servicioAdicionalPersistence;
     
     @Inject
     private ContratoLogic contratoLogic;
@@ -49,6 +54,8 @@ public class ViviendaContratosLogic {
      *
      * @param contratoId El id contrato a guardar
      * @param cuartoId
+     * @param estudianteId
+     * @param contrato
      * @param viviendaId El id de la vivienda en la cual se va a guardar el
      * contrato.
      * @return El contrato creado.
@@ -74,6 +81,16 @@ public class ViviendaContratosLogic {
         ContratoEntity contratoEntity = contratoLogic.createContrato(contrato);
         estu.setContrato(contratoEntity);
         estudiantePersistence.update(estu);
+        List<ServicioAdicionalEntity> servicios = contrato.getServiciosAdicionalesAgregados();
+        if(!servicios.isEmpty())
+        {
+            for(int i=0; i<servicios.size();i++)
+            {
+                ServicioAdicionalEntity  servicio = servicioAdicionalPersistence.find(viviendaId, servicios.get(i).getId());
+                servicio.setContrato(contratoEntity);
+                servicioAdicionalPersistence.update(servicio);
+            }
+        }
         LOGGER.log(Level.INFO, "Termina proceso de agregarle un contrato al cuarto con id = {0}", cuartoId);
         return contratoEntity;
     }

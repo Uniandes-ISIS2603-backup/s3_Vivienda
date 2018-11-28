@@ -181,6 +181,7 @@ public class ArrendadorLogicTest {
     
     /**
      * Prueba para consultar un Arrendador.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     @Test
     public void getArrendadorTest() throws BusinessLogicException {
@@ -212,7 +213,7 @@ public class ArrendadorLogicTest {
     /**
      * Prueba para eliminar un Editorial.
      *
-     * @throws co.edu.uniandes.csw.univiviendaDB.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     @Test
     public void deleteArrendadorTest() throws BusinessLogicException {
@@ -221,13 +222,26 @@ public class ArrendadorLogicTest {
         arrendadorLogic.deleteArrendador(entity.getId());
         ArrendadorEntity deleted = em.find(ArrendadorEntity.class, entity.getId());
         Assert.assertNull(deleted);
-       
+        
+        try
+        {
+            entity = factory.manufacturePojo(ArrendadorEntity.class);
+            arrendadorLogic.deleteArrendador(entity.getId());
+            em.find(ArrendadorEntity.class, entity.getId());
+            Assert.fail("Deberia haber lanzado excepción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull("No deberia haberlo encontrado", em.find(ArrendadorEntity.class, entity.getId()));
+        }
+        
+        arrendadorLogic.generarDatos();
+        Assert.assertEquals(10, arrendadorLogic.getArrendadores().size());
     }
 
     /**
      * Prueba para eliminar un Editorial con books asociados.
      *
-     * @throws co.edu.uniandes.csw.univiviendaDB.exceptions.BusinessLogicException
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     @Test(expected = BusinessLogicException.class)
     public void deleteArrendadorConViviendasAsociadosTest() throws BusinessLogicException {

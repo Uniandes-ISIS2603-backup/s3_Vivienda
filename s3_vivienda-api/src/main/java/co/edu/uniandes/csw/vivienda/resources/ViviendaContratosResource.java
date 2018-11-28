@@ -65,13 +65,15 @@ public class ViviendaContratosResource {
      *                     actualizando. Este debe ser una cadena de dígitos.
      * @param cuartoId     ser una cadena de dígitos.
      * @param estudianteId Identificador del estudiante que se esta agregando al contrato.
+     * @param contrato
      * @return JSON {@link ContratoDTO} - El contrato guardado en la vivienda.
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      *                                 Error de lógica que se genera cuando no se encuentra el contrato.
      */
     @POST
     @Path("cuartos/{cuartoId: \\d+}/estudiantes/{estudianteId: \\d+}")
-    public ContratoDTO addContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId, @PathParam("estudianteId") Long estudianteId, ContratoDTO contrato) throws BusinessLogicException {
+    public ContratoDetailDTO addContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId, @PathParam("estudianteId") Long estudianteId, ContratoDetailDTO contrato) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: input: viviendaID: {0} , cuartoId: {1}, estudianteId: {2}", new Object[]{viviendaId, cuartoId, estudianteId});
         if (cuartoLogic.getCuarto(viviendaId, cuartoId) == null) {
             throw new WebApplicationException("El recurso /viviendas/" + viviendaId + "/cuartos/" + cuartoId + NO_EXISTE, 404);
@@ -79,7 +81,7 @@ public class ViviendaContratosResource {
         if (estudianteLogic.getEstudiante(estudianteId) == null) {
             throw new WebApplicationException("El recurso /estudiantes/" + estudianteId + NO_EXISTE, 404);
         }
-        ContratoDTO contratoDTO = new ContratoDTO(viviendaContratosLogic.addContrato(viviendaId, cuartoId, estudianteId, contrato.toEntity()));
+        ContratoDetailDTO contratoDTO = new ContratoDetailDTO(viviendaContratosLogic.addContrato(viviendaId, cuartoId, estudianteId, contrato.toEntity()));
         LOGGER.log(Level.INFO, "VivivendaContratosResource addContrato: output: {0}", contratoDTO);
         return contratoDTO;
     }
