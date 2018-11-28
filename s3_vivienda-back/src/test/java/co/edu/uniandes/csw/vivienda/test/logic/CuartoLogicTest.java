@@ -32,6 +32,9 @@ public class CuartoLogicTest {
 
     @Inject
     ViviendaLogic viviendaLogic;
+    
+    @Inject
+    CuartoPersistence cuartoPersistence;
 
     @Inject
     CuartoLogic cuartoLogic;
@@ -44,8 +47,8 @@ public class CuartoLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ViviendaEntity> viviendasData = new ArrayList<>();
-    private List<CuartoEntity> cuartosData = new ArrayList<>();
+    private final List<ViviendaEntity> viviendasData = new ArrayList();
+    private final List<CuartoEntity> cuartosData = new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -79,7 +82,7 @@ public class CuartoLogicTest {
     }
 
     private void insertData() {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             ViviendaEntity entity = factory.manufacturePojo(ViviendaEntity.class);
             em.persist(entity);
             viviendasData.add(entity);
@@ -101,7 +104,9 @@ public class CuartoLogicTest {
     }
 
     private void clearData() {
+        em.createQuery("delete from ContratoEntity").executeUpdate();
         em.createQuery("delete from ViviendaEntity").executeUpdate();
+        em.createQuery("delete from CuartoEntity").executeUpdate();
     }
 
     @Test
@@ -118,6 +123,19 @@ public class CuartoLogicTest {
                 e.printStackTrace();
                 Assert.fail("Debería añadirse el cuarto");
             }
+        }
+        
+        CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
+        try
+        {
+            ViviendaEntity vivienda = viviendaLogic.getViviendas().get(0);
+            cuarto.setVivienda(vivienda);
+            cuarto.setCostoArriendo(0);
+            cuartoLogic.addCuarto(vivienda.getId(), cuarto);
+            Assert.fail("Deberia haber lanzado Excepcion");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNull(cuartoPersistence.find(cuarto.getId()));
         }
     }
 
@@ -179,6 +197,19 @@ public class CuartoLogicTest {
                 Assert.fail("No debería fallar");
             }
         }
+        
+        CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);
+        try
+        {
+            ViviendaEntity vivienda = viviendaLogic.getViviendas().get(0);
+            cuarto.setVivienda(vivienda);
+            cuartoLogic.addCuarto(vivienda.getId(), cuarto);
+            cuartoLogic.getCuarto(viviendaLogic.getViviendas().get(1).getId(), cuarto.getId());
+            Assert.fail("Deberia haber lanzado Excepcion");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertNotNull(cuartoPersistence.find(cuarto.getId()));
+        }
     }
 
     @Test
@@ -199,13 +230,70 @@ public class CuartoLogicTest {
     public void getCuartoNull(){
         try {
             insertarCuartos();
-            CuartoEntity cuartoNull = cuartoLogic.getCuarto((long)2342344, cuartosData.get(0).getId());
+            ViviendaEntity vivienda = viviendaLogic.getViviendas().get(0);
+            List<CuartoEntity> cuartos = cuartoLogic.getCuartos(vivienda.getId());
+            CuartoEntity cuartoNull = cuartoLogic.getCuarto((long)2342344, cuartos.get(0).getId());
             Assert.assertNull(cuartoNull);
-            cuartoNull = cuartoLogic.getCuarto(viviendasData.get(0).getId(), (long)2342343);
+            cuartoNull = cuartoLogic.getCuarto(vivienda.getId(), (long)2342343);
             Assert.assertNull(cuartoNull);
         } catch (BusinessLogicException e) {
             e.printStackTrace();
             Assert.fail("debería devolver null en vez de fallar");
         }
     }
+    
+    @Test
+    public void actualizarCuarto(){
+        ViviendaEntity vivienda = viviendaLogic.getViviendas().get(0);
+        CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);      
+        cuarto.setCostoArriendo(1000);
+        try {
+            CuartoEntity cuartoAux = cuartoLogic.addCuarto(vivienda.getId(), cuarto);
+            
+            cuarto = cuartoLogic.getCuarto(vivienda.getId(), cuartoAux.getId());
+            cuarto.setCostoArriendo(0);
+            cuartoLogic.actualizarCuarto(vivienda.getId(), cuarto.getId(), cuarto);
+            Assert.fail("debería  lanzar una excepccion");
+        } catch (BusinessLogicException e) {
+            Assert.assertEquals("El cuarto debe tener un costo de arriendo", e.getMessage());
+        }
+        
+        cuarto = factory.manufacturePojo(CuartoEntity.class);       
+        cuarto.setCostoArriendo(1000);
+        try {
+            CuartoEntity cuartoAux = cuartoLogic.addCuarto(vivienda.getId(), cuarto);
+           
+            cuarto = cuartoLogic.getCuarto(vivienda.getId(), cuartoAux.getId());
+            cuartoLogic.actualizarCuarto(vivienda.getId(), cuarto.getId(), cuarto);
+            Assert.assertEquals(cuartoAux.getNombre(), cuarto.getNombre());
+        } catch (BusinessLogicException e) {
+            Assert.fail("debería  lanzar una excepccion");
+        }
+    }
+    
+    @Test
+    public void deleteCuarto(){
+        ViviendaEntity vivienda = viviendaLogic.getViviendas().get(0);
+
+        try {        
+            cuartoLogic.deleteCuarto(Long.MIN_VALUE);
+            Assert.fail("debería  lanzar una excepccion");
+        } catch (BusinessLogicException e) {
+            Assert.assertEquals("El cuarto no existe", e.getMessage());
+        }
+        
+        CuartoEntity cuarto = factory.manufacturePojo(CuartoEntity.class);    
+        try {
+            CuartoEntity cuartoAux = cuartoLogic.addCuarto(vivienda.getId(), cuarto);
+           
+            cuartoLogic.deleteCuarto(cuarto.getId());
+            cuarto = cuartoLogic.getCuarto(vivienda.getId(), cuartoAux.getId());
+            Assert.assertNull(cuarto);
+        } catch (BusinessLogicException e) {
+            Assert.fail("debería  lanzar una excepccion");
+        }
+        
+        cuartoLogic.generarCuartos(vivienda.getId());
+    }
+    
 }

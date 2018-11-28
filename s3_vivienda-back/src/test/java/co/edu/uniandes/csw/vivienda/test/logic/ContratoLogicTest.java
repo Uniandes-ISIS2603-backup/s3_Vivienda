@@ -59,9 +59,6 @@ public class ContratoLogicTest {
     private EstudianteLogic estudianteLogic;
 
     @Inject
-    private CuartoLogic cuartoLogic;
-
-    @Inject
     private ViviendaLogic viviendaLogic;
 
     @Inject

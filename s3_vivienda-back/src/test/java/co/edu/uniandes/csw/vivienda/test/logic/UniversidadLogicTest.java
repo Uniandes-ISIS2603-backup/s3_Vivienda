@@ -5,6 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.test.logic;
 
+import co.edu.uniandes.csw.vivienda.ejb.UniversidadEstudiantesLogic;
 import co.edu.uniandes.csw.vivienda.ejb.UniversidadLogic;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.UniversidadEntity;
@@ -38,6 +39,9 @@ public class UniversidadLogicTest {
 
     @Inject
     private UniversidadLogic universidadLogic;
+    
+    @Inject
+    private UniversidadEstudiantesLogic universidadEstudiantesLogic;
 
     @PersistenceContext
     private EntityManager em;
@@ -45,9 +49,9 @@ public class UniversidadLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<UniversidadEntity> data = new ArrayList<UniversidadEntity>();
+    private final List<UniversidadEntity> data = new ArrayList<>();
     
-    private List<EstudianteEntity> dataEstudiante = new ArrayList<>();
+    private final List<EstudianteEntity> dataEstudiante = new ArrayList<>();
 
     /**
      * @return Devuelve el jar que Arquillian va a desplegar en Payara embebido.
@@ -202,5 +206,26 @@ public class UniversidadLogicTest {
         universidadLogic.deleteUniversidad(entity.getId());
         UniversidadEntity deleted = em.find(UniversidadEntity.class, entity.getId());
         Assert.assertNull(deleted);
+    }
+    
+     /**
+     * Prueba para UniversidadEstudianteLogic
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void addEstudianteTest() throws BusinessLogicException {
+        UniversidadEntity entity = data.get(0);
+        EstudianteEntity estudiante = dataEstudiante.get(0);
+        
+        Assert.assertNull(estudiante.getUniversidad());
+        estudiante = universidadEstudiantesLogic.addEstudiante(estudiante.getId(), entity.getId());
+        Assert.assertNotNull(estudiante.getUniversidad());
+        
+        Assert.assertEquals(1,universidadEstudiantesLogic.getEstudiantes(entity.getId()).size());
+        
+        Assert.assertEquals(estudiante.getLogin(), universidadEstudiantesLogic.getEstudiante(entity.getId(), estudiante.getId()).getLogin());
+        
+        entity = data.get(1);
+        universidadEstudiantesLogic.replaceEstudiantes(entity.getId(), dataEstudiante);
     }
 }

@@ -69,11 +69,11 @@ public class UniversidadEstudiantesLogic {
      * editorial
      */
     public EstudianteEntity getEstudiante(Long universidadId, Long estudianteId) throws BusinessLogicException {
-        LOGGER.log(Level.INFO, "Inicia proceso de consultar el estudiante con id = {0} de la universidad con id = " + universidadId, estudianteId);
+        LOGGER.log(Level.INFO, "Inicia proceso de consultar el estudiante con id = {1} de la universidad con id = {0}", new Object[]{ universidadId, estudianteId});
         List<EstudianteEntity> estudiantes = universidadPersistence.find(universidadId).getEstudiantes();
         EstudianteEntity estudianteEntity = estudiantePersistence.find(estudianteId);
         int index = estudiantes.indexOf(estudianteEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar el estudiante con id = {0} de la universidad con id = " + universidadId, estudianteId);
+        LOGGER.log(Level.INFO, "Termina proceso de consultar el estudiante con id = {1} de la universidad con id = {0}" , new Object[]{ universidadId, estudianteId});
         if (index >= 0) {
             return estudiantes.get(index);
         }

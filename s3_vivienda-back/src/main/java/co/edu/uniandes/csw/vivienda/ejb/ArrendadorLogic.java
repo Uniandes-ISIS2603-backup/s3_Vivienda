@@ -167,9 +167,9 @@ public class ArrendadorLogic {
             try {
                 ArrendadorEntity arrendador2 = createArrendador(arrendador);
                 if(i<viviendas.size()){
-                ViviendaEntity vivienda = viviendas.get(i);
-                vivienda.setArrendador(arrendador2);                
-                viviendaLogic.updateVivienda(vivienda.getId(), vivienda);
+                    ViviendaEntity vivienda = viviendas.get(i);
+                    vivienda.setArrendador(arrendador2);                
+                    viviendaLogic.updateVivienda(vivienda.getId(), vivienda);
                 }
                 arrendadores.add(arrendador2);
             } catch (BusinessLogicException ex) {

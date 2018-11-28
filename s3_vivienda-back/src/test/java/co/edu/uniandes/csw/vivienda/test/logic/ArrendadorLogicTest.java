@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ArrendadorViviendasLogic;
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -39,13 +40,16 @@ public class ArrendadorLogicTest {
     @Inject
     private ArrendadorLogic arrendadorLogic;
 
+    @Inject
+    private ArrendadorViviendasLogic arrendadorViviendasLogic;
+      
     @PersistenceContext
     private EntityManager em;
 
     @Inject
     private UserTransaction utx;
 
-    private final List<ArrendadorEntity> data = new ArrayList<ArrendadorEntity>();
+    private final List<ArrendadorEntity> data = new ArrayList<>();
 
     private final List<ViviendaEntity> viviendasData = new ArrayList();
     
@@ -247,5 +251,36 @@ public class ArrendadorLogicTest {
     public void deleteArrendadorConViviendasAsociadosTest() throws BusinessLogicException {
         ArrendadorEntity entity = data.get(0);
         arrendadorLogic.deleteArrendador(entity.getId());
+    }
+    
+     /**
+     * Pruebas para crear un ArrendadorViviendasLogic
+     * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
+     */
+    @Test
+    public void addViviendaTest() throws BusinessLogicException {
+        ArrendadorEntity newEntity = data.get(0);
+        ViviendaEntity vivienda = viviendasData.get(0);
+        arrendadorViviendasLogic.addVivienda(vivienda.getId(), newEntity.getId());
+        
+        List<ViviendaEntity> viviendas = arrendadorViviendasLogic.getViviendas(newEntity.getId());
+        Assert.assertEquals(1, viviendas.size());
+        Assert.assertEquals(vivienda.getNombre(), viviendas.get(0).getNombre());
+        
+        ViviendaEntity viviendaAux = arrendadorViviendasLogic.getVivienda(newEntity.getId(), viviendas.get(0).getId());
+        Assert.assertEquals(vivienda.getNombre(), viviendaAux.getNombre());
+        
+        try
+        {
+            arrendadorViviendasLogic.getVivienda(newEntity.getId(), viviendasData.get(1).getId());
+            Assert.fail("Deberia haber lanzado execepcción");
+        }catch(BusinessLogicException e)
+        {
+            Assert.assertEquals("La vivienda no está asociado al arrendador", e.getMessage());
+        }
+         
+        newEntity = data.get(1);
+        arrendadorViviendasLogic.replaceViviendas(newEntity.getId(), viviendas);
+        
     }
 }
