@@ -100,9 +100,8 @@ public class CuartoLogic {
         for (int i = 0; i < numeroCuartos; i++) {
             CuartoEntity cuarto = new CuartoEntity();
             int costoArriendo = (800 + new Random().nextInt(1000)) * 1000;
-            int ocupado = new Random().nextInt(100) % 2;
 
-            cuarto.setOcupado(ocupado == 0);
+            cuarto.setOcupado(false);
             cuarto.setNombre("Cuarto " + i);
             cuarto.setCostoArriendo(costoArriendo);
             cuarto.setDescripcion("Un cuarto común");
