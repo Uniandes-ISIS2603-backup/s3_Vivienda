@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "b7075a02-196b-4c58-81d1-0b75b2083710",
-		"name": "ContratoTests",
+		"_postman_id": "78ff90aa-143b-4dc8-88a3-edf754f2d70c",
+		"name": "ContratoServiciosAdicionales test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Crea vivienda",
+			"name": "Crea vivienda Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -51,7 +51,7 @@
 			"response": []
 		},
 		{
-			"name": "Crear cuarto",
+			"name": "Crear cuarto Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -98,7 +98,7 @@
 			"response": []
 		},
 		{
-			"name": "Crear universidad",
+			"name": "Crear universidad Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -124,7 +124,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de los Andes\"\n}"
+					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de los aandes\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
@@ -143,7 +143,7 @@
 			"response": []
 		},
 		{
-			"name": "Crear estudiante",
+			"name": "Crear estudiante Copy",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -180,7 +180,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jucas40\",\n    \"nombre\": \"juan ma castillo\",\n    \"password\": \"passws0rd\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": "{\n    \"login\": \"jucas411\",\n    \"nombre\": \"juan ma castillo\",\n    \"password\": \"passws0rd\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
@@ -199,7 +199,53 @@
 			"response": []
 		},
 		{
-			"name": "Crear contrato",
+			"name": "Crear Servicio Adicional Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4c0fde6d-b48d-47c1-9937-21b502cee139",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setGlobalVariable(\"servicioId\",data.id);",
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"nombre\": \"Lavanderia\",       \r\n\t\"descripción\": \"Servicio de lavado y planchado de ropa un dia a la semana\",   \r\n\t\"costo\": 25.000\r\n}"
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/servicioAdicional",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"servicioAdicional"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear contrato Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -252,18 +298,15 @@
 			"response": []
 		},
 		{
-			"name": "Crear contrato Copy",
+			"name": "Añadir ServicioAdiconal",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "afb4e165-e23a-4dc6-b0ac-6fb9ec229ceb",
+						"id": "dab36c0c-e1dc-446d-b8fd-418583a8944f",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"postman.setGlobalVariable(\"contratoId2\", data.id)",
-							"tests[\"El post no genera error\"] = responseCode.code === 200;",
-							"",
-							""
+							"tests[\"El post no genera error\"] = responseCode.code === 200;"
 						],
 						"type": "text/javascript"
 					}
@@ -274,15 +317,17 @@
 				"header": [
 					{
 						"key": "Content-Type",
-						"value": "application/json"
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"fechaInicio\":\"2016-11-22\",\n\t\"fechaFin\":\"2017-11-22\",\n\t\"metodoPago\": 3,\n\t\"vivienda\": { \"id\": {{viviendaId}}}\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratoServiciosAdicionales/viviendas/{{viviendaId}}/contratos/{{contratoId}}/serviciosAdicionales/{{servicioId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -291,27 +336,30 @@
 					"path": [
 						"s3_vivienda-api",
 						"api",
-						"contratos"
+						"contratoServiciosAdicionales",
+						"viviendas",
+						"{{viviendaId}}",
+						"contratos",
+						"{{contratoId}}",
+						"serviciosAdicionales",
+						"{{servicioId}}"
 					]
-				},
-				"description": "Crea un contrato"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET contrato",
+			"name": "getServiciosAdicionales",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
-						"type": "text/javascript",
+						"id": "dab36c0c-e1dc-446d-b8fd-418583a8944f",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] = responseCode.code === 200;",
-							"tests[\"Devuelve el contrato esperado\"] = data.id == pm.globals.get(\"contratoId\");",
-							"tests[\"El contrato esta asociado con la vivienda esperada\"] = data.vivienda.id == pm.globals.get(\"viviendaId\");"
-						]
+							"tests[\"El post no genera error\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -323,7 +371,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratoServiciosAdicionales/contratos/{{contratoId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -332,39 +380,37 @@
 					"path": [
 						"s3_vivienda-api",
 						"api",
-						"viviendas",
-						"{{viviendaId}}",
+						"contratoServiciosAdicionales",
 						"contratos",
 						"{{contratoId}}"
 					]
-				},
-				"description": "Obtiene el contrato creado anteriormente\n"
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET contratos",
+			"name": "Borrar Servicio Adicional Copy",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
-						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
+						"id": "131cf528-66f0-42d6-813d-dceb1a6ce1d3",
 						"exec": [
-							"tests[\"Status code 200\"] = responseCode.code === 200;"
+							"tests[\"no genera error en el Delete\"] = responseCode.code === 204;"
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "GET",
+				"method": "DELETE",
 				"header": [],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos",
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/servicioAdicional/{{servicioId}}",
 					"protocol": "http",
 					"host": [
 						"{{ip}}"
@@ -375,279 +421,15 @@
 						"api",
 						"viviendas",
 						"{{viviendaId}}",
-						"contratos"
+						"servicioAdicional",
+						"{{servicioId}}"
 					]
-				},
-				"description": "Obtiene el contrato creado anteriormente\n"
-			},
-			"response": []
-		},
-		{
-			"name": "GET contrato",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
 				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/{{contratoId2}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"contratos",
-						"{{contratoId2}}"
-					]
-				},
-				"description": "Obtiene el contrato creado anteriormente\n"
 			},
 			"response": []
 		},
 		{
-			"name": "GET contrato error",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
-						"exec": [
-							"tests[\"Status code 200\"] = responseCode.code === 404;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/0",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"contratos",
-						"0"
-					]
-				},
-				"description": "Obtiene el contrato creado anteriormente\n"
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar contrato",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "348ad66a-c554-4985-a197-c9f2d14ea61f",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] = responseCode.code === 200;",
-							"tests[\"El contrato se actualiza\"] = data.metodoPago === 10"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"metodoPago\": 10\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{viviendaId}}",
-						"contratos",
-						"{{contratoId}}"
-					]
-				},
-				"description": "Actualiza el metodoPago del contrato"
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar contrato 2",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "348ad66a-c554-4985-a197-c9f2d14ea61f",
-						"exec": [
-							"var data = JSON.parse(responseBody);",
-							"tests[\"Status code 200\"] = responseCode.code === 200;",
-							"tests[\"El contrato se actualiza\"] = data.metodoPago === 10"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"metodoPago\": 10\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/{{contratoId2}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"contratos",
-						"{{contratoId2}}"
-					]
-				},
-				"description": "Actualiza el metodoPago del contrato"
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar contrato 2 error",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "348ad66a-c554-4985-a197-c9f2d14ea61f",
-						"exec": [
-							"tests[\"Status code 404\"] = responseCode.code === 404;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"metodoPago\": 10\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/0",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"contratos",
-						"0"
-					]
-				},
-				"description": "Actualiza el metodoPago del contrato"
-			},
-			"response": []
-		},
-		{
-			"name": "Actualizar contrato error",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "95382fc9-9a79-48d0-bbd4-a7d88999a3af",
-						"exec": [
-							"tests[\"Genera error\"] = responseCode.code === 412;",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"metodoPago\": -1\n}"
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/contratos/{{contratoId}}",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"viviendas",
-						"{{viviendaId}}",
-						"contratos",
-						"{{contratoId}}"
-					]
-				},
-				"description": "Actualiza el metodoPago del contrato a un valor invalido, debe generar error"
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE contrato",
+			"name": "DELETE contrato Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -688,7 +470,7 @@
 			"response": []
 		},
 		{
-			"name": "delete estudiante",
+			"name": "delete estudiante Copy",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -743,7 +525,7 @@
 			"response": []
 		},
 		{
-			"name": "DELETE universidad",
+			"name": "DELETE universidad Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -782,7 +564,7 @@
 			"response": []
 		},
 		{
-			"name": "DELETE Cuarto",
+			"name": "DELETE Cuarto Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -823,7 +605,7 @@
 			"response": []
 		},
 		{
-			"name": "Eliminar una vivienda",
+			"name": "Eliminar una vivienda Copy",
 			"event": [
 				{
 					"listen": "test",

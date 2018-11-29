@@ -5,8 +5,6 @@ import co.edu.uniandes.csw.vivienda.dtos.ContratoDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ContratoDetailDTO;
 import co.edu.uniandes.csw.vivienda.dtos.EstudianteDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
-import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
-import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.mappers.BusinessLogicExceptionMapper;

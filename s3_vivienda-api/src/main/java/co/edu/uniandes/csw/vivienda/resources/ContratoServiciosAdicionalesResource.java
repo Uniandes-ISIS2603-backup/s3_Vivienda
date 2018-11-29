@@ -56,7 +56,7 @@ private static final String NO_EXISTE = " no existe.";
      * Error de lógica que se genera cuando no se encuentra el servicio adicional.
      */
     @POST
-    @Path("{servicioAdicionalId: \\d+}")
+    @Path("viviendas/{viviendaId: \\d+}/contratos/{contratoId: \\d+}/serviciosAdicionales/{servicioAdicionalId: \\d+}")
     public ServicioAdicionalDetailDTO addServicioAdicional(@PathParam("contratoId") Long contratoId, @PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource addServicioAdicional: input: contratoId {0} , viviendaId: {1} , servicioAdicionalId {2}", new Object[]{contratoId, viviendaId, servicioAdicionalId});
         if (servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId) == null) {
@@ -75,6 +75,7 @@ private static final String NO_EXISTE = " no existe.";
      * contrato. Si no hay ninguno retorna una lista vacía.
      */
     @GET
+    @Path("contratos/{contratoId: \\d+}")
     public List<ServicioAdicionalDetailDTO> getServiciosAdicionales(@PathParam("contratoId") Long contratoId) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServiciosAdicionales: input: {0}", contratoId);
         List<ServicioAdicionalDetailDTO> lista = serviciosAdicionalesListEntity2DTO(contratoServiciosAdicionalesLogic.getServiciosAdicionales(contratoId));
@@ -94,7 +95,7 @@ private static final String NO_EXISTE = " no existe.";
      * Error de lógica que se genera cuando no se encuentra el autor.
      */
     @GET
-    @Path("{servicioAdicionalId: \\d+}")
+    @Path("viviendas/{viviendaId: \\d+}/contratos/{contratoId: \\d+}/serviciosAdicionales/{servicioAdicionalId: \\d+}")
     public ServicioAdicionalDetailDTO getServicioAdicional(@PathParam("contratoId") Long contratoId, @PathParam("servicioAdicionalId") Long servicioAdicionalId, @PathParam("viviendaId") Long viviendaId ) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource getServicioAdicional: input: booksId {0} , viviendaId: {0} , authorsId {1}", new Object[]{contratoId, servicioAdicionalId});
         if (servicioAdicionalLogic.getServicioAdicional( viviendaId ,servicioAdicionalId) == null) {
@@ -116,8 +117,9 @@ private static final String NO_EXISTE = " no existe.";
      * @return JSONArray {@link ServicioAdicionalDetailDTO} - La lista actualizada.
      * @throws WebApplicationException {@link WebApplicationExceptionMapper}
      * Error de lógica que se genera cuando no se encuentra el servicio adicional.
-     */
+     */ 
     @PUT
+    @Path("viviendas/{viviendaId: \\d+}/contratos/{contratoId: \\d+}")
     public List<ServicioAdicionalDetailDTO> replaceServiciosAdicionales(@PathParam("contratoId") Long contratoId, @PathParam("viviendaId") Long viviendaId, List<ServicioAdicionalDetailDTO> serviciosAdicionales) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource replaceServiciosAdicionales: input: contratoId {0} , viviendaId {1} , servicios {2}", new Object[]{contratoId, viviendaId, serviciosAdicionales});
         for (ServicioAdicionalDetailDTO servicioAdicional : serviciosAdicionales) {
@@ -140,7 +142,7 @@ private static final String NO_EXISTE = " no existe.";
      * Error de lógica que se genera cuando no se encuentra el servicio adicional.
      */
     @DELETE
-    @Path("{servicioAdicionalId: \\d+}")
+    @Path("viviendas/{viviendaId: \\d+}/contratos/{contratoId: \\d+}/serviciosAdicionales/{servicioAdicionalId: \\d+}")
     public void removeServicioAdicional(@PathParam("contratoId") Long contratoId, @PathParam("servicioAdicionalId") Long servicioAdicionalId, @PathParam("viviendaId") Long viviendaId) {
         LOGGER.log(Level.INFO, "ContratoServiciosAdicionalesResource removeServicioAdicional: input: contratoId {0} , viviendaId {1} , servicioAdicionalId {2}", new Object[]{contratoId, viviendaId, servicioAdicionalId});
         if (servicioAdicionalLogic.getServicioAdicional(viviendaId ,servicioAdicionalId) == null) {

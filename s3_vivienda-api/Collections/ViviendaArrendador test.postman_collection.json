@@ -96,6 +96,104 @@
 			"response": []
 		},
 		{
+			"name": "Get vivienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4cd9644-8c52-49f3-9dd8-a85bc3bf1d87",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores/{{new_id_va1}}",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_va2}}",
+						"arrendadores",
+						"{{new_id_va1}}"
+					]
+				},
+				"description": "Crea una vivienda con los atributos ciudad, direccion, nombre,descripcion, tipo, una lista de servicios incluidos, latitud y una longitud.\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
+			"name": "Get vivienda Error",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4cd9644-8c52-49f3-9dd8-a85bc3bf1d87",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 404;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_va2}}/arrendadores/0",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{new_id_va2}}",
+						"arrendadores",
+						"0"
+					]
+				},
+				"description": "Crea una vivienda con los atributos ciudad, direccion, nombre,descripcion, tipo, una lista de servicios incluidos, latitud y una longitud.\nCódigo http esperado: 200"
+			},
+			"response": []
+		},
+		{
 			"name": "Asociar un arrendador a una vivienda",
 			"event": [
 				{

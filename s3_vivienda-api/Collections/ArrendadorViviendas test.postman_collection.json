@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "39c4ea22-0b30-4ccd-a334-5d86015fcac0",
+		"_postman_id": "c15c5433-910d-4e19-873c-c5b6f3123615",
 		"name": "ArrendadorViviendas test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -203,7 +203,10 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v1}}",
 					"protocol": "http",
@@ -242,7 +245,10 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v2}}",
 					"protocol": "http",
@@ -281,7 +287,10 @@
 			"request": {
 				"method": "POST",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/0",
 					"protocol": "http",
@@ -321,7 +330,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/{{new_id_v1}}",
 					"protocol": "http",
@@ -361,7 +373,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/",
 					"protocol": "http",
@@ -399,7 +414,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}/viviendas/0",
 					"protocol": "http",
@@ -530,7 +548,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v1}}",
 					"protocol": "http",
@@ -566,7 +587,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v2}}",
 					"protocol": "http",
@@ -602,7 +626,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av}}",
 					"protocol": "http",
@@ -638,7 +665,10 @@
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/arrendadores/{{new_id_av2}}",
 					"protocol": "http",

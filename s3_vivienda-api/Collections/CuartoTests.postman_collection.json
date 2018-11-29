@@ -144,6 +144,46 @@
 			"response": []
 		},
 		{
+			"name": "GET cuartos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "505dd1be-d3c9-4173-a8a6-63e55bdada7b",
+						"exec": [
+							"tests[\"Status code 200\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{viviendaId}}/cuartos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"viviendas",
+						"{{viviendaId}}",
+						"cuartos"
+					]
+				},
+				"description": "Obtiene el cuarto creado anteriormente\n"
+			},
+			"response": []
+		},
+		{
 			"name": "Actualizar cuarto",
 			"event": [
 				{

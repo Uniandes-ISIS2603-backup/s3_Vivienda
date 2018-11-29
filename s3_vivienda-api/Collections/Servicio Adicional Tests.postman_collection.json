@@ -56,12 +56,12 @@
 					"listen": "test",
 					"script": {
 						"id": "4c0fde6d-b48d-47c1-9937-21b502cee139",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"new_id_v2\",data.id);",
 							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"nombre\": \"Lavanderia\",       \r\n\t\"descripción\": \"Servicio de lavado y planchado de ropa un dia a la semana\",   \r\n\t\"costo\": 25.000\r\n\r\n}"
+					"raw": "{\r\n\t\"nombre\": \"Lavanderia\",       \r\n\t\"descripción\": \"Servicio de lavado y planchado de ropa un dia a la semana\",   \r\n\t\"costo\": 25.000\r\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional",
@@ -208,7 +208,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n\t\"costo\": 30.000\r\n\r\n}"
+					"raw": "{\r\n\t\"costo\": 30.000,\r\n\t\"descripcion\": \"Servicio de lavado y planchado de ropa dos veces por semana\"\r\n\r\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/viviendas/{{new_id_v}}/servicioAdicional/{{new_id_v2}}",

@@ -44,82 +44,6 @@
 			"response": []
 		},
 		{
-			"name": "GenerarDatos Contrato",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "b2677756-d62f-470c-b17b-22550dbdd94c",
-						"exec": [
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/generardatos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"contratos",
-						"generardatos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GenerarDatos Estudiantes",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "fa06a94e-f6fc-4ae2-8862-f892da79b131",
-						"exec": [
-							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/generardatos",
-					"protocol": "http",
-					"host": [
-						"{{ip}}"
-					],
-					"port": "{{puerto}}",
-					"path": [
-						"s3_vivienda-api",
-						"api",
-						"estudiantes",
-						"generardatos"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GenerarDatos SitiosInteres",
 			"event": [
 				{
@@ -189,6 +113,82 @@
 						"s3_vivienda-api",
 						"api",
 						"arrendadores",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerarDatos Estudiantes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "fa06a94e-f6fc-4ae2-8862-f892da79b131",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"generardatos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerarDatos Contrato",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b2677756-d62f-470c-b17b-22550dbdd94c",
+						"exec": [
+							"tests[\"no genera error en el Post\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/contratos/generardatos",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"contratos",
 						"generardatos"
 					]
 				}

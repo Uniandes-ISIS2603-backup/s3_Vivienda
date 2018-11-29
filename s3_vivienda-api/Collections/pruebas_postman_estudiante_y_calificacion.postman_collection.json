@@ -12,13 +12,13 @@
 					"listen": "test",
 					"script": {
 						"id": "5e2f452d-03e1-4908-879f-c723ab2965b1",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"id_uni\", data.id);",
 							"postman.setGlobalVariable(\"id_uni_not\", data.id+5);",
 							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -32,7 +32,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de Los Andes\"\n}"
+					"raw": "{\n    \"latitud\": 4.5965,\n    \"longitud\": -74.0715,\n    \"nombre\": \" Universidad de Los andes\"\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
@@ -57,24 +57,24 @@
 					"listen": "prerequest",
 					"script": {
 						"id": "07b18a8d-f841-496f-93a0-59d0a813c4c6",
-						"type": "text/javascript",
 						"exec": [
 							"",
 							""
-						]
+						],
+						"type": "text/javascript"
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
 						"id": "1219bd91-e598-449f-b3ee-33f3d65381e5",
-						"type": "text/javascript",
 						"exec": [
 							"var data = JSON.parse(responseBody);",
 							"postman.setGlobalVariable(\"login_est\", data.login);",
 							"postman.setGlobalVariable(\"id_est\", data.id);",
 							"tests[\"No genera errores en el post estudiante\"] = responseCode.code === 200;"
-						]
+						],
+						"type": "text/javascript"
 					}
 				}
 			],
@@ -88,7 +88,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"login\": \"jucas40\",\n    \"nombre\": \"juan ma castillo\",\n    \"password\": \"passws0rd\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
+					"raw": "{\n    \"login\": \"jucas42\",\n    \"nombre\": \"juan ma castillo\",\n    \"password\": \"passws0rd\",\n    \"universidad\": {\"id\":{{id_uni}}}\n}"
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes",
@@ -411,6 +411,53 @@
 						"{{id_est}}",
 						"universidad",
 						"{{id_uni_2}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET universidad por estudiante",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5b3ca572-ee57-4c0b-a2ad-003c152311f0",
+						"exec": [
+							"tests[\"No genera errores en el post universidad\"] = responseCode.code === 200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/estudiantes/{{id_est}}/universidad",
+					"protocol": "http",
+					"host": [
+						"{{ip}}"
+					],
+					"port": "{{puerto}}",
+					"path": [
+						"s3_vivienda-api",
+						"api",
+						"estudiantes",
+						"{{id_est}}",
+						"universidad"
 					]
 				}
 			},

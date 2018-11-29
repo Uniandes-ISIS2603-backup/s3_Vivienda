@@ -45,6 +45,7 @@ public class ContratoServiciosAdicionalesLogic {
         ServicioAdicionalEntity authorEntity = servicioAdicionalPersistence.find(viviendaId, servicioAdicionalId);
         ContratoEntity bookEntity = contratoPersistence.find(contratoId);
         bookEntity.getServiciosAdicionalesAgregados().add(authorEntity);
+        contratoPersistence.update(bookEntity);
         LOGGER.log(Level.INFO, "Termina proceso de asociarle un autor al libro con id = {0}", contratoId);
         return servicioAdicionalPersistence.find(viviendaId, servicioAdicionalId);
     }
@@ -75,8 +76,8 @@ public class ContratoServiciosAdicionalesLogic {
         List<ServicioAdicionalEntity> authors = contratoPersistence.find(contratoId).getServiciosAdicionalesAgregados();
         ServicioAdicionalEntity authorEntity = servicioAdicionalPersistence.find(viviendaId, servicioAdicionalId);
         int index = authors.indexOf(authorEntity);
-        LOGGER.log(Level.INFO, "Termina proceso de consultar un autor del libro con id = {0}", contratoId);
         if (index >= 0) {
+            LOGGER.log(Level.INFO, "Termina proceso de consultar un autor del libro con id = {0}", contratoId);
             return authors.get(index);
         }
         return null;

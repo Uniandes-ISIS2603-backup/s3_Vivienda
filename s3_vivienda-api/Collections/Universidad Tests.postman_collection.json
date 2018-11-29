@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "125a0d1a-fd7a-4b8b-8ead-62cf19bafa1d",
+		"_postman_id": "8c5a5ed9-9c79-45c2-ad21-5ff4f1026605",
 		"name": "Universidad Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -75,7 +75,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \t\"nombre\": \"Universidad Nacional\",\r\n\t\"latitud\":  4.3808, \r\n\t\"longitud\":-74.0458\r\n}"
+					"raw": ""
 				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades/{{new_id_v}}",
@@ -99,7 +99,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {},
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "http://{{ip}}:{{puerto}}/s3_vivienda-api/api/universidades",
 					"protocol": "http",
