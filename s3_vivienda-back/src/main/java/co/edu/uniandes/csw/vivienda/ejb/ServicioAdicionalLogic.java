@@ -128,8 +128,10 @@ public class ServicioAdicionalLogic {
         
         for (int i = 0; i < nombresServiciosAdiconales.length; i++) {
             ServicioAdicionalEntity servicioAdicional = new ServicioAdicionalEntity();
+
             float costo = (800 + new Random().nextFloat());
             costo *= 1000;
+
 
             servicioAdicional.setNombre(nombresServiciosAdiconales[i]);
             servicioAdicional.setCosto(costo);
