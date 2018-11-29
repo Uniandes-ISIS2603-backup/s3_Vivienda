@@ -177,7 +177,7 @@ public class UniversidadResource {
     @Path("{universidadId: \\d+}/estudiantes")
     public Class<UniversidadEstudiantesResource> getUniversidadEstudiantesResource(@PathParam("universidadId") Long universidadId) {
         if (universidadLogic.getUniversidad(universidadId) == null) {
-            throw new WebApplicationException("El recurso /universidades/" + universidadId + " no existe.", 404);
+            throw new WebApplicationException(RECURSO_UNIVERSIDADES + universidadId + NO_EXISTE, 404);
         }
         return UniversidadEstudiantesResource.class;
     }
