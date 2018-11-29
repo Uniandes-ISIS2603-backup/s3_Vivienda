@@ -114,7 +114,7 @@ public class ServicioAdicionalResource {
      */
     @GET
     @Path("{servicioAdicionalId: \\d+}")
-    public ServicioAdicionalDetailDTO getServicioAdicional(@PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId) throws WebApplicationException {
+    public ServicioAdicionalDetailDTO getServicioAdicional(@PathParam("viviendaId") Long viviendaId, @PathParam("servicioAdicionalId") Long servicioAdicionalId){
         LOGGER.log(Level.INFO, "ServicioAdicionalResource getServicioAdicional: input: {0}", servicioAdicionalId);
         ServicioAdicionalEntity entity = servicioAdicionalLogic.getServicioAdicional(viviendaId, servicioAdicionalId);
         if (entity == null) {

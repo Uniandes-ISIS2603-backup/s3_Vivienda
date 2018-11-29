@@ -127,7 +127,7 @@ public class EstudianteCalificacionesResource {
      */
     @PUT
     @Path("{calificacionId:\\d+}")
-    public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException, WebApplicationException {
+    public CalificacionDTO updateCalificacion(@PathParam("estudianteId") Long estudianteId, @PathParam("calificacionId") Long calificacionId, CalificacionDTO calificacion) throws BusinessLogicException {
         LOGGER.log(Level.INFO, "EstudianteCalificacionesResource updateCalificacion: input: estudianteId:{0}, calificacionId:{1} , calificacion: {2}", new Object[]{estudianteId, calificacionId, calificacion});
         calificacion.setId(calificacionId);
         CalificacionDTO calificacionDTO = null;

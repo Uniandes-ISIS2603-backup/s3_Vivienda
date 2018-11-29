@@ -15,7 +15,6 @@ import co.edu.uniandes.csw.vivienda.persistence.CuartoPersistence;
 import co.edu.uniandes.csw.vivienda.persistence.EstudiantePersistence;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;

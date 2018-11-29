@@ -153,7 +153,7 @@ public class UniversidadLogicTest {
      * Prueba para consultar la lista de Universidades.
      */
     @Test
-    public void getEditorialsTest() {
+    public void getUniversidadesTest() {
         List<UniversidadEntity> list = universidadLogic.getUniversidades();
         Assert.assertEquals(data.size(), list.size());
         for (UniversidadEntity entity : list) {
@@ -171,7 +171,7 @@ public class UniversidadLogicTest {
      * Prueba para consultar una Universidad.
      */
     @Test
-    public void getEditorialTest() {
+    public void getUniversidadTest() {
         UniversidadEntity entity = data.get(0);
         UniversidadEntity resultEntity = universidadLogic.getUniversidad(entity.getId());
         Assert.assertNotNull(resultEntity);
@@ -201,7 +201,7 @@ public class UniversidadLogicTest {
      * Prueba para eliminar una Universidad.
      */
     @Test
-    public void deleteEditorialTest() {
+    public void deleteUniversidadTest() {
         UniversidadEntity entity = data.get(0);
         universidadLogic.deleteUniversidad(entity.getId());
         UniversidadEntity deleted = em.find(UniversidadEntity.class, entity.getId());
