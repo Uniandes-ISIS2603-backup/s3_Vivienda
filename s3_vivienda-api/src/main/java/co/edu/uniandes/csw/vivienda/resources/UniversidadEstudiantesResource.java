@@ -36,7 +36,6 @@ public class UniversidadEstudiantesResource {
     
     private static final Logger LOGGER = Logger.getLogger(UniversidadEstudiantesResource.class.getName());
     
-    private static final String RECURSO_UNIVERSIDADES = "El recurso /universidades/";
     private static final String NO_EXISTE = " no existe.";
 
     @Inject
