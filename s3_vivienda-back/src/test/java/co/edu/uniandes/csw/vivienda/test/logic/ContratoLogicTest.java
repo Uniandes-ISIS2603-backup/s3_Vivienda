@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ArrendadorLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ContratoEstudianteLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
@@ -54,6 +55,9 @@ public class ContratoLogicTest {
     
     @Inject
     private ContratoViviendaLogic contratoViviendaLogic;
+    
+    @Inject
+    private ContratoEstudianteLogic contratoEstudianteLogic;
 
     @Inject
     private ViviendaContratosLogic viviendaContratoLogic;
@@ -389,18 +393,38 @@ public class ContratoLogicTest {
      * @throws co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException
      */
     @Test
-    public void getViviendaTest() throws BusinessLogicException {
+    public void contratoViviendaTest() throws BusinessLogicException {
         ContratoEntity newEntity = factory.manufacturePojo(ContratoEntity.class);
         newEntity.setMetodoPago(1);
         ViviendaEntity vivienda = viviendaData.get(1);
         EstudianteEntity estudiante = estudianteData.get(1);
         CuartoEntity cuarto = vivienda.getCuartos().get(0);
+        
         ContratoEntity contrato = viviendaContratoLogic.addContrato(vivienda.getId(), cuarto.getId(), estudiante.getId(), newEntity);
         
         ViviendaEntity viviendaAux = contratoViviendaLogic.getVivienda(contrato.getId(), vivienda.getId());
         Assert.assertNotNull(viviendaAux);
         
-
+        vivienda = viviendaData.get(2);
+        contrato = contratoViviendaLogic.replaceVivienda(contrato.getId(), vivienda.getId());
+        Assert.assertEquals(vivienda.getNombre(), contrato.getVivienda().getNombre());
+        
+        contratoViviendaLogic.removeVivienda(contrato.getId());
     }
 
+     /**
+     * Prueba para eliminar un Contrato.
+     *
+     */
+    @Test
+    public void contratoEstudianteTest() {
+        ContratoEntity entity = data.get(0);
+        EstudianteEntity estudiante = estudianteData.get(0);
+        
+        ContratoEntity contrato = contratoEstudianteLogic.replaceEstudiante(entity.getId(), estudiante.getId());
+        Assert.assertEquals(estudiante.getLogin(), contratoLogic.getContrato(contrato.getId()).getEstudiante().getLogin());
+        
+        contratoEstudianteLogic.removeEstudiante(entity.getId());
+        Assert.assertNull(contratoLogic.getContrato(contrato.getId()).getEstudiante());
+    }
 }

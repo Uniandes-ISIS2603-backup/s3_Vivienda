@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.vivienda.test.logic;
 
 import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
 import co.edu.uniandes.csw.vivienda.ejb.EstudianteLogic;
+import co.edu.uniandes.csw.vivienda.ejb.EstudianteUniversidadLogic;
 import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.EstudianteEntity;
 import co.edu.uniandes.csw.vivienda.entities.CalificacionEntity;
@@ -42,6 +43,9 @@ public class EstudianteLogicTest {
 
     @Inject
     private EstudianteLogic estudianteLogic;
+    
+    @Inject
+    private EstudianteUniversidadLogic estudianteUniversidadLogic;
     
     @Inject
     private ContratoLogic contratoLogic;
@@ -331,5 +335,17 @@ public class EstudianteLogicTest {
     public void generarDatos() throws BusinessLogicException {
         estudianteLogic.generarDatos();
         Assert.assertEquals(10,estudianteLogic.getEstudiantes().size());
+    }
+    
+    @Test
+    public void estudianteUniversidad() {
+        EstudianteEntity estudiante = data.get(0);
+        UniversidadEntity universidad = dataUniversidad.get(0);
+        
+        EstudianteEntity estu = estudianteUniversidadLogic.replaceUniversidad(estudiante.getId(), universidad.getId());
+        Assert.assertEquals(universidad.getNombre(), estu.getUniversidad().getNombre());
+
+        estudianteUniversidadLogic.removeUniversidad(estudiante.getId());
+        Assert.assertNull(estudianteLogic.getEstudiante(estudiante.getId()).getUniversidad());
     }
 }

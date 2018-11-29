@@ -1,7 +1,12 @@
 package co.edu.uniandes.csw.vivienda.test.logic;
 
+import co.edu.uniandes.csw.vivienda.ejb.ArrendadorViviendasLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ContratoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ContratoViviendaLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ViviendaArrendadorLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ArrendadorEntity;
+import co.edu.uniandes.csw.vivienda.entities.ContratoEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
 import co.edu.uniandes.csw.vivienda.persistence.ViviendaPersistence;
@@ -31,6 +36,18 @@ public class ViviendaLogicTest {
 
     @Inject
     ViviendaLogic logic;
+    
+    @Inject
+    ViviendaArrendadorLogic viviendaArrendadorLogic;
+    
+    @Inject
+    ContratoViviendaLogic contratoViviendaLogic;
+    
+    @Inject
+    ArrendadorViviendasLogic arrendadorViviendasLogic;
+    
+    @Inject
+    ContratoLogic contratoLogic;
 
     private PodamFactory factory = new PodamFactoryImpl();
 
@@ -40,7 +57,11 @@ public class ViviendaLogicTest {
     @Inject
     private UserTransaction utx;
 
-    private List<ViviendaEntity> data = new ArrayList<>();
+    private final List<ViviendaEntity> data = new ArrayList<>();
+    
+    private final List<ArrendadorEntity> arrendadorData = new ArrayList<>();
+    
+    private final List<ContratoEntity> contratoData = new ArrayList<>();
 
     @Deployment
     public static JavaArchive createDeployment() {
@@ -73,13 +94,20 @@ public class ViviendaLogicTest {
     private void insertData(){
         for (int i = 0; i < 20; i++) {
             ViviendaEntity entity = factory.manufacturePojo(ViviendaEntity.class);
+            ArrendadorEntity arrendador = factory.manufacturePojo(ArrendadorEntity.class);
+            ContratoEntity contrato = factory.manufacturePojo(ContratoEntity.class);
             em.persist(entity);
+            em.persist(arrendador);
+            em.persist(contrato);
             data.add(entity);
+            arrendadorData.add(arrendador);
+            contratoData.add(contrato);
         }
     }
 
     private void clearData(){
         em.createQuery("delete from ViviendaEntity").executeUpdate();
+        em.createQuery("delete from ArrendadorEntity").executeUpdate();
     }
 
     private ViviendaEntity crearVivienda(){
@@ -224,5 +252,26 @@ public class ViviendaLogicTest {
         
         logic.generarDatos();
         Assert.assertEquals(10, logic.getViviendas().size());
+    }
+    
+    @Test
+    public void viviendaArrendadorTest(){
+       ArrendadorEntity arrendador = arrendadorData.get(0);
+       ViviendaEntity vivienda = data.get(0);
+       arrendador = arrendadorData.get(1);
+       viviendaArrendadorLogic.replaceArrendador(vivienda.getId(), arrendador.getId());
+       Assert.assertNull(viviendaArrendadorLogic.getArrendador(Long.MIN_VALUE));
+    }
+
+    @Test
+    public void contratoViviendaTest() {
+        ContratoEntity entity = contratoData.get(0);
+        ViviendaEntity vivienda = data.get(0);
+        
+        ContratoEntity contrato = contratoViviendaLogic.replaceVivienda(entity.getId(), vivienda.getId());
+        Assert.assertEquals(vivienda.getNombre(), contratoLogic.getContrato(contrato.getId()).getVivienda().getNombre());
+        
+        contratoViviendaLogic.removeVivienda(entity.getId());
+        Assert.assertNull(contratoLogic.getContrato(contrato.getId()).getVivienda());
     }
 }

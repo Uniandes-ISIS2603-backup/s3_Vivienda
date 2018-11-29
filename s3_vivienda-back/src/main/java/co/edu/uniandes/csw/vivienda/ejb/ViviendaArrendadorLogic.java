@@ -55,13 +55,16 @@ public class ViviendaArrendadorLogic {
     public ArrendadorEntity getArrendador(Long viviendaId)
     {
         LOGGER.log(Level.INFO, "Inicia proceso de consultar un arrendador de la vivienda con id = {0}", viviendaId);
-        ArrendadorEntity arrendador = viviendaPersistence.find(viviendaId).getArrendador();
-        
-        if(arrendador!=null)
+        if(viviendaPersistence.find(viviendaId)!=null)
         {
-            return arrendador;
+            ArrendadorEntity arrendador = viviendaPersistence.find(viviendaId).getArrendador();
+            if(arrendador!=null)
+            {
+                return arrendador;
+            }
         }
         LOGGER.log(Level.INFO, "Termina proceso de consultar un arrendador de la vivienda id = {0}", viviendaId);
+        
         return null;
     }
     

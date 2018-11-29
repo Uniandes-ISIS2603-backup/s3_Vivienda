@@ -2098,8 +2098,8 @@
 					"script": {
 						"id": "f6bd00f9-ff9f-43d3-8b81-3e794193bca4",
 						"exec": [
-							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"El recurso /estudiantes/\" + pm.variables.get(\"id_est\") + \"/calificaciones/\"+ pm.variables.get(\"id_cal_not\")+ \" no existe.\");",
-							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 404;"
+							"tests[\"Genera el mensaje correcto en el put calificacion\"] = responseBody.has(\"La calificación no está asociada con el estudiante\");",
+							"tests[\"Genera el código correcto en el put calificacion\"] = responseCode.code === 412;"
 						],
 						"type": "text/javascript"
 					}
