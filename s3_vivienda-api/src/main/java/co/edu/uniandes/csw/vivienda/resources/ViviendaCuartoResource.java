@@ -82,7 +82,7 @@ public class ViviendaCuartoResource {
      */
     @PUT
     @Path("{cuartoId:\\d+}")
-    public CuartoDTO updateCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId, CuartoDTO cuartoDTO) throws BusinessLogicException, WebApplicationException {
+    public CuartoDTO updateCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId, CuartoDTO cuartoDTO) throws BusinessLogicException {
         CuartoEntity cuartoEntity = null;
         if (logic != null)
             cuartoEntity = logic.actualizarCuarto(viviendaId, cuartoId, cuartoDTO.toEntity());
@@ -98,7 +98,7 @@ public class ViviendaCuartoResource {
      */
     @DELETE
     @Path("{cuartoId:\\d+}")
-    public void deleteCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId) throws BusinessLogicException, WebApplicationException {
+    public void deleteCuarto(@PathParam("viviendaId") Long viviendaId, @PathParam("cuartoId") Long cuartoId) throws BusinessLogicException {
         if (logic != null)
             logic.deleteCuarto(cuartoId);
     }

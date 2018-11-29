@@ -155,7 +155,7 @@ public class ViviendaCalificacionesResource{
      */
     @Path("{calificacionId:\\d+}")
     @DELETE
-    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException, WebApplicationException{
+    public void deleteCalificacion(@PathParam("viviendaId") Long viviendaId, @PathParam("calificacionId") Long calificacionId) throws BusinessLogicException{
         LOGGER.log(Level.INFO, "ViviendaCalificacionResource deleteCalificacion: input: {0}", calificacionId);
         if(calificacionLogic.getCalificacionVivienda(viviendaId, calificacionId)!=null)
         {

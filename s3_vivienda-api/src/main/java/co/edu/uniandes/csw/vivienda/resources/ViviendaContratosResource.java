@@ -222,7 +222,7 @@ public class ViviendaContratosResource {
 
     @DELETE
     @Path("{contratoId:\\d+}")
-    public void deleteContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException, WebApplicationException {
+    public void deleteContrato(@PathParam("viviendaId") Long viviendaId, @PathParam("contratoId") Long contratoId) throws BusinessLogicException{
         if (contratoLogic != null) {
             contratoLogic.deleteContrato(contratoId);
         }

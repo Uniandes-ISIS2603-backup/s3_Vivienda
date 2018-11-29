@@ -79,7 +79,7 @@ public class ArrendadorResource {
      */
     @POST
     @Path("generardatos")
-    public List<ArrendadorDetailDTO> generarDatos() throws BusinessLogicException, WebApplicationException {
+    public List<ArrendadorDetailDTO> generarDatos(){
         List<ArrendadorEntity> arrendadores = arrendadorLogic.generarDatos();
 
         ArrayList<ArrendadorDetailDTO> respuestas = new ArrayList<>();

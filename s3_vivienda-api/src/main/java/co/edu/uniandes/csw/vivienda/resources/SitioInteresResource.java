@@ -77,7 +77,7 @@ public class SitioInteresResource {
      */
     @POST
     @Path("generardatos")
-    public List<SitioInteresDTO> generarDatos() throws WebApplicationException {
+    public List<SitioInteresDTO> generarDatos(){
 
         List<ViviendaEntity> viviendas = viviendaLogic.getViviendas();
         List<SitioInteresDTO> sitios = new ArrayList<>();

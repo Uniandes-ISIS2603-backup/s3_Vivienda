@@ -137,8 +137,8 @@ public class ViviendaResource {
         }
         vivienda.setId(viviendaId);
         ViviendaEntity old = vivienda.toEntity();
-        ViviendaDetailDTO viviendaDetail = new ViviendaDetailDTO(logic.updateVivienda(viviendaId, old));
-        return viviendaDetail;
+         
+        return new ViviendaDetailDTO(logic.updateVivienda(viviendaId, old));
     }
 
     /**

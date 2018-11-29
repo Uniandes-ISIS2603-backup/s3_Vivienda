@@ -64,7 +64,7 @@ public class ServicioAdicionalResource {
      */
     @POST
     @Path("generardatos")
-    public List<ServicioAdicionalDTO> generarDatos() throws WebApplicationException {
+    public List<ServicioAdicionalDTO> generarDatos(){
 
         List<ViviendaEntity> viviendas = viviendaLogic.getViviendas();
         List<ServicioAdicionalDTO> servicios = new ArrayList<>();
