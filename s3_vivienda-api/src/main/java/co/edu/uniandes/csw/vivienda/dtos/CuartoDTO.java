@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.vivienda.dtos;
 
 import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
 import java.io.Serializable;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  *
@@ -38,9 +40,12 @@ public class CuartoDTO implements Serializable {
     public CuartoEntity toEntity()
     {
         CuartoEntity cuartoEntity = new CuartoEntity();
+        cuartoEntity.setId(id);
         cuartoEntity.setNombre(nombre);
         cuartoEntity.setDescripcion(descripcion);
         cuartoEntity.setCostoArriendo(costoArriendo);
+        if (this.vivienda != null)
+            cuartoEntity.setVivienda(this.vivienda.toEntity());
         cuartoEntity.setOcupado(ocupado);
         return cuartoEntity;
     }
@@ -84,7 +89,7 @@ public class CuartoDTO implements Serializable {
     public void setVivienda(ViviendaDTO vivienda) {
         this.vivienda = vivienda;
     }
-
+    
     /**
      * @return the ocupado
      */
@@ -99,5 +104,9 @@ public class CuartoDTO implements Serializable {
         this.ocupado = ocupado;
     }
     
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
     
 }
