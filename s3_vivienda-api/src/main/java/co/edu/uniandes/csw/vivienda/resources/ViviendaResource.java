@@ -8,6 +8,7 @@ package co.edu.uniandes.csw.vivienda.resources;
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDTO;
 import co.edu.uniandes.csw.vivienda.dtos.ViviendaDetailDTO;
 import co.edu.uniandes.csw.vivienda.ejb.CuartoLogic;
+import co.edu.uniandes.csw.vivienda.ejb.ServicioAdicionalLogic;
 import co.edu.uniandes.csw.vivienda.ejb.ViviendaLogic;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -42,6 +43,9 @@ public class ViviendaResource {
 
     @Inject
     CuartoLogic cuartoLogic;
+    
+    @Inject
+    ServicioAdicionalLogic servicioAdicionalLogic;
 
     private static final Logger LOGGER = Logger.getLogger(ViviendaResource.class.getName());
 
@@ -154,6 +158,7 @@ public class ViviendaResource {
 
             for (ViviendaEntity ent : viviendas) {
                 cuartoLogic.generarCuartos(ent.getId());
+                servicioAdicionalLogic.generarServiciosAdicionales(ent.getId());
                 ViviendaDTO viviendaDto = new ViviendaDTO(ent);
                 respuestas.add(viviendaDto);
             }

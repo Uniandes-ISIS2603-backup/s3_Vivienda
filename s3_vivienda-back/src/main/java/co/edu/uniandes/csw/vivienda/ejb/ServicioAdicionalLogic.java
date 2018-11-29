@@ -5,7 +5,7 @@
  */
 package co.edu.uniandes.csw.vivienda.ejb;
 
-import co.edu.uniandes.csw.vivienda.entities.CuartoEntity;
+
 import co.edu.uniandes.csw.vivienda.entities.ServicioAdicionalEntity;
 import co.edu.uniandes.csw.vivienda.entities.ViviendaEntity;
 import co.edu.uniandes.csw.vivienda.exceptions.BusinessLogicException;
@@ -112,7 +112,7 @@ public class ServicioAdicionalLogic {
         LOGGER.log(Level.INFO, "Termina proceso de borrar el servicio adicional con id = {1} de la vivienda con id = {0} " , new Object[]{ viviendaId, servicioAdicionalId});
     }
     
-    public void generarSetviciosAdicionales(Long viviendaId) {
+    public void generarServiciosAdicionales(Long viviendaId) {
 
         List<ServicioAdicionalEntity> serviciosViejos = getServiciosAdicionales(viviendaId);
         for (ServicioAdicionalEntity c : serviciosViejos) {
