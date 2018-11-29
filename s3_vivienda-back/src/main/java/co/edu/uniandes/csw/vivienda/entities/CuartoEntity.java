@@ -5,6 +5,7 @@ import uk.co.jemos.podam.common.PodamExclude;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -17,6 +18,10 @@ public class CuartoEntity extends BaseEntity implements Serializable{
       @ManyToOne
       private ViviendaEntity vivienda;
       
+      @PodamExclude
+        @OneToOne(mappedBy="cuarto", fetch=javax.persistence.FetchType.LAZY)
+        private ContratoEntity contrato;
+      
       private String nombre;
       private String descripcion;
       private Integer costoArriendo;
@@ -28,6 +33,14 @@ public class CuartoEntity extends BaseEntity implements Serializable{
 
       public void setVivienda(ViviendaEntity vivienda) {
             this.vivienda = vivienda;
+      }
+      
+      public ContratoEntity getContrato() {
+            return contrato;
+      }
+
+      public void setContrato(ContratoEntity contrato) {
+            this.contrato = contrato;
       }
 
       public String getNombre() {

@@ -74,7 +74,7 @@ public class ViviendaDetailDTO extends ViviendaDTO implements Serializable{
             }
 
             if(viviendaEntity.getServiciosAdicionales() != null){
-                serviciosOfrecidos = new ArrayList<>();
+                serviciosAdicionales = new ArrayList<>();
                 for (ServicioAdicionalEntity servicioEntity : viviendaEntity.getServiciosAdicionales()){
                     serviciosAdicionales.add(new ServicioAdicionalDTO(servicioEntity));
                 }
